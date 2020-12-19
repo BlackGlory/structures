@@ -20,8 +20,16 @@ export class HashSet<T> implements Iterable<T> {
     this.#map.clear()
   }
 
+  values() {
+    return this.#map.values()
+  }
+
   get size() {
     return this.#map.size
+  }
+
+  get [Symbol.toStringTag]() {
+    return this.constructor.name
   }
 
   [Symbol.iterator]() {
