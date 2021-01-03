@@ -7,6 +7,9 @@ export class Queue<T> {
     this.#items.push(...items)
   }
 
+  /**
+   * @throws {EmptyQueueError}
+   */
   dequeue(): T {
     if (this.size === 0) throw new EmptyQueueError()
     return this.#items.shift()!
