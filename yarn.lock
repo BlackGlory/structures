@@ -277,10 +277,10 @@
   resolved "https://registry.yarnpkg.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
-"@blackglory/errors@^0.1.2":
-  version "0.1.2"
-  resolved "https://registry.yarnpkg.com/@blackglory/errors/-/errors-0.1.2.tgz#45c3670c075e1e928f7bede05a5b8095d2f43112"
-  integrity sha512-OwgxggAWYhLNo2TYs1c7GBWLdjiJMz03UsGTQv/BlIYMg5hq0ABLGfFw7G/PO0Htgbgs+Yi44ftknwUX5/t6RA==
+"@blackglory/errors@^0.1.3":
+  version "0.1.3"
+  resolved "https://registry.yarnpkg.com/@blackglory/errors/-/errors-0.1.3.tgz#5ec4c7c2f67b4f066031c1d2601759177a4e411c"
+  integrity sha512-7h63kbR5YIw9izt5efQFVoiYtXTxmr1o+FkWcdRLHYfI0aVzz5dgg5diWV+NcnUR7EOrtq7J/PXZ5oppaq5NYQ==
 
 "@cnakazawa/watch@^1.0.3":
   version "1.0.4"
@@ -4672,10 +4672,10 @@ ret@~0.1.10:
   resolved "https://registry.yarnpkg.com/ret/-/ret-0.1.15.tgz#b8a4825d5bdb1fc3f6f53c2bc33f81388681c7bc"
   integrity sha512-TTlYpa+OL+vMMNG24xSlQGEJ3B/RzEfUlLct7b5G/ytav+wPrplCpVMFuwzXbkecJrb6IYo1iFb0S9v37754mg==
 
-return-style@^0.10.1:
-  version "0.10.1"
-  resolved "https://registry.yarnpkg.com/return-style/-/return-style-0.10.1.tgz#f6f056ede4b34ed406a72a3848c44106982ace5a"
-  integrity sha512-L35j+oBANdElKek/cut4bcY9EVHbpTOVOlGQQDvAOIENyPylpLQxIqW0vBGZzmQM8dezFL3xoMS+L7J1STwtEg==
+return-style@^0.11.3:
+  version "0.11.3"
+  resolved "https://registry.yarnpkg.com/return-style/-/return-style-0.11.3.tgz#4efe2de778f476d95c2e744b3429053deb0451be"
+  integrity sha512-PJi1HtchIz2hniB7ajUgjbtU9M1uFqikXXznP5Q/7UcsUp8PSJTQ+0gVXmzypCb+VUdTf85Ajb3M+mYQ6SWvpA==
 
 reusify@^1.0.4:
   version "1.0.4"
