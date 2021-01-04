@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.5](https://github.com/BlackGlory/structures/compare/v0.1.4...v0.1.5) (2021-01-04)
+
+
+### Bug Fixes
+
+* bundle ([4fa790b](https://github.com/BlackGlory/structures/commit/4fa790bc06f08dc7adb6bd27ac43345dce1e00f7))
+
 ### [0.1.4](https://github.com/BlackGlory/structures/compare/v0.1.3...v0.1.4) (2021-01-03)
 
 ### [0.1.3](https://github.com/BlackGlory/structures/compare/v0.1.2...v0.1.3) (2020-12-19)
