@@ -3,6 +3,10 @@ import { CustomError } from '@blackglory/errors'
 export class Queue<T> {
   #items: T[] = []
 
+  empty(): void {
+    this.#items.length = 0
+  }
+
   enqueue(...items: T[]): void {
     this.#items.push(...items)
   }

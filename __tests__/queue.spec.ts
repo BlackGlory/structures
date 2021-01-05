@@ -2,6 +2,15 @@ import { getError } from 'return-style'
 import { Queue, EmptyQueueError } from '@src/queue'
 
 describe('Queue<T>', () => {
+  describe('empty(): void', () => {
+    const queue = new Queue<number>()
+    queue.enqueue(1)
+
+    queue.empty()
+
+    expect(queue.size).toBe(0)
+  })
+
   describe('enqueue(...items: T[]): void', () => {
     const queue = new Queue<number>()
 
