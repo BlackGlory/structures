@@ -6,8 +6,9 @@ describe('Queue<T>', () => {
     const queue = new Queue<number>()
     queue.enqueue(1)
 
-    queue.empty()
+    const result = queue.empty()
 
+    expect(result).toBeUndefined()
     expect(queue.size).toBe(0)
   })
 
