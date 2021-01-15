@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.8](https://github.com/BlackGlory/structures/compare/v0.1.7...v0.1.8) (2021-01-15)
+
+
+### Bug Fixes
+
+* esm bundle ([7fa7e00](https://github.com/BlackGlory/structures/commit/7fa7e004ec290c1ecb4e7e7f4dcb5bc5c472cbd9))
+
 ### [0.1.7](https://github.com/BlackGlory/structures/compare/v0.1.6...v0.1.7) (2021-01-15)
 
 ### [0.1.6](https://github.com/BlackGlory/structures/compare/v0.1.5...v0.1.6) (2021-01-05)
