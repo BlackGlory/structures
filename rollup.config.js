@@ -63,7 +63,7 @@ function createOptions({ directory, target }) {
       }
     ]
   }
-  k
+
   function createMinification(name) {
     return [
       {
