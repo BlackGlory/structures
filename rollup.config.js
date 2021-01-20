@@ -24,9 +24,9 @@ function createOptions({ directory, target }) {
       'Object.defineProperty(exports, "__esModule", { value: true });': ''
     , delimiters: ['\n', '\n']
     })
-  , typescript({ target })
   , resolve({ browser: true })
   , commonjs()
+  , typescript({ target })
   ]
 
   return [
