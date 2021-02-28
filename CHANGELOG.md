@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.13](https://github.com/BlackGlory/structures/compare/v0.1.12...v0.1.13) (2021-02-28)
+
+
+### Features
+
+* add Cons ([2a5effa](https://github.com/BlackGlory/structures/commit/2a5effa269cd5089763b458aa749d9b29ea76492))
+
 ### [0.1.12](https://github.com/BlackGlory/structures/compare/v0.1.11...v0.1.12) (2021-02-04)
 
 ### [0.1.11](https://github.com/BlackGlory/structures/compare/v0.1.10...v0.1.11) (2021-02-03)
