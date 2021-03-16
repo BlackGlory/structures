@@ -3,27 +3,31 @@ import { Queue, EmptyQueueError } from '@src/queue'
 
 describe('Queue<T>', () => {
   describe('empty(): void', () => {
-    const queue = new Queue<number>()
-    queue.enqueue(1)
+    it('returns undefined', () => {
+      const queue = new Queue<number>()
+      queue.enqueue(1)
 
-    const result = queue.empty()
+      const result = queue.empty()
 
-    expect(result).toBeUndefined()
-    expect(queue.size).toBe(0)
+      expect(result).toBeUndefined()
+      expect(queue.size).toBe(0)
+    })
   })
 
   describe('enqueue(...items: T[]): void', () => {
-    const queue = new Queue<number>()
+    it('returns undefined', () => {
+      const queue = new Queue<number>()
 
-    const result = queue.enqueue(1, 2)
+      const result = queue.enqueue(1, 2)
 
-    expect(result).toBeUndefined()
-    expect(queue.size).toBe(2)
+      expect(result).toBeUndefined()
+      expect(queue.size).toBe(2)
+    })
   })
 
   describe('dequeue(): T', () => {
     describe('queue is empty', () => {
-      it('throw EmptyQueueError', () => {
+      it('throws EmptyQueueError', () => {
         const queue = new Queue<number>()
 
         const err = getError(() => queue.dequeue())
@@ -33,7 +37,7 @@ describe('Queue<T>', () => {
     })
 
     describe('queue isnt empty', () => {
-      it('return T', () => {
+      it('returns T', () => {
         const firstIn = 1
         const secondIn = 2
         const queue = new Queue<number>()
@@ -44,6 +48,21 @@ describe('Queue<T>', () => {
         expect(result).toBe(firstIn)
         expect(queue.size).toBe(1)
       })
+    })
+  })
+
+  describe('remove(item: T): void', () => {
+    it('remove all specific items', () => {
+      const queue = new Queue<number>()
+      queue.enqueue(1)
+      queue.enqueue(2)
+      queue.enqueue(1)
+
+      const result = queue.remove(1)
+
+      expect(result).toBeUndefined()
+      expect(queue.size).toBe(1)
+      expect(queue.dequeue()).toBe(2)
     })
   })
 })

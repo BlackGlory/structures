@@ -22,6 +22,13 @@ export class Queue<T> {
   get size(): number {
     return this.#items.length
   }
+
+  remove(item: T): void {
+    let index: number
+    while ((index = this.#items.indexOf(item)) >= 0) {
+      this.#items.splice(index, 1)
+    }
+  }
 }
 
 export class EmptyQueueError extends CustomError {
