@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.14](https://github.com/BlackGlory/structures/compare/v0.1.13...v0.1.14) (2021-03-16)
+
+
+### Features
+
+* add Queue#remove ([b5f4ad6](https://github.com/BlackGlory/structures/commit/b5f4ad65c43f74edca9bafa43db9dad8b33ad098))
+
 ### [0.1.13](https://github.com/BlackGlory/structures/compare/v0.1.12...v0.1.13) (2021-02-28)
 
 
