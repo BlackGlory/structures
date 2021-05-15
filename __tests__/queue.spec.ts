@@ -1,28 +1,49 @@
 import { getError } from 'return-style'
 import { Queue, EmptyQueueError } from '@src/queue'
 
-describe('Queue<T>', () => {
-  describe('empty(): void', () => {
-    it('returns undefined', () => {
-      const queue = new Queue<number>()
-      queue.enqueue(1)
+describe('Queue', () => {
+  test('[Symbol.toStringTag]', () => {
+    const queue = new Queue<number>()
 
-      const result = queue.empty()
+    const result = Object.prototype.toString.call(queue)
 
-      expect(result).toBeUndefined()
-      expect(queue.size).toBe(0)
-    })
+    expect(result).toBe('[object Queue]')
   })
 
-  describe('enqueue(...items: T[]): void', () => {
-    it('returns undefined', () => {
-      const queue = new Queue<number>()
+  test('size', () => {
+    const queue = new Queue<number>()
 
-      const result = queue.enqueue(1, 2)
+    const result1 = queue.size
+    queue.enqueue(1, 2, 3)
+    const result2 = queue.size
+    queue.dequeue()
+    const result3 = queue.size
+    queue.empty()
+    const result4 = queue.size
 
-      expect(result).toBeUndefined()
-      expect(queue.size).toBe(2)
-    })
+    expect(result1).toBe(0)
+    expect(result2).toBe(3)
+    expect(result3).toBe(2)
+    expect(result4).toBe(0)
+  })
+
+  test('empty(): void', () => {
+    const queue = new Queue<number>()
+    queue.enqueue(1)
+
+    const result = queue.empty()
+
+    expect(result).toBeUndefined()
+    expect(queue.size).toBe(0)
+  })
+
+  test('enqueue(...items: T[]): void', () => {
+    const queue = new Queue<number>()
+
+    const result = queue.enqueue(1, 2)
+
+    expect(result).toBeUndefined()
+    expect(queue.size).toBe(2)
   })
 
   describe('dequeue(): T', () => {
@@ -37,16 +58,19 @@ describe('Queue<T>', () => {
     })
 
     describe('queue isnt empty', () => {
-      it('returns T', () => {
-        const firstIn = 1
-        const secondIn = 2
+      it('returns FIFO', () => {
         const queue = new Queue<number>()
 
-        queue.enqueue(firstIn, secondIn)
-        const result = queue.dequeue()
+        queue.enqueue(1, 2)
+        const result1 = queue.dequeue()
+        const size1 = queue.size
+        const result2 = queue.dequeue()
+        const size2 = queue.size
 
-        expect(result).toBe(firstIn)
-        expect(queue.size).toBe(1)
+        expect(result1).toBe(1)
+        expect(size1).toBe(1)
+        expect(result2).toBe(2)
+        expect(size2).toBe(0)
       })
     })
   })
