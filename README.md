@@ -1,13 +1,13 @@
-# strctures
+# structures
 
-Common strctures.
+Common structures.
 
 ## Install
 
 ```sh
-npm install --save @blackglory/strctures
+npm install --save @blackglory/structures
 # or
-yarn add @blackglory/strctures
+yarn add @blackglory/structures
 ```
 
 ## API
