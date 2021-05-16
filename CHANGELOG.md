@@ -2,6 +2,29 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.2.0](https://github.com/BlackGlory/structures/compare/v0.1.15...v0.2.0) (2021-05-16)
+
+
+### ⚠ BREAKING CHANGES
+
+* rewrite
+* rename LRU to LRUMap
+
+### Features
+
+* add LRU#clear, LRU#delete ([cdac3dc](https://github.com/BlackGlory/structures/commit/cdac3dcb1521abb0360d04f36097cc9b8027a09c))
+* improve Cons ([4564103](https://github.com/BlackGlory/structures/commit/456410346050b5c83c11c85808f447ffcb3484b2))
+* improve HashSet, Queue ([da0f515](https://github.com/BlackGlory/structures/commit/da0f5150c04af76d1dc93f2227e00099dacb0280))
+* rewrite ([902152b](https://github.com/BlackGlory/structures/commit/902152b0ed00fcb44b90df7e443b62a6147d796a))
+
+
+### Bug Fixes
+
+* bundle ([0abacc1](https://github.com/BlackGlory/structures/commit/0abacc18c95884206ecb7d6323614bae826ff38c))
+
+
+* rename LRU to LRUMap ([7f0b8bb](https://github.com/BlackGlory/structures/commit/7f0b8bb3c35cd72bb8b9705ad0c40f09cc2353a2))
+
 ### [0.1.15](https://github.com/BlackGlory/structures/compare/v0.1.14...v0.1.15) (2021-05-15)
 
 
