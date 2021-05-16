@@ -1,6 +1,14 @@
 import { Emitter } from '@src/emitter'
 
 describe('Emitter', () => {
+  test('[Symbol.toStringTag]', () => {
+    const emitter = new Emitter()
+
+    const result = Object.prototype.toString.call(emitter)
+
+    expect(result).toBe('[object Emitter]')
+  })
+
   describe('on(event: string, handler: Handler<T>)', () => {
     test('The same handler will only be registered once', () => {
       const emitter = new Emitter()

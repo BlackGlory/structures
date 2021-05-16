@@ -1,5 +1,4 @@
-import { LRUMap, NotFoundError } from '@src/lru-map'
-import { getError } from 'return-style'
+import { LRUMap } from '@src/lru-map'
 
 describe('LRUMap', () => {
   test('[Symbol.toStringTag]', () => {
@@ -76,7 +75,7 @@ describe('LRUMap', () => {
     })
   })
 
-  describe('get(key: K): V', () => {
+  describe('get(key: K): V | undefined', () => {
     describe('exists', () => {
       it('return V', () => {
         const map = new LRUMap(100)
@@ -89,33 +88,10 @@ describe('LRUMap', () => {
     })
 
     describe('does not exist', () => {
-      it('throw NotFoundError', () => {
-        const map = new LRUMap(100)
-
-        const err = getError(() => map.get('hello'))
-
-        expect(err).toBeInstanceOf(NotFoundError)
-      })
-    })
-  })
-
-  describe('tryGet(key: K): V | undefined', () => {
-    describe('exists', () => {
-      it('return V', () => {
-        const map = new LRUMap(100)
-        map.set('hello', 'world')
-
-        const result = map.tryGet('hello')
-
-        expect(result).toBe('world')
-      })
-    })
-
-    describe('does not exist', () => {
       it('return undefined', () => {
         const map = new LRUMap(100)
 
-        const result = map.tryGet('hello')
+        const result = map.get('hello')
 
         expect(result).toBeUndefined()
       })

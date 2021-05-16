@@ -1,5 +1,3 @@
-import { CustomError } from '@blackglory/errors'
-
 export class Queue<T> {
   #items: T[] = []
 
@@ -19,12 +17,8 @@ export class Queue<T> {
     this.#items.push(...items)
   }
 
-  /**
-   * @throws {EmptyQueueError}
-   */
-  dequeue(): T {
-    if (this.size === 0) throw new EmptyQueueError()
-    return this.#items.shift()!
+  dequeue(): T | undefined {
+    return this.#items.shift()
   }
 
   remove(item: T): void {
@@ -32,11 +26,5 @@ export class Queue<T> {
     while ((index = this.#items.indexOf(item)) >= 0) {
       this.#items.splice(index, 1)
     }
-  }
-}
-
-export class EmptyQueueError extends CustomError {
-  constructor() {
-    super('Queue is empty.')
   }
 }

@@ -3,6 +3,10 @@ type Handler<T> = (value: T) => void
 export class Emitter<T> {
   #map = new Map<string, Set<Handler<T>>>()
 
+  get [Symbol.toStringTag]() {
+    return this.constructor.name
+  }
+
   /**
    * The same handler will only be registered once.
    */

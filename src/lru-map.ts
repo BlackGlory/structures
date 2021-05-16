@@ -1,4 +1,4 @@
-import { assert, CustomError } from '@blackglory/errors'
+import { assert } from '@blackglory/errors'
 
 export class LRUMap<K, V> {
   #limit: number
@@ -35,24 +35,12 @@ export class LRUMap<K, V> {
     return this.#map.has(key)
   }
 
-  /**
-   * @throws NotFound
-   */
-  get(key: K): V {
-    if (!this.#map.has(key)) throw new NotFoundError()
+  get(key: K): V | undefined {
+    if (!this.has(key)) return undefined
 
-    const val = this.#map.get(key)!
-    this.updateItem(key, val)
-    return val
-  }
-
-  tryGet(key: K): V | undefined {
-    try {
-      return this.get(key)
-    } catch (e) {
-      if (e instanceof NotFoundError) return undefined
-      throw e
-    }
+    const value = this.#map.get(key)!
+    this.updateItem(key, value)
+    return value
   }
 
   delete(key: K): boolean {
@@ -78,5 +66,3 @@ export class LRUMap<K, V> {
     return this.#map.keys().next().value as K
   }
 }
-
-export class NotFoundError extends CustomError {}

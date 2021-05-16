@@ -1,9 +1,8 @@
-import { getError } from 'return-style'
-import { Queue, EmptyQueueError } from '@src/queue'
+import { Queue } from '@src/queue'
 
 describe('Queue', () => {
   test('[Symbol.toStringTag]', () => {
-    const queue = new Queue<number>()
+    const queue = new Queue()
 
     const result = Object.prototype.toString.call(queue)
 
@@ -46,19 +45,19 @@ describe('Queue', () => {
     expect(queue.size).toBe(2)
   })
 
-  describe('dequeue(): T', () => {
+  describe('dequeue(): T | undefined', () => {
     describe('queue is empty', () => {
-      it('throws EmptyQueueError', () => {
+      it('return undefined', () => {
         const queue = new Queue<number>()
 
-        const err = getError(() => queue.dequeue())
+        const result = queue.dequeue()
 
-        expect(err).toBeInstanceOf(EmptyQueueError)
+        expect(result).toBeUndefined()
       })
     })
 
     describe('queue isnt empty', () => {
-      it('returns FIFO', () => {
+      it('return values order by FIFO', () => {
         const queue = new Queue<number>()
 
         queue.enqueue(1, 2)
