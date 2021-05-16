@@ -4,6 +4,7 @@ import resolve from '@rollup/plugin-node-resolve'
 import { terser } from 'rollup-plugin-terser'
 import analyze from 'rollup-plugin-analyzer'
 import replace from '@rollup/plugin-replace'
+import json from '@rollup/plugin-json'
 
 const UMD_NAME = 'Structures'
 
@@ -26,6 +27,7 @@ function createOptions({ directory, target }) {
     })
   , resolve({ browser: true })
   , commonjs()
+  , json()
   , typescript({ target })
   ]
 
