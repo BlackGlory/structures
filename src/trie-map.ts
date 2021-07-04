@@ -1,5 +1,5 @@
 import { zip, toArray } from 'iterable-operator'
-import { UnpackedIterable } from 'hotypes'
+import { UnpackedIterable } from 'justypes'
 
 class TrieNode<T, U> {
   children = new Map<T, TrieNode<T, U>>()
