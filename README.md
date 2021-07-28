@@ -40,15 +40,32 @@ class Emitter<T> {
 }
 ```
 
+### HashMap
+
+```ts
+class HashMap<K, V, H = unknown> {
+  get [Symbol.toStringTag](): string
+  get size(): number
+
+  constructor(hash: (key: K) => H)
+
+  set(key: K, value: V): this
+  has(key: K): boolean
+  get(key: K): V | undefined
+  delete(key: K): boolean
+  clear(): void
+}
+```
+
 ### HashSet
 
 ```ts
-class HashSet<V, K = unknown> implements Iterable<V> {
+class HashSet<V, H = unknown> implements Iterable<V> {
   get [Symbol.toStringTag](): string
   get size(): number
   [Symbol.iterator](): IterableIterator<V>
 
-  constructor(hash: (value: V) => K)
+  constructor(hash: (value: V) => H)
 
   add(value: V): this
   delete(value: V): boolean

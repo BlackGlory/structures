@@ -93,13 +93,13 @@ describe('HashSet', () => {
   })
 
   test('clear(): void', () => {
-      const set = new HashSet<object>(JSON.stringify)
-      set.add({ hello: 'world' })
+    const set = new HashSet<object>(JSON.stringify)
+    set.add({ hello: 'world' })
 
-      const result = set.clear()
+    const result = set.clear()
 
-      expect(result).toBeUndefined()
-      expect(set.size).toBe(0)
+    expect(result).toBeUndefined()
+    expect(set.size).toBe(0)
   })
 
   describe('values(): Iterable<T>', () => {

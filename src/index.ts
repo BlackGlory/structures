@@ -1,5 +1,6 @@
 export * from './cons'
 export * from './emitter'
+export * from './hash-map'
 export * from './hash-set'
 export * from './queue'
 export * from './lru-map'

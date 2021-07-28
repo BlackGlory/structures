@@ -1,5 +1,5 @@
-export class HashSet<V, K = unknown> implements Iterable<V> {
-  #map = new Map<K, V>()
+export class HashSet<V, H = unknown> implements Iterable<V> {
+  #map = new Map<H, V>()
 
   get [Symbol.toStringTag]() {
     return this.constructor.name
@@ -13,7 +13,7 @@ export class HashSet<V, K = unknown> implements Iterable<V> {
     return this.#map.values()
   }
 
-  constructor(private hash: (value: V) => K) {}
+  constructor(private hash: (value: V) => H) {}
 
   add(value: V): this {
     this.#map.set(this.hash(value), value)
