@@ -1,4 +1,5 @@
 import { assert } from '@blackglory/errors'
+import { first } from 'iterable-operator'
 
 export class LRUMap<K, V> {
   #limit: number
@@ -24,7 +25,7 @@ export class LRUMap<K, V> {
       this.updateItem(key, value)
     } else {
       if (this.#map.size === this.#limit) {
-        this.#map.delete(this.getColdestKey())
+        this.#map.delete(this.getColdestKey()!)
       }
       this.#map.set(key, value)
     }
@@ -62,13 +63,7 @@ export class LRUMap<K, V> {
   /**
    * Return the earliest key inserted in the Map
    */
-  private getColdestKey(): K {
-    const iter = this.#map.keys()
-    const { value, done } = iter.next()
-    try {
-      return value as K
-    } finally {
-      if (!done) iter.return?.()
-    }
+  private getColdestKey(): K | undefined{
+    return first(this.#map.keys())
   }
 }
