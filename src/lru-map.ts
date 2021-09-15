@@ -63,6 +63,12 @@ export class LRUMap<K, V> {
    * Return the earliest key inserted in the Map
    */
   private getColdestKey(): K {
-    return this.#map.keys().next().value as K
+    const iter = this.#map.keys()
+    const { value, done } = iter.next()
+    try {
+      return value as K
+    } finally {
+      if (!done) iter.return?.()
+    }
   }
 }
