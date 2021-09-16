@@ -92,6 +92,23 @@ class LRUMap<K, V> {
 }
 ```
 
+### ExpirableMap
+
+```ts
+class ExpirableMap<K, V> {
+  get[Symbol.toStringTag](): string
+  get size(): number
+
+  constructor(limit: number)
+
+  set(key: K, value: V, maxAge: number): this
+  has(key: K): boolean
+  get(key: K): V | undefined
+  delete(key: K): boolean
+  clear(): void
+}
+```
+
 ### Queue
 
 ```ts
