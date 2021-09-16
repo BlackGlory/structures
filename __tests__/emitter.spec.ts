@@ -17,10 +17,10 @@ describe('Emitter', () => {
 
       emitter.on(event, handler)
       emitter.on(event, handler)
-      emitter.emit(event, 'hello')
+      emitter.emit(event, 'data')
 
       expect(handler).toBeCalledTimes(1)
-      expect(handler).toBeCalledWith('hello')
+      expect(handler).toBeCalledWith('data')
     })
   })
 
@@ -31,7 +31,7 @@ describe('Emitter', () => {
 
     emitter.on(event, handler)
     emitter.off(event, handler)
-    emitter.emit(event, 'hello')
+    emitter.emit(event, 'data')
 
     expect(handler).toBeCalledTimes(0)
   })
@@ -44,11 +44,11 @@ describe('Emitter', () => {
 
     emitter.on(event, handler1)
     emitter.on(event, handler2)
-    emitter.emit(event, 'hello')
+    emitter.emit(event, 'data')
 
     expect(handler1).toBeCalledTimes(1)
-    expect(handler1).toBeCalledWith('hello')
+    expect(handler1).toBeCalledWith('data')
     expect(handler2).toBeCalledTimes(1)
-    expect(handler2).toBeCalledWith('hello')
+    expect(handler2).toBeCalledWith('data')
   })
 })

@@ -11,9 +11,9 @@ describe('TrieMap', () => {
 
   test('set(key: K, value: V): this', () => {
     const map = new TrieMap<string[], string>()
-    const key = ['hello', 'world']
+    const key = ['foo', 'bar']
 
-    map.set(key, 'hello world')
+    map.set(key, 'foo bar')
 
     expect(map.has(key)).toBe(true)
   })
@@ -22,8 +22,8 @@ describe('TrieMap', () => {
     describe('exists', () => {
       it('return true', () => {
         const map = new TrieMap<string[], string>()
-        const key = ['hello', 'world']
-        map.set(key, 'hello world')
+        const key = ['foo', 'bar']
+        map.set(key, 'foo bar')
 
         const result = map.has(key)
 
@@ -34,7 +34,7 @@ describe('TrieMap', () => {
     describe('does not exist', () => {
       it('return false', () => {
         const map = new TrieMap<string[], string>()
-        const key = ['hello', 'world']
+        const key = ['foo', 'bar']
 
         const result = map.has(key)
 
@@ -47,8 +47,8 @@ describe('TrieMap', () => {
     describe('exists', () => {
       it('return V', () => {
         const map = new TrieMap<string[], string>()
-        const key = ['hello', 'world']
-        const value = 'hello world'
+        const key = ['foo', 'bar']
+        const value = 'foo bar'
         map.set(key, value)
 
         const result = map.get(key)
@@ -60,7 +60,7 @@ describe('TrieMap', () => {
     describe('does not exists', () => {
       it('return undefined', () => {
         const map = new TrieMap<string[], string>()
-        const key = ['hello', 'world']
+        const key = ['foo', 'bar']
 
         const result = map.get(key)
 
@@ -73,8 +73,8 @@ describe('TrieMap', () => {
     describe('exists', () => {
       it('return true', () => {
         const map = new TrieMap<string[], string>()
-        const key = ['hello', 'world']
-        const value = 'hello world'
+        const key = ['foo', 'bar']
+        const value = 'foo bar'
         map.set(key, value)
 
         const result = map.delete(key)
@@ -87,7 +87,7 @@ describe('TrieMap', () => {
     describe('does not exist', () => {
       it('return false', () => {
         const map = new TrieMap<string[], string>()
-        const key = ['hello', 'world']
+        const key = ['foo', 'bar']
 
         const result = map.delete(key)
 

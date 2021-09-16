@@ -20,10 +20,10 @@ describe('ExpirableMap', () => {
     const map = new ExpirableMap()
 
     const result1 = map.size
-    map.set('hello', 'world', Infinity)
-    map.set('world', 'hello', Infinity)
+    map.set('item #1', 'value', Infinity)
+    map.set('item #2', 'value', Infinity)
     const result2 = map.size
-    map.delete('hello')
+    map.delete('item #1')
     const result3 = map.size
     map.clear()
     const result4 = map.size
@@ -161,6 +161,6 @@ describe('ExpirableMap', () => {
     map.clear()
 
     expect(map.size).toBe(0)
-    expect(map.getItemsSortedByExpirationTime()).toStrictEqual([])
+    expect(map.getItemsSortedByExpirationTime().length).toBe(0)
   })
 })

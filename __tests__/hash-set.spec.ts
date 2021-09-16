@@ -36,9 +36,9 @@ describe('HashSet', () => {
 
   test('add(value: T) => this', () => {
     const set = new HashSet<object>(JSON.stringify)
-    set.add({ hello: 'world' })
+    set.add({ key: 'value' })
 
-    const result = set.add({ hello: 'world' })
+    const result = set.add({ key: 'value' })
 
     expect(set.size).toBe(1)
     expect(result).toBe(set)
@@ -48,9 +48,9 @@ describe('HashSet', () => {
     describe('exists', () => {
       it('return true', () => {
         const set = new HashSet<object>(JSON.stringify)
-        set.add({ hello: 'world' })
+        set.add({ key: 'value' })
 
-        const result = set.delete({ hello: 'world' })
+        const result = set.delete({ key: 'value' })
 
         expect(result).toBe(true)
         expect(set.size).toBe(0)
@@ -61,7 +61,7 @@ describe('HashSet', () => {
       it('return false', () => {
         const set = new HashSet<object>(JSON.stringify)
 
-        const result = set.delete({ hello: 'world' })
+        const result = set.delete({ key: 'value' })
 
         expect(result).toBe(false)
         expect(set.size).toBe(0)
@@ -73,9 +73,9 @@ describe('HashSet', () => {
     describe('exists', () => {
       it('return true', () => {
         const set = new HashSet<object>(JSON.stringify)
-        set.add({ hello: 'world' })
+        set.add({ key: 'value' })
 
-        const result = set.has({ hello: 'world' })
+        const result = set.has({ key: 'value' })
 
         expect(result).toBe(true)
       })
@@ -85,7 +85,7 @@ describe('HashSet', () => {
       it('return false', () => {
         const set = new HashSet<object>(JSON.stringify)
 
-        const result = set.has({ hello: 'world' })
+        const result = set.has({ key: 'value' })
 
         expect(result).toBe(false)
       })
@@ -94,7 +94,7 @@ describe('HashSet', () => {
 
   test('clear(): void', () => {
     const set = new HashSet<object>(JSON.stringify)
-    set.add({ hello: 'world' })
+    set.add({ key: 'value' })
 
     const result = set.clear()
 
