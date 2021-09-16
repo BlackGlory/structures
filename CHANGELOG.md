@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.2.5](https://github.com/BlackGlory/structures/compare/v0.2.4...v0.2.5) (2021-09-16)
+
+
+### Features
+
+* add ExpirableMap ([70d2bc3](https://github.com/BlackGlory/structures/commit/70d2bc359be26aa8719fd81286918989bd9cf265))
+* add TLRUMap ([21c5460](https://github.com/BlackGlory/structures/commit/21c5460b122c976a4e551d422ddfa3b3cdadd093))
+
 ### [0.2.4](https://github.com/BlackGlory/structures/compare/v0.2.3...v0.2.4) (2021-09-15)
 
 
