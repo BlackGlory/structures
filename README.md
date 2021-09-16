@@ -99,7 +99,7 @@ class ExpirableMap<K, V> {
   get[Symbol.toStringTag](): string
   get size(): number
 
-  constructor(limit: number)
+  constructor()
 
   set(key: K, value: V, maxAge: number): this
   has(key: K): boolean
