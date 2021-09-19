@@ -2,8 +2,8 @@ import { TLRUMap } from '@src/tlru-map'
 import { delay } from 'extra-promise'
 
 class TLRUMapTest<K, V> extends TLRUMap<K, V> {
-  getItemsSortedByExpirationTime() {
-    return this.itemsSortedByExpirationTime
+  getItemMetadataSortedByExpirationTime() {
+    return this.itemMetadataSortedByExpirationTime
   }
 }
 
@@ -40,13 +40,13 @@ describe('TLRUMap', () => {
     map.set('item #1', 'value', 500)
     map.set('item #2', 'value', 1000)
     const size1 = map.size
-    const length1 = map.getItemsSortedByExpirationTime().length
+    const length1 = map.getItemMetadataSortedByExpirationTime().length
     await delay(500)
     const size2 = map.size
-    const length2 = map.getItemsSortedByExpirationTime().length
+    const length2 = map.getItemMetadataSortedByExpirationTime().length
     await delay(500)
     const size3 = map.size
-    const length3 = map.getItemsSortedByExpirationTime().length
+    const length3 = map.getItemMetadataSortedByExpirationTime().length
 
     expect(size1).toBe(2)
     expect(length1).toBe(2)
@@ -137,7 +137,7 @@ describe('TLRUMap', () => {
 
         expect(result).toBe(true)
         expect(map.has('key')).toBe(false)
-        expect(map.getItemsSortedByExpirationTime().length).toBe(0)
+        expect(map.getItemMetadataSortedByExpirationTime().length).toBe(0)
       })
     })
 
@@ -149,7 +149,7 @@ describe('TLRUMap', () => {
 
         expect(result).toBe(false)
         expect(map.has('key')).toBe(false)
-        expect(map.getItemsSortedByExpirationTime().length).toBe(0)
+        expect(map.getItemMetadataSortedByExpirationTime().length).toBe(0)
       })
     })
   })
@@ -161,6 +161,6 @@ describe('TLRUMap', () => {
     map.clear()
 
     expect(map.size).toBe(0)
-    expect(map.getItemsSortedByExpirationTime().length).toBe(0)
+    expect(map.getItemMetadataSortedByExpirationTime().length).toBe(0)
   })
 })

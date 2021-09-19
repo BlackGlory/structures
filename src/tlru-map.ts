@@ -8,11 +8,11 @@ import { setSchedule } from 'extra-timers'
 export class TLRUMap<K, V> {
   #limit: number
   #map = new Map<K, V>()
-  #cancelNextTimeout?: () => void
+  #cancelClearTimeout?: () => void
   /**
-   * 按过期时间升序排列所有Map项目的信息
+   * 按过期时间升序排列所有项目的元数据
    */ 
-  itemsSortedByExpirationTime: Array<{ key: K; expirationTime: number }> = []
+  itemMetadataSortedByExpirationTime: Array<{ key: K; expirationTime: number }> = []
 
   get [Symbol.toStringTag]() {
     return this.constructor.name
@@ -32,14 +32,14 @@ export class TLRUMap<K, V> {
   set(key: K, value: V, maxAge: number): this {
     if (this.#map.has(key)) {
       this.updateItem(key, value)
-      this.removeItem(key)
-      this.addItem(key, Date.now() + maxAge)
+      this.removeItemMetadata(key)
+      this.addItemMetadata(key, Date.now() + maxAge)
     } else {
       if (this.#map.size === this.#limit) {
         this.#map.delete(this.getColdestKey()!)
       }
       this.#map.set(key, value)
-      this.addItem(key, Date.now() + maxAge)
+      this.addItemMetadata(key, Date.now() + maxAge)
     }
     return this
   }
@@ -61,12 +61,12 @@ export class TLRUMap<K, V> {
   delete(key: K): boolean {
     const result = this.#map.delete(key)
     if (result) {
-      const index = this.itemsSortedByExpirationTime.findIndex(x => x.key === key)
-      this.itemsSortedByExpirationTime.splice(index, 1)
+      const index = this.itemMetadataSortedByExpirationTime.findIndex(x => x.key === key)
+      this.itemMetadataSortedByExpirationTime.splice(index, 1)
 
       // 如果被删除的项目是第一个项目, 则需要重新规划过期回调
       if (index === 0) {
-        this.rescheduleTimeout()
+        this.rescheduleClearTimeout()
       }
     }
     return result
@@ -74,8 +74,8 @@ export class TLRUMap<K, V> {
 
   clear(): void {
     this.#map.clear()
-    this.#cancelNextTimeout?.()
-    this.itemsSortedByExpirationTime = []
+    this.#cancelClearTimeout?.()
+    this.itemMetadataSortedByExpirationTime = []
   }
 
   /**
@@ -86,64 +86,64 @@ export class TLRUMap<K, V> {
     this.#map.set(key, value)
   }
 
-  private addItem(key: K, expirationTime: number) {
-    for (let i = 0; i < this.itemsSortedByExpirationTime.length; i++) {
-      const item = this.itemsSortedByExpirationTime[i]
+  private addItemMetadata(key: K, expirationTime: number) {
+    for (let i = 0; i < this.itemMetadataSortedByExpirationTime.length; i++) {
+      const item = this.itemMetadataSortedByExpirationTime[i]
       if (expirationTime < item.expirationTime) {
-        this.itemsSortedByExpirationTime.splice(i, 0, { key, expirationTime })
+        this.itemMetadataSortedByExpirationTime.splice(i, 0, { key, expirationTime })
 
         // 如果本次插入导致原先的第一个项目不再是低一个项目, 则需要重新规划过期回调
         if (i === 0) {
-          this.rescheduleTimeout()
+          this.rescheduleClearTimeout()
         }
         return
       }
     }
 
     // 如果代码运行到此处, 意味着数组要么为空, 要么新项目过期时间大于数组内的所有项目, 故直接插入到数组尾端.
-    this.itemsSortedByExpirationTime.push({ key, expirationTime })
+    this.itemMetadataSortedByExpirationTime.push({ key, expirationTime })
     // 如果新插入的项目是唯一而项目, 则需要重新规划过期回调
-    if (this.itemsSortedByExpirationTime.length === 1) {
-      this.rescheduleTimeout()
+    if (this.itemMetadataSortedByExpirationTime.length === 1) {
+      this.rescheduleClearTimeout()
     }
   }
 
-  private removeItem(key: K) {
-    const index = this.itemsSortedByExpirationTime.findIndex(x => x.key === key)
+  private removeItemMetadata(key: K) {
+    const index = this.itemMetadataSortedByExpirationTime.findIndex(x => x.key === key)
     if (index >= 0) {
-      this.itemsSortedByExpirationTime.splice(index, 1)
+      this.itemMetadataSortedByExpirationTime.splice(index, 1)
 
       // 如果被移除的是第一个项目, 则需要重新规划过期回调
       if (index === 0) {
-        this.rescheduleTimeout()
+        this.rescheduleClearTimeout()
       }
     }
   }
 
   private clearExpiredItems(timestamp: number) {
-    const indexOfFirstUnexpiredItem = this.itemsSortedByExpirationTime.findIndex(
+    const indexOfFirstUnexpiredItem = this.itemMetadataSortedByExpirationTime.findIndex(
       x => x.expirationTime > timestamp
     )
-    const expiredItems =
+    const expiredItemKeys =
       indexOfFirstUnexpiredItem >= 0
-      ? this.itemsSortedByExpirationTime.splice(0, indexOfFirstUnexpiredItem)
-      : this.itemsSortedByExpirationTime.splice(0, this.itemsSortedByExpirationTime.length)
-    expiredItems.forEach(x => this.#map.delete(x.key))
+      ? this.itemMetadataSortedByExpirationTime.splice(0, indexOfFirstUnexpiredItem)
+      : this.itemMetadataSortedByExpirationTime.splice(0, this.itemMetadataSortedByExpirationTime.length)
+    expiredItemKeys.forEach(x => this.#map.delete(x.key))
   }
 
-  private rescheduleTimeout() {
-    this.#cancelNextTimeout?.()
+  private rescheduleClearTimeout() {
+    this.#cancelClearTimeout?.()
 
-    if (this.itemsSortedByExpirationTime.length > 0) {
-      const item = this.itemsSortedByExpirationTime[0]
+    if (this.itemMetadataSortedByExpirationTime.length > 0) {
+      const item = this.itemMetadataSortedByExpirationTime[0]
       if (Number.isFinite(item.expirationTime)) {
         const cancel = setSchedule(item.expirationTime, () => {
           this.clearExpiredItems(Date.now())
-          this.rescheduleTimeout()
+          this.rescheduleClearTimeout()
         })
-        this.#cancelNextTimeout = () => {
+        this.#cancelClearTimeout = () => {
           cancel()
-          this.#cancelNextTimeout = undefined
+          this.#cancelClearTimeout = undefined
         }
       }
     }
