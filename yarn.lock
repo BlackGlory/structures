@@ -528,12 +528,13 @@
     "@blackglory/errors" "^1.1.2"
     justypes "^0.1.5"
 
-"@blackglory/structures@^0.2.3":
-  version "0.2.4"
-  resolved "https://registry.yarnpkg.com/@blackglory/structures/-/structures-0.2.4.tgz#5ea274f43bf2dbb5291fa5d5c0af6ba523e1ea84"
-  integrity sha512-W2Fftym2+gMvu3WhiFdybVIK+G1IOcOIFbp54xhcV2ROvR0ScsTRDygWoezTgiN9fuOnz8erbn9siKYSXDSSiQ==
+"@blackglory/structures@^0.2.5":
+  version "0.2.5"
+  resolved "https://registry.yarnpkg.com/@blackglory/structures/-/structures-0.2.5.tgz#22076055c6591fd31a40afa3e1d687c22bc8d98a"
+  integrity sha512-t+G6M9XJlYPIcMZpOVpvkMimyCPcDkqoxiZY4xD7eRXFnkf4wLBtW18j3LbvtWJnFQqFE+0VHRuVK4X1EMrcdQ==
   dependencies:
     "@blackglory/errors" "^1.1.2"
+    extra-timers "^0.2.2"
     justypes "^0.1.5"
 
 "@blackglory/types@^0.4.6":
@@ -1151,10 +1152,10 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-14.14.45.tgz#ec2dfb5566ff814d061aef7e141575aedba245cf"
   integrity sha512-DssMqTV9UnnoxDWu959sDLZzfvqCF0qDNRjaWeYSui9xkFe61kKo4l1TWNTQONpuXEm+gLMRvdlzvNHBamzmEw==
 
-"@types/node@^16.9.1":
-  version "16.9.1"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-16.9.1.tgz#0611b37db4246c937feef529ddcc018cf8e35708"
-  integrity sha512-QpLcX9ZSsq3YYUUnD3nFDY8H7wctAhQj/TFKL8Ya8v5fMm3CFXxo8zStsLAl780ltoYoo1WvKUVGBQK+1ifr7g==
+"@types/node@^16.9.3":
+  version "16.9.3"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-16.9.3.tgz#92230abb80a66beb10236e78a51cd9e6396f4489"
+  integrity sha512-5UmMznRvrwKqisJ458JbNoq3AyXHxlAKMkGtNe143W1SkZ1BVgvCHYBzn7wD66J+smE+BolqA1mes5BeXlWY6w==
 
 "@types/normalize-package-data@^2.4.0":
   version "2.4.0"
@@ -2656,14 +2657,14 @@ extra-promise@^0.18.1:
     reflect-metadata "^0.1.13"
     return-style "^0.12.3"
 
-extra-promise@^0.18.5:
-  version "0.18.5"
-  resolved "https://registry.yarnpkg.com/extra-promise/-/extra-promise-0.18.5.tgz#f3a3f533543c1a0295c082d760e2abf39f08beea"
-  integrity sha512-+KDCGG+C7dGhXGL/+dpuSJwHI4H5+N1Wy7njY1+1Hhpw0fjf1gkv5yX72pGyicotecNIeD4OrKU8WHHLFTRsfg==
+extra-promise@^0.18.6:
+  version "0.18.6"
+  resolved "https://registry.yarnpkg.com/extra-promise/-/extra-promise-0.18.6.tgz#e59c6d3dd236384649a30d65da0c83d0ba43d6b8"
+  integrity sha512-m+C0oXxiV53ejs3hq8kREl9rDQ2znGYt7FN5pMB+/zamzE0reZu9IlsvssvIAYo/wbRuzPX41JFP+wytfXxLKw==
   dependencies:
     "@blackglory/errors" "^1.1.2"
     "@blackglory/go" "^0.1.0"
-    "@blackglory/structures" "^0.2.3"
+    "@blackglory/structures" "^0.2.5"
     "@blackglory/types" "^0.5.0"
     abort-controller "^3.0.0"
     core-js "^3.17.3"
