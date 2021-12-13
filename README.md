@@ -186,6 +186,6 @@ class ObservableFiniteStateMachine<
   State extends string
 , Event extends string
 > extends FiniteStateMachine<State, Event> {
-  observeStateChanges(): Observable<IFiniteStateMachineStateChanged<State, Event>>
+  observeStateChanges(): Observable<IFiniteStateMachineStateChange<State, Event>>
 }
 ```
