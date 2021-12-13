@@ -151,6 +151,9 @@ class TrieMap<K extends Iterable<T>, V, T = UnpackedIterable<K>> {
 
 ### FiniteStateMachine
 ```ts
+type IFiniteStateMachineSchema<State extends string, Event extends string> =
+  Record<State, Partial<Record<Event, State>>>
+
 class FiniteStateMachine<State extends string, Event extends string> {
   get state(): State
 
