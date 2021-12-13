@@ -10,7 +10,7 @@ export class FiniteStateMachine<State extends string, Event extends string> {
   }
 
   constructor(
-    private schema: IFiniteStateMachineSchema<State, Event>
+    protected schema: IFiniteStateMachineSchema<State, Event>
   , initialState: State
   ) {
     this.#state = initialState

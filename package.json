@@ -71,6 +71,8 @@
   },
   "dependencies": {
     "@blackglory/errors": "^1.1.2",
-    "extra-timers": "^0.2.4"
+    "@blackglory/types": "^0.5.2",
+    "extra-timers": "^0.2.4",
+    "rxjs": "^7.4.0"
   }
 }

@@ -167,3 +167,22 @@ class FiniteStateMachine<State extends string, Event extends string> {
   send(event: Event): void
 }
 ```
+
+### ObservableFiniteStateMachine
+```ts
+interface IFiniteStateMachineStateChange<
+  State extends string
+, Event extends string
+> {
+  event: Event
+  oldState: State
+  newState: State
+}
+
+class ObservableFiniteStateMachine<
+  State extends string
+, Event extends string
+> extends FiniteStateMachine<State, Event> {
+  get stateChangedObservable(): Observable<IFiniteStateMachineStateChanged<State, Event>>
+}
+```
