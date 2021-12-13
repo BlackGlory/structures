@@ -1,9 +1,7 @@
 # structures
-
 Common structures.
 
 ## Install
-
 ```sh
 npm install --save @blackglory/structures
 # or
@@ -11,23 +9,28 @@ yarn add @blackglory/structures
 ```
 
 ## API
+### Box
+```ts
+class Box<T> {
+  constructor(value: T)
+
+  get(): T 
+  set(value: T): void 
+}
+```
 
 ### Cons
-
 #### convertConsToArray
-
 ```ts
 function convertConsToArray<T>([value, next]: Cons<T>): T[]
 ```
 
 #### convertArrayToCons
-
 ```ts
 function convertArrayToCons<T>([value, ...next]: T[]): Cons<T>
 ```
 
 ### Emitter
-
 ```ts
 type Handler<T> = (vale: T) => void
 
@@ -41,7 +44,6 @@ class Emitter<T> {
 ```
 
 ### HashMap
-
 ```ts
 class HashMap<K, V, H = unknown> {
   get [Symbol.toStringTag](): string
@@ -58,7 +60,6 @@ class HashMap<K, V, H = unknown> {
 ```
 
 ### HashSet
-
 ```ts
 class HashSet<V, H = unknown> implements Iterable<V> {
   get [Symbol.toStringTag](): string
@@ -76,7 +77,6 @@ class HashSet<V, H = unknown> implements Iterable<V> {
 ```
 
 ### LRUMap
-
 ```ts
 class LRUMap<K, V> {
   get [Symbol.toStringTag](): string
@@ -93,7 +93,6 @@ class LRUMap<K, V> {
 ```
 
 ### ExpirableMap
-
 ```ts
 class ExpirableMap<K, V> {
   get[Symbol.toStringTag](): string
@@ -110,7 +109,6 @@ class ExpirableMap<K, V> {
 ```
 
 ### TLRUMap
-
 ```ts
 class TLRUMap<K, V> {
   get[Symbol.toStringTag](): string
@@ -127,7 +125,6 @@ class TLRUMap<K, V> {
 ```
 
 ### Queue
-
 ```ts
 class Queue<T> {
   get [Symbol.toStringTag](): string
@@ -141,7 +138,6 @@ class Queue<T> {
 ```
 
 ### TrieMap
-
 ```ts
 class TrieMap<K extends Iterable<T>, V, T = UnpackedIterable<K>> {
   get [Symbol.toStringTag](): string

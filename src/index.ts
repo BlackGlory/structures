@@ -1,3 +1,4 @@
+export * from './box'
 export * from './cons'
 export * from './emitter'
 export * from './hash-map'
