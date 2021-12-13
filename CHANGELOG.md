@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.3.1](https://github.com/BlackGlory/structures/compare/v0.3.0...v0.3.1) (2021-12-13)
+
+
+### Bug Fixes
+
+* add iterable-operator to dependencies ([b6887a8](https://github.com/BlackGlory/structures/commit/b6887a8214ff52aa960e0bb0f855eb7b16150152))
+
 ## [0.3.0](https://github.com/BlackGlory/structures/compare/v0.2.8...v0.3.0) (2021-12-13)
 
 
