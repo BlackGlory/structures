@@ -148,3 +148,22 @@ class TrieMap<K extends Iterable<T>, V, T = UnpackedIterable<K>> {
   delete(key: K): boolean
 }
 ```
+
+### FiniteStateMachine
+```ts
+class FiniteStateMachine<State extends string, Event extends string> {
+  get state(): State
+
+  constructor(
+    schema: IFiniteStateMachineSchema<State, Event>
+  , initialState: State
+  )
+
+  matches(state: State): boolean
+
+  /**
+   * @throws {BadEventError}
+   */
+  send(event: Event): void
+}
+```
