@@ -2,7 +2,7 @@ import { ObservableFiniteStateMachine, BadEventError } from '@src/observable-fin
 import { getError } from 'return-style'
 
 describe('ObservableFiniteStateMachine', () => {
-  describe('stateChangedObservable', () => {
+  describe('observerStateChanges', () => {
     test('state changed', () => {
       const next = jest.fn()
       const complete = jest.fn()
@@ -12,7 +12,7 @@ describe('ObservableFiniteStateMachine', () => {
       , off: { turnOn: 'on' }
       }, 'on')
 
-      fsm.stateChangedObservable.subscribe({ next, complete, error })
+      fsm.observeStateChanges().subscribe({ next, complete, error })
       fsm.send('turnOff')
       fsm.send('turnOn')
 
@@ -40,7 +40,7 @@ describe('ObservableFiniteStateMachine', () => {
       , off: { turnOn: 'on' }
       }, 'on')
 
-      fsm.stateChangedObservable.subscribe({ next, complete, error })
+      fsm.observeStateChanges().subscribe({ next, complete, error })
       const err = getError(() => fsm.send('turnOn'))
 
       expect(err).toBeInstanceOf(BadEventError)
@@ -61,7 +61,7 @@ describe('ObservableFiniteStateMachine', () => {
       , done: {}
       }, 'pending')
 
-      fsm.stateChangedObservable.subscribe({ next, complete, error })
+      fsm.observeStateChanges().subscribe({ next, complete, error })
       fsm.send('complete')
 
       expect(next).toBeCalledTimes(1)

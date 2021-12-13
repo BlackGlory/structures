@@ -15,10 +15,10 @@ export class ObservableFiniteStateMachine<
   State extends string
 , Event extends string
 > extends FiniteStateMachine<State, Event> {
-  private stateChanged = new Subject<IFiniteStateMachineStateChange<State, Event>>()
+  private stateChanges = new Subject<IFiniteStateMachineStateChange<State, Event>>()
 
-  get stateChangedObservable(): Observable<IFiniteStateMachineStateChange<State, Event>> {
-    return this.stateChanged
+  observeStateChanges(): Observable<IFiniteStateMachineStateChange<State, Event>> {
+    return this.stateChanges
   }
 
   /**
@@ -29,9 +29,9 @@ export class ObservableFiniteStateMachine<
     super.send(event)
     const newState = this.state
 
-    this.stateChanged.next({ event, oldState, newState })
+    this.stateChanges.next({ event, oldState, newState })
     if (isEmptyObject(this.schema[newState])) {
-      this.stateChanged.complete()
+      this.stateChanges.complete()
     }
   }
 }
