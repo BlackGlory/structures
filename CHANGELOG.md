@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.2.8](https://github.com/BlackGlory/structures/compare/v0.2.7...v0.2.8) (2021-12-13)
+
+
+### Features
+
+* add FiniteStateMachine ([219d440](https://github.com/BlackGlory/structures/commit/219d440b5bb0bc6684166dc2d13d786285368c27))
+* add ObservableFiniteStateMachine ([49e3b97](https://github.com/BlackGlory/structures/commit/49e3b97c2238b1567f7588b6c337063c40e0eec9))
+
 ### [0.2.7](https://github.com/BlackGlory/structures/compare/v0.2.6...v0.2.7) (2021-12-13)
 
 
