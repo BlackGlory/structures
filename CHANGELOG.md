@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.3.0](https://github.com/BlackGlory/structures/compare/v0.2.8...v0.3.0) (2021-12-13)
+
+
+### ⚠ BREAKING CHANGES
+
+* Replace `ObervableFiniteStateMachine.stateChangedObservable` with
+`observeStateChanges()`
+
+* replace stateChangedObservable with observeStateChanges ([9708384](https://github.com/BlackGlory/structures/commit/970838452b2ef3b6299379b393eb45fbbc488e55))
+
 ### [0.2.8](https://github.com/BlackGlory/structures/compare/v0.2.7...v0.2.8) (2021-12-13)
 
 
