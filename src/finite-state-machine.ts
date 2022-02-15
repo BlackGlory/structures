@@ -20,11 +20,15 @@ export class FiniteStateMachine<State extends string, Event extends string> {
     return this.#state === state
   }
 
+  can(event: Event): boolean {
+    return event in this.schema[this.state]
+  }
+
   /**
    * @throws {BadEventError}
    */
   send(event: Event): void {
-    if (event in this.schema[this.state]) {
+    if (this.can(event)) {
       this.#state = this.schema[this.state][event]!
     } else {
       throw new BadEventError(this.state, event)

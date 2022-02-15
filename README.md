@@ -163,6 +163,7 @@ class FiniteStateMachine<State extends string, Event extends string> {
   )
 
   matches(state: State): boolean
+  can(event: Event): boolean
 
   /**
    * @throws {BadEventError}

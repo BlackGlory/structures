@@ -11,6 +11,34 @@ describe('FiniteStateMachine', () => {
     expect(fsm.state).toBe('on')
   })
 
+  describe('can', () => {
+    describe('legal', () => {
+      it('returns true', () => {
+        const fsm = new FiniteStateMachine({
+          on: { turnOff: 'off' }
+        , off: { turnOn: 'on' }
+        }, 'on')
+
+        const result = fsm.can('turnOff')
+
+        expect(result).toBe(true)
+      })
+    })
+
+    describe('illegal', () => {
+      it('returns true', () => {
+        const fsm = new FiniteStateMachine({
+          on: { turnOff: 'off' }
+        , off: { turnOn: 'on' }
+        }, 'on')
+
+        const result = fsm.can('turnOn')
+        
+        expect(result).toBe(false)
+      })
+    })
+  })
+
   describe('send', () => {
     describe('legal', () => {
       it('changes state', () => {
