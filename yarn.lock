@@ -3949,16 +3949,7 @@ iterable-operator@^1.0.0:
     "@blackglory/go" "^0.1.0"
     "@blackglory/types" "^0.6.5"
 
-iterable-operator@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/iterable-operator/-/iterable-operator-1.0.1.tgz#cfbeb5f052ea3fc387f759c07c132c5be8252a6b"
-  integrity sha512-76Mz4Ml///sq5a+301+GfeJYlZ36BRxppyiIAKBI3SWXN3Cy8H+F2tieCmo1p7149xCMJG70HA6JEJOmGoh/iA==
-  dependencies:
-    "@blackglory/errors" "^2.2.1"
-    "@blackglory/go" "^1.0.0"
-    "@blackglory/types" "^1.0.0"
-
-iterable-operator@^1.1.0:
+iterable-operator@^1.0.1, iterable-operator@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/iterable-operator/-/iterable-operator-1.1.0.tgz#4c53756c174c56fe1787993658c710941f22a387"
   integrity sha512-HA0GAC2axdxpe3agoEvxP5Io0xYhUSuL6NeS5o5MXOujJQa/tnUwvZEFqTIPsuARDoHkqUHg6aNQMWWwpwNouQ==

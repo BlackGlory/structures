@@ -190,3 +190,19 @@ class ObservableFiniteStateMachine<
   observeStateChanges(): Observable<IFiniteStateMachineStateChange<State, Event>>
 }
 ```
+
+### InstanceManager
+```ts
+class InstanceManager<T> {
+  constructor(
+    construct: () => Awaitable<T>
+  , destruct: (instance: T) => Awaitable<void>
+  )
+
+  getInstances(): T[]
+  getCurrentQuantity(): number
+  getTargetQuantity(): number
+  setTargetQuantity(target: number): void
+  scale(): Promise<void>
+}
+```
