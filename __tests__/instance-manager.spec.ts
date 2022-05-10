@@ -15,6 +15,27 @@ describe('InstanceManager', () => {
     expect(instances).toStrictEqual([])
   })
 
+  test('removeInstance', async () => {
+    let count = 0
+    const construct = jest.fn(() => ++count)
+    const destruct = jest.fn()
+    const manager = new InstanceManager(construct, destruct)
+    manager.setTargetQuantity(2)
+    await manager.scale()
+
+    manager.removeInstance(manager.getInstances()[0])
+    const currentQuantity1 = manager.getCurrentQuantity()
+    await manager.scale()
+    const currentQuantity2 = manager.getCurrentQuantity()
+    const instances = manager.getInstances()
+
+    expect(currentQuantity1).toBe(1)
+    expect(currentQuantity2).toBe(2)
+    expect(instances).toStrictEqual([2, 3])
+    expect(destruct).toBeCalledTimes(1)
+    expect(destruct).toBeCalledWith(1)
+  })
+
   test('scale(up)', async () => {
     let count = 0
     const construct = jest.fn(() => ++count)

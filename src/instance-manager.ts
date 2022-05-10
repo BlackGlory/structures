@@ -16,6 +16,14 @@ export class InstanceManager<T> {
     return [...this.instances]
   }
 
+  async removeInstance(instance: T): Promise<void> {
+    const index = this.instances.indexOf(instance)
+    if (index >= 0) {
+      this.instances.splice(this.instances.indexOf(instance), 1)
+      await this.destruct(instance)
+    }
+  }
+
   getCurrentQuantity(): number {
     return this.instances.length
   }

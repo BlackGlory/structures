@@ -200,6 +200,7 @@ class InstanceManager<T> {
   )
 
   getInstances(): T[]
+  removeInstance(instance: T): Promise<void>
   getCurrentQuantity(): number
   getTargetQuantity(): number
   setTargetQuantity(target: number): void
