@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.4.0](https://github.com/BlackGlory/structures/compare/v0.3.7...v0.4.0) (2022-05-10)
+
+
+### ⚠ BREAKING CHANGES
+
+* InstanceManager removed
+
+### Features
+
+* remove InstanceManager ([deb689c](https://github.com/BlackGlory/structures/commit/deb689c867ff1ba859942b6d7069cc65354d2a3d))
+* **InstanceManager:** add removeInstance ([23c5fa7](https://github.com/BlackGlory/structures/commit/23c5fa7c77ded0257812e6964fa2662fe380874d))
+
 ### [0.3.7](https://github.com/BlackGlory/structures/compare/v0.3.6...v0.3.7) (2022-05-08)
 
 
