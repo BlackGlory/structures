@@ -71,7 +71,6 @@
   "dependencies": {
     "@blackglory/errors": "^2.2.1",
     "@blackglory/types": "^1.1.0",
-    "extra-promise": "^1.0.2",
     "extra-timers": "^0.2.5",
     "iterable-operator": "^1.1.0",
     "justypes": "^2.0.0",
