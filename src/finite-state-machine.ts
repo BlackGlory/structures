@@ -4,20 +4,20 @@ export type IFiniteStateMachineSchema<State extends string, Event extends string
   Record<State, Partial<Record<Event, State>>>
 
 export class FiniteStateMachine<State extends string, Event extends string> {
-  #state: State
+  private _state: State
   get state(): State {
-    return this.#state
+    return this._state
   }
 
   constructor(
     protected schema: IFiniteStateMachineSchema<State, Event>
   , initialState: State
   ) {
-    this.#state = initialState
+    this._state = initialState
   }
 
   matches(state: State): boolean {
-    return this.#state === state
+    return this._state === state
   }
 
   can(event: Event): boolean {
@@ -29,7 +29,7 @@ export class FiniteStateMachine<State extends string, Event extends string> {
    */
   send(event: Event): void {
     if (this.can(event)) {
-      this.#state = this.schema[this.state][event]!
+      this._state = this.schema[this.state][event]!
     } else {
       throw new BadEventError(this.state, event)
     }

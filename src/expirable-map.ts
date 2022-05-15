@@ -1,8 +1,8 @@
 import { setSchedule } from 'extra-timers'
 
 export class ExpirableMap<K, V> {
-  #map = new Map<K, V>()
-  #cancelClearTimeout?: () => void
+  private map = new Map<K, V>()
+  private cancelClearTimeout?: () => void
   /**
    * 按过期时间升序排列所有项目的元数据
    */ 
@@ -13,26 +13,26 @@ export class ExpirableMap<K, V> {
   }
 
   get size() {
-    return this.#map.size
+    return this.map.size
   }
 
   set(key: K, value: V, maxAge: number): this {
-    this.#map.set(key, value)
+    this.map.set(key, value)
     this.removeItemMetadata(key)
     this.addItemMetadata(key, Date.now() + maxAge)
     return this
   }
 
   has(key: K): boolean {
-    return this.#map.has(key)
+    return this.map.has(key)
   }
 
   get(key: K): V | undefined {
-    return this.#map.get(key)
+    return this.map.get(key)
   }
 
   delete(key: K): boolean {
-    const exists = this.#map.delete(key)
+    const exists = this.map.delete(key)
     if (exists) {
       const index = this.itemMetadataSortedByExpirationTime.findIndex(x => x.key === key)
       this.itemMetadataSortedByExpirationTime.splice(index, 1)
@@ -46,8 +46,8 @@ export class ExpirableMap<K, V> {
   }
 
   clear(): void {
-    this.#map.clear()
-    this.#cancelClearTimeout?.()
+    this.map.clear()
+    this.cancelClearTimeout?.()
     this.itemMetadataSortedByExpirationTime = []
   }
 
@@ -93,11 +93,11 @@ export class ExpirableMap<K, V> {
       indexOfFirstUnexpired >= 0
       ? this.itemMetadataSortedByExpirationTime.splice(0, indexOfFirstUnexpired)
       : this.itemMetadataSortedByExpirationTime.splice(0, this.itemMetadataSortedByExpirationTime.length)
-    expiredItemKeys.forEach(x => this.#map.delete(x.key))
+    expiredItemKeys.forEach(x => this.map.delete(x.key))
   }
 
   private rescheduleClearTimeout() {
-    this.#cancelClearTimeout?.()
+    this.cancelClearTimeout?.()
 
     if (this.itemMetadataSortedByExpirationTime.length > 0) {
       const item = this.itemMetadataSortedByExpirationTime[0]
@@ -106,9 +106,9 @@ export class ExpirableMap<K, V> {
           this.clearExpiredItems(Date.now())
           this.rescheduleClearTimeout()
         })
-        this.#cancelClearTimeout = () => {
+        this.cancelClearTimeout = () => {
           cancel()
-          this.#cancelClearTimeout = undefined
+          this.cancelClearTimeout = undefined
         }
       }
     }

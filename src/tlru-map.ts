@@ -6,51 +6,51 @@ import { setSchedule } from 'extra-timers'
  * TLRUMap = LRUMap + ExpirableMap
  */
 export class TLRUMap<K, V> {
-  #limit: number
-  #map = new Map<K, V>()
-  #cancelClearTimeout?: () => void
+  private limit: number
+  private map = new Map<K, V>()
+  private cancelClearTimeout?: () => void
   /**
    * 按过期时间升序排列所有项目的元数据
    */ 
-  itemMetadataSortedByExpirationTime: Array<{ key: K; expirationTime: number }> = []
+  protected itemMetadataSortedByExpirationTime: Array<{ key: K; expirationTime: number }> = []
 
   get [Symbol.toStringTag]() {
     return this.constructor.name
   }
 
   get size() {
-    return this.#map.size
+    return this.map.size
   }
 
   constructor(limit: number) {
     assert(Number.isInteger(limit), 'The parameter limit must be an integer')
     assert(limit > 0, 'The parameter limit must be a positive value')
 
-    this.#limit = limit
+    this.limit = limit
   }
 
   set(key: K, value: V, maxAge: number): this {
-    if (this.#map.has(key)) {
+    if (this.map.has(key)) {
       this.updateItem(key, value)
       this.removeItemMetadata(key)
       this.addItemMetadata(key, Date.now() + maxAge)
     } else {
-      if (this.#map.size === this.#limit) {
-        this.#map.delete(this.getColdestKey()!)
+      if (this.map.size === this.limit) {
+        this.map.delete(this.getColdestKey()!)
       }
-      this.#map.set(key, value)
+      this.map.set(key, value)
       this.addItemMetadata(key, Date.now() + maxAge)
     }
     return this
   }
 
   has(key: K): boolean {
-    return this.#map.has(key)
+    return this.map.has(key)
   }
 
   get(key: K): V | undefined {
     if (this.has(key)) {
-      const value = this.#map.get(key)!
+      const value = this.map.get(key)!
       this.updateItem(key, value)
       return value
     } else {
@@ -59,7 +59,7 @@ export class TLRUMap<K, V> {
   }
 
   delete(key: K): boolean {
-    const result = this.#map.delete(key)
+    const result = this.map.delete(key)
     if (result) {
       const index = this.itemMetadataSortedByExpirationTime.findIndex(x => x.key === key)
       this.itemMetadataSortedByExpirationTime.splice(index, 1)
@@ -73,8 +73,8 @@ export class TLRUMap<K, V> {
   }
 
   clear(): void {
-    this.#map.clear()
-    this.#cancelClearTimeout?.()
+    this.map.clear()
+    this.cancelClearTimeout?.()
     this.itemMetadataSortedByExpirationTime = []
   }
 
@@ -82,8 +82,8 @@ export class TLRUMap<K, V> {
    * 重新插入项目, 这会使项目置于#map迭代器的末端.
    */
   private updateItem(key: K, value: V): void {
-    this.#map.delete(key)
-    this.#map.set(key, value)
+    this.map.delete(key)
+    this.map.set(key, value)
   }
 
   private addItemMetadata(key: K, expirationTime: number) {
@@ -128,11 +128,11 @@ export class TLRUMap<K, V> {
       indexOfFirstUnexpiredItem >= 0
       ? this.itemMetadataSortedByExpirationTime.splice(0, indexOfFirstUnexpiredItem)
       : this.itemMetadataSortedByExpirationTime.splice(0, this.itemMetadataSortedByExpirationTime.length)
-    expiredItemKeys.forEach(x => this.#map.delete(x.key))
+    expiredItemKeys.forEach(x => this.map.delete(x.key))
   }
 
   private rescheduleClearTimeout() {
-    this.#cancelClearTimeout?.()
+    this.cancelClearTimeout?.()
 
     if (this.itemMetadataSortedByExpirationTime.length > 0) {
       const item = this.itemMetadataSortedByExpirationTime[0]
@@ -141,9 +141,9 @@ export class TLRUMap<K, V> {
           this.clearExpiredItems(Date.now())
           this.rescheduleClearTimeout()
         })
-        this.#cancelClearTimeout = () => {
+        this.cancelClearTimeout = () => {
           cancel()
-          this.#cancelClearTimeout = undefined
+          this.cancelClearTimeout = undefined
         }
       }
     }
@@ -153,6 +153,6 @@ export class TLRUMap<K, V> {
    * Return the earliest key inserted in the Map
    */
   private getColdestKey(): K | undefined {
-    return first(this.#map.keys())
+    return first(this.map.keys())
   }
 }

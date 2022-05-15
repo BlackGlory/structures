@@ -8,14 +8,14 @@ class TrieNode<T, U> {
 }
 
 export class TrieMap<K extends Iterable<T>, V, T = UnpackedIterable<K>> {
-  #root = new TrieNode<T, V>()
+  private root = new TrieNode<T, V>()
 
   get [Symbol.toStringTag]() {
     return this.constructor.name
   }
 
   set(key: K, value: V): this {
-    let node = this.#root
+    let node = this.root
     for (const part of key) {
       if (!node.children.has(part)) {
         node.children.set(part, new TrieNode<T, V>())
@@ -28,7 +28,7 @@ export class TrieMap<K extends Iterable<T>, V, T = UnpackedIterable<K>> {
   }
 
   has(key: K): boolean {
-    let node = this.#root
+    let node = this.root
     for (const part of key) {
       if (node.children.has(part)) {
         node = node.children.get(part)!
@@ -41,7 +41,7 @@ export class TrieMap<K extends Iterable<T>, V, T = UnpackedIterable<K>> {
   }
 
   get(key: K): V | undefined {
-    let node = this.#root
+    let node = this.root
     for (const part of key) {
       if (node.children.has(part)) {
         node = node.children.get(part)!
@@ -55,7 +55,7 @@ export class TrieMap<K extends Iterable<T>, V, T = UnpackedIterable<K>> {
 
   delete(key: K): boolean {
     const parentNodes: TrieNode<T, V>[] = []
-    let node = this.#root
+    let node = this.root
     for (const part of key) {
       if (node.children.has(part)) {
         parentNodes.push(node)

@@ -1,15 +1,11 @@
 export class Box<T> {
-  #value: T
-
-  constructor(value: T) {
-    this.#value = value
-  }
+  constructor(private value: T) {}
 
   set(value: T): void {
-    this.#value = value
+    this.value = value
   }
 
   get(): T {
-    return this.#value
+    return this.value
   }
 }
