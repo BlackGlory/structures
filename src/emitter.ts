@@ -1,38 +1,37 @@
-type Handler<T> = (value: T) => void
+type Handler<Args extends unknown[]> = (...args: Args) => void
 
-export class Emitter<T> {
-  #map = new Map<string, Set<Handler<T>>>()
+export class Emitter<EventToArgs extends Record<string, unknown[]>> {
+  #map = new Map<keyof EventToArgs, Set<Handler<EventToArgs[keyof EventToArgs]>>>()
 
-  get [Symbol.toStringTag]() {
+  get [Symbol.toStringTag](): string {
     return this.constructor.name
   }
 
   /**
    * The same handler will only be registered once.
    */
-  on(event: string, handler: Handler<T>): void {
+  on<T extends keyof EventToArgs>(event: T, handler: Handler<EventToArgs[T]>): void {
     if (!this.#map.has(event)) {
       this.#map.set(event, new Set())
     }
 
     const set = this.#map.get(event)!
-    set.add(handler)
+    set.add(handler as Handler<EventToArgs[keyof EventToArgs]>)
   }
 
-  off(event: string, handler: Handler<T>): void {
+  off<T extends keyof EventToArgs>(event: T, handler: Handler<EventToArgs[T]>): void {
     if (!this.#map.has(event)) return
 
     const handlers = this.#map.get(event)!
-    handlers.delete(handler)
+    handlers.delete(handler as Handler<EventToArgs[keyof EventToArgs]>)
     if (handlers.size === 0) {
       this.#map.delete(event)
     }
   }
 
-  emit(event: string, value: T): void {
+  emit<T extends keyof EventToArgs>(event: T, ...args: EventToArgs[T]): void {
     if (!this.#map.has(event)) return
 
-    const set = this.#map.get(event)!
-    set.forEach(cb => cb(value))
+    this.#map.get(event)!.forEach(cb => cb(...args))
   }
 }
