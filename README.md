@@ -32,16 +32,20 @@ function convertArrayToCons<T>([value, ...next]: T[]): Cons<T>
 
 ### Emitter
 ```ts
-type Handler<Args extends unknown[]> = (...args: Args) => void
+type Listener<Args extends unknown[]> = (...args: Args) => void
 
 class Emitter<EventToArgs extends Record<string, unknown[]>> {
   get [Symbol.toStringTag](): string
 
-  /**
-   * The same handler will only be registered once.
-   */
-  on<T extends keyof EventToArgs>(event: T, handler: Handler<EventToArgs[T]>): void
-  off<T extends keyof EventToArgs>(event: T, handler: Handler<EventToArgs[T]>): void
+  on<T extends keyof EventToArgs>(
+    event: T
+  , listener: Listener<EventToArgs[T]>
+  ): () => void
+  once<T extends keyof EventToArgs>(
+    event: T
+  , listener: Listener<EventToArgs[T]>
+  ): () => void
+
   emit<T extends keyof EventToArgs>(event: T, ...args: EventToArgs[T]): void
 }
 ```
