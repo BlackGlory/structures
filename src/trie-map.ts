@@ -1,5 +1,6 @@
-import { zip, toArray } from 'iterable-operator'
+import { zip, toArray, map } from 'iterable-operator'
 import { UnpackedIterable } from 'justypes'
+import { isntUndefined } from '@blackglory/types'
 
 class TrieNode<T, U> {
   children = new Map<T, TrieNode<T, U>>()
@@ -12,6 +13,29 @@ export class TrieMap<K extends Iterable<T>, V, T = UnpackedIterable<K>> {
 
   get [Symbol.toStringTag]() {
     return this.constructor.name
+  }
+
+  * entries(): Iterable<[key: T[], value: V]> {
+    yield* dfs(this.root, [])
+
+    function* dfs(node: TrieNode<T, V>, paths: T[]): Iterable<[key: T[], value: V]> {
+      for (const [path, childNode] of node.children) {
+        const newPaths = [...paths, path]
+        if (isntUndefined(childNode.value)) {
+          yield [newPaths, childNode.value]
+        }
+
+        yield* dfs(childNode, newPaths)
+      }
+    }
+  }
+
+  keys(): Iterable<T[]> {
+    return map(this.entries(), ([key]) => key)
+  }
+
+  values(): Iterable<V> {
+    return map(this.entries(), ([_, value]) => value)
   }
 
   set(key: K, value: V): this {

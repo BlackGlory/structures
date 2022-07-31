@@ -1,4 +1,6 @@
 import { TrieMap } from '@src/trie-map'
+import { toArray } from 'iterable-operator'
+import '@blackglory/jest-matchers'
 
 describe('TrieMap', () => {
   test('[Symbol.toStringTag]', () => {
@@ -7,6 +9,56 @@ describe('TrieMap', () => {
     const result = Object.prototype.toString.call(map)
 
     expect(result).toBe('[object TrieMap]')
+  })
+
+  test('entries', () => {
+    const map = new TrieMap<string, number>()
+    const keys = ['foobar', 'foo', 'bar']
+    for (const [i, key] of keys.entries()) {
+      map.set(key, i)
+    }
+
+    const result = map.entries()
+    const arrResult = toArray(result)
+
+    expect(result).toBeIterable()
+    expect(arrResult).toStrictEqual([
+      [['f', 'o', 'o'], 1]
+    , [['f', 'o', 'o', 'b', 'a', 'r'], 0]
+    , [['b', 'a', 'r'], 2]
+    ])
+  })
+
+  test('keys', () => {
+    const map = new TrieMap<string, number>()
+    const keys = ['foobar', 'foo', 'bar']
+    for (const [i, key] of keys.entries()) {
+      map.set(key, i)
+    }
+
+    const result = map.keys()
+    const arrResult = toArray(result)
+
+    expect(result).toBeIterable()
+    expect(arrResult).toStrictEqual([
+      ['f', 'o', 'o']
+    , ['f', 'o', 'o', 'b', 'a', 'r']
+    , ['b', 'a', 'r']
+    ])
+  })
+
+  test('values', () => {
+    const map = new TrieMap<string, number>()
+    const keys = ['foobar', 'foo', 'bar']
+    for (const [i, key] of keys.entries()) {
+      map.set(key, i)
+    }
+
+    const result = map.values()
+    const arrResult = toArray(result)
+
+    expect(result).toBeIterable()
+    expect(arrResult).toStrictEqual([1, 0, 2])
   })
 
   test('set(key: K, value: V): this', () => {

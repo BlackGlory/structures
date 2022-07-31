@@ -149,6 +149,10 @@ class Queue<T> {
 class TrieMap<K extends Iterable<T>, V, T = UnpackedIterable<K>> {
   get [Symbol.toStringTag](): string
 
+  keys(): Iterable<T[]>
+  values(): Iterable<V>
+  entries(): Iterable<[key: T[], value: V]>
+
   set(key: K, value: V): this
   has(key: K): boolean
   get(key: K): V | undefined
