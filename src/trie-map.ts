@@ -1,5 +1,4 @@
 import { zip, toArray, map } from 'iterable-operator'
-import { UnpackedIterable } from 'justypes'
 import { isntUndefined } from '@blackglory/types'
 
 class TrieNode<T, U> {
@@ -8,7 +7,7 @@ class TrieNode<T, U> {
   constructor(public value?: U) {}
 }
 
-export class TrieMap<K extends Iterable<T>, V, T = UnpackedIterable<K>> {
+export class TrieMap<K extends Iterable<T>, V, T = unknown> {
   private root = new TrieNode<T, V>()
 
   get [Symbol.toStringTag]() {

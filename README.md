@@ -146,7 +146,7 @@ class Queue<T> {
 
 ### TrieMap
 ```ts
-class TrieMap<K extends Iterable<T>, V, T = UnpackedIterable<K>> {
+class TrieMap<K extends Iterable<T>, V, T = unknown> {
   get [Symbol.toStringTag](): string
 
   keys(): Iterable<T[]>
