@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.6.1](https://github.com/BlackGlory/structures/compare/v0.6.0...v0.6.1) (2022-07-31)
+
+
+### Features
+
+* add entries, keys, values for TrieMap ([9e7396c](https://github.com/BlackGlory/structures/commit/9e7396c61a70cdace6a4a3c365b82749b34d0104))
+
 ## [0.6.0](https://github.com/BlackGlory/structures/compare/v0.5.1...v0.6.0) (2022-06-08)
 
 
