@@ -52,11 +52,11 @@ class Emitter<EventToArgs extends Record<string, unknown[]>> {
 
 ### HashMap
 ```ts
-class HashMap<K, V, H = unknown> {
+class HashMap<K, V, Hash = unknown> {
   get [Symbol.toStringTag](): string
   get size(): number
 
-  constructor(hash: (key: K) => H)
+  constructor(hash: (key: K) => Hash)
 
   set(key: K, value: V): this
   has(key: K): boolean
@@ -68,12 +68,12 @@ class HashMap<K, V, H = unknown> {
 
 ### HashSet
 ```ts
-class HashSet<V, H = unknown> implements Iterable<V> {
+class HashSet<V, Hash = unknown> implements Iterable<V> {
   get [Symbol.toStringTag](): string
   get size(): number
   [Symbol.iterator](): IterableIterator<V>
 
-  constructor(hash: (value: V) => H)
+  constructor(hash: (value: V) => Hash)
 
   add(value: V): this
   delete(value: V): boolean

@@ -1,5 +1,5 @@
-export class HashMap<K, V, H = unknown> {
-  private map = new Map<H, V>()
+export class HashMap<K, V, Hash = unknown> {
+  private map = new Map<Hash, V>()
 
   get [Symbol.toStringTag]() {
     return this.constructor.name
@@ -9,7 +9,7 @@ export class HashMap<K, V, H = unknown> {
     return this.map.size
   }
 
-  constructor(private hash: (key: K) => H) {}
+  constructor(private hash: (key: K) => Hash) {}
 
   set(key: K, value: V): this {
     this.map.set(this.hash(key), value)
