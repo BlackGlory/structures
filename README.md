@@ -201,3 +201,14 @@ class ObservableFiniteStateMachine<
   observeStateChanges(): Observable<IFiniteStateMachineStateChange<State, Event>>
 }
 ```
+
+### SparseSet
+```ts
+class SparseSet {
+  get [Symbol.iterator](): Iterable<number>
+
+  add(value: number): void
+  has(value: number): boolean
+  remove(value: number): void
+}
+```
