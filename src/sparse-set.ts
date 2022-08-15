@@ -1,3 +1,5 @@
+import { isntUndefined } from '@blackglory/types'
+
 export class SparseSet {
   private values: number[] = []
   private valueToValueIndex: Array<number | undefined> = []
@@ -10,7 +12,7 @@ export class SparseSet {
 
   has(value: number): boolean {
     // 跟一般的实现不同, 不需要访问values数组.
-    return this.valueToValueIndex[value] !== undefined
+    return isntUndefined(this.valueToValueIndex[value])
   }
 
   add(value: number): void {
