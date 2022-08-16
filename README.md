@@ -218,3 +218,25 @@ class SparseSet {
   remove(value: number): void
 }
 ```
+
+### DynamicTypedArray
+```ts
+class DynamicTypedArray<T extends TypedArrayConstructor> {
+  get [Symbol.toStringTag](): string
+  get capacity(): number
+  get length(): number
+
+  constructor(
+    typedArrayConstructor: T
+  , options: {
+      capacity?: number = 0
+      growthFactor?: number = 1.5
+    } = {}
+  )
+
+  set(index: number, value: number): void
+  get(index: number): number | undefined
+  push(...values: number[]): void
+  pop(): number | undefined
+}
+```

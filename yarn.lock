@@ -671,6 +671,14 @@
     justypes "^2.0.0"
     lodash "^4.17.21"
 
+"@blackglory/types@^1.2.1":
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/@blackglory/types/-/types-1.2.1.tgz#7047127bc35e1fcdaeaed392b5cfaca9076e5c5a"
+  integrity sha512-+31NsGumAkAdG5LGh5JQqthXKauQ4+kMgTOvQVMCbQfhH2CQPY6bkrmMTVG25SoCHQZaTZ7XFJNXIxFOPLZHXg==
+  dependencies:
+    justypes "^2.0.0"
+    lodash "^4.17.21"
+
 "@commitlint/cli@^17.0.2":
   version "17.0.2"
   resolved "https://registry.yarnpkg.com/@commitlint/cli/-/cli-17.0.2.tgz#57c925fb5f09b8e4a83448d94db291ddf7aa58ee"
@@ -4170,6 +4178,11 @@ justypes@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/justypes/-/justypes-2.0.0.tgz#e1a09c8c99e08a54ac3a48bb97cb259d5082f907"
   integrity sha512-WzP+uveN67uQE9RsctKxqJrfBPv3aGyKnUasxaPCdXQM1voWtMObWHzpns4PjNoDFw0EvzLVoTShKn+ihpeRTA==
+
+justypes@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/justypes/-/justypes-2.1.0.tgz#fe2da1b88e47f128827fc1e6339b2534f1e101c3"
+  integrity sha512-GY6ebovdlxry4TMfSg/sSv5lgTCSVFm5AO2bsaNacfmfchH+VMkZCcsyyl0Lw3qoAvXGsRKaX1RomfDTLccc0Q==
 
 kind-of@^3.0.2, kind-of@^3.0.3, kind-of@^3.2.0:
   version "3.2.2"
