@@ -11,6 +11,24 @@ describe('DynamicTypedArray', () => {
     expect(arr.length).toBe(0)
   })
 
+  test('internalTypedArray', () => {
+    const arr = new DynamicTypedArray(Int8Array, {
+      capacity: 1
+    , growthFactor: 2
+    })
+    arr.set(0, 0)
+
+    const internalArr = arr.internalTypedArray
+    internalArr[0] = 1
+    const result1 = arr.get(0)
+    arr.set(0, 2)
+    const result2 = internalArr[0]
+
+    expect(internalArr).toBeInstanceOf(Int8Array)
+    expect(result1).toBe(1)
+    expect(result2).toBe(2)
+  })
+
   describe('set', () => {
     test('index < capacity', () => {
       const arr = new DynamicTypedArray(Int8Array, {
@@ -63,7 +81,7 @@ describe('DynamicTypedArray', () => {
 
       const result = arr.get(0)
 
-      expect(result).toBe(undefined)
+      expect(result).toBeUndefined()
       expect(arr.length).toBe(0)
     })
   })

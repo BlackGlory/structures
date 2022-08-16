@@ -1,4 +1,4 @@
-import { TypedArray, TypedArrayConstructor } from 'justypes'
+import { TypedArrayConstructor, TypedArrayOfConstructor } from 'justypes'
 import { assert } from '@blackglory/errors'
 
 interface IDynamicTypedArrayOptions {
@@ -8,9 +8,13 @@ interface IDynamicTypedArrayOptions {
 
 // 相关提案: https://github.com/tc39/proposal-resizablearraybuffer
 export class DynamicTypedArray<T extends TypedArrayConstructor> {
-  private array: TypedArray
+  private array: TypedArrayOfConstructor<T>
   private _length: number = 0
   private growthFactor: number
+
+  get internalTypedArray(): TypedArrayOfConstructor<T> {
+    return this.array
+  }
 
   get [Symbol.toStringTag](): string {
     return this.constructor.name
@@ -41,7 +45,7 @@ export class DynamicTypedArray<T extends TypedArrayConstructor> {
     assert(capacity >= 0, 'capacity must be greater than or equal to 0')
     assert(growthFactor > 1, 'growthFactory must be greater than or equal to 1')
 
-    this.array = new typedArrayConstructor(capacity)
+    this.array = new typedArrayConstructor(capacity) as TypedArrayOfConstructor<T>
     this.growthFactor = growthFactor
   }
 
@@ -108,14 +112,14 @@ export class DynamicTypedArray<T extends TypedArrayConstructor> {
     } else if (this.array.length < newCapacity) {
       const newArray = new this.typedArrayConstructor(newCapacity)
       newArray.set(this.array)
-      this.array = newArray
+      this.array = newArray as TypedArrayOfConstructor<T>
     } else if (this.array.length > newCapacity) {
       const newArray = new this.typedArrayConstructor(newCapacity)
       // 不需要的部分将被舍弃.
       for (let i = newCapacity; i--;) {
         newArray[i] = this.array[i]
       }
-      this.array = newArray
+      this.array = newArray as TypedArrayOfConstructor<T>
     }
   }
 }

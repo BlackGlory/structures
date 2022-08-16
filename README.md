@@ -226,6 +226,12 @@ class DynamicTypedArray<T extends TypedArrayConstructor> {
   get capacity(): number
   get length(): number
 
+  /**
+   * Note that `DynamicTypedArray` cannot respond to any operations on the internal array,
+   * you must ensure that indexes accessed are less than the length of `DynamicTypedArray`.
+   */
+  get internalTypedArray(): TypedArrayOfConstructor<T>
+
   constructor(
     typedArrayConstructor: T
   , options: {
