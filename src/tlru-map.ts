@@ -14,11 +14,11 @@ export class TLRUMap<K, V> {
    */ 
   protected itemMetadataSortedByExpirationTime: Array<{ key: K; expirationTime: number }> = []
 
-  get [Symbol.toStringTag]() {
+  get [Symbol.toStringTag](): string {
     return this.constructor.name
   }
 
-  get size() {
+  get size(): number {
     return this.map.size
   }
 

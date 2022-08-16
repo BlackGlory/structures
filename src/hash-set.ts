@@ -1,15 +1,15 @@
 export class HashSet<V, Hash = unknown> implements Iterable<V> {
   private map = new Map<Hash, V>()
 
-  get [Symbol.toStringTag]() {
+  get [Symbol.toStringTag](): string {
     return this.constructor.name
   }
 
-  get size() {
+  get size(): number {
     return this.map.size
   }
 
-  [Symbol.iterator]() {
+  [Symbol.iterator](): IterableIterator<V> {
     return this.map.values()
   }
 

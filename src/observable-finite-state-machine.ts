@@ -17,6 +17,10 @@ export class ObservableFiniteStateMachine<
 > extends FiniteStateMachine<State, Event> {
   private stateChanges = new Subject<IFiniteStateMachineStateChange<State, Event>>()
 
+  get [Symbol.toStringTag](): string {
+    return this.constructor.name
+  }
+
   observeStateChanges(): Observable<IFiniteStateMachineStateChange<State, Event>> {
     return this.stateChanges
   }

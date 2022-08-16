@@ -8,11 +8,11 @@ export class ExpirableMap<K, V> {
    */ 
   itemMetadataSortedByExpirationTime: Array<{ key: K; expirationTime: number }> = []
 
-  get [Symbol.toStringTag]() {
+  get [Symbol.toStringTag](): string {
     return this.constructor.name
   }
 
-  get size() {
+  get size(): number {
     return this.map.size
   }
 
@@ -51,7 +51,7 @@ export class ExpirableMap<K, V> {
     this.itemMetadataSortedByExpirationTime = []
   }
 
-  private addItemMetadata(key: K, expirationTime: number) {
+  private addItemMetadata(key: K, expirationTime: number): void {
     for (let i = 0; i < this.itemMetadataSortedByExpirationTime.length; i++) {
       const item = this.itemMetadataSortedByExpirationTime[i]
       if (expirationTime < item.expirationTime) {
@@ -73,7 +73,7 @@ export class ExpirableMap<K, V> {
     }
   }
 
-  private removeItemMetadata(key: K) {
+  private removeItemMetadata(key: K): void {
     const index = this.itemMetadataSortedByExpirationTime.findIndex(x => x.key === key)
     if (index >= 0) {
       this.itemMetadataSortedByExpirationTime.splice(index, 1)
@@ -85,7 +85,7 @@ export class ExpirableMap<K, V> {
     }
   }
 
-  private clearExpiredItems(timestamp: number) {
+  private clearExpiredItems(timestamp: number): void {
     const indexOfFirstUnexpired = this.itemMetadataSortedByExpirationTime.findIndex(
       x => x.expirationTime > timestamp
     )
@@ -96,7 +96,7 @@ export class ExpirableMap<K, V> {
     expiredItemKeys.forEach(x => this.map.delete(x.key))
   }
 
-  private rescheduleClearTimeout() {
+  private rescheduleClearTimeout(): void {
     this.cancelClearTimeout?.()
 
     if (this.itemMetadataSortedByExpirationTime.length > 0) {

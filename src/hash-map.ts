@@ -1,11 +1,11 @@
 export class HashMap<K, V, Hash = unknown> {
   private map = new Map<Hash, V>()
 
-  get [Symbol.toStringTag]() {
+  get [Symbol.toStringTag](): string {
     return this.constructor.name
   }
 
-  get size() {
+  get size(): number {
     return this.map.size
   }
 

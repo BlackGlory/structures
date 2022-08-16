@@ -5,6 +5,11 @@ export type IFiniteStateMachineSchema<State extends string, Event extends string
 
 export class FiniteStateMachine<State extends string, Event extends string> {
   private _state: State
+
+  get [Symbol.toStringTag](): string {
+    return this.constructor.name
+  }
+
   get state(): State {
     return this._state
   }

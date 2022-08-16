@@ -5,11 +5,11 @@ export class LRUMap<K, V> {
   private limit: number
   private map = new Map<K, V>()
 
-  get [Symbol.toStringTag]() {
+  get [Symbol.toStringTag](): string {
     return this.constructor.name
   }
 
-  get size() {
+  get size(): number {
     return this.map.size
   }
 
@@ -63,7 +63,7 @@ export class LRUMap<K, V> {
   /**
    * Return the earliest key inserted in the Map
    */
-  private getColdestKey(): K | undefined{
+  private getColdestKey(): K | undefined {
     return first(this.map.keys())
   }
 }

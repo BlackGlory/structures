@@ -10,7 +10,7 @@ class TrieNode<T, U> {
 export class TrieMap<K extends Iterable<T>, V, T = unknown> {
   private root = new TrieNode<T, V>()
 
-  get [Symbol.toStringTag]() {
+  get [Symbol.toStringTag](): string {
     return this.constructor.name
   }
 

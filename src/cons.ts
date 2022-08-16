@@ -1,9 +1,13 @@
+import { isNull } from '@blackglory/types'
 import { Cons } from 'justypes'
 export { Cons } from 'justypes'
 
 export function convertConsToArray<T>([value, next]: Cons<T>): T[] {
-  if (next === null) return [value]
-  return [value, ...convertConsToArray(next)]
+  if (isNull(next)) {
+    return [value]
+  } else {
+    return [value, ...convertConsToArray(next)]
+  }
 }
 
 export function convertArrayToCons<T>([value, ...next]: T[]): Cons<T> {

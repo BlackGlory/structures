@@ -1,7 +1,7 @@
 export class Queue<T> {
   private items: T[] = []
 
-  get [Symbol.toStringTag]() {
+  get [Symbol.toStringTag](): string {
     return this.constructor.name
   }
 

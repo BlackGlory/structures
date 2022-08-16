@@ -12,6 +12,8 @@ yarn add @blackglory/structures
 ### Box
 ```ts
 class Box<T> {
+  get [Symbol.toStringTag](): string
+
   constructor(value: T)
 
   get(): T 
@@ -166,6 +168,7 @@ type IFiniteStateMachineSchema<State extends string, Event extends string> =
   Record<State, Partial<Record<Event, State>>>
 
 class FiniteStateMachine<State extends string, Event extends string> {
+  get [Symbol.toStringTag](): string
   get state(): State
 
   constructor(
@@ -198,6 +201,8 @@ class ObservableFiniteStateMachine<
   State extends string
 , Event extends string
 > extends FiniteStateMachine<State, Event> {
+  get [Symbol.toStringTag](): string
+
   observeStateChanges(): Observable<IFiniteStateMachineStateChange<State, Event>>
 }
 ```
@@ -205,7 +210,8 @@ class ObservableFiniteStateMachine<
 ### SparseSet
 ```ts
 class SparseSet {
-  get [Symbol.iterator](): Iterable<number>
+  get [Symbol.toStringTag](): string
+  get [Symbol.iterator](): IterableIterator<number>
 
   add(value: number): void
   has(value: number): boolean

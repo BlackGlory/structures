@@ -1,10 +1,14 @@
 import { isntUndefined } from '@blackglory/types'
 
-export class SparseSet {
+export class SparseSet implements Iterable<number> {
   private values: number[] = []
   private valueToValueIndex: Array<number | undefined> = []
 
-  ;* [Symbol.iterator](): Generator<number, void, void> {
+  get [Symbol.toStringTag](): string {
+    return this.constructor.name
+  }
+
+  *[Symbol.iterator](): IterableIterator<number> {
     for (const value of this.values) {
       yield value
     }
