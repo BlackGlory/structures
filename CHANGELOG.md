@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.6.7](https://github.com/BlackGlory/structures/compare/v0.6.6...v0.6.7) (2022-08-16)
+
+
+### Features
+
+* add internalTypedArray getter ([30e1d29](https://github.com/BlackGlory/structures/commit/30e1d29b9ad86b4d5694b54bfd46d9e6c34909b3))
+
 ### [0.6.6](https://github.com/BlackGlory/structures/compare/v0.6.5...v0.6.6) (2022-08-16)
 
 
