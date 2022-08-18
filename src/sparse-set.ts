@@ -8,10 +8,8 @@ export class SparseSet implements Iterable<number> {
     return this.constructor.name
   }
 
-  *[Symbol.iterator](): IterableIterator<number> {
-    for (const value of this.values) {
-      yield value
-    }
+  [Symbol.iterator](): IterableIterator<number> {
+    return this.values[Symbol.iterator]()
   }
 
   has(value: number): boolean {
