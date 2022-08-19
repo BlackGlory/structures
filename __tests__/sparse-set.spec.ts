@@ -47,4 +47,13 @@ describe('SparseSet', () => {
     expect(set).toBeIterable()
     expect(arr).toStrictEqual([1, 2, 3])
   })
+
+  test('edge: remove', () => {
+    const set = new SparseSet()
+    set.add(1)
+
+    set.remove(1)
+
+    expect(set.has(1)).toBe(false)
+  })
 })

@@ -28,7 +28,9 @@ export class SparseSet implements Iterable<number> {
   remove(value: number): void {
     if (this.has(value)) {
       const lastValue = this.values.pop()!
-      if (value !== lastValue) {
+      if (value === lastValue) {
+        this.valueToValueIndex[value] = undefined
+      } else {
         const indexOfValue = this.valueToValueIndex[value]!
         this.values[indexOfValue] = lastValue
         this.valueToValueIndex[lastValue] = indexOfValue
