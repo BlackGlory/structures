@@ -1,5 +1,3 @@
-import { isntUndefined } from '@blackglory/types'
-
 export class SparseSet implements Iterable<number> {
   private values: number[] = []
   private valueToValueIndex: Array<number | undefined> = []
@@ -14,7 +12,7 @@ export class SparseSet implements Iterable<number> {
 
   has(value: number): boolean {
     // 跟一般的实现不同, 不需要访问values数组.
-    return isntUndefined(this.valueToValueIndex[value])
+    return value in this.valueToValueIndex
   }
 
   add(value: number): void {
@@ -26,16 +24,16 @@ export class SparseSet implements Iterable<number> {
   }
 
   remove(value: number): void {
-    const indexOfValue = this.valueToValueIndex[value]
-    if (isntUndefined(indexOfValue)) {
+    if (this.has(value)) {
       const lastValue = this.values.pop()!
       if (value === lastValue) {
-        this.valueToValueIndex[value] = undefined
+        delete this.valueToValueIndex[value]
       } else {
+        const indexOfValue = this.valueToValueIndex[value]!
         this.values[indexOfValue] = lastValue
         this.valueToValueIndex[lastValue] = indexOfValue
         // 跟一般的实现不同, 直接删除值的索引.
-        this.valueToValueIndex[value] = undefined
+        delete this.valueToValueIndex[value]
       }
     }
   }
