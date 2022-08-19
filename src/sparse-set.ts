@@ -26,12 +26,12 @@ export class SparseSet implements Iterable<number> {
   }
 
   remove(value: number): void {
-    if (this.has(value)) {
+    const indexOfValue = this.valueToValueIndex[value]
+    if (isntUndefined(indexOfValue)) {
       const lastValue = this.values.pop()!
       if (value === lastValue) {
         this.valueToValueIndex[value] = undefined
       } else {
-        const indexOfValue = this.valueToValueIndex[value]!
         this.values[indexOfValue] = lastValue
         this.valueToValueIndex[lastValue] = indexOfValue
         // 跟一般的实现不同, 直接删除值的索引.
