@@ -219,6 +219,8 @@ class SparseSet {
 }
 ```
 
+**Note that `SparseSet` is in many cases slower than JavaScript's native `Set<number>`.**
+
 ### DynamicTypedArray
 ```ts
 class DynamicTypedArray<T extends TypedArrayConstructor> {
