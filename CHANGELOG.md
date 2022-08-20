@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.10.0](https://github.com/BlackGlory/structures/compare/v0.9.0...v0.10.0) (2022-08-20)
+
+
+### ⚠ BREAKING CHANGES
+
+* Changed constructor of `TypedSparseMap`
+* Changed constructor of `TypedSparseSet`
+
+### Features
+
+* add `values` method ([88e06e0](https://github.com/BlackGlory/structures/commit/88e06e05a8b42e48c27d2b4ebaa98754f4e39a42))
+* improve behaviors ([5fd7387](https://github.com/BlackGlory/structures/commit/5fd7387f7d29c0bcf3d399510bc93f7fff3f751b))
+
+
+* rewrite the constructor ([b320b6e](https://github.com/BlackGlory/structures/commit/b320b6ea4d034064791d6ba47001443b08c83d9f))
+* rewrite the constructor ([1188d55](https://github.com/BlackGlory/structures/commit/1188d556d8a7d39075d77f1cfe8f32aef38f0c50))
+
 ## [0.9.0](https://github.com/BlackGlory/structures/compare/v0.8.0...v0.9.0) (2022-08-20)
 
 
