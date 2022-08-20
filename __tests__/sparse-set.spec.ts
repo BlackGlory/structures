@@ -58,4 +58,17 @@ describe('SparseSet', () => {
     expect(set).toBeIterable()
     expect(arr).toStrictEqual([1, 2, 3])
   })
+
+  test('values', () => {
+    const set = new SparseSet()
+    set.add(1)
+    set.add(2)
+    set.add(3)
+
+    const result = set.values()
+    const arrResult = toArray(result)
+
+    expect(result).toBeIterable()
+    expect(arrResult).toStrictEqual([1, 2, 3])
+  })
 })

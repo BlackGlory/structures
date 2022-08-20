@@ -10,6 +10,10 @@ export class SparseSet implements Iterable<number> {
     return this.indexToValue[Symbol.iterator]()
   }
 
+  values(): Iterable<number> {
+    return this.indexToValue[Symbol.iterator]()
+  }
+
   has(value: number): boolean {
     // 跟一般的实现不同, 不需要访问values数组.
     return value in this.valueToIndex
