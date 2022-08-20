@@ -25,15 +25,26 @@ describe('SparseSet', () => {
     expect(set.has(2)).toBe(true)
   })
 
-  test('delete', () => {
-    const set = new SparseSet()
-    set.add(1)
-    set.add(2)
+  describe('delete', () => {
+    test('not last item', () => {
+      const set = new SparseSet()
+      set.add(1)
+      set.add(2)
 
-    set.delete(1)
+      set.delete(1)
 
-    expect(set.has(1)).toBe(false)
-    expect(set.has(2)).toBe(true)
+      expect(set.has(1)).toBe(false)
+      expect(set.has(2)).toBe(true)
+    })
+
+    test('last item', () => {
+      const set = new SparseSet()
+      set.add(1)
+
+      set.delete(1)
+
+      expect(set.has(1)).toBe(false)
+    })
   })
 
   test('[Symbol.iterator]', () => {
@@ -46,14 +57,5 @@ describe('SparseSet', () => {
 
     expect(set).toBeIterable()
     expect(arr).toStrictEqual([1, 2, 3])
-  })
-
-  test('edge: delete', () => {
-    const set = new SparseSet()
-    set.add(1)
-
-    set.delete(1)
-
-    expect(set.has(1)).toBe(false)
   })
 })

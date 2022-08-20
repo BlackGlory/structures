@@ -25,15 +25,26 @@ describe('SparseMap', () => {
     expect(map.has(2)).toBe(true)
   })
 
-  test('remove', () => {
-    const map = new SparseMap<string>()
-    map.set(1, '1')
-    map.set(2, '2')
+  describe('delete', () => {
+    test('not last item', () => {
+      const map = new SparseMap<string>()
+      map.set(1, '1')
+      map.set(2, '2')
 
-    map.delete(1)
+      map.delete(1)
 
-    expect(map.has(1)).toBe(false)
-    expect(map.has(2)).toBe(true)
+      expect(map.has(1)).toBe(false)
+      expect(map.has(2)).toBe(true)
+    })
+
+    test('last item', () => {
+      const set = new SparseMap<string>()
+      set.set(1, '1')
+
+      set.delete(1)
+
+      expect(set.has(1)).toBe(false)
+    })
   })
 
   test('entries', () => {
@@ -77,14 +88,5 @@ describe('SparseMap', () => {
 
     expect(result).toBeIterable()
     expect(arr).toStrictEqual(['1', '2', '3'])
-  })
-
-  test('edge: delete', () => {
-    const set = new SparseMap<string>()
-    set.set(1, '1')
-
-    set.delete(1)
-
-    expect(set.has(1)).toBe(false)
   })
 })

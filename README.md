@@ -219,8 +219,6 @@ class SparseSet {
 }
 ```
 
-**Note that `SparseSet` is in many cases slower than JavaScript's native `Set<number>`.**
-
 ### SparseMap
 ```ts
 class SparseMap<T> {
