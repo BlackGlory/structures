@@ -2,8 +2,8 @@ import { UnsignedTypedArrayConstructor } from 'justypes'
 import { DynamicTypedArray } from './dynamic-typed-array'
 
 export class SparseSet<T extends UnsignedTypedArrayConstructor> implements Iterable<number> {
-  private indexToValue: DynamicTypedArray<T>
   private valueToIndex = new DynamicTypedArray(Uint32Array)
+  private indexToValue: DynamicTypedArray<T>
 
   constructor(typedArrayConstructor: T) {
     this.indexToValue = new DynamicTypedArray(typedArrayConstructor)

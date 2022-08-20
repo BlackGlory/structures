@@ -4,7 +4,7 @@ import '@blackglory/jest-matchers'
 
 describe('SparseMap', () => {
   test('has', () => {
-    const map = new SparseMap()
+    const map = new SparseMap(Int8Array)
     map.set(1, 10)
 
     const result1 = map.has(1)
@@ -15,7 +15,7 @@ describe('SparseMap', () => {
   })
 
   test('set', () => {
-    const map = new SparseMap()
+    const map = new SparseMap(Int8Array)
 
     map.set(1, 10)
     map.set(2, 20)
@@ -27,7 +27,7 @@ describe('SparseMap', () => {
 
   describe('delete', () => {
     test('not last item', () => {
-      const map = new SparseMap()
+      const map = new SparseMap(Int8Array)
       map.set(1, 10)
       map.set(2, 20)
 
@@ -38,7 +38,7 @@ describe('SparseMap', () => {
     })
 
     test('last item', () => {
-      const set = new SparseMap()
+      const set = new SparseMap(Int8Array)
       set.set(1, 10)
 
       set.delete(1)
@@ -48,7 +48,7 @@ describe('SparseMap', () => {
   })
 
   test('entries', () => {
-    const set = new SparseMap()
+    const set = new SparseMap(Int8Array)
     set.set(1, 10)
     set.set(2, 20)
     set.set(3, 30)
@@ -65,7 +65,7 @@ describe('SparseMap', () => {
   })
 
   test('keys', () => {
-    const set = new SparseMap()
+    const set = new SparseMap(Int8Array)
     set.set(1, 10)
     set.set(2, 20)
     set.set(3, 30)
@@ -78,7 +78,7 @@ describe('SparseMap', () => {
   })
 
   test('values', () => {
-    const set = new SparseMap()
+    const set = new SparseMap(Int8Array)
     set.set(1, 10)
     set.set(2, 20)
     set.set(3, 30)

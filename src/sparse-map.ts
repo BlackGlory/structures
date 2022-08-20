@@ -1,12 +1,17 @@
+import { TypedArrayConstructor } from 'justypes'
 import { DynamicTypedArray } from './dynamic-typed-array'
 
-export class SparseMap {
+export class SparseMap<T extends TypedArrayConstructor> {
   private keyToIndex = new DynamicTypedArray(Uint32Array)
   private indexToKey = new DynamicTypedArray(Uint32Array)
-  private indexToValue = new DynamicTypedArray(Uint32Array)
+  private indexToValue: DynamicTypedArray<T>
 
   get [Symbol.toStringTag](): string {
     return this.constructor.name
+  }
+
+  constructor(typedArrayConstructor: T) {
+    this.indexToValue = new DynamicTypedArray(typedArrayConstructor)
   }
 
   * entries(): Iterable<[key: number, value: number]> {

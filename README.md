@@ -223,8 +223,10 @@ class SparseSet<T extends UnsignedTypedArrayConstructor> {
 
 ### SparseMap
 ```ts
-class SparseMap<T> {
+class SparseMap<T extends TypedArrayConstructor> {
   get [Symbol.toStringTag](): string
+
+  constructor(typedArrayConstructor: T)
 
   entries(): Iterable<[key: number, value: number]>
   keys(): Iterable<number>
