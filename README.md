@@ -213,7 +213,13 @@ class SparseSet<T extends UnsignedTypedArrayConstructor> {
   get [Symbol.toStringTag](): string
   get [Symbol.iterator](): IterableIterator<number>
 
-  constructor(typedArrayConstructor: T)
+  constructor(
+    typedArrayConstructor: T
+  , options?: {
+      capacity?: number = 0
+      growthFactor?: number = 1.5
+    }
+  )
 
   add(value: number): void
   has(value: number): boolean
@@ -226,7 +232,13 @@ class SparseSet<T extends UnsignedTypedArrayConstructor> {
 class SparseMap<T extends TypedArrayConstructor> {
   get [Symbol.toStringTag](): string
 
-  constructor(typedArrayConstructor: T)
+  constructor(
+    typedArrayConstructor: T
+  , options?: {
+      capacity?: number = 0
+      growthFactor?: number = 1.5
+    }
+  )
 
   entries(): Iterable<[key: number, value: number]>
   keys(): Iterable<number>
@@ -254,10 +266,10 @@ class DynamicTypedArray<T extends TypedArrayConstructor> {
 
   constructor(
     typedArrayConstructor: T
-  , options: {
+  , options?: {
       capacity?: number = 0
       growthFactor?: number = 1.5
-    } = {}
+    }
   )
 
   set(index: number, value: number): void

@@ -1,17 +1,30 @@
 import { TypedArrayConstructor } from 'justypes'
 import { DynamicTypedArray } from './dynamic-typed-array'
 
+interface ISparseMapOptions {
+  capacity?: number
+  growthFactor?: number
+}
+
 export class SparseMap<T extends TypedArrayConstructor> {
-  private keyToIndex = new DynamicTypedArray(Uint32Array)
-  private indexToKey = new DynamicTypedArray(Uint32Array)
+  private keyToIndex: DynamicTypedArray<typeof Uint32Array>
+  private indexToKey: DynamicTypedArray<typeof Uint32Array>
   private indexToValue: DynamicTypedArray<T>
 
   get [Symbol.toStringTag](): string {
     return this.constructor.name
   }
 
-  constructor(typedArrayConstructor: T) {
-    this.indexToValue = new DynamicTypedArray(typedArrayConstructor)
+  constructor(
+    typedArrayConstructor: T
+  , { capacity = 0, growthFactor = 1.5 }: ISparseMapOptions = {}
+  ) {
+    this.indexToValue = new DynamicTypedArray(
+      typedArrayConstructor
+    , { capacity, growthFactor }
+    )
+    this.keyToIndex = new DynamicTypedArray(Uint32Array, { capacity, growthFactor })
+    this.indexToKey = new DynamicTypedArray(Uint32Array, { capacity, growthFactor })
   }
 
   * entries(): Iterable<[key: number, value: number]> {

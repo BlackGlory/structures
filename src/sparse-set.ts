@@ -1,12 +1,21 @@
 import { UnsignedTypedArrayConstructor } from 'justypes'
 import { DynamicTypedArray } from './dynamic-typed-array'
 
+export interface ISparseSetOptions {
+  capacity?: number
+  growthFactor?: number
+}
+
 export class SparseSet<T extends UnsignedTypedArrayConstructor> implements Iterable<number> {
-  private valueToIndex = new DynamicTypedArray(Uint32Array)
+  private valueToIndex: DynamicTypedArray<typeof Uint32Array>
   private indexToValue: DynamicTypedArray<T>
 
-  constructor(typedArrayConstructor: T) {
-    this.indexToValue = new DynamicTypedArray(typedArrayConstructor)
+  constructor(
+    typedArrayConstructor: T
+  , { capacity = 0, growthFactor = 1.5 }: ISparseSetOptions = {}
+  ) {
+    this.indexToValue = new DynamicTypedArray(typedArrayConstructor, { capacity, growthFactor })
+    this.valueToIndex = new DynamicTypedArray(Uint32Array, { capacity, growthFactor })
   }
 
   get [Symbol.toStringTag](): string {
