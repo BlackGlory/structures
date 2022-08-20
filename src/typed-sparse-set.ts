@@ -1,23 +1,22 @@
 import { UnsignedTypedArrayConstructor } from 'justypes'
 import { DynamicTypedArray } from './dynamic-typed-array'
 
-export interface ITypedSparseSetOptions {
-  capacity?: number
-  growthFactor?: number
-}
-
 export class TypedSparseSet<
   T extends UnsignedTypedArrayConstructor
 > implements Iterable<number> {
-  private valueToIndex: DynamicTypedArray<typeof Uint32Array>
+  private valueToIndex: number[]
   private indexToValue: DynamicTypedArray<T>
 
-  constructor(
-    typedArrayConstructor: T
-  , { capacity = 0, growthFactor = 1.5 }: ITypedSparseSetOptions = {}
-  ) {
-    this.indexToValue = new DynamicTypedArray(typedArrayConstructor, { capacity, growthFactor })
-    this.valueToIndex = new DynamicTypedArray(Uint32Array, { capacity, growthFactor })
+  constructor(array: DynamicTypedArray<T>) {
+    const valueToIndex: number[] = []
+    if (array.length > 0) {
+      for (const [index, value] of array.internalTypedArray.entries()) {
+        valueToIndex[value] = index
+      }
+    }
+
+    this.indexToValue = array
+    this.valueToIndex = valueToIndex
   }
 
   get [Symbol.toStringTag](): string {
@@ -25,11 +24,17 @@ export class TypedSparseSet<
   }
 
   [Symbol.iterator](): IterableIterator<number> {
-    return this.indexToValue.internalTypedArray[Symbol.iterator]()
+    return this.values()
+  }
+
+  * values(): IterableIterator<number> {
+    for (let i = 0; i < this.indexToValue.length; i++) {
+      yield this.indexToValue.internalTypedArray[i]
+    }
   }
 
   has(value: number): boolean {
-    const index = this.valueToIndex.internalTypedArray[value]
+    const index = this.valueToIndex[value]
     return this.indexToValue.internalTypedArray[index] === value
   }
 
@@ -37,17 +42,17 @@ export class TypedSparseSet<
     if (!this.has(value)) {
       const index = this.indexToValue.length
       this.indexToValue.push(value)
-      this.valueToIndex.set(value, index)
+      this.valueToIndex[value] = index
     }
   }
 
   delete(value: number): void {
-    const index = this.valueToIndex.internalTypedArray[value]
+    const index = this.valueToIndex[value]
     if (this.indexToValue.internalTypedArray[index] === value) {
       const lastValue = this.indexToValue.pop()!
       if (value !== lastValue) {
         this.indexToValue.internalTypedArray[index] = lastValue
-        this.valueToIndex.internalTypedArray[lastValue] = index
+        this.valueToIndex[lastValue] = index
       }
     }
   }

@@ -1,10 +1,11 @@
 import { TypedSparseSet } from '@src/typed-sparse-set'
+import { DynamicTypedArray } from '@src/dynamic-typed-array'
 import { toArray } from 'iterable-operator'
 import '@blackglory/jest-matchers'
 
 describe('TypedSparseSet', () => {
   test('has', () => {
-    const set = new TypedSparseSet(Uint8Array)
+    const set = new TypedSparseSet(new DynamicTypedArray(Uint8Array))
     set.add(1)
 
     const result1 = set.has(1)
@@ -15,7 +16,7 @@ describe('TypedSparseSet', () => {
   })
 
   test('add', () => {
-    const set = new TypedSparseSet(Uint8Array)
+    const set = new TypedSparseSet(new DynamicTypedArray(Uint8Array))
 
     set.add(1)
     set.add(2)
@@ -27,7 +28,7 @@ describe('TypedSparseSet', () => {
 
   describe('delete', () => {
     test('not last item', () => {
-      const set = new TypedSparseSet(Uint8Array)
+      const set = new TypedSparseSet(new DynamicTypedArray(Uint8Array))
       set.add(1)
       set.add(2)
 
@@ -38,7 +39,7 @@ describe('TypedSparseSet', () => {
     })
 
     test('last item', () => {
-      const set = new TypedSparseSet(Uint8Array)
+      const set = new TypedSparseSet(new DynamicTypedArray(Uint8Array))
       set.add(1)
 
       set.delete(1)
@@ -48,7 +49,7 @@ describe('TypedSparseSet', () => {
   })
 
   test('[Symbol.iterator]', () => {
-    const set = new TypedSparseSet(Uint8Array)
+    const set = new TypedSparseSet(new DynamicTypedArray(Uint8Array))
     set.add(1)
     set.add(2)
     set.add(3)
@@ -57,5 +58,18 @@ describe('TypedSparseSet', () => {
 
     expect(set).toBeIterable()
     expect(arr).toStrictEqual([1, 2, 3])
+  })
+
+  test('values', () => {
+    const set = new TypedSparseSet(new DynamicTypedArray(Uint8Array, { growthFactor: 10 }))
+    set.add(1)
+    set.add(2)
+    set.add(3)
+
+    const result = set.values()
+    const arrResult = toArray(result)
+
+    expect(result).toBeIterable()
+    expect(arrResult).toStrictEqual([1, 2, 3])
   })
 })
