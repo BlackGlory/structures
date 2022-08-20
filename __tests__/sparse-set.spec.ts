@@ -3,6 +3,15 @@ import { toArray } from 'iterable-operator'
 import '@blackglory/jest-matchers'
 
 describe('SparseSet', () => {
+  test('create', () => {
+    const set = new SparseSet([1, 2])
+
+    expect(set.has(0)).toBe(false)
+    expect(set.has(1)).toBe(true)
+    expect(set.has(2)).toBe(true)
+    expect(set.has(3)).toBe(false)
+  })
+
   test('has', () => {
     const set = new SparseSet()
     set.add(1)

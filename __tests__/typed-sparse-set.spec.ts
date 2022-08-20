@@ -4,6 +4,19 @@ import { toArray } from 'iterable-operator'
 import '@blackglory/jest-matchers'
 
 describe('TypedSparseSet', () => {
+  test('create', () => {
+    const array = new DynamicTypedArray(Uint8Array)
+    array.set(0, 1)
+    array.set(1, 2)
+
+    const set = new TypedSparseSet(array)
+
+    expect(set.has(0)).toBe(false)
+    expect(set.has(1)).toBe(true)
+    expect(set.has(2)).toBe(true)
+    expect(set.has(3)).toBe(false)
+  })
+
   test('has', () => {
     const set = new TypedSparseSet(new DynamicTypedArray(Uint8Array))
     set.add(1)

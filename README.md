@@ -213,6 +213,8 @@ class SparseSet implements Iterable<number> {
   get [Symbol.toStringTag](): string
   get [Symbol.iterator](): IterableIterator<number>
 
+  constructor(array?: number[])
+
   values(): Iterable<number>
 
   has(value: number): boolean
@@ -276,8 +278,8 @@ class TypedSparseSet<T extends UnsignedTypedArrayConstructor> {
 
   values(): IterableIterator<number>
 
-  add(value: number): void
   has(value: number): boolean
+  add(value: number): void
   delete(value: number): void
 }
 ```
