@@ -10,7 +10,7 @@ interface IDynamicTypedArrayOptions {
 export class DynamicTypedArray<T extends TypedArrayConstructor> {
   private array: TypedArrayOfConstructor<T>
   private _length: number = 0
-  private growthFactor: number
+  readonly growthFactor: number
 
   get internalTypedArray(): TypedArrayOfConstructor<T> {
     return this.array
@@ -43,7 +43,7 @@ export class DynamicTypedArray<T extends TypedArrayConstructor> {
   ) {
     assert(Number.isInteger(capacity), 'capacity must be an integer')
     assert(capacity >= 0, 'capacity must be greater than or equal to 0')
-    assert(growthFactor > 1, 'growthFactory must be greater than or equal to 1')
+    assert(growthFactor >= 1, 'growthFactory must be greater than or equal to 1')
 
     this.array = new typedArrayConstructor(capacity) as TypedArrayOfConstructor<T>
     this.growthFactor = growthFactor
@@ -129,33 +129,37 @@ export function computeNewCapacity(
 , targetLength: number
 , growthFactor: number
 ): number {
-  if (oldCapacity === targetLength) {
+  if (growthFactor === 1) {
     return targetLength
-  } else if (oldCapacity < targetLength) { 
-    // 增加容量以适配targetLength
-    let newCapacity = Math.max(oldCapacity, 1)
-    while (newCapacity < targetLength) {
-      newCapacity *= growthFactor
-    }
-    return Math.floor(newCapacity)
   } else {
-    // 尝试减少容量以适配targetLength
-
-    // `targetLength = 0`是特殊情况,
-    // 此时无论怎么将oldCapacity除以growthFactory几次, 都不可能得到比targetLength小的结果.
-    if (targetLength === 0) {
-      return 0
-    } else {
-      let newCapacity = oldCapacity
-      while (true) {
-        const temp = newCapacity / growthFactor
-        if (temp < targetLength) {
-          break
-        } else {
-          newCapacity = temp
-        }
+    if (oldCapacity === targetLength) {
+      return targetLength
+    } else if (oldCapacity < targetLength) { 
+      // 增加容量以适配targetLength
+      let newCapacity = Math.max(oldCapacity, 1)
+      while (newCapacity < targetLength) {
+        newCapacity *= growthFactor
       }
       return Math.floor(newCapacity)
+    } else {
+      // 尝试减少容量以适配targetLength
+
+      // `targetLength = 0`是特殊情况,
+      // 此时无论怎么将oldCapacity除以growthFactory几次, 都不可能得到比targetLength小的结果.
+      if (targetLength === 0) {
+        return 0
+      } else {
+        let newCapacity = oldCapacity
+        while (true) {
+          const temp = newCapacity / growthFactor
+          if (temp < targetLength) {
+            break
+          } else {
+            newCapacity = temp
+          }
+        }
+        return Math.floor(newCapacity)
+      }
     }
   }
 }

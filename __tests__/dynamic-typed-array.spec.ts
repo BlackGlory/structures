@@ -232,6 +232,28 @@ describe('computeNewCapacity', () => {
     expect(result).toBe(0)
   })
 
+  describe('edge: growthFactory = 1', () => {
+    test('targetLength > oldCapacity', () => {
+      const oldCapacity = 0
+      const targetLength = 30
+      const growthFactory = 1
+
+      const result = computeNewCapacity(oldCapacity, targetLength, growthFactory)
+
+      expect(result).toBe(30)
+    })
+
+    test('targetLength < oldCapacity', () => {
+      const oldCapacity = 30
+      const targetLength = 0
+      const growthFactory = 1
+
+      const result = computeNewCapacity(oldCapacity, targetLength, growthFactory)
+
+      expect(result).toBe(0)
+    })
+  })
+
   describe('edge: growthFactory is a floating point number', () => {
     test('oldCapacity < targetLength', () => {
       const oldCapacity = 9
