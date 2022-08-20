@@ -213,6 +213,8 @@ class SparseSet implements Iterable<number> {
   get [Symbol.toStringTag](): string
   get [Symbol.iterator](): IterableIterator<number>
 
+  values(): Iterable<number>
+
   has(value: number): boolean
   add(value: number): void
   delete(value: number): void
@@ -235,56 +237,13 @@ class SparseMap<T> {
 }
 ```
 
-### TypedSparseSet
-```ts
-class TypedSparseSet<T extends UnsignedTypedArrayConstructor> {
-  get [Symbol.toStringTag](): string
-  get [Symbol.iterator](): IterableIterator<number>
-
-  constructor(
-    typedArrayConstructor: T
-  , options?: {
-      capacity?: number = 0
-      growthFactor?: number = 1.5
-    }
-  )
-
-  add(value: number): void
-  has(value: number): boolean
-  delete(value: number): void
-}
-```
-
-### TypedSparseMap
-```ts
-class TypedSparseMap<T extends TypedArrayConstructor> {
-  get [Symbol.toStringTag](): string
-
-  constructor(
-    typedArrayConstructor: T
-  , options?: {
-      capacity?: number = 0
-      growthFactor?: number = 1.5
-    }
-  )
-
-  entries(): Iterable<[key: number, value: number]>
-  keys(): Iterable<number>
-  values(): Iterable<number>
-
-  has(key: number): boolean
-  get(key: number): T | undefined
-  set(key: number, value: number): void
-  delete(key: number): void
-}
-```
-
 ### DynamicTypedArray
 ```ts
 class DynamicTypedArray<T extends TypedArrayConstructor> {
   get [Symbol.toStringTag](): string
   get capacity(): number
   get length(): number
+  readonly growthFactor: number
 
   /**
    * Note that `DynamicTypedArray` cannot respond to any operations on the internal array,
@@ -304,5 +263,39 @@ class DynamicTypedArray<T extends TypedArrayConstructor> {
   get(index: number): number | undefined
   push(...values: number[]): void
   pop(): number | undefined
+}
+```
+
+### TypedSparseSet
+```ts
+class TypedSparseSet<T extends UnsignedTypedArrayConstructor> {
+  get [Symbol.toStringTag](): string
+  get [Symbol.iterator](): IterableIterator<number>
+
+  constructor(array: DynamicTypedArray<T>)
+
+  values(): IterableIterator<number>
+
+  add(value: number): void
+  has(value: number): boolean
+  delete(value: number): void
+}
+```
+
+### TypedSparseMap
+```ts
+class TypedSparseMap<T extends TypedArrayConstructor> {
+  get [Symbol.toStringTag](): string
+
+  constructor(array: DynamicTypedArray<T>)
+
+  entries(): IterableIterator<[key: number, value: number]>
+  keys(): IterableIterator<number>
+  values(): IterableIterator<number>
+
+  has(key: number): boolean
+  get(key: number): T | undefined
+  set(key: number, value: number): void
+  delete(key: number): void
 }
 ```

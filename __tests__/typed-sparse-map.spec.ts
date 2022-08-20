@@ -1,10 +1,11 @@
 import { TypedSparseMap } from '@src/typed-sparse-map'
+import { DynamicTypedArray } from '@src/dynamic-typed-array'
 import { toArray } from 'iterable-operator'
 import '@blackglory/jest-matchers'
 
 describe('TypedSparseMap', () => {
   test('has', () => {
-    const map = new TypedSparseMap(Int8Array)
+    const map = new TypedSparseMap(new DynamicTypedArray(Int8Array))
     map.set(1, 10)
 
     const result1 = map.has(1)
@@ -15,7 +16,7 @@ describe('TypedSparseMap', () => {
   })
 
   test('set', () => {
-    const map = new TypedSparseMap(Int8Array)
+    const map = new TypedSparseMap(new DynamicTypedArray(Int8Array))
 
     map.set(1, 10)
     map.set(2, 20)
@@ -27,7 +28,7 @@ describe('TypedSparseMap', () => {
 
   describe('delete', () => {
     test('not last item', () => {
-      const map = new TypedSparseMap(Int8Array)
+      const map = new TypedSparseMap(new DynamicTypedArray(Int8Array))
       map.set(1, 10)
       map.set(2, 20)
 
@@ -38,7 +39,7 @@ describe('TypedSparseMap', () => {
     })
 
     test('last item', () => {
-      const set = new TypedSparseMap(Int8Array)
+      const set = new TypedSparseMap(new DynamicTypedArray(Int8Array))
       set.set(1, 10)
 
       set.delete(1)
@@ -48,7 +49,7 @@ describe('TypedSparseMap', () => {
   })
 
   test('entries', () => {
-    const set = new TypedSparseMap(Int8Array)
+    const set = new TypedSparseMap(new DynamicTypedArray(Int8Array, { capacity: 100 }))
     set.set(1, 10)
     set.set(2, 20)
     set.set(3, 30)
@@ -65,7 +66,7 @@ describe('TypedSparseMap', () => {
   })
 
   test('keys', () => {
-    const set = new TypedSparseMap(Int8Array)
+    const set = new TypedSparseMap(new DynamicTypedArray(Int8Array, { capacity: 100 }))
     set.set(1, 10)
     set.set(2, 20)
     set.set(3, 30)
@@ -78,7 +79,7 @@ describe('TypedSparseMap', () => {
   })
 
   test('values', () => {
-    const set = new TypedSparseMap(Int8Array)
+    const set = new TypedSparseMap(new DynamicTypedArray(Int8Array, { capacity: 100 }))
     set.set(1, 10)
     set.set(2, 20)
     set.set(3, 30)

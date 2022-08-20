@@ -4,11 +4,11 @@ import { DynamicTypedArray } from './dynamic-typed-array'
 export class TypedSparseSet<
   T extends UnsignedTypedArrayConstructor
 > implements Iterable<number> {
-  private valueToIndex: number[]
+  private valueToIndex: Array<number | undefined>
   private indexToValue: DynamicTypedArray<T>
 
   constructor(array: DynamicTypedArray<T>) {
-    const valueToIndex: number[] = []
+    const valueToIndex: Array<number | undefined> = []
     if (array.length > 0) {
       for (const [index, value] of array.internalTypedArray.entries()) {
         valueToIndex[value] = index
@@ -35,7 +35,7 @@ export class TypedSparseSet<
 
   has(value: number): boolean {
     const index = this.valueToIndex[value]
-    return this.indexToValue.internalTypedArray[index] === value
+    return this.indexToValue.internalTypedArray[index!] === value
   }
 
   add(value: number): void {
@@ -48,10 +48,10 @@ export class TypedSparseSet<
 
   delete(value: number): void {
     const index = this.valueToIndex[value]
-    if (this.indexToValue.internalTypedArray[index] === value) {
+    if (this.indexToValue.internalTypedArray[index!] === value) {
       const lastValue = this.indexToValue.pop()!
       if (value !== lastValue) {
-        this.indexToValue.internalTypedArray[index] = lastValue
+        this.indexToValue.internalTypedArray[index!] = lastValue
         this.valueToIndex[lastValue] = index
       }
     }
