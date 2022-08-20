@@ -23,7 +23,7 @@ export class SparseSet implements Iterable<number> {
     }
   }
 
-  remove(value: number): void {
+  delete(value: number): void {
     if (this.has(value)) {
       const lastValue = this.indexToValue.pop()!
       if (value === lastValue) {

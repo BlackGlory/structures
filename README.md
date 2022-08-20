@@ -215,7 +215,7 @@ class SparseSet {
 
   add(value: number): void
   has(value: number): boolean
-  remove(value: number): void
+  delete(value: number): void
 }
 ```
 

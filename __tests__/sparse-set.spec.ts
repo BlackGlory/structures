@@ -25,12 +25,12 @@ describe('SparseSet', () => {
     expect(set.has(2)).toBe(true)
   })
 
-  test('remove', () => {
+  test('delete', () => {
     const set = new SparseSet()
     set.add(1)
     set.add(2)
 
-    set.remove(1)
+    set.delete(1)
 
     expect(set.has(1)).toBe(false)
     expect(set.has(2)).toBe(true)
@@ -48,11 +48,11 @@ describe('SparseSet', () => {
     expect(arr).toStrictEqual([1, 2, 3])
   })
 
-  test('edge: remove', () => {
+  test('edge: delete', () => {
     const set = new SparseSet()
     set.add(1)
 
-    set.remove(1)
+    set.delete(1)
 
     expect(set.has(1)).toBe(false)
   })
