@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.8.0](https://github.com/BlackGlory/structures/compare/v0.7.0...v0.8.0) (2022-08-20)
+
+
+### ⚠ BREAKING CHANGES
+
+* Changed constructor of `SparseMap`
+* Changed constructor of `SparseSet`
+
+### Features
+
+* add options ([d2711d3](https://github.com/BlackGlory/structures/commit/d2711d34dff72ada9db6abd44607a6b14bc571aa))
+* add typedArrayConstructor support ([d2ed5d1](https://github.com/BlackGlory/structures/commit/d2ed5d13133ec9a7261a015d037f1559f4d68d4a))
+* add typedArrayConstructor support ([ec0d078](https://github.com/BlackGlory/structures/commit/ec0d078e361d830b4f3f61acb94add836166896d))
+
 ## [0.7.0](https://github.com/BlackGlory/structures/compare/v0.6.10...v0.7.0) (2022-08-20)
 
 
