@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.7.0](https://github.com/BlackGlory/structures/compare/v0.6.10...v0.7.0) (2022-08-20)
+
+
+### ⚠ BREAKING CHANGES
+
+* Rewrited `SparseMap`
+* `SparseSet.remove` => `SparseSet.delete`
+
+### Features
+
+* add SparseMap ([a47cc0c](https://github.com/BlackGlory/structures/commit/a47cc0cb58df55e6dce2b1e54fb557570a04003c))
+
+
+* rename remove to delete ([c8a1a65](https://github.com/BlackGlory/structures/commit/c8a1a6509129a45c3acd4a49d4ca10f8701d9377))
+* replace Array with DynamicTypedArray ([db8859d](https://github.com/BlackGlory/structures/commit/db8859da267e84306f980f8b284ab2ce99482ad9))
+
 ### [0.6.10](https://github.com/BlackGlory/structures/compare/v0.6.9...v0.6.10) (2022-08-19)
 
 
