@@ -209,9 +209,11 @@ class ObservableFiniteStateMachine<
 
 ### SparseSet
 ```ts
-class SparseSet {
+class SparseSet<T extends UnsignedTypedArrayConstructor> {
   get [Symbol.toStringTag](): string
   get [Symbol.iterator](): IterableIterator<number>
+
+  constructor(typedArrayConstructor: T)
 
   add(value: number): void
   has(value: number): boolean

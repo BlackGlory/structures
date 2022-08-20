@@ -1,8 +1,13 @@
+import { UnsignedTypedArrayConstructor } from 'justypes'
 import { DynamicTypedArray } from './dynamic-typed-array'
 
-export class SparseSet implements Iterable<number> {
-  private indexToValue = new DynamicTypedArray(Uint32Array)
+export class SparseSet<T extends UnsignedTypedArrayConstructor> implements Iterable<number> {
+  private indexToValue: DynamicTypedArray<T>
   private valueToIndex = new DynamicTypedArray(Uint32Array)
+
+  constructor(typedArrayConstructor: T) {
+    this.indexToValue = new DynamicTypedArray(typedArrayConstructor)
+  }
 
   get [Symbol.toStringTag](): string {
     return this.constructor.name

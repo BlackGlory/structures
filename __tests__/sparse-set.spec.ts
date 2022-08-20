@@ -4,7 +4,7 @@ import '@blackglory/jest-matchers'
 
 describe('SparseSet', () => {
   test('has', () => {
-    const set = new SparseSet()
+    const set = new SparseSet(Uint8Array)
     set.add(1)
 
     const result1 = set.has(1)
@@ -15,7 +15,7 @@ describe('SparseSet', () => {
   })
 
   test('add', () => {
-    const set = new SparseSet()
+    const set = new SparseSet(Uint8Array)
 
     set.add(1)
     set.add(2)
@@ -27,7 +27,7 @@ describe('SparseSet', () => {
 
   describe('delete', () => {
     test('not last item', () => {
-      const set = new SparseSet()
+      const set = new SparseSet(Uint8Array)
       set.add(1)
       set.add(2)
 
@@ -38,7 +38,7 @@ describe('SparseSet', () => {
     })
 
     test('last item', () => {
-      const set = new SparseSet()
+      const set = new SparseSet(Uint8Array)
       set.add(1)
 
       set.delete(1)
@@ -48,7 +48,7 @@ describe('SparseSet', () => {
   })
 
   test('[Symbol.iterator]', () => {
-    const set = new SparseSet()
+    const set = new SparseSet(Uint8Array)
     set.add(1)
     set.add(2)
     set.add(3)

@@ -4179,10 +4179,10 @@ justypes@^2.0.0:
   resolved "https://registry.yarnpkg.com/justypes/-/justypes-2.0.0.tgz#e1a09c8c99e08a54ac3a48bb97cb259d5082f907"
   integrity sha512-WzP+uveN67uQE9RsctKxqJrfBPv3aGyKnUasxaPCdXQM1voWtMObWHzpns4PjNoDFw0EvzLVoTShKn+ihpeRTA==
 
-justypes@^2.1.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/justypes/-/justypes-2.1.0.tgz#fe2da1b88e47f128827fc1e6339b2534f1e101c3"
-  integrity sha512-GY6ebovdlxry4TMfSg/sSv5lgTCSVFm5AO2bsaNacfmfchH+VMkZCcsyyl0Lw3qoAvXGsRKaX1RomfDTLccc0Q==
+justypes@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/justypes/-/justypes-2.2.0.tgz#a0389bb8c554fdcd0ffde9ef2ed00a729f76a737"
+  integrity sha512-jm7hyDCqgZ67JXtrLC3ZODiqdN+xsXIMKiNl/40xt7DjSFUMcVVPIIgmDbJ1IOsfu3i/lKLGa0zA+YcIcOMxoA==
 
 kind-of@^3.0.2, kind-of@^3.0.3, kind-of@^3.2.0:
   version "3.2.2"
