@@ -224,13 +224,13 @@ class SparseSet {
 class SparseMap<T> {
   get [Symbol.toStringTag](): string
 
-  entries(): Iterable<[key: number, value: T]>
+  entries(): Iterable<[key: number, value: number]>
   keys(): Iterable<number>
-  values(): Iterable<T>
+  values(): Iterable<number>
 
   has(key: number): boolean
   get(key: number): T | undefined
-  set(key: number, value: T): void
+  set(key: number, value: number): void
   delete(key: number): void
 }
 ```
