@@ -221,6 +221,22 @@ class SparseSet {
 
 **Note that `SparseSet` is in many cases slower than JavaScript's native `Set<number>`.**
 
+### SparseMap
+```ts
+class SparseMap<T> {
+  get [Symbol.toStringTag](): string
+
+  entries(): Iterable<[key: number, value: T]>
+  keys(): Iterable<number>
+  values(): Iterable<T>
+
+  has(key: number): boolean
+  get(key: number): T | undefined
+  set(key: number, value: T): void
+  delete(key: number): void
+}
+```
+
 ### DynamicTypedArray
 ```ts
 class DynamicTypedArray<T extends TypedArrayConstructor> {

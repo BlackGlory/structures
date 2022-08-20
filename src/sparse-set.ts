@@ -1,39 +1,39 @@
 export class SparseSet implements Iterable<number> {
-  private values: number[] = []
-  private valueToValueIndex: Array<number | undefined> = []
+  private indexToValue: number[] = []
+  private valueToIndex: Array<number | undefined> = []
 
   get [Symbol.toStringTag](): string {
     return this.constructor.name
   }
 
   [Symbol.iterator](): IterableIterator<number> {
-    return this.values[Symbol.iterator]()
+    return this.indexToValue[Symbol.iterator]()
   }
 
   has(value: number): boolean {
     // 跟一般的实现不同, 不需要访问values数组.
-    return value in this.valueToValueIndex
+    return value in this.valueToIndex
   }
 
   add(value: number): void {
     if (!this.has(value)) {
-      const index = this.values.length
-      this.values.push(value)
-      this.valueToValueIndex[value] = index
+      const index = this.indexToValue.length
+      this.indexToValue.push(value)
+      this.valueToIndex[value] = index
     }
   }
 
   remove(value: number): void {
     if (this.has(value)) {
-      const lastValue = this.values.pop()!
+      const lastValue = this.indexToValue.pop()!
       if (value === lastValue) {
-        delete this.valueToValueIndex[value]
+        delete this.valueToIndex[value]
       } else {
-        const indexOfValue = this.valueToValueIndex[value]!
-        this.values[indexOfValue] = lastValue
-        this.valueToValueIndex[lastValue] = indexOfValue
+        const index = this.valueToIndex[value]!
+        this.indexToValue[index] = lastValue
+        this.valueToIndex[lastValue] = index
         // 跟一般的实现不同, 直接删除值的索引.
-        delete this.valueToValueIndex[value]
+        delete this.valueToIndex[value]
       }
     }
   }
