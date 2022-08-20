@@ -209,7 +209,35 @@ class ObservableFiniteStateMachine<
 
 ### SparseSet
 ```ts
-class SparseSet<T extends UnsignedTypedArrayConstructor> {
+class SparseSet implements Iterable<number> {
+  get [Symbol.toStringTag](): string
+  get [Symbol.iterator](): IterableIterator<number>
+
+  has(value: number): boolean
+  add(value: number): void
+  delete(value: number): void
+}
+```
+
+### SparseMap
+```ts
+class SparseMap<T> {
+  get [Symbol.toStringTag](): string
+
+  entries(): Iterable<[key: number, value: T]>
+  keys(): Iterable<number>
+  values(): Iterable<T>
+
+  has(key: number): boolean
+  get(key: number): T | undefined
+  set(key: number, value: T): void
+  delete(key: number): void
+}
+```
+
+### TypedSparseSet
+```ts
+class TypedSparseSet<T extends UnsignedTypedArrayConstructor> {
   get [Symbol.toStringTag](): string
   get [Symbol.iterator](): IterableIterator<number>
 
@@ -227,9 +255,9 @@ class SparseSet<T extends UnsignedTypedArrayConstructor> {
 }
 ```
 
-### SparseMap
+### TypedSparseMap
 ```ts
-class SparseMap<T extends TypedArrayConstructor> {
+class TypedSparseMap<T extends TypedArrayConstructor> {
   get [Symbol.toStringTag](): string
 
   constructor(

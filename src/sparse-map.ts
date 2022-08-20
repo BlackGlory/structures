@@ -1,84 +1,64 @@
-import { TypedArrayConstructor } from 'justypes'
-import { DynamicTypedArray } from './dynamic-typed-array'
-
-interface ISparseMapOptions {
-  capacity?: number
-  growthFactor?: number
-}
-
-export class SparseMap<T extends TypedArrayConstructor> {
-  private keyToIndex: DynamicTypedArray<typeof Uint32Array>
-  private indexToKey: DynamicTypedArray<typeof Uint32Array>
-  private indexToValue: DynamicTypedArray<T>
+export class SparseMap<T> {
+  private keyToIndex: Array<number | undefined> = []
+  private indexToKey: number[] = []
+  private indexToValue: T[] = []
 
   get [Symbol.toStringTag](): string {
     return this.constructor.name
   }
 
-  constructor(
-    typedArrayConstructor: T
-  , { capacity = 0, growthFactor = 1.5 }: ISparseMapOptions = {}
-  ) {
-    this.indexToValue = new DynamicTypedArray(
-      typedArrayConstructor
-    , { capacity, growthFactor }
-    )
-    this.keyToIndex = new DynamicTypedArray(Uint32Array, { capacity, growthFactor })
-    this.indexToKey = new DynamicTypedArray(Uint32Array, { capacity, growthFactor })
-  }
-
-  * entries(): Iterable<[key: number, value: number]> {
+  * entries(): Iterable<[key: number, value: T]> {
     for (let i = 0; i < this.indexToKey.length; i++) {
-      yield [
-        this.indexToKey.internalTypedArray[i]
-      , this.indexToValue.internalTypedArray[i]
-      ]
+      yield [this.indexToKey[i], this.indexToValue[i]]
     }
   }
 
   keys(): Iterable<number> {
-    return this.indexToKey.internalTypedArray.values()
+    return this.indexToKey.values()
   }
 
-  values(): Iterable<number> {
-    return this.indexToValue.internalTypedArray.values()
+  values(): Iterable<T> {
+    return this.indexToValue.values()
   }
 
   has(key: number): boolean {
-    const index = this.keyToIndex.internalTypedArray[key]
-    return this.indexToKey.internalTypedArray[index] === key
+    // 跟一般的稀疏集实现不同, 不需要访问values数组.
+    return key in this.keyToIndex
   }
 
-  get(key: number): number | undefined {
-    const index = this.keyToIndex.internalTypedArray[key]
-    if (this.indexToKey.internalTypedArray[index] === key) {
-      return this.indexToValue.internalTypedArray[index]
+  get(key: number): T | undefined {
+    if (this.has(key)) {
+      const index = this.keyToIndex[key]!
+      return this.indexToValue[index]
     } else {
       return undefined
     }
   }
 
-  set(key: number, value: number): void {
-    const index = this.keyToIndex.internalTypedArray[key]
-    if (this.indexToKey.internalTypedArray[index] === key) {
-      this.indexToValue.internalTypedArray[index] = value
+  set(key: number, value: T): void {
+    if (this.has(key)) {
+      const index = this.keyToIndex[key]!
+      this.indexToValue[index] = value
     } else {
       const index = this.indexToKey.length
       this.indexToKey.push(key)
       this.indexToValue.push(value)
-      this.keyToIndex.set(key, index)
+      this.keyToIndex[key] = index
     }
   }
 
   delete(key: number): void {
-    const index = this.keyToIndex.internalTypedArray[key]
-    if (this.indexToKey.internalTypedArray[index] === key) {
+    if (this.has(key)) {
       const lastKey = this.indexToKey.pop()!
       const lastValue = this.indexToValue.pop()!
-      if (key !== lastKey) {
-        this.indexToKey.internalTypedArray[index] = lastKey
-        this.indexToValue.internalTypedArray[index] = lastValue
-        this.keyToIndex.internalTypedArray[lastKey] = index
+      if (key === lastKey) {
+        delete this.keyToIndex[key]
+      } else {
+        const index = this.keyToIndex[key]!
+        this.indexToKey[index] = lastKey
+        this.indexToValue[index] = lastValue
+        this.keyToIndex[key] = index
+        delete this.keyToIndex[key]
       }
     }
   }
