@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.9.0](https://github.com/BlackGlory/structures/compare/v0.8.0...v0.9.0) (2022-08-20)
+
+
+### ⚠ BREAKING CHANGES
+
+* `SparseSet` => `TypedSparseSet`
+`SparseMap` => `TypedSparseMap`
+
+### Features
+
+* add old `SparseMap`, `SparseSet` back ([c583440](https://github.com/BlackGlory/structures/commit/c583440da49da89b693519d1cac5a3826eac77d6))
+
 ## [0.8.0](https://github.com/BlackGlory/structures/compare/v0.7.0...v0.8.0) (2022-08-20)
 
 
