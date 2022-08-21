@@ -316,3 +316,16 @@ class SortedSet<T> {
   delete(value: T): void
 }
 ```
+
+### BitSet
+```ts
+class BitSet {
+  get [Symbol.toStringTag](): string
+  get size(): number
+
+  has(value: number): boolean
+  add(value: number): void
+  delete(value: number): void
+  clear(): void
+}
+```
