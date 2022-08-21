@@ -301,3 +301,18 @@ class TypedSparseMap<T extends TypedArrayConstructor> {
   delete(key: number): void
 }
 ```
+
+### SortedSet
+```ts
+class SortedSet<T> {
+  get [Symbol.toStringTag](): string
+  [Symbol.iterator](): IterableIterator<T>
+
+  constructor(compare: (a: T, b: T) => number)
+
+  values(): Iterable<T>
+  has(value: T): boolean
+  add(value: T): void
+  delete(value: T): void
+}
+```
