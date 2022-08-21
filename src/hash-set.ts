@@ -32,7 +32,7 @@ export class HashSet<V, Hash = unknown> implements Iterable<V> {
     this.map.clear()
   }
 
-  values(): Iterable<V> {
+  values(): IterableIterator<V> {
     return this.map.values()
   }
 }

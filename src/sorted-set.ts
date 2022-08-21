@@ -8,17 +8,15 @@ export class SortedSet<T> implements Iterable<T> {
     return this.constructor.name
   }
 
-  * [Symbol.iterator](): IterableIterator<T> {
-    for (const value of this.values()) {
-      yield value
-    }
+  [Symbol.iterator](): IterableIterator<T> {
+    return this.values()
   }
 
   constructor(compare: (a: T, b: T) => number) {
     this.skipList = new SkipList(compare)
   }
 
-  values(): Iterable<T> {
+  values(): IterableIterator<T> {
     return map(this.skipList.elements(), node => node.value!)
   }
 

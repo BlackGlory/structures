@@ -72,7 +72,7 @@
     "@blackglory/errors": "^2.2.1",
     "@blackglory/types": "^1.2.1",
     "extra-timers": "^0.2.5",
-    "iterable-operator": "^1.1.0",
+    "iterable-operator": "^1.2.1",
     "justypes": "^2.2.0",
     "rxjs": "^7.5.5"
   }

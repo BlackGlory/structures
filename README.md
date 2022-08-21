@@ -81,7 +81,7 @@ class HashSet<V, Hash = unknown> implements Iterable<V> {
   delete(value: V): boolean
   has(value: V): boolean
   clear(): void
-  values(): Iterable<V>
+  values(): IterableIterator<V>
 }
 ```
 
@@ -151,9 +151,9 @@ class Queue<T> {
 class TrieMap<K extends Iterable<T>, V, T = unknown> {
   get [Symbol.toStringTag](): string
 
-  keys(): Iterable<T[]>
-  values(): Iterable<V>
-  entries(): Iterable<[key: T[], value: V]>
+  keys(): IterableIterator<T[]>
+  values(): IterableIterator<V>
+  entries(): IterableIterator<[key: T[], value: V]>
 
   set(key: K, value: V): this
   has(key: K): boolean
@@ -215,7 +215,7 @@ class SparseSet implements Iterable<number> {
 
   constructor(array?: number[])
 
-  values(): Iterable<number>
+  values(): IterableIterator<number>
 
   has(value: number): boolean
   add(value: number): void
@@ -228,9 +228,9 @@ class SparseSet implements Iterable<number> {
 class SparseMap<T> {
   get [Symbol.toStringTag](): string
 
-  entries(): Iterable<[key: number, value: T]>
-  keys(): Iterable<number>
-  values(): Iterable<T>
+  entries(): IterableIterator<[key: number, value: T]>
+  keys(): IterableIterator<number>
+  values(): IterableIterator<T>
 
   has(key: number): boolean
   get(key: number): T | undefined
@@ -310,7 +310,7 @@ class SortedSet<T> {
 
   constructor(compare: (a: T, b: T) => number)
 
-  values(): Iterable<T>
+  values(): IterableIterator<T>
   has(value: T): boolean
   add(value: T): void
   delete(value: T): void

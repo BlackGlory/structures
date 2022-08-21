@@ -21,7 +21,7 @@ export class SparseSet implements Iterable<number> {
     this.valueToIndex = valueToIndex
   }
 
-  values(): Iterable<number> {
+  values(): IterableIterator<number> {
     return this.indexToValue[Symbol.iterator]()
   }
 

@@ -14,10 +14,10 @@ export class TrieMap<K extends Iterable<T>, V, T = unknown> {
     return this.constructor.name
   }
 
-  * entries(): Iterable<[key: T[], value: V]> {
+  * entries(): IterableIterator<[key: T[], value: V]> {
     yield* dfs(this.root, [])
 
-    function* dfs(node: TrieNode<T, V>, paths: T[]): Iterable<[key: T[], value: V]> {
+    function* dfs(node: TrieNode<T, V>, paths: T[]): IterableIterator<[key: T[], value: V]> {
       for (const [path, childNode] of node.children) {
         const newPaths = [...paths, path]
         if (isntUndefined(childNode.value)) {
@@ -29,11 +29,11 @@ export class TrieMap<K extends Iterable<T>, V, T = unknown> {
     }
   }
 
-  keys(): Iterable<T[]> {
+  keys(): IterableIterator<T[]> {
     return map(this.entries(), ([key]) => key)
   }
 
-  values(): Iterable<V> {
+  values(): IterableIterator<V> {
     return map(this.entries(), ([_, value]) => value)
   }
 

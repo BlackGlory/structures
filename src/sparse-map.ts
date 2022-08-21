@@ -7,17 +7,17 @@ export class SparseMap<T> {
     return this.constructor.name
   }
 
-  * entries(): Iterable<[key: number, value: T]> {
+  * entries(): IterableIterator<[key: number, value: T]> {
     for (let i = 0; i < this.indexToKey.length; i++) {
       yield [this.indexToKey[i], this.indexToValue[i]]
     }
   }
 
-  keys(): Iterable<number> {
+  keys(): IterableIterator<number> {
     return this.indexToKey.values()
   }
 
-  values(): Iterable<T> {
+  values(): IterableIterator<T> {
     return this.indexToValue.values()
   }
 
