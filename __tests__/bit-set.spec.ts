@@ -1,4 +1,6 @@
+import { toArray } from 'iterable-operator'
 import { BitSet } from '@src/bit-set'
+import '@blackglory/jest-matchers'
 
 describe('BitSet', () => {
   test('create', () => {
@@ -22,6 +24,30 @@ describe('BitSet', () => {
 
       expect(result).toBe(3) // [0, 1, 2]
     })
+  })
+
+  test('[Symbol.iterator]', () => {
+    const set = new BitSet()
+    set.add(3)
+    set.add(1)
+
+    const result = set[Symbol.iterator]()
+    const arrResult = toArray(result)
+
+    expect(result).toBeIterable()
+    expect(arrResult).toStrictEqual([1, 3])
+  })
+
+  test('values', () => {
+    const set = new BitSet()
+    set.add(3)
+    set.add(1)
+
+    const result = set.values()
+    const arrResult = toArray(result)
+
+    expect(result).toBeIterable()
+    expect(arrResult).toStrictEqual([1, 3])
   })
 
   describe('has', () => {

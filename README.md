@@ -322,6 +322,9 @@ class SortedSet<T> {
 class BitSet {
   get [Symbol.toStringTag](): string
   get size(): number
+  [Symbol.iterator](): IterableIterator<number>
+
+  values(): IterableIterator<number>
 
   has(value: number): boolean
   add(value: number): void

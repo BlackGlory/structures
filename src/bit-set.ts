@@ -13,6 +13,18 @@ export class BitSet {
     return this.length
   }
 
+  [Symbol.iterator](): IterableIterator<number> {
+    return this.values()
+  }
+
+  * values(): IterableIterator<number> {
+    for (let i = 0; i < this.length; i++) {
+      if (this.has(i)) {
+        yield i
+      }
+    }
+  }
+
   has(value: number): boolean {
     const { index, mask } = this.getPosition(value)
 
