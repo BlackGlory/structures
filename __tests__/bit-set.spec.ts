@@ -53,26 +53,28 @@ describe('BitSet', () => {
 
   test('[Symbol.iterator]', () => {
     const set = new BitSet()
-    set.add(3)
     set.add(1)
+    set.add(8)
+    set.add(7)
 
     const result = set[Symbol.iterator]()
     const arrResult = toArray(result)
 
     expect(result).toBeIterable()
-    expect(arrResult).toStrictEqual([1, 3])
+    expect(arrResult).toStrictEqual([1, 7, 8])
   })
 
   test('values', () => {
     const set = new BitSet()
-    set.add(3)
     set.add(1)
+    set.add(8)
+    set.add(7)
 
     const result = set.values()
     const arrResult = toArray(result)
 
     expect(result).toBeIterable()
-    expect(arrResult).toStrictEqual([1, 3])
+    expect(arrResult).toStrictEqual([1, 7, 8])
   })
 
   describe('has', () => {

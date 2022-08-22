@@ -2,8 +2,9 @@ import { DynamicTypedArray } from './dynamic-typed-array'
 import { assert } from '@blackglory/errors'
 
 export class BitSet {
-  private length = 0
+  private static bitsPerElement = Uint8Array.BYTES_PER_ELEMENT * 8
   private array = new DynamicTypedArray(Uint8Array)
+  private length = 0
 
   get [Symbol.toStringTag](): string {
     return this.constructor.name
@@ -18,9 +19,25 @@ export class BitSet {
   }
 
   * values(): IterableIterator<number> {
-    for (let i = 0; i < this.length; i++) {
-      if (this.has(i)) {
-        yield i
+    if (this.length > 0) {
+      const maxArrayLength = Math.ceil(this.length / BitSet.bitsPerElement)
+      const remainder = BitSet.bitsPerElement - (maxArrayLength * BitSet.bitsPerElement - this.length)
+      const lastIndex = maxArrayLength - 1
+      for (let index = 0; index < lastIndex; index++) {
+        const element = this.array.internalTypedArray[index]
+        for (let bit = 0; bit < BitSet.bitsPerElement; bit++) {
+          const mask = this.getMask(bit)
+          if ((element & mask) === mask) {
+            yield index * 8 + bit
+          }
+        }
+      }
+      const lastElement = this.array.internalTypedArray[maxArrayLength - 1]
+      for (let bit = 0; bit < remainder; bit++) {
+        const mask = this.getMask(bit)
+        if ((lastElement & mask) === mask) {
+          yield lastIndex * 8 + bit
+        }
       }
     }
   }
@@ -69,15 +86,14 @@ export class BitSet {
   }
 
   private getPosition(value: number): { index: number; mask: number } {
-    const bits = Uint8Array.BYTES_PER_ELEMENT * 8
-    const remainder = value % bits
-    const quotient = (value - remainder) / bits
+    const remainder = value % BitSet.bitsPerElement
+    const quotient = (value - remainder) / BitSet.bitsPerElement
     const index = quotient
     const mask = this.getMask(remainder)
     return { index, mask }
   }
 
-  // 输入一定是一个小于Uint8Array.BYTES_PER_ELEMENT * 8的值, 取值范围是[0, 7]
+  // 输入一定是一个小于bitsPerElement的值, 取值范围是[0, bitsPerElement)
   private getMask(value: number): number {
     return 2 ** value
   }
