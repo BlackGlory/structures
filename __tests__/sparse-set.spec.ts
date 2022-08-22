@@ -35,6 +35,23 @@ describe('SparseSet', () => {
   })
 
   describe('delete', () => {
+    test('exists', () => {
+      const set = new SparseSet()
+      set.add(1)
+
+      const result = set.delete(1)
+
+      expect(result).toBe(true)
+    })
+
+    test('does not exist', () => {
+      const set = new SparseSet()
+
+      const result = set.delete(1)
+
+      expect(result).toBe(false)
+    })
+
     test('not last item', () => {
       const set = new SparseSet()
       set.add(1)

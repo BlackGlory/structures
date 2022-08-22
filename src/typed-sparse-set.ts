@@ -46,7 +46,7 @@ export class TypedSparseSet<
     }
   }
 
-  delete(value: number): void {
+  delete(value: number): boolean {
     const index = this.valueToIndex[value]
     if (this.indexToValue.internalTypedArray[index!] === value) {
       const lastValue = this.indexToValue.pop()!
@@ -54,6 +54,9 @@ export class TypedSparseSet<
         this.indexToValue.internalTypedArray[index!] = lastValue
         this.valueToIndex[lastValue] = index
       }
+      return true
+    } else {
+      return false
     }
   }
 }

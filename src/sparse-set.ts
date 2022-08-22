@@ -38,7 +38,7 @@ export class SparseSet implements Iterable<number> {
     }
   }
 
-  delete(value: number): void {
+  delete(value: number): boolean {
     if (this.has(value)) {
       const lastValue = this.indexToValue.pop()!
       if (value === lastValue) {
@@ -50,6 +50,9 @@ export class SparseSet implements Iterable<number> {
         // 跟一般的实现不同, 直接删除值的索引.
         delete this.valueToIndex[value]
       }
+      return true
+    } else {
+      return false
     }
   }
 }

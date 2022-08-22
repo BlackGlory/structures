@@ -219,7 +219,7 @@ class SparseSet implements Iterable<number> {
 
   has(value: number): boolean
   add(value: number): void
-  delete(value: number): void
+  delete(value: number): boolean
 }
 ```
 
@@ -282,7 +282,7 @@ class TypedSparseSet<T extends UnsignedTypedArrayConstructor> {
 
   has(value: number): boolean
   add(value: number): void
-  delete(value: number): void
+  delete(value: number): boolean
 }
 ```
 

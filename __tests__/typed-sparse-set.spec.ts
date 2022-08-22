@@ -40,6 +40,23 @@ describe('TypedSparseSet', () => {
   })
 
   describe('delete', () => {
+    test('exists', () => {
+      const set = new TypedSparseSet(new DynamicTypedArray(Uint8Array))
+      set.add(1)
+
+      const result = set.delete(1)
+
+      expect(result).toBe(true)
+    })
+
+    test('does not exist', () => {
+      const set = new TypedSparseSet(new DynamicTypedArray(Uint8Array))
+
+      const result = set.delete(1)
+
+      expect(result).toBe(false)
+    })
+
     test('not last item', () => {
       const set = new TypedSparseSet(new DynamicTypedArray(Uint8Array))
       set.add(1)
