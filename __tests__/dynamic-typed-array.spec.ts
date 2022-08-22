@@ -167,6 +167,54 @@ describe('DynamicTypedArray', () => {
       })
     })
   })
+
+  describe('sort', () => {
+    test('empty array', () => {
+      const arr = new DynamicTypedArray(Int8Array, {
+        capacity: 1
+      , growthFactor: 2
+      })
+
+      arr.sort()
+
+      expect(arr.length).toBe(0)
+      expect(arr.capacity).toBe(1)
+    })
+
+    describe('non-empty array', () => {
+      test('without compare', () => {
+        const arr = new DynamicTypedArray(Int8Array, {
+          capacity: 1
+        , growthFactor: 2
+        })
+        arr.push(1, 3, 2)
+
+        arr.sort()
+
+        expect(arr.length).toBe(3)
+        expect(arr.capacity).toBe(4)
+        expect(arr.get(0)).toBe(1)
+        expect(arr.get(1)).toBe(2)
+        expect(arr.get(2)).toBe(3)
+      })
+
+      test('with compare', () => {
+        const arr = new DynamicTypedArray(Int8Array, {
+          capacity: 1
+        , growthFactor: 2
+        })
+        arr.push(1, 3, 2)
+
+        arr.sort((a, b) => b - a)
+
+        expect(arr.length).toBe(3)
+        expect(arr.capacity).toBe(4)
+        expect(arr.get(0)).toBe(3)
+        expect(arr.get(1)).toBe(2)
+        expect(arr.get(2)).toBe(1)
+      })
+    })
+  })
 })
 
 describe('computeNewCapacity', () => {

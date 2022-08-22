@@ -267,6 +267,7 @@ class DynamicTypedArray<T extends TypedArrayConstructor> {
   get(index: number): number | undefined
   push(...values: number[]): void
   pop(): number | undefined
+  sort(compare?: (a: number, b: number) => number): void
 }
 ```
 
