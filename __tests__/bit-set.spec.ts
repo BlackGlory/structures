@@ -7,6 +7,31 @@ describe('BitSet', () => {
     new BitSet()
   })
 
+  describe('_dumpBinaryStrings', () => {
+    test('empty', () => {
+      const set = new BitSet()
+
+      const result = set._dumpBinaryStrings()
+
+      expect(result).toBeInstanceOf(Array)
+      expect(result).toHaveLength(0)
+      expect(result).toStrictEqual([])
+    })
+
+    test('non-empty', () => {
+      const set = new BitSet()
+      set.add(0)
+      set.add(7)
+      set.add(8)
+
+      const result = set._dumpBinaryStrings()
+
+      expect(result).toBeInstanceOf(Array)
+      expect(result).toHaveLength(2)
+      expect(result).toStrictEqual(['10000001', '00000001'])
+    })
+  })
+
   describe('size', () => {
     test('empty', () => {
       const set = new BitSet()
