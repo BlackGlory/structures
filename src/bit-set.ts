@@ -72,10 +72,12 @@ export class BitSet {
     this.array.set(index, (this.array.get(index) ?? 0) | mask)
   }
 
-  delete(value: number): void {
+  delete(value: number): boolean {
     const [index, mask] = this.getPosition(value)
 
-    this.array.set(index, (this.array.get(index) ?? 0) & ~mask)
+    const element = (this.array.get(index) ?? 0)
+    this.array.set(index, element & ~mask)
+    return (element & mask) === mask
   }
 
   clear(): void {

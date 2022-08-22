@@ -123,8 +123,9 @@ describe('BitSet', () => {
       set.add(1)
       set.add(2)
 
-      set.delete(1)
+      const result = set.delete(1)
 
+      expect(result).toBe(true)
       expect(set.has(1)).toBe(false)
       expect(set.has(2)).toBe(true)
     })
@@ -132,8 +133,9 @@ describe('BitSet', () => {
     test('does not exist', () => {
       const set = new BitSet()
 
-      set.delete(1)
+      const result = set.delete(1)
 
+      expect(result).toBe(false)
       expect(set.has(1)).toBe(false)
     })
   })

@@ -328,7 +328,7 @@ class BitSet {
 
   has(value: number): boolean
   add(value: number): void
-  delete(value: number): void
+  delete(value: number): boolean
   clear(): void
 }
 ```
