@@ -56,7 +56,7 @@ export class BitSet {
   }
 
   has(value: number): boolean {
-    const { index, mask } = this.getPosition(value)
+    const [index, mask] = this.getPosition(value)
 
     return ((this.array.get(index) ?? 0) & mask) === mask
   }
@@ -67,13 +67,13 @@ export class BitSet {
       this.length = value + 1
     }
 
-    const { index, mask } = this.getPosition(value)
+    const [index, mask] = this.getPosition(value)
 
     this.array.set(index, (this.array.get(index) ?? 0) | mask)
   }
 
   delete(value: number): void {
-    const { index, mask } = this.getPosition(value)
+    const [index, mask] = this.getPosition(value)
 
     this.array.set(index, (this.array.get(index) ?? 0) & ~mask)
   }
@@ -84,12 +84,12 @@ export class BitSet {
     }
   }
 
-  private getPosition(value: number): { index: number; mask: number } {
+  private getPosition(value: number): [index: number, mask: number] {
     const remainder = value % BitSet.bitsPerElement
     const quotient = (value - remainder) / BitSet.bitsPerElement
     const index = quotient
     const mask = this.getMask(remainder)
-    return { index, mask }
+    return [index, mask]
   }
 
   // 输入一定是一个小于bitsPerElement的值, 取值范围是[0, bitsPerElement)
