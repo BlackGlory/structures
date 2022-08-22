@@ -28,7 +28,7 @@ export class BitSet {
         for (let bit = 0; bit < BitSet.bitsPerElement; bit++) {
           const mask = this.getMask(bit)
           if ((element & mask) === mask) {
-            yield index * 8 + bit
+            yield index * BitSet.bitsPerElement + bit
           }
         }
       }
@@ -36,7 +36,7 @@ export class BitSet {
       for (let bit = 0; bit < remainder; bit++) {
         const mask = this.getMask(bit)
         if ((lastElement & mask) === mask) {
-          yield lastIndex * 8 + bit
+          yield lastIndex * BitSet.bitsPerElement + bit
         }
       }
     }
@@ -44,11 +44,10 @@ export class BitSet {
 
   _dumpBinaryStrings(): string[] {
     const result: string[] = []
-    const expectedBinaryStringLength = Uint8Array.BYTES_PER_ELEMENT * 8
     for (let i = 0; i < this.array.length; i++) {
       const binary = this.array.internalTypedArray[i].toString(2)
-      if (binary.length < expectedBinaryStringLength) {
-        result.push('0'.repeat(expectedBinaryStringLength - binary.length) + binary)
+      if (binary.length < BitSet.bitsPerElement) {
+        result.push('0'.repeat(BitSet.bitsPerElement - binary.length) + binary)
       } else {
         result.push(binary)
       }
