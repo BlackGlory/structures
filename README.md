@@ -223,6 +223,8 @@ class SparseSet implements Iterable<number> {
 }
 ```
 
+Note that `SparseSet` is not faster than JavaScript's built-in `Set` in many cases.
+
 ### SparseMap
 ```ts
 class SparseMap<T> {
@@ -332,3 +334,5 @@ class BitSet {
   clear(): void
 }
 ```
+
+Due to the length of arrays supported by JavaScript, `BitSet` cannot support very large values.
