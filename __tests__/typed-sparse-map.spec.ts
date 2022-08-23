@@ -13,15 +13,25 @@ describe('TypedSparseMap', () => {
       expect(result).toBe(0)
     })
 
-    test('non-empty', () => {
-      const map = new TypedSparseMap(new DynamicTypedArray(Int8Array))
-      map.set(1, 10)
-      map.set(2, 20)
-      map.delete(1)
+    describe('non-empty', () => {
+      test('set', () => {
+        const map = new TypedSparseMap(new DynamicTypedArray(Int8Array))
+        map.set(1, 10)
 
-      const result = map.size
+        const result = map.size
 
-      expect(result).toBe(1)
+        expect(result).toBe(1)
+      })
+
+      test('delete', () => {
+        const map = new TypedSparseMap(new DynamicTypedArray(Int8Array))
+        map.set(1, 10)
+        map.delete(1)
+
+        const result = map.size
+
+        expect(result).toBe(0)
+      })
     })
   })
 

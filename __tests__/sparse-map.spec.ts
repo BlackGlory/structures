@@ -12,15 +12,25 @@ describe('SparseMap', () => {
       expect(result).toBe(0)
     })
 
-    test('non-empty', () => {
-      const map = new SparseMap()
-      map.set(1, '1')
-      map.set(2, '2')
-      map.delete(1)
+    describe('non-empty', () => {
+      test('set', () => {
+        const map = new SparseMap()
+        map.set(1, '1')
 
-      const result = map.size
+        const result = map.size
 
-      expect(result).toBe(1)
+        expect(result).toBe(1)
+      })
+
+      test('delete', () => {
+        const map = new SparseMap()
+        map.set(1, '1')
+        map.delete(1)
+
+        const result = map.size
+
+        expect(result).toBe(0)
+      })
     })
   })
 
