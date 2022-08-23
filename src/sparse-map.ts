@@ -11,6 +11,10 @@ export class SparseMap<T> {
     return this.indexToKey.length
   }
 
+  get internalArray(): T[] {
+    return this.indexToValue
+  }
+
   * entries(): IterableIterator<[key: number, value: T]> {
     for (let i = 0; i < this.indexToKey.length; i++) {
       yield [this.indexToKey[i], this.indexToValue[i]]

@@ -231,6 +231,14 @@ class SparseMap<T> {
   get [Symbol.toStringTag](): string
   get size(): number
 
+  /**
+   * `SparseMap` cannot respond to any operations on the internal array,
+   * you must ensure that indexes accessed are less than the length of `SparseMap`.
+   * 
+   * Keys do not correspond to indexes of the array.
+   */
+  get internalArray(): T[]
+
   entries(): IterableIterator<[key: number, value: T]>
   keys(): IterableIterator<number>
   values(): IterableIterator<T>
@@ -251,7 +259,7 @@ class DynamicTypedArray<T extends TypedArrayConstructor> {
   readonly growthFactor: number
 
   /**
-   * Note that `DynamicTypedArray` cannot respond to any operations on the internal array,
+   * `DynamicTypedArray` cannot respond to any operations on the internal array,
    * you must ensure that indexes accessed are less than the length of `DynamicTypedArray`.
    */
   get internalTypedArray(): TypedArrayOfConstructor<T>
@@ -293,6 +301,14 @@ class TypedSparseSet<T extends UnsignedTypedArrayConstructor> {
 class TypedSparseMap<T extends TypedArrayConstructor> {
   get [Symbol.toStringTag](): string
   get size(): number
+
+  /**
+   * `SparseMap` cannot respond to any operations on the internal array,
+   * you must ensure that indexes accessed are less than the length of `SparseMap`.
+   * 
+   * Keys do not correspond to indexes of the array.
+   */
+  get internalTypedArray(): TypedArrayOfConstructor<T>
 
   constructor(array: DynamicTypedArray<T>)
 

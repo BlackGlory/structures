@@ -25,6 +25,21 @@ describe('TypedSparseMap', () => {
     })
   })
 
+  test('internalTypedArray', () => {
+    const arr = new DynamicTypedArray(Int8Array)
+    const map = new TypedSparseMap(arr)
+    map.set(1, 1)
+
+    const internalArr = map.internalTypedArray
+    const result1 = internalArr[0]
+    internalArr[0] = 2
+    const result2 = map.get(1)
+
+    expect(internalArr).toBe(arr.internalTypedArray)
+    expect(result1).toBe(1)
+    expect(result2).toBe(2)
+  })
+
   test('has', () => {
     const map = new TypedSparseMap(new DynamicTypedArray(Int8Array))
     map.set(1, 10)

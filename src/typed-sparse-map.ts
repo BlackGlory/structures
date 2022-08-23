@@ -1,5 +1,5 @@
 import { assert } from '@blackglory/errors'
-import { TypedArrayConstructor } from 'justypes'
+import { TypedArrayConstructor, TypedArrayOfConstructor } from 'justypes'
 import { DynamicTypedArray } from './dynamic-typed-array'
 
 export class TypedSparseMap<T extends TypedArrayConstructor> {
@@ -13,6 +13,10 @@ export class TypedSparseMap<T extends TypedArrayConstructor> {
 
   get size(): number {
     return this.indexToKey.length
+  }
+
+  get internalTypedArray(): TypedArrayOfConstructor<T> {
+    return this.indexToValue.internalTypedArray
   }
 
   constructor(array: DynamicTypedArray<T>) {

@@ -24,6 +24,20 @@ describe('SparseMap', () => {
     })
   })
 
+  test('internalArray', () => {
+    const map = new SparseMap()
+    map.set(1, 1)
+
+    const internalArr = map.internalArray
+    const result1 = internalArr[0]
+    internalArr[0] = 2
+    const result2 = map.get(1)
+
+    expect(internalArr).toBeInstanceOf(Array)
+    expect(result1).toBe(1)
+    expect(result2).toBe(2)
+  })
+
   test('has', () => {
     const map = new SparseMap()
     map.set(1, '1')
