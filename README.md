@@ -229,6 +229,7 @@ Note that `SparseSet` is not faster than JavaScript's built-in `Set` in many cas
 ```ts
 class SparseMap<T> {
   get [Symbol.toStringTag](): string
+  get size(): number
 
   entries(): IterableIterator<[key: number, value: T]>
   keys(): IterableIterator<number>
@@ -291,6 +292,7 @@ class TypedSparseSet<T extends UnsignedTypedArrayConstructor> {
 ```ts
 class TypedSparseMap<T extends TypedArrayConstructor> {
   get [Symbol.toStringTag](): string
+  get size(): number
 
   constructor(array: DynamicTypedArray<T>)
 

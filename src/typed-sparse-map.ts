@@ -11,6 +11,10 @@ export class TypedSparseMap<T extends TypedArrayConstructor> {
     return this.constructor.name
   }
 
+  get size(): number {
+    return this.indexToKey.length
+  }
+
   constructor(array: DynamicTypedArray<T>) {
     assert(array.length === 0, 'array should be empty')
 

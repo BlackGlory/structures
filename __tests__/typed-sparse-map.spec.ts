@@ -4,6 +4,27 @@ import { toArray } from 'iterable-operator'
 import '@blackglory/jest-matchers'
 
 describe('TypedSparseMap', () => {
+  describe('size', () => {
+    test('empty', () => {
+      const map = new TypedSparseMap(new DynamicTypedArray(Int8Array))
+
+      const result = map.size
+
+      expect(result).toBe(0)
+    })
+
+    test('non-empty', () => {
+      const map = new TypedSparseMap(new DynamicTypedArray(Int8Array))
+      map.set(1, 10)
+      map.set(2, 20)
+      map.delete(1)
+
+      const result = map.size
+
+      expect(result).toBe(1)
+    })
+  })
+
   test('has', () => {
     const map = new TypedSparseMap(new DynamicTypedArray(Int8Array))
     map.set(1, 10)

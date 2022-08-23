@@ -3,6 +3,27 @@ import { toArray } from 'iterable-operator'
 import '@blackglory/jest-matchers'
 
 describe('SparseMap', () => {
+  describe('size', () => {
+    test('empty', () => {
+      const map = new SparseMap()
+
+      const result = map.size
+
+      expect(result).toBe(0)
+    })
+
+    test('non-empty', () => {
+      const map = new SparseMap()
+      map.set(1, '1')
+      map.set(2, '2')
+      map.delete(1)
+
+      const result = map.size
+
+      expect(result).toBe(1)
+    })
+  })
+
   test('has', () => {
     const map = new SparseMap()
     map.set(1, '1')
