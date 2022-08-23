@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.10.10](https://github.com/BlackGlory/structures/compare/v0.10.9...v0.10.10) (2022-08-23)
+
+
+### Features
+
+* add `size` getters ([8340d73](https://github.com/BlackGlory/structures/commit/8340d73f538c701a0d89d439383f41e856f356fa))
+
 ### [0.10.9](https://github.com/BlackGlory/structures/compare/v0.10.8...v0.10.9) (2022-08-22)
 
 
