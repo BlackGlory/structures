@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.10.11](https://github.com/BlackGlory/structures/compare/v0.10.10...v0.10.11) (2022-08-23)
+
+
+### Features
+
+* add internalArray, internalTypedArray ([e98c32c](https://github.com/BlackGlory/structures/commit/e98c32cad4e4b7cdb49e218621d449e830e552b3))
+
 ### [0.10.10](https://github.com/BlackGlory/structures/compare/v0.10.9...v0.10.10) (2022-08-23)
 
 
