@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.10.12](https://github.com/BlackGlory/structures/compare/v0.10.11...v0.10.12) (2022-08-24)
+
+
+### Features
+
+* add `getInternalIndexOfKey` methods ([a556464](https://github.com/BlackGlory/structures/commit/a556464d7ad3b2c842be9a1f8eff57c592480bb1))
+
 ### [0.10.11](https://github.com/BlackGlory/structures/compare/v0.10.10...v0.10.11) (2022-08-23)
 
 
