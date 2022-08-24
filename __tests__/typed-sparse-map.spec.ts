@@ -110,8 +110,24 @@ describe('TypedSparseMap', () => {
 
       expect(result).toBe(20)
     })
-  })
 
+    test('edge: reused key with length growth', () => {
+      const map = new TypedSparseMap(new DynamicTypedArray(Int8Array))
+      map.set(0, 0)
+      map.set(1, 10)
+      map.delete(0)
+      map.set(0, 20)
+      map.set(2, 30)
+
+      const result1 = map.get(0)
+      const result2 = map.get(1)
+      const result3 = map.get(2)
+
+      expect(result1).toBe(20)
+      expect(result2).toBe(10)
+      expect(result3).toBe(30)
+    })
+  })
 
   describe('delete', () => {
     test('not last item', () => {

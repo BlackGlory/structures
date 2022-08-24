@@ -86,6 +86,34 @@ describe('SparseMap', () => {
 
       expect(result).toBe(undefined)
     })
+
+    test('edge: reused key', () => {
+      const map = new SparseMap()
+      map.set(1, '1')
+      map.delete(1)
+      map.set(1, '2')
+
+      const result = map.get(1)
+
+      expect(result).toBe('2')
+    })
+
+    test('edge: reused key with length growth', () => {
+      const map = new SparseMap()
+      map.set(0, '0')
+      map.set(1, '1')
+      map.delete(0)
+      map.set(0, '2')
+      map.set(2, '3')
+
+      const result1 = map.get(0)
+      const result2 = map.get(1)
+      const result3 = map.get(2)
+
+      expect(result1).toBe('2')
+      expect(result2).toBe('1')
+      expect(result3).toBe('3')
+    })
   })
 
   test('set', () => {

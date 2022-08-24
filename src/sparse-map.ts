@@ -69,7 +69,7 @@ export class SparseMap<T> {
         const index = this.keyToIndex[key]!
         this.indexToKey[index] = lastKey
         this.indexToValue[index] = lastValue
-        this.keyToIndex[key] = index
+        this.keyToIndex[lastKey] = index
         delete this.keyToIndex[key]
       }
     }
