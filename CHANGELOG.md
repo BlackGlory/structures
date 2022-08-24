@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.10.13](https://github.com/BlackGlory/structures/compare/v0.10.12...v0.10.13) (2022-08-24)
+
+
+### Bug Fixes
+
+* behaviors of SparseMap ([2e69cfa](https://github.com/BlackGlory/structures/commit/2e69cfaf5fc96d6926f88fbd3e7f2e1209046fc0))
+
 ### [0.10.12](https://github.com/BlackGlory/structures/compare/v0.10.11...v0.10.12) (2022-08-24)
 
 
