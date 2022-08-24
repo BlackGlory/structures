@@ -99,6 +99,17 @@ describe('TypedSparseMap', () => {
 
       expect(result).toBe(undefined)
     })
+
+    test('edge: reused key', () => {
+      const map = new TypedSparseMap(new DynamicTypedArray(Int8Array))
+      map.set(1, 10)
+      map.delete(1)
+      map.set(1, 20)
+
+      const result = map.get(1)
+
+      expect(result).toBe(20)
+    })
   })
 
 
