@@ -59,6 +59,17 @@ describe('SparseMap', () => {
     expect(result2).toBe(false)
   })
 
+  test('get', () => {
+    const map = new SparseMap()
+    map.set(1, '1')
+
+    const result1 = map.get(1)
+    const result2 = map.get(2)
+
+    expect(result1).toBe('1')
+    expect(result2).toBe(undefined)
+  })
+
   test('set', () => {
     const map = new SparseMap()
 
