@@ -59,15 +59,33 @@ describe('SparseMap', () => {
     expect(result2).toBe(false)
   })
 
-  test('get', () => {
-    const map = new SparseMap()
-    map.set(1, '1')
+  describe('get', () => {
+    test('exists', () => {
+      const map = new SparseMap()
+      map.set(1, '1')
 
-    const result1 = map.get(1)
-    const result2 = map.get(2)
+      const result = map.get(1)
 
-    expect(result1).toBe('1')
-    expect(result2).toBe(undefined)
+      expect(result).toBe('1')
+    })
+
+    test('does not exist', () => {
+      const map = new SparseMap()
+
+      const result = map.get(1)
+
+      expect(result).toBe(undefined)
+    })
+
+    test('edge: deleted key', () => {
+      const map = new SparseMap()
+      map.set(1, '1')
+      map.delete(1)
+
+      const result = map.get(1)
+
+      expect(result).toBe(undefined)
+    })
   })
 
   test('set', () => {

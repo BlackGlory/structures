@@ -72,16 +72,35 @@ describe('TypedSparseMap', () => {
     expect(map.has(2)).toBe(true)
   })
 
-  test('get', () => {
-    const map = new TypedSparseMap(new DynamicTypedArray(Int8Array))
-    map.set(1, 10)
+  describe('get', () => {
+    test('exists', () => {
+      const map = new TypedSparseMap(new DynamicTypedArray(Int8Array))
+      map.set(1, 10)
 
-    const result1 = map.get(1)
-    const result2 = map.get(2)
+      const result = map.get(1)
 
-    expect(result1).toBe(10)
-    expect(result2).toBe(undefined)
+      expect(result).toBe(10)
+    })
+
+    test('does not exist', () => {
+      const map = new TypedSparseMap(new DynamicTypedArray(Int8Array))
+
+      const result = map.get(1)
+
+      expect(result).toBe(undefined)
+    })
+
+    test('edge: deleted key', () => {
+      const map = new TypedSparseMap(new DynamicTypedArray(Int8Array))
+      map.set(1, 10)
+      map.delete(1)
+
+      const result = map.get(1)
+
+      expect(result).toBe(undefined)
+    })
   })
+
 
   describe('delete', () => {
     test('not last item', () => {
