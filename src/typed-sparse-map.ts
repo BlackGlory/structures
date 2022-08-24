@@ -44,6 +44,10 @@ export class TypedSparseMap<T extends TypedArrayConstructor> {
     }
   }
 
+  getInternalIndexOfKey(key: number): number | undefined {
+    return this.keyToIndex[key]
+  }
+
   has(key: number): boolean {
     const index = this.keyToIndex[key]
     return this.indexToKey[index!] === key

@@ -134,4 +134,22 @@ describe('SparseMap', () => {
     expect(result).toBeIterable()
     expect(arr).toStrictEqual(['1', '2', '3'])
   })
+
+  test('getInternalIndexOfKey', () => {
+    const set = new SparseMap()
+    set.set(3, 30)
+    set.set(1, 10)
+    set.set(2, 20)
+
+    const result1 = set.getInternalIndexOfKey(1) // 1
+    const result2 = set.getInternalIndexOfKey(2) // 2
+    const result3 = set.getInternalIndexOfKey(3) // 0
+
+    expect(result1).toBe(1)
+    expect(result2).toBe(2)
+    expect(result3).toBe(0)
+    expect(set.internalArray[result1!]).toBe(10)
+    expect(set.internalArray[result2!]).toBe(20)
+    expect(set.internalArray[result3!]).toBe(30)
+  })
 })

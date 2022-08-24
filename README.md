@@ -243,6 +243,8 @@ class SparseMap<T> {
   keys(): IterableIterator<number>
   values(): IterableIterator<T>
 
+  getInternalIndexOfKey(key: number): number | undefined
+
   has(key: number): boolean
   get(key: number): T | undefined
   set(key: number, value: T): void
@@ -315,6 +317,8 @@ class TypedSparseMap<T extends TypedArrayConstructor> {
   entries(): IterableIterator<[key: number, value: number]>
   keys(): IterableIterator<number>
   values(): IterableIterator<number>
+
+  getInternalIndexOfKey(key: number): number | undefined
 
   has(key: number): boolean
   get(key: number): T | undefined

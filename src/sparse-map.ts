@@ -29,6 +29,10 @@ export class SparseMap<T> {
     return this.indexToValue.values()
   }
 
+  getInternalIndexOfKey(key: number): number | undefined {
+    return this.keyToIndex[key]
+  }
+
   has(key: number): boolean {
     // 跟一般的稀疏集实现不同, 不需要访问values数组.
     return key in this.keyToIndex
