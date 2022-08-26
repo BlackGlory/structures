@@ -349,6 +349,8 @@ class BitSet {
   get size(): number
   [Symbol.iterator](): IterableIterator<number>
 
+  constructor(bitsPerElement: number = 8) {}
+
   values(): IterableIterator<number>
 
   has(value: number): boolean
@@ -358,4 +360,26 @@ class BitSet {
 }
 ```
 
-Due to the length of arrays supported by JavaScript, `BitSet` cannot support very large values.
+Due to the length of arrays supported by JavaScript,
+`BitSet` cannot support very large values.
+
+### TypedBitSet
+```ts
+class TypedBitSet<T extends UnsignedTypedArrayConstructor> {
+  get [Symbol.toStringTag](): string
+  get size(): number
+  [Symbol.iterator](): IterableIterator<number>
+
+  constructor(array: DynamicTypedArray<T>)
+
+  values(): IterableIterator<number>
+
+  has(value: number): boolean
+  add(value: number): void
+  delete(value: number): boolean
+  clear(): void
+}
+```
+
+Due to the length of arrays supported by JavaScript,
+`TypedBitSit` cannot support very large values.

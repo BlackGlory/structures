@@ -1,10 +1,12 @@
+import { DynamicTypedArray } from './dynamic-typed-array'
+import { UnsignedTypedArrayConstructor } from 'justypes'
 import { assert } from '@blackglory/errors'
 
-export class BitSet {
-  private array: number[] = []
+export class TypedBitSet<T extends UnsignedTypedArrayConstructor> {
+  private bitsPerElement = this.array.internalTypedArray.BYTES_PER_ELEMENT * 8
   private length = 0
 
-  constructor(private bitsPerElement: number = 8) {}
+  constructor(private array: DynamicTypedArray<T>) {}
 
   get [Symbol.toStringTag](): string {
     return this.constructor.name
@@ -26,7 +28,7 @@ export class BitSet {
       - (maxArrayLength * this.bitsPerElement - this.length)
       const lastIndex = maxArrayLength - 1
       for (let index = 0; index < lastIndex; index++) {
-        const element = this.array[index]
+        const element = this.array.internalTypedArray[index]
         for (let bit = 0; bit < this.bitsPerElement; bit++) {
           const mask = this.getMask(bit)
           if ((element & mask) === mask) {
@@ -34,7 +36,7 @@ export class BitSet {
           }
         }
       }
-      const lastElement = this.array[maxArrayLength - 1]
+      const lastElement = this.array.internalTypedArray[maxArrayLength - 1]
       for (let bit = 0; bit < remainder; bit++) {
         const mask = this.getMask(bit)
         if ((lastElement & mask) === mask) {
@@ -47,7 +49,7 @@ export class BitSet {
   _dumpBinaryStrings(): string[] {
     const result: string[] = []
     for (let i = 0; i < this.array.length; i++) {
-      const binary = this.array[i].toString(2)
+      const binary = this.array.internalTypedArray[i].toString(2)
       if (binary.length < this.bitsPerElement) {
         result.push('0'.repeat(this.bitsPerElement - binary.length) + binary)
       } else {
@@ -60,7 +62,7 @@ export class BitSet {
   has(value: number): boolean {
     const [index, mask] = this.getPosition(value)
 
-    return ((this.array[index] ?? 0) & mask) === mask
+    return ((this.array.get(index) ?? 0) & mask) === mask
   }
 
   add(value: number): void {
@@ -71,20 +73,20 @@ export class BitSet {
 
     const [index, mask] = this.getPosition(value)
 
-    this.array[index] = (this.array[index] ?? 0) | mask
+    this.array.set(index, (this.array.get(index) ?? 0) | mask)
   }
 
   delete(value: number): boolean {
     const [index, mask] = this.getPosition(value)
 
-    const element = (this.array[index] ?? 0)
-    this.array[index] = element & ~mask
+    const element = (this.array.get(index) ?? 0)
+    this.array.set(index, element & ~mask)
     return (element & mask) === mask
   }
 
   clear(): void {
     for (let i = this.array.length; i--;) {
-      this.array[i] = 0
+      this.array.set(i, 0)
     }
   }
 
