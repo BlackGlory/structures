@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.10.14](https://github.com/BlackGlory/structures/compare/v0.10.13...v0.10.14) (2022-08-26)
+
+
+### Features
+
+* add TypedBitSet ([311c28c](https://github.com/BlackGlory/structures/commit/311c28c2fae6e6de54968458a27e9446619f85d5))
+
 ### [0.10.13](https://github.com/BlackGlory/structures/compare/v0.10.12...v0.10.13) (2022-08-24)
 
 
