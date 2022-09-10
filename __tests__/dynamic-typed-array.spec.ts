@@ -187,15 +187,15 @@ describe('DynamicTypedArray', () => {
           capacity: 1
         , growthFactor: 2
         })
-        arr.push(1, 3, 2)
+        arr.push(10, 3, 2)
 
         arr.sort()
 
         expect(arr.length).toBe(3)
         expect(arr.capacity).toBe(4)
-        expect(arr.get(0)).toBe(1)
-        expect(arr.get(1)).toBe(2)
-        expect(arr.get(2)).toBe(3)
+        expect(arr.get(0)).toBe(2)
+        expect(arr.get(1)).toBe(3)
+        expect(arr.get(2)).toBe(10)
       })
 
       test('with compare', () => {
@@ -203,15 +203,15 @@ describe('DynamicTypedArray', () => {
           capacity: 1
         , growthFactor: 2
         })
-        arr.push(1, 3, 2)
+        arr.push(2, 3, 10)
 
         arr.sort((a, b) => b - a)
 
         expect(arr.length).toBe(3)
         expect(arr.capacity).toBe(4)
-        expect(arr.get(0)).toBe(3)
-        expect(arr.get(1)).toBe(2)
-        expect(arr.get(2)).toBe(1)
+        expect(arr.get(0)).toBe(10)
+        expect(arr.get(1)).toBe(3)
+        expect(arr.get(2)).toBe(2)
       })
     })
   })
