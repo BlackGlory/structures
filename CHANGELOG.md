@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.10.15](https://github.com/BlackGlory/structures/compare/v0.10.14...v0.10.15) (2022-09-16)
+
+
+### Features
+
+* add array functions ([5505d7b](https://github.com/BlackGlory/structures/commit/5505d7b9bbb7bc5d6e0a48bcede28e6dee2ee528))
+
 ### [0.10.14](https://github.com/BlackGlory/structures/compare/v0.10.13...v0.10.14) (2022-08-26)
 
 
