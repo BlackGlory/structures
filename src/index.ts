@@ -1,5 +1,6 @@
 export * from './box'
 export * from './cons'
+export * from './array'
 export * from './emitter'
 export * from './hash-map'
 export * from './hash-set'

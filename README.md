@@ -32,6 +32,27 @@ function convertConsToArray<T>([value, next]: Cons<T>): T[]
 function convertArrayToCons<T>([value, ...next]: T[]): Cons<T>
 ```
 
+### Array
+#### sliceArrayLeft
+```ts
+function sliceArrayLeft<T>(arr: T[], num: number): T[]
+```
+
+#### sliceArrayRight
+```ts
+function sliceArrayRight<T>(arr: T[], num: number): T[]
+```
+
+#### truncateArrayLeft
+```ts
+function truncateArrayLeft<T>(arr: T[], num: number): void
+```
+
+#### truncateArrayRight
+```ts
+function truncateArrayRight<T>(arr: T[], num: number): void
+```
+
 ### Emitter
 ```ts
 type Listener<Args extends unknown[]> = (...args: Args) => void
