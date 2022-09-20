@@ -1,6 +1,7 @@
 import { toArray } from 'iterable-operator'
 import { TypedBitSet } from '@src/typed-bit-set'
 import { DynamicTypedArray } from '@src/dynamic-typed-array'
+import { range } from 'extra-generator'
 import '@blackglory/jest-matchers'
 
 describe('TypedBitSet', () => {
@@ -65,17 +66,41 @@ describe('TypedBitSet', () => {
     expect(arrResult).toStrictEqual([1, 7, 8])
   })
 
-  test('values', () => {
-    const set = new TypedBitSet(new DynamicTypedArray(Uint8Array))
-    set.add(1)
-    set.add(8)
-    set.add(7)
+  describe('values', () => {
+    test('only yields existing values', () => {
+      const set = new TypedBitSet(new DynamicTypedArray(Uint8Array))
+      set.add(1)
+      set.add(8)
+      set.add(7)
+      set.add(6)
+      set.delete(6)
 
-    const result = set.values()
-    const arrResult = toArray(result)
+      const result = set.values()
+      const arrResult = toArray(result)
 
-    expect(result).toBeIterable()
-    expect(arrResult).toStrictEqual([1, 7, 8])
+      expect(result).toBeIterable()
+      expect(arrResult).toStrictEqual([1, 7, 8])
+    })
+
+    test('edge: correctness in the case of lots of data', () => {
+      const set = new TypedBitSet(new DynamicTypedArray(Uint8Array))
+
+      for (let i = 0; i < 5000; i += 3) {
+        set.add(i)
+        expect(toArray(set.values())).toStrictEqual(toArray(range(0, i + 1, 3)))
+      }
+    })
+
+    test('edge: correctness in the case there are elements deleted', () => {
+      const set = new TypedBitSet(new DynamicTypedArray(Uint8Array))
+
+      for (let i = 0; i < 5000; i += 3) {
+        set.add(i)
+        set.add(i + 1)
+        set.delete(i)
+        expect(toArray(set.values())).toStrictEqual(toArray(range(1, i + 2, 3)))
+      }
+    })
   })
 
   describe('has', () => {
@@ -94,6 +119,40 @@ describe('TypedBitSet', () => {
       const result = set.has(1)
 
       expect(result).toBe(false)
+    })
+
+    test('edge: correctness in the case of lots of data', () => {
+      const set = new TypedBitSet(new DynamicTypedArray(Uint8Array))
+
+      for (let i = 0; i < 5000; i += 3) {
+        set.add(i)
+        expect(set.has(i)).toBe(true)
+        expect(set.has(i + 1)).toBe(false)
+      }
+
+      for (let i = 0; i < 5000; i += 3) {
+        expect(set.has(i)).toBe(true)
+        expect(set.has(i + 1)).toBe(false)
+      }
+    })
+
+    test('edge: correctness in the case there are elements deleted', () => {
+      const set = new TypedBitSet(new DynamicTypedArray(Uint8Array))
+
+      for (let i = 0; i < 5000; i += 3) {
+        set.add(i)
+        set.add(i + 1)
+        set.delete(i)
+        expect(set.has(i)).toBe(false)
+        expect(set.has(i + 1)).toBe(true)
+      }
+
+      for (let i = 0; i < 5000; i += 3) {
+        set.add(i)
+        set.delete(i + 1)
+        expect(set.has(i)).toBe(true)
+        expect(set.has(i + 1)).toBe(false)
+      }
     })
   })
 

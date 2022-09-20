@@ -1,15 +1,16 @@
 import { toArray } from 'iterable-operator'
 import { BitSet } from '@src/bit-set'
+import { range } from 'extra-generator'
 import '@blackglory/jest-matchers'
 
 describe('BitSet', () => {
   test('create', () => {
-    new BitSet()
+    new BitSet(8)
   })
 
   describe('_dumpBinaryStrings', () => {
     test('empty', () => {
-      const set = new BitSet()
+      const set = new BitSet(8)
 
       const result = set._dumpBinaryStrings()
 
@@ -19,7 +20,7 @@ describe('BitSet', () => {
     })
 
     test('non-empty', () => {
-      const set = new BitSet()
+      const set = new BitSet(8)
       set.add(0)
       set.add(7)
       set.add(8)
@@ -34,7 +35,7 @@ describe('BitSet', () => {
 
   describe('size', () => {
     test('empty', () => {
-      const set = new BitSet()
+      const set = new BitSet(8)
 
       const result = set.size
 
@@ -42,7 +43,7 @@ describe('BitSet', () => {
     })
 
     test('non-emtpy', () => {
-      const set = new BitSet()
+      const set = new BitSet(8)
       set.add(2)
 
       const result = set.size
@@ -52,7 +53,7 @@ describe('BitSet', () => {
   })
 
   test('[Symbol.iterator]', () => {
-    const set = new BitSet()
+    const set = new BitSet(8)
     set.add(1)
     set.add(8)
     set.add(7)
@@ -64,22 +65,46 @@ describe('BitSet', () => {
     expect(arrResult).toStrictEqual([1, 7, 8])
   })
 
-  test('values', () => {
-    const set = new BitSet()
-    set.add(1)
-    set.add(8)
-    set.add(7)
+  describe('values', () => {
+    test('only yields existing values', () => {
+      const set = new BitSet(8)
+      set.add(1)
+      set.add(8)
+      set.add(7)
+      set.add(6)
+      set.delete(6)
 
-    const result = set.values()
-    const arrResult = toArray(result)
+      const result = set.values()
+      const arrResult = toArray(result)
 
-    expect(result).toBeIterable()
-    expect(arrResult).toStrictEqual([1, 7, 8])
+      expect(result).toBeIterable()
+      expect(arrResult).toStrictEqual([1, 7, 8])
+    })
+
+    test('edge: correctness in the case of lots of data', () => {
+      const set = new BitSet(8)
+
+      for (let i = 0; i < 5000; i += 3) {
+        set.add(i)
+        expect(toArray(set.values())).toStrictEqual(toArray(range(0, i + 1, 3)))
+      }
+    })
+
+    test('edge: correctness in the case there are elements deleted', () => {
+      const set = new BitSet(8)
+
+      for (let i = 0; i < 5000; i += 3) {
+        set.add(i)
+        set.add(i + 1)
+        set.delete(i)
+        expect(toArray(set.values())).toStrictEqual(toArray(range(1, i + 2, 3)))
+      }
+    })
   })
 
   describe('has', () => {
     test('exists', () => {
-      const set = new BitSet()
+      const set = new BitSet(8)
       set.add(1)
 
       const result = set.has(1)
@@ -88,17 +113,51 @@ describe('BitSet', () => {
     })
 
     test('does not exist', () => {
-      const set = new BitSet()
+      const set = new BitSet(8)
 
       const result = set.has(1)
 
       expect(result).toBe(false)
     })
+
+    test('edge: correctness in the case of lots of data', () => {
+      const set = new BitSet(8)
+
+      for (let i = 0; i < 5000; i += 3) {
+        set.add(i)
+        expect(set.has(i)).toBe(true)
+        expect(set.has(i + 1)).toBe(false)
+      }
+
+      for (let i = 0; i < 5000; i += 3) {
+        expect(set.has(i)).toBe(true)
+        expect(set.has(i + 1)).toBe(false)
+      }
+    })
+
+    test('edge: correctness in the case there are elements deleted', () => {
+      const set = new BitSet(8)
+
+      for (let i = 0; i < 5000; i += 3) {
+        set.add(i)
+        set.add(i + 1)
+        set.delete(i)
+        expect(set.has(i)).toBe(false)
+        expect(set.has(i + 1)).toBe(true)
+      }
+
+      for (let i = 0; i < 5000; i += 3) {
+        set.add(i)
+        set.delete(i + 1)
+        expect(set.has(i)).toBe(true)
+        expect(set.has(i + 1)).toBe(false)
+      }
+    })
   })
 
   describe('add', () => {
     test('does not exist', () => {
-      const set = new BitSet()
+      const set = new BitSet(8)
 
       set.add(1)
 
@@ -107,7 +166,7 @@ describe('BitSet', () => {
     })
 
     test('exists', () => {
-      const set = new BitSet()
+      const set = new BitSet(8)
       set.add(1)
 
       set.add(1)
@@ -119,7 +178,7 @@ describe('BitSet', () => {
 
   describe('delete', () => {
     test('exists', () => {
-      const set = new BitSet()
+      const set = new BitSet(8)
       set.add(1)
       set.add(2)
 
@@ -132,7 +191,7 @@ describe('BitSet', () => {
     })
 
     test('does not exist', () => {
-      const set = new BitSet()
+      const set = new BitSet(8)
 
       const result = set.delete(1)
 
@@ -143,7 +202,7 @@ describe('BitSet', () => {
   })
 
   test('clear', () => {
-    const set = new BitSet()
+    const set = new BitSet(8)
     set.add(1)
     set.add(2)
 
