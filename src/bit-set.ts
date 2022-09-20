@@ -98,6 +98,6 @@ export class BitSet {
 
   // 输入一定是一个小于bitsPerElement的值, 取值范围是[0, bitsPerElement)
   private getMask(value: number): number {
-    return 2 ** value
+    return 1 << value
   }
 }
