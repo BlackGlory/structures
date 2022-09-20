@@ -32,7 +32,7 @@ export class TypedBitSet<T extends UnsignedTypedArrayConstructor> {
       for (let index = 0; index < lastIndex; index++) {
         let element = this.array.internalTypedArray[index]
         for (let bit = 0; bit < this.bitsPerElement; bit++) {
-          if ((element & 1) === 1) {
+          if (element & 1) {
             yield index * this.bitsPerElement + bit
           }
           element >>= 1
@@ -41,7 +41,7 @@ export class TypedBitSet<T extends UnsignedTypedArrayConstructor> {
 
       let lastElement = this.array.internalTypedArray[maxArrayLength - 1]
       for (let bit = 0; bit < remainder; bit++) {
-        if ((lastElement & 1) === 1) {
+        if (lastElement & 1) {
           yield lastIndex * this.bitsPerElement + bit
         }
         lastElement >>= 1
