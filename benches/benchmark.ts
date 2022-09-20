@@ -8,6 +8,61 @@ const benchmark = new Benchmark('BitSet', {
 })
 
 go(async () => {
+  benchmark.addCase('Set.values', () => {
+    const set = new Set<number>()
+    for (let i = 0; i < 10000; i += 2) {
+      set.add(i)
+    }
+
+    return () => {
+      [...set.values()]
+    }
+  })
+
+  benchmark.addCase('TypedBitSet(Uint8).values', () => {
+    const set = new TypedBitSet(new DynamicTypedArray(Uint8Array))
+    for (let i = 0; i < 10000; i += 2) {
+      set.add(i)
+    }
+
+    return () => {
+      [...set.values()]
+    }
+  })
+
+  benchmark.addCase('BitSet(8).values', () => {
+    const set = new BitSet(8)
+    for (let i = 0; i < 10000; i += 2) {
+      set.add(i)
+    }
+
+    return () => {
+      [...set.values()]
+    }
+  })
+
+  benchmark.addCase('BitSet(128).values', () => {
+    const set = new BitSet(128)
+    for (let i = 0; i < 10000; i += 2) {
+      set.add(i)
+    }
+
+    return () => {
+      [...set.values()]
+    }
+  })
+
+  benchmark.addCase('BitSet(256).values', () => {
+    const set = new BitSet(256)
+    for (let i = 0; i < 10000; i += 2) {
+      set.add(i)
+    }
+
+    return () => {
+      [...set.values()]
+    }
+  })
+
   benchmark.addCase('Set.has', () => {
     const set = new Set<number>()
     for (let i = 0; i < 10000; i += 2) {
