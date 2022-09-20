@@ -25,22 +25,24 @@ export class BitSet {
       const remainder =
         this.bitsPerElement
       - (maxArrayLength * this.bitsPerElement - this.length)
+
       const lastIndex = maxArrayLength - 1
       for (let index = 0; index < lastIndex; index++) {
-        const element = this.array[index]
+        let element = this.array[index]
         for (let bit = 0; bit < this.bitsPerElement; bit++) {
-          const mask = this.getMask(bit)
-          if ((element & mask) === mask) {
+          if ((element & 1) === 1) {
             yield index * this.bitsPerElement + bit
           }
+          element >>= 1
         }
       }
-      const lastElement = this.array[maxArrayLength - 1]
+
+      let lastElement = this.array[maxArrayLength - 1]
       for (let bit = 0; bit < remainder; bit++) {
-        const mask = this.getMask(bit)
-        if ((lastElement & mask) === mask) {
+        if ((lastElement & 1) === 1) {
           yield lastIndex * this.bitsPerElement + bit
         }
+        lastElement >>= 1
       }
     }
   }
