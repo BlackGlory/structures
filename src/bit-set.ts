@@ -3,6 +3,7 @@ import { assert } from '@blackglory/errors'
 export class BitSet {
   private array: number[] = []
   private length = 0
+  private _size = 0
 
   constructor(private bitsPerElement: number = 8) {}
 
@@ -11,7 +12,7 @@ export class BitSet {
   }
 
   get size(): number {
-    return this.length
+    return this._size
   }
 
   [Symbol.iterator](): IterableIterator<number> {
@@ -71,7 +72,13 @@ export class BitSet {
 
     const [index, mask] = this.getPosition(value)
 
-    this.array[index] = (this.array[index] ?? 0) | mask
+    const element = this.array[index] ?? 0
+    this.array[index] = element | mask
+
+    const added = (element & mask) !== mask
+    if (added) {
+      this._size++
+    }
   }
 
   delete(value: number): boolean {
@@ -79,7 +86,13 @@ export class BitSet {
 
     const element = (this.array[index] ?? 0)
     this.array[index] = element & ~mask
-    return (element & mask) === mask
+
+    const deleted = (element & mask) === mask
+    if (deleted) {
+      this._size--
+    }
+
+    return deleted
   }
 
   clear(): void {

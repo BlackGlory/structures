@@ -48,7 +48,7 @@ describe('TypedBitSet', () => {
 
       const result = set.size
 
-      expect(result).toBe(3) // [0, 1, 2]
+      expect(result).toBe(1)
     })
   })
 
@@ -129,6 +129,7 @@ describe('TypedBitSet', () => {
       expect(result).toBe(true)
       expect(set.has(1)).toBe(false)
       expect(set.has(2)).toBe(true)
+      expect(set.size).toBe(1)
     })
 
     test('does not exist', () => {
@@ -138,6 +139,7 @@ describe('TypedBitSet', () => {
 
       expect(result).toBe(false)
       expect(set.has(1)).toBe(false)
+      expect(set.size).toBe(0)
     })
   })
 

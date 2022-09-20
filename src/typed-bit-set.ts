@@ -5,6 +5,7 @@ import { assert } from '@blackglory/errors'
 export class TypedBitSet<T extends UnsignedTypedArrayConstructor> {
   private bitsPerElement = this.array.internalTypedArray.BYTES_PER_ELEMENT * 8
   private length = 0
+  private _size = 0
 
   constructor(private array: DynamicTypedArray<T>) {}
 
@@ -13,7 +14,7 @@ export class TypedBitSet<T extends UnsignedTypedArrayConstructor> {
   }
 
   get size(): number {
-    return this.length
+    return this._size
   }
 
   [Symbol.iterator](): IterableIterator<number> {
@@ -73,7 +74,13 @@ export class TypedBitSet<T extends UnsignedTypedArrayConstructor> {
 
     const [index, mask] = this.getPosition(value)
 
-    this.array.set(index, (this.array.get(index) ?? 0) | mask)
+    const element = this.array.get(index) ?? 0
+    this.array.set(index, element | mask)
+
+    const added = (element & mask) !== mask
+    if (added) {
+      this._size++
+    }
   }
 
   delete(value: number): boolean {
@@ -81,7 +88,12 @@ export class TypedBitSet<T extends UnsignedTypedArrayConstructor> {
 
     const element = (this.array.get(index) ?? 0)
     this.array.set(index, element & ~mask)
-    return (element & mask) === mask
+
+    const deleted = (element & mask) === mask
+    if (deleted) {
+      this._size--
+    }
+    return deleted
   }
 
   clear(): void {
