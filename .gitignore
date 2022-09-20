@@ -60,3 +60,4 @@ typings/
 # Build
 lib
 dist
+benches/**/*.js
