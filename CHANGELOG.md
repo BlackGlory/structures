@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.10.18](https://github.com/BlackGlory/structures/compare/v0.10.17...v0.10.18) (2022-09-20)
+
+
+### Bug Fixes
+
+* `BitSet.size`, `TypedBitSet.size` ([3d87222](https://github.com/BlackGlory/structures/commit/3d872227108fcb35586050fe75d0fec2065ac3c1))
+
 ### [0.10.17](https://github.com/BlackGlory/structures/compare/v0.10.16...v0.10.17) (2022-09-20)
 
 ### [0.10.16](https://github.com/BlackGlory/structures/compare/v0.10.15...v0.10.16) (2022-09-20)
