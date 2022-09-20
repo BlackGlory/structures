@@ -66,7 +66,7 @@ describe('BitSet', () => {
   })
 
   describe('values', () => {
-    test('only yields existing values', () => {
+    test('yield values in order', () => {
       const set = new BitSet(8)
       set.add(1)
       set.add(8)

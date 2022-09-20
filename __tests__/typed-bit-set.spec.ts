@@ -67,7 +67,7 @@ describe('TypedBitSet', () => {
   })
 
   describe('values', () => {
-    test('only yields existing values', () => {
+    test('yield values in order', () => {
       const set = new TypedBitSet(new DynamicTypedArray(Uint8Array))
       set.add(1)
       set.add(8)
