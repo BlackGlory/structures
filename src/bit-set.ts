@@ -1,11 +1,12 @@
 import { assert } from '@blackglory/errors'
+import { bitScan } from '@utils/bit-scan'
 
 export class BitSet {
   private array: number[] = []
   private length = 0
   private _size = 0
 
-  constructor(private bitsPerElement: number = 32) {
+  constructor(private bitsPerElement: number = 31) {
     assert(
       Number.isInteger(bitsPerElement)
     , 'The parameter bitsPerElement must be an integer'
@@ -14,10 +15,10 @@ export class BitSet {
       bitsPerElement > 0
     , 'The parameter bitsPerElement must be greater than 0'
     )
-    // `32`是该数据结构中能够处理的最大值
+    // `31`是该数据结构中能够处理的最大值
     assert(
-      bitsPerElement <= 32
-    , 'The mask of bitsPerElement must be less than or equal to 32'
+      bitsPerElement <= 31
+    , 'The mask of bitsPerElement must be less than or equal to 31'
     )
   }
 
@@ -37,29 +38,16 @@ export class BitSet {
     if (this.length > 0) {
       // maxArrayLength = Math.ceil(this.length / this.bitsPerElement)
       const maxArrayLength = ~~(this.length / this.bitsPerElement) + 1
-      const remainder =
-        this.bitsPerElement
-      - (maxArrayLength * this.bitsPerElement - this.length)
 
-      const lastIndex = maxArrayLength - 1
-      for (let index = 0; index < lastIndex; index++) {
+      for (let index = 0; index < maxArrayLength; index++) {
         let element = this.array[index]
-        for (let bit = 0; bit < this.bitsPerElement; bit++) {
-          // if (isOdd(element)) {
-          if (element % 2) {
-            yield index * this.bitsPerElement + bit
-          }
-          element >>= 1
+        let offset = 0
+        let indexOfBit: number
+        while ((indexOfBit = bitScan(element)) !== 32) {
+          yield index * this.bitsPerElement + offset + indexOfBit
+          offset += indexOfBit + 1
+          element >>= indexOfBit + 1
         }
-      }
-
-      let lastElement = this.array[maxArrayLength - 1]
-      for (let bit = 0; bit < remainder; bit++) {
-        // if (isOdd(lastElement)) {
-        if (lastElement % 2) {
-          yield lastIndex * this.bitsPerElement + bit
-        }
-        lastElement >>= 1
       }
     }
   }

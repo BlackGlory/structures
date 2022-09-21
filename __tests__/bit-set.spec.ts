@@ -3,16 +3,14 @@ import { BitSet } from '@src/bit-set'
 import { range } from 'extra-generator'
 import '@blackglory/jest-matchers'
 
-describe.each([8, 32])('BitSet(%s)', (bitsPerElement) => {
+describe.each([8, 31])('BitSet(%s)', (bitsPerElement) => {
   test('create', () => {
     new BitSet(bitsPerElement)
   })
 
-  // dumpBinaryStrings不能正确输出bitsPerElements为32时的字符串结果,
-  // 但32在此数据结构中确实是可用的.
   describe('_dumpBinaryStrings', () => {
     test('empty', () => {
-      const set = new BitSet(8)
+      const set = new BitSet(bitsPerElement)
 
       const result = set._dumpBinaryStrings()
 
@@ -22,15 +20,41 @@ describe.each([8, 32])('BitSet(%s)', (bitsPerElement) => {
     })
 
     test('non-empty', () => {
-      const set = new BitSet(8)
-      set.add(0)
-      set.add(7)
-      set.add(8)
+      const set = new BitSet(bitsPerElement)
+      add()
 
       const result = set._dumpBinaryStrings()
 
       expect(result).toBeInstanceOf(Array)
-      expect(result).toStrictEqual(['10000001', '00000001'])
+      expect(result).toStrictEqual(getResult())
+
+      function add(): void {
+        switch (bitsPerElement) {
+          case 8: {
+            set.add(0)
+            set.add(7)
+            set.add(8)
+            break
+          }
+          case 31: {
+            set.add(0)
+            set.add(30)
+            set.add(31)
+            break
+          }
+        }
+      }
+
+      function getResult(): string[] {
+        switch (bitsPerElement) {
+          case 8: return ['10000001', '00000001']
+          case 31: return [
+            '1' + '0'.repeat(29) + '1'
+          , '0'.repeat(30) + '1'
+          ]
+          default: return []
+        }
+      }
     })
   })
 

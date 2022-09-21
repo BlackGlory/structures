@@ -371,7 +371,7 @@ class BitSet {
   get size(): number
   [Symbol.iterator](): IterableIterator<number>
 
-  constructor(bitsPerElement: number = 32)
+  constructor(bitsPerElement: number = 31)
 
   values(): IterableIterator<number>
 
