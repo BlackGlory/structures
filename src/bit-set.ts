@@ -1,5 +1,5 @@
 import { assert } from '@blackglory/errors'
-import { bitScan } from '@utils/bit-scan'
+import { trailingZeros } from '@utils/trailing-zeros'
 
 export class BitSet {
   private array: number[] = []
@@ -43,7 +43,7 @@ export class BitSet {
         let element = this.array[index]
         let offset = 0
         let indexOfBit: number
-        while ((indexOfBit = bitScan(element)) !== 32) {
+        while ((indexOfBit = trailingZeros(element)) !== 32) {
           yield index * this.bitsPerElement + offset + indexOfBit
           offset += indexOfBit + 1
           element >>= indexOfBit + 1
