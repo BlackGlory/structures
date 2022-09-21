@@ -41,7 +41,8 @@ export class TypedBitSet<T extends UnsignedTypedArrayConstructor> {
 
   * values(): IterableIterator<number> {
     if (this.length > 0) {
-      const maxArrayLength = Math.ceil(this.length / this.bitsPerElement)
+      // maxArrayLength = Math.ceil(this.length / this.bitsPerElement)
+      const maxArrayLength = ~~(this.length / this.bitsPerElement) + 1
       const remainder =
         this.bitsPerElement
       - (maxArrayLength * this.bitsPerElement - this.length)
@@ -50,7 +51,8 @@ export class TypedBitSet<T extends UnsignedTypedArrayConstructor> {
       for (let index = 0; index < lastIndex; index++) {
         let element = this.array.internalTypedArray[index]
         for (let bit = 0; bit < this.bitsPerElement; bit++) {
-          if (element & 1) {
+          // if (isOdd(element)) {
+          if (element % 2) {
             yield index * this.bitsPerElement + bit
           }
           element >>= 1
@@ -59,7 +61,8 @@ export class TypedBitSet<T extends UnsignedTypedArrayConstructor> {
 
       let lastElement = this.array.internalTypedArray[maxArrayLength - 1]
       for (let bit = 0; bit < remainder; bit++) {
-        if (lastElement & 1) {
+        // if (isOdd(lastElement)) {
+        if (lastElement % 2) {
           yield lastIndex * this.bitsPerElement + bit
         }
         lastElement >>= 1
@@ -132,6 +135,7 @@ export class TypedBitSet<T extends UnsignedTypedArrayConstructor> {
 
   // 输入一定是一个小于bitsPerElement的值, 取值范围是[0, bitsPerElement)
   private getMask(value: number): number {
+    // return 2 ** value
     return 1 << value
   }
 }
