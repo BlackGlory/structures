@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.10.22](https://github.com/BlackGlory/structures/compare/v0.10.21...v0.10.22) (2022-09-21)
+
+
+### Bug Fixes
+
+* use trailingZeros ([876f81f](https://github.com/BlackGlory/structures/commit/876f81f1b15f8e79fa39fefaaa48bc27b1aae0c7))
+
 ### [0.10.21](https://github.com/BlackGlory/structures/compare/v0.10.20...v0.10.21) (2022-09-21)
 
 
