@@ -7,7 +7,6 @@ import '@blackglory/jest-matchers'
 describe.each([
   ['Uint8Array', Uint8Array]
 , ['Uint16Array', Uint16Array]
-, ['Uint32Array', Uint32Array]
 ])('TypedBitSet(%s)', (_, UintArray) => {
   test('create', () => {
     new TypedBitSet(new DynamicTypedArray(UintArray))
@@ -47,12 +46,6 @@ describe.each([
             set.add(16)
             break
           }
-          case Uint32Array: {
-            set.add(0)
-            set.add(31)
-            set.add(32)
-            break
-          }
         }
       }
 
@@ -65,10 +58,6 @@ describe.each([
           case Uint16Array: return [
             '1' + '0'.repeat(14) + '1'
           , '0'.repeat(15) + '1'
-          ]
-          case Uint32Array: return [
-            '1' + '0'.repeat(30) + '1'
-          , '0'.repeat(31) + '1'
           ]
           default: return []
         }

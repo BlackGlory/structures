@@ -41,17 +41,6 @@ go(async () => {
     }
   })
 
-  benchmark.addCase('TypedBitSet(Uint32).values', () => {
-    const set = new TypedBitSet(new DynamicTypedArray(Uint32Array))
-    for (let i = 0; i < 10000; i += 2) {
-      set.add(i)
-    }
-
-    return () => {
-      [...set.values()]
-    }
-  })
-
   benchmark.addCase('BitSet(8).values', () => {
     const set = new BitSet(8)
     for (let i = 0; i < 10000; i += 2) {
@@ -102,19 +91,6 @@ go(async () => {
 
   benchmark.addCase('TypedBitSet(Uint16).has', () => {
     const set = new TypedBitSet(new DynamicTypedArray(Uint16Array))
-    for (let i = 0; i < 10000; i += 2) {
-      set.add(i)
-    }
-
-    return () => {
-      for (let i = 10000; i--;) {
-        set.has(i)
-      }
-    }
-  })
-
-  benchmark.addCase('TypedBitSet(Uint32).has', () => {
-    const set = new TypedBitSet(new DynamicTypedArray(Uint32Array))
     for (let i = 0; i < 10000; i += 2) {
       set.add(i)
     }
@@ -194,20 +170,6 @@ go(async () => {
     }
   })
 
-  benchmark.addCase('TypedBitSet(Uint32).add', () => {
-    return () => {
-      const set = new TypedBitSet(new DynamicTypedArray(Uint32Array))
-
-      for (let i = 0; i < 10000; i += 2) {
-        set.add(i)
-      }
-
-      for (let i = 10000; i--;) {
-        set.add(i)
-      }
-    }
-  })
-
   benchmark.addCase('BitSet(8).add', () => {
     return () => {
       const set = new BitSet(8)
@@ -266,20 +228,6 @@ go(async () => {
 
   benchmark.addCase('TypedBitSet(Uint16).delete', () => {
     const set = new TypedBitSet(new DynamicTypedArray(Uint16Array))
-
-    return () => {
-      for (let i = 0; i < 10000; i += 2) {
-        set.add(i)
-      }
-
-      for (let i = 10000; i--;) {
-        set.delete(i)
-      }
-    }
-  })
-
-  benchmark.addCase('TypedBitSet(Uint32).delete', () => {
-    const set = new TypedBitSet(new DynamicTypedArray(Uint32Array))
 
     return () => {
       for (let i = 0; i < 10000; i += 2) {
