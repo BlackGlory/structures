@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.10.21](https://github.com/BlackGlory/structures/compare/v0.10.20...v0.10.21) (2022-09-21)
+
+
+### Bug Fixes
+
+* the range of `bitsPerElement` ([ced54f8](https://github.com/BlackGlory/structures/commit/ced54f803c5744b80432e23cd52d82b36e5f8935))
+
 ### [0.10.20](https://github.com/BlackGlory/structures/compare/v0.10.19...v0.10.20) (2022-09-21)
 
 
