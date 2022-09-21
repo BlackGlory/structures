@@ -52,6 +52,17 @@ go(async () => {
     }
   })
 
+  benchmark.addCase('BitSet(16).values', () => {
+    const set = new BitSet(16)
+    for (let i = 0; i < 10000; i += 2) {
+      set.add(i)
+    }
+
+    return () => {
+      [...set.values()]
+    }
+  })
+
   benchmark.addCase('BitSet(31).values', () => {
     const set = new BitSet(31)
     for (let i = 0; i < 10000; i += 2) {
@@ -104,6 +115,19 @@ go(async () => {
 
   benchmark.addCase('BitSet(8).has', () => {
     const set = new BitSet(8)
+    for (let i = 0; i < 10000; i += 2) {
+      set.add(i)
+    }
+
+    return () => {
+      for (let i = 10000; i--;) {
+        set.has(i)
+      }
+    }
+  })
+
+  benchmark.addCase('BitSet(16).has', () => {
+    const set = new BitSet(16)
     for (let i = 0; i < 10000; i += 2) {
       set.add(i)
     }
@@ -184,6 +208,20 @@ go(async () => {
     }
   })
 
+  benchmark.addCase('BitSet(16).add', () => {
+    return () => {
+      const set = new BitSet(16)
+
+      for (let i = 0; i < 10000; i += 2) {
+        set.add(i)
+      }
+
+      for (let i = 10000; i--;) {
+        set.add(i)
+      }
+    }
+  })
+
   benchmark.addCase('BitSet(31).add', () => {
     return () => {
       const set = new BitSet(31)
@@ -242,6 +280,20 @@ go(async () => {
 
   benchmark.addCase('BitSet(8).delete', () => {
     const set = new BitSet(8)
+
+    return () => {
+      for (let i = 0; i < 10000; i += 2) {
+        set.add(i)
+      }
+
+      for (let i = 10000; i--;) {
+        set.delete(i)
+      }
+    }
+  })
+
+  benchmark.addCase('BitSet(16).delete', () => {
+    const set = new BitSet(16)
 
     return () => {
       for (let i = 0; i < 10000; i += 2) {
