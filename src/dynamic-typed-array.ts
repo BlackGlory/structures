@@ -20,6 +20,10 @@ export class DynamicTypedArray<T extends TypedArrayConstructor> {
     return this.constructor.name
   }
 
+  get BYTES_PER_ELEMENT(): number {
+    return this.typedArrayConstructor.BYTES_PER_ELEMENT
+  }
+
   /**
    * 数组当前的容量.
    */

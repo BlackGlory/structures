@@ -5,7 +5,21 @@ export class BitSet {
   private length = 0
   private _size = 0
 
-  constructor(private bitsPerElement: number = 8) {}
+  constructor(private bitsPerElement: number = 8) {
+    assert(
+      Number.isInteger(bitsPerElement)
+    , 'The parameter bitsPerElement must be an integer'
+    )
+    assert(
+      bitsPerElement > 0
+    , 'The parameter bitsPerElement must be greater than 0'
+    )
+    // `32`是该数据结构中能够处理的最大值
+    assert(
+      bitsPerElement <= 32
+    , 'The mask of bitsPerElement must be less than or equal to 32'
+    )
+  }
 
   get [Symbol.toStringTag](): string {
     return this.constructor.name

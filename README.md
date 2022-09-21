@@ -277,6 +277,7 @@ class SparseMap<T> {
 ```ts
 class DynamicTypedArray<T extends TypedArrayConstructor> {
   get [Symbol.toStringTag](): string
+  get BYTES_PER_ELEMENT(): number
   get capacity(): number
   get length(): number
   readonly growthFactor: number

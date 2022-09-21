@@ -3,11 +3,29 @@ import { UnsignedTypedArrayConstructor } from 'justypes'
 import { assert } from '@blackglory/errors'
 
 export class TypedBitSet<T extends UnsignedTypedArrayConstructor> {
-  private bitsPerElement = this.array.internalTypedArray.BYTES_PER_ELEMENT * 8
+  private bitsPerElement: number
   private length = 0
   private _size = 0
 
-  constructor(private array: DynamicTypedArray<T>) {}
+  constructor(private array: DynamicTypedArray<T>) {
+    const bitsPerElement = array.BYTES_PER_ELEMENT * 8
+
+    assert(
+      Number.isInteger(bitsPerElement)
+    , 'The parameter bitsPerElement must be an integer'
+    )
+    assert(
+      bitsPerElement > 0
+    , 'The parameter bitsPerElement must be greater than 0'
+    )
+    // `32`是该数据结构中能够处理的最大值
+    assert(
+      bitsPerElement <= 32
+    , 'The mask of bitsPerElement must be less than or equal to 32'
+    )
+
+    this.bitsPerElement = bitsPerElement
+  }
 
   get [Symbol.toStringTag](): string {
     return this.constructor.name
