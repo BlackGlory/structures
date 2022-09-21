@@ -5,7 +5,7 @@ export class BitSet {
   private length = 0
   private _size = 0
 
-  constructor(private bitsPerElement: number = 8) {
+  constructor(private bitsPerElement: number = 32) {
     assert(
       Number.isInteger(bitsPerElement)
     , 'The parameter bitsPerElement must be an integer'
