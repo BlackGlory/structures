@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.11.1](https://github.com/BlackGlory/structures/compare/v0.11.0...v0.11.1) (2022-09-24)
+
+
+### Features
+
+* add `isAdded` as return values of `add()` methods ([afcf19c](https://github.com/BlackGlory/structures/commit/afcf19ca56a48248eaa969573ccbc70395fd5181))
+
 ## [0.11.0](https://github.com/BlackGlory/structures/compare/v0.10.22...v0.11.0) (2022-09-24)
 
 
