@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.11.0](https://github.com/BlackGlory/structures/compare/v0.10.22...v0.11.0) (2022-09-24)
+
+
+### ⚠ BREAKING CHANGES
+
+* Removed `FiniteStateMachine`, `ObservableFiniteStateMachine`
+
+* remove `FiniteStateMachine`, `ObservableFiniteStateMachine` ([d88c373](https://github.com/BlackGlory/structures/commit/d88c373586d1cf2f83bf96a44e8806b81842ff61))
+
 ### [0.10.22](https://github.com/BlackGlory/structures/compare/v0.10.21...v0.10.22) (2022-09-21)
 
 
