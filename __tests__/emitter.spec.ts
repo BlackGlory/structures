@@ -11,8 +11,8 @@ describe('Emitter', () => {
 
   describe('on', () => {
     test('add the listener', () => {
-      const emitter = new Emitter()
       const event = 'event'
+      const emitter = new Emitter()
       const listener = jest.fn()
 
       emitter.on(event, listener)
