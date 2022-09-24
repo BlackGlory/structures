@@ -183,51 +183,6 @@ class TrieMap<K extends Iterable<T>, V, T = unknown> {
 }
 ```
 
-### FiniteStateMachine
-```ts
-type IFiniteStateMachineSchema<State extends string, Event extends string> =
-  Record<State, Partial<Record<Event, State>>>
-
-class FiniteStateMachine<State extends string, Event extends string> {
-  get [Symbol.toStringTag](): string
-  get state(): State
-
-  constructor(
-    schema: IFiniteStateMachineSchema<State, Event>
-  , initialState: State
-  )
-
-  matches(state: State): boolean
-  can(event: Event): boolean
-
-  /**
-   * @throws {BadEventError}
-   */
-  send(event: Event): void
-}
-```
-
-### ObservableFiniteStateMachine
-```ts
-interface IFiniteStateMachineStateChange<
-  State extends string
-, Event extends string
-> {
-  event: Event
-  oldState: State
-  newState: State
-}
-
-class ObservableFiniteStateMachine<
-  State extends string
-, Event extends string
-> extends FiniteStateMachine<State, Event> {
-  get [Symbol.toStringTag](): string
-
-  observeStateChanges(): Observable<IFiniteStateMachineStateChange<State, Event>>
-}
-```
-
 ### SparseSet
 ```ts
 class SparseSet implements Iterable<number> {
