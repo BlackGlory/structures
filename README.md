@@ -331,7 +331,7 @@ class BitSet {
   values(): IterableIterator<number>
 
   has(value: number): boolean
-  add(value: number): void
+  add(value: number): boolean
   delete(value: number): boolean
   clear(): void
 }
@@ -352,7 +352,7 @@ class TypedBitSet<T extends UnsignedTypedArrayConstructor> {
   values(): IterableIterator<number>
 
   has(value: number): boolean
-  add(value: number): void
+  add(value: number): boolean
   delete(value: number): boolean
   clear(): void
 }

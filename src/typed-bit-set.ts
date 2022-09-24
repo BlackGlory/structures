@@ -77,7 +77,7 @@ export class TypedBitSet<T extends UnsignedTypedArrayConstructor> {
     return ((this.array.get(index) ?? 0) & mask) === mask
   }
 
-  add(value: number): void {
+  add(value: number): boolean {
     assert(value >= 0, 'value must be greater than or equal to 0')
     if (value >= this.length) {
       this.length = value + 1
@@ -92,6 +92,7 @@ export class TypedBitSet<T extends UnsignedTypedArrayConstructor> {
     if (added) {
       this._size++
     }
+    return added
   }
 
   delete(value: number): boolean {
