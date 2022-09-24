@@ -1,3 +1,5 @@
+import { go } from '@blackglory/go'
+
 type Listener<Args extends unknown[]> = (...args: Args) => void
 
 export class Emitter<EventToArgs extends Record<string, unknown[]>> {
@@ -14,20 +16,27 @@ export class Emitter<EventToArgs extends Record<string, unknown[]>> {
     event: T
   , listener: Listener<EventToArgs[T]>
   ): () => void {
-    if (!this.map.has(event)) {
-      this.map.set(event, new Set())
-    }
-
-    const set = this.map.get(event)!
+    const set = go(() => {
+      const set = this.map.get(event)
+      if (set) {
+        return set
+      } else {
+        const set = new Set<Listener<EventToArgs[keyof EventToArgs]>>()
+        this.map.set(event, set)
+        return set
+      }
+    })
     set.add(handler as Listener<EventToArgs[keyof EventToArgs]>)
 
     return () => {
-      if (!this.map.has(event)) return
-
-      const handlers = this.map.get(event)!
-      handlers.delete(handler as Listener<EventToArgs[keyof EventToArgs]>)
-      if (handlers.size === 0) {
-        this.map.delete(event)
+      const handlers = this.map.get(event)
+      if (handlers) {
+        const deleted = handlers.delete(
+          handler as Listener<EventToArgs[keyof EventToArgs]>
+        )
+        if (deleted && handlers.size === 0) {
+          this.map.delete(event)
+        }
       }
     }
 
@@ -52,8 +61,6 @@ export class Emitter<EventToArgs extends Record<string, unknown[]>> {
   }
 
   emit<T extends keyof EventToArgs>(event: T, ...args: EventToArgs[T]): void {
-    if (!this.map.has(event)) return
-
-    this.map.get(event)!.forEach(cb => cb(...args))
+    this.map.get(event)?.forEach(cb => cb(...args))
   }
 }
