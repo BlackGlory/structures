@@ -1,6 +1,8 @@
 import { TLRUMap } from '@src/tlru-map'
 import { delay } from 'extra-promise'
 
+const TIME_ERROR = 1
+
 class TLRUMapTest<K, V> extends TLRUMap<K, V> {
   getItemMetadataSortedByExpirationTime() {
     return this.itemMetadataSortedByExpirationTime
@@ -37,14 +39,14 @@ describe('TLRUMap', () => {
   test('items expired', async () => {
     const map = new TLRUMapTest(100)
 
-    map.set('item #1', 'value', 500)
-    map.set('item #2', 'value', 1000)
+    map.set('item #1', 'value', 500 - TIME_ERROR)
+    map.set('item #2', 'value', 1000 - TIME_ERROR)
     const size1 = map.size
     const length1 = map.getItemMetadataSortedByExpirationTime().length
-    await delay(500)
+    await delay(500 + TIME_ERROR)
     const size2 = map.size
     const length2 = map.getItemMetadataSortedByExpirationTime().length
-    await delay(500)
+    await delay(500 + TIME_ERROR)
     const size3 = map.size
     const length3 = map.getItemMetadataSortedByExpirationTime().length
 
