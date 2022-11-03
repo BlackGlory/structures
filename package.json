@@ -1,11 +1,8 @@
 {
   "name": "@blackglory/structures",
-  "version": "0.11.4",
+  "version": "0.11.3",
   "description": "",
-  "files": [
-    "lib",
-    "dist"
-  ],
+  "files": ["lib"],
   "main": "lib/es2018/index.js",
   "types": "lib/es2018/index.d.ts",
   "sideEffects": false,
