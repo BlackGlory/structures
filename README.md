@@ -16,8 +16,8 @@ class Box<T> {
 
   constructor(value: T)
 
-  get(): T 
-  set(value: T): void 
+  get(): T
+  set(value: T): void
 }
 ```
 
