@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.11.5](https://github.com/BlackGlory/structures/compare/v0.11.4...v0.11.5) (2022-11-29)
+
+
+### Features
+
+* add `BigSet`, `BigMap` ([6763b3d](https://github.com/BlackGlory/structures/commit/6763b3d171c12d17ea2347a6dc4b0caccba11677))
+
 ### [0.11.4](https://github.com/BlackGlory/structures/compare/v0.11.3...v0.11.4) (2022-11-03)
 
 ### [0.11.3](https://github.com/BlackGlory/structures/compare/v0.11.2...v0.11.3) (2022-09-24)
