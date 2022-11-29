@@ -79,6 +79,82 @@ class Emitter<
 }
 ```
 
+### BigMap
+```ts
+class BigMap<K, V> implements Iterable<[K, V]> {
+  get [Symbol.toStringTag](): string
+
+  get size(): number
+
+  set(key: K, value: V): void
+  has(key: K): boolean
+  get(key: K): V | undefined
+  delete(key: K): boolean
+  clear(): void
+
+  entries(): IterableIterator<[K, V]>
+  keys(): IterableIterator<K>
+  values(): IterableIterator<V>
+}
+```
+
+The `Map` that supports unlimited elements.
+
+Note that `BigMap` cannot preserve the insertion order of elements.
+
+```ts
+// Map
+const map = new Map()
+for (let i = 0; i < 100_000_000; i++) {
+  map.set(i, null) // RangeError
+}
+console.log('Never')
+
+// BigMap
+const { BigMap } = require('.')
+const map = new BigMap()
+for (let i = 0; i < 100_000_000; i++) {
+  map.set(i, null)
+}
+console.log('Done')
+```
+
+### BigSet
+```ts
+class BigSet<T> implements Iterable<T> {
+  get [Symbol.toStringTag]: string
+
+  get size(): number
+
+  add(value: T): this
+  has(value: T): boolean
+  delete(value: T): boolean
+  clear(): void
+
+  values(): IterableIterator<T>
+}
+```
+
+The `Set` that supports unlimited elements.
+
+Note that `BigSet` cannot preserve the insertion order of elements.
+
+```ts
+// Set
+const set = new Set()
+for (let i = 0; i < 100_000_000; i++) {
+  set.add(i) // RangeError
+}
+console.log('Never')
+
+// BigSet
+const set = new BigSet()
+for (let i = 0; i < 100_000_000; i++) {
+  set.add(i)
+}
+console.log('Done')
+```
+
 ### HashMap
 ```ts
 class HashMap<K, V, Hash = unknown> {
