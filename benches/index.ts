@@ -3,8 +3,8 @@ import { BitSet, TypedBitSet, DynamicTypedArray } from '..'
 import { Benchmark } from 'extra-benchmark'
 
 const benchmark = new Benchmark('BitSet', {
-  warmUps: 10000
-, runs: 10000
+  warms: 1000
+, runs: 1000
 })
 
 go(async () => {
