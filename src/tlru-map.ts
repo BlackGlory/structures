@@ -29,17 +29,17 @@ export class TLRUMap<K, V> {
     this.limit = limit
   }
 
-  set(key: K, value: V, maxAge: number): this {
+  set(key: K, value: V, timeToLive: number): this {
     if (this.map.has(key)) {
       this.updateItem(key, value)
       this.removeItemMetadata(key)
-      this.addItemMetadata(key, Date.now() + maxAge)
+      this.addItemMetadata(key, Date.now() + timeToLive)
     } else {
       if (this.map.size === this.limit) {
         this.map.delete(this.getColdestKey()!)
       }
       this.map.set(key, value)
-      this.addItemMetadata(key, Date.now() + maxAge)
+      this.addItemMetadata(key, Date.now() + timeToLive)
     }
     return this
   }

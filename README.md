@@ -212,7 +212,7 @@ class ExpirableMap<K, V> {
 
   constructor()
 
-  set(key: K, value: V, maxAge: number): this
+  set(key: K, value: V, timeToLive: number): this
   has(key: K): boolean
   get(key: K): V | undefined
   delete(key: K): boolean
@@ -228,7 +228,7 @@ class TLRUMap<K, V> {
 
   constructor(limit: number)
 
-  set(key: K, value: V, maxAge: number): this
+  set(key: K, value: V, timeToLive: number): this
   has(key: K): boolean
   get(key: K): V | undefined
   delete(key: K): boolean

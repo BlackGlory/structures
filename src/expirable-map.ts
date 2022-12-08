@@ -16,10 +16,10 @@ export class ExpirableMap<K, V> {
     return this.map.size
   }
 
-  set(key: K, value: V, maxAge: number): this {
+  set(key: K, value: V, timeToLive: number): this {
     this.map.set(key, value)
     this.removeItemMetadata(key)
-    this.addItemMetadata(key, Date.now() + maxAge)
+    this.addItemMetadata(key, Date.now() + timeToLive)
     return this
   }
 
