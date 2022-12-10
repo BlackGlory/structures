@@ -12,7 +12,10 @@ export class TLRUMap<K, V> {
   /**
    * 按过期时间升序排列所有项目的元数据
    */ 
-  protected itemMetadataSortedByExpirationTime: Array<{ key: K; expirationTime: number }> = []
+  protected itemMetadataSortedByExpirationTime: Array<{
+    key: K
+    expirationTime: number
+  }> = []
 
   get [Symbol.toStringTag](): string {
     return this.constructor.name

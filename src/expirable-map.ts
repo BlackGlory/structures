@@ -6,7 +6,10 @@ export class ExpirableMap<K, V> {
   /**
    * 按过期时间升序排列所有项目的元数据
    */ 
-  itemMetadataSortedByExpirationTime: Array<{ key: K; expirationTime: number }> = []
+  itemMetadataSortedByExpirationTime: Array<{
+    key: K
+    expirationTime: number
+  }> = []
 
   get [Symbol.toStringTag](): string {
     return this.constructor.name
