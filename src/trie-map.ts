@@ -1,5 +1,5 @@
 import { zip, toArray, map } from 'iterable-operator'
-import { isntUndefined } from '@blackglory/types'
+import { isntUndefined } from 'extra-utils'
 
 class TrieNode<T, U> {
   children = new Map<T, TrieNode<T, U>>()

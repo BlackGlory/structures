@@ -2941,7 +2941,7 @@ extra-timers@^0.2.5:
   dependencies:
     extra-rand "^0.1.1"
 
-extra-utils@^3.0.0, extra-utils@^3.4.0:
+extra-utils@^3.0.0, extra-utils@^3.4.0, extra-utils@^3.5.1:
   version "3.5.1"
   resolved "https://registry.yarnpkg.com/extra-utils/-/extra-utils-3.5.1.tgz#50b52f6a8f09204d261e42cd6f9ba78f43fca379"
   integrity sha512-YXE6lkT68hSjXZNbh7H/Ov5P4JK+oScdF5BgNbBONfgwwrOTV+Kjcmp5FB7RQSQLrdmk+yn7qkh0NsrTsnQKCQ==

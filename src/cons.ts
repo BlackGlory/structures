@@ -1,4 +1,4 @@
-import { isNull } from '@blackglory/types'
+import { isNull } from 'extra-utils'
 import { Cons } from 'justypes'
 export { Cons } from 'justypes'
 

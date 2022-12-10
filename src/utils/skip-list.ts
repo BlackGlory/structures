@@ -1,4 +1,4 @@
-import { isntNull } from '@blackglory/types'
+import { isntNull } from 'extra-utils'
 
 export class SkipListNode<T> {
   previous: SkipListNode<T> | null = null
