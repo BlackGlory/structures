@@ -9,6 +9,7 @@ export class TLRUMap<K, V> {
   private limit: number
   private map = new Map<K, V>()
   private cancelClearTimeout?: () => void
+
   /**
    * 按过期时间升序排列所有项目的元数据
    */
@@ -32,7 +33,7 @@ export class TLRUMap<K, V> {
     this.limit = limit
   }
 
-  set(key: K, value: V, timeToLive: number): this {
+  set(key: K, value: V, timeToLive: number = Infinity): this {
     if (this.map.has(key)) {
       this.updateItem(key, value)
       this.removeItemMetadata(key)

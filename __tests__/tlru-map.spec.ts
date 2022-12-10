@@ -58,7 +58,7 @@ describe('TLRUMap', () => {
     expect(length3).toBe(0)
   })
 
-  describe('set(key: K, value: V): this', () => {
+  describe('set', () => {
     test('not full', () => {
       const map = new TLRUMap(1)
 
@@ -83,80 +83,68 @@ describe('TLRUMap', () => {
     })
   })
 
-  describe('has(key: K): boolean', () => {
-    describe('exists', () => {
-      it('return true', () => {
-        const map = new TLRUMap(100)
-        map.set('key', 'value', Infinity)
+  describe('has', () => {
+    test('exists', () => {
+      const map = new TLRUMap(100)
+      map.set('key', 'value', Infinity)
 
-        const result = map.has('key')
+      const result = map.has('key')
 
-        expect(result).toBe(true)
-      })
+      expect(result).toBe(true)
     })
 
-    describe('does not exist', () => {
-      it('return false', () => {
-        const map = new TLRUMap(100)
+    test('does not exist', () => {
+      const map = new TLRUMap(100)
 
-        const result = map.has('key')
+      const result = map.has('key')
 
-        expect(result).toBe(false)
-      })
+      expect(result).toBe(false)
     })
   })
 
-  describe('get(key: K): V | undefined', () => {
-    describe('exists', () => {
-      it('return V', () => {
-        const map = new TLRUMap(100)
-        map.set('key', 'value', Infinity)
+  describe('get', () => {
+    test('exists', () => {
+      const map = new TLRUMap(100)
+      map.set('key', 'value', Infinity)
 
-        const result = map.get('key')
+      const result = map.get('key')
 
-        expect(result).toBe('value')
-      })
+      expect(result).toBe('value')
     })
 
-    describe('does not exist', () => {
-      it('return undefined', () => {
-        const map = new TLRUMap(100)
+    test('does not exist', () => {
+      const map = new TLRUMap(100)
 
-        const result = map.get('key')
+      const result = map.get('key')
 
-        expect(result).toBeUndefined()
-      })
+      expect(result).toBeUndefined()
     })
   })
 
-  describe('delete(key: K): boolean', () => {
-    describe('exists', () => {
-      it('return true', () => {
-        const map = new TLRUMapTest(100)
-        map.set('key', 'value', Infinity)
+  describe('delete', () => {
+    test('exists', () => {
+      const map = new TLRUMapTest(100)
+      map.set('key', 'value', Infinity)
 
-        const result = map.delete('key')
+      const result = map.delete('key')
 
-        expect(result).toBe(true)
-        expect(map.has('key')).toBe(false)
-        expect(map.getItemMetadataSortedByExpirationTime().length).toBe(0)
-      })
+      expect(result).toBe(true)
+      expect(map.has('key')).toBe(false)
+      expect(map.getItemMetadataSortedByExpirationTime().length).toBe(0)
     })
 
-    describe('does not exist', () => {
-      it('return false', () => {
-        const map = new TLRUMapTest(100)
+    test('does not exist', () => {
+      const map = new TLRUMapTest(100)
 
-        const result = map.delete('key')
+      const result = map.delete('key')
 
-        expect(result).toBe(false)
-        expect(map.has('key')).toBe(false)
-        expect(map.getItemMetadataSortedByExpirationTime().length).toBe(0)
-      })
+      expect(result).toBe(false)
+      expect(map.has('key')).toBe(false)
+      expect(map.getItemMetadataSortedByExpirationTime().length).toBe(0)
     })
   })
 
-  test('clear(): void', () => {
+  test('clear', () => {
     const map = new TLRUMapTest(100)
     map.set('key', 'value', Infinity)
 

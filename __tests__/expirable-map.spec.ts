@@ -58,7 +58,7 @@ describe('ExpirableMap', () => {
     expect(length3).toBe(0)
   })
 
-  test('set(key: K, value: V, maxAge: number): this', () => {
+  test('set', () => {
     const map = new ExpirableMapTest()
 
     map.set('item #1', 'value', Infinity)
@@ -85,78 +85,66 @@ describe('ExpirableMap', () => {
     ])
   })
 
-  describe('has(key: K): boolean', () => {
-    describe('exists', () => {
-      it('return true', () => {
-        const map = new ExpirableMap()
-        map.set('key', 'value', Infinity)
+  describe('has', () => {
+    test('exists', () => {
+      const map = new ExpirableMap()
+      map.set('key', 'value', Infinity)
 
-        const result = map.has('key')
+      const result = map.has('key')
 
-        expect(result).toBe(true)
-      })
+      expect(result).toBe(true)
     })
 
-    describe('does not exist', () => {
-      it('return false', () => {
-        const map = new ExpirableMap()
+    test('does not exist', () => {
+      const map = new ExpirableMap()
 
-        const result = map.has('key')
+      const result = map.has('key')
 
-        expect(result).toBe(false)
-      })
+      expect(result).toBe(false)
     })
   })
 
-  describe('get(key: K): V | undefined', () => {
-    describe('exists', () => {
-      it('return V', () => {
-        const map = new ExpirableMap()
-        map.set('key', 'value', Infinity)
+  describe('get', () => {
+    test('exists', () => {
+      const map = new ExpirableMap()
+      map.set('key', 'value', Infinity)
 
-        const result = map.get('key')
+      const result = map.get('key')
 
-        expect(result).toBe('value')
-      })
+      expect(result).toBe('value')
     })
 
-    describe('does not exist', () => {
-      it('return undefined', () => {
-        const map = new ExpirableMap()
+    test('does not exist', () => {
+      const map = new ExpirableMap()
 
-        const result = map.get('key')
+      const result = map.get('key')
 
-        expect(result).toBeUndefined()
-      })
+      expect(result).toBeUndefined()
     })
   })
 
-  describe('delete(key: K): boolean', () => {
-    describe('exists', () => {
-      it('return true', () => {
-        const map = new ExpirableMap()
-        map.set('key', 'value', Infinity)
+  describe('delete', () => {
+    test('exists', () => {
+      const map = new ExpirableMap()
+      map.set('key', 'value', Infinity)
 
-        const result = map.delete('key')
+      const result = map.delete('key')
 
-        expect(result).toBe(true)
-        expect(map.has('key')).toBe(false)
-      })
+      expect(result).toBe(true)
+      expect(map.has('key')).toBe(false)
     })
 
-    describe('does not exist', () => {
-      it('return false', () => {
-        const map = new ExpirableMap()
+    test('does not exist', () => {
+      const map = new ExpirableMap()
 
-        const result = map.delete('key')
+      const result = map.delete('key')
 
-        expect(result).toBe(false)
-        expect(map.has('key')).toBe(false)
-      })
+      expect(result).toBe(false)
+      expect(map.has('key')).toBe(false)
     })
   })
 
-  test('clear(): void', () => {
+  test('clear', () => {
     const map = new ExpirableMapTest()
     map.set('key', 'value', Infinity)
 
