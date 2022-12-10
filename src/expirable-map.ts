@@ -5,7 +5,7 @@ export class ExpirableMap<K, V> {
   private cancelClearTimeout?: () => void
   /**
    * 按过期时间升序排列所有项目的元数据
-   */ 
+   */
   itemMetadataSortedByExpirationTime: Array<{
     key: K
     expirationTime: number
@@ -60,7 +60,7 @@ export class ExpirableMap<K, V> {
       if (expirationTime < item.expirationTime) {
         this.itemMetadataSortedByExpirationTime.splice(i, 0, { key, expirationTime })
 
-        // 如果本次插入导致原先的第一个项目不再是低一个项目, 则需要重新规划过期回调
+        // 如果本次插入导致原先的第一个项目不再是第一个项目, 则需要重新规划过期回调
         if (i === 0) {
           this.rescheduleClearTimeout()
         }
