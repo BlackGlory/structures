@@ -1,7 +1,6 @@
 import { toArray } from 'iterable-operator'
 import { BitSet } from '@src/bit-set'
 import { range } from 'extra-generator'
-import '@blackglory/jest-matchers'
 
 describe.each([8, 31])('BitSet(%s)', (bitsPerElement) => {
   test('create', () => {
@@ -83,11 +82,10 @@ describe.each([8, 31])('BitSet(%s)', (bitsPerElement) => {
     set.add(8)
     set.add(7)
 
-    const result = set[Symbol.iterator]()
-    const arrResult = toArray(result)
+    const iter = set[Symbol.iterator]()
+    const result = toArray(iter)
 
-    expect(result).toBeIterable()
-    expect(arrResult).toStrictEqual([1, 7, 8])
+    expect(result).toStrictEqual([1, 7, 8])
   })
 
   describe('values', () => {
@@ -99,11 +97,10 @@ describe.each([8, 31])('BitSet(%s)', (bitsPerElement) => {
       set.add(6)
       set.delete(6)
 
-      const result = set.values()
-      const arrResult = toArray(result)
+      const iter = set.values()
+      const result = toArray(iter)
 
-      expect(result).toBeIterable()
-      expect(arrResult).toStrictEqual([1, 7, 8])
+      expect(result).toStrictEqual([1, 7, 8])
     })
 
     test('edge: correctness in the case of lots of data', () => {

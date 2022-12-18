@@ -1,6 +1,5 @@
 import { HashSet } from '@src/hash-set'
 import { toArray } from 'iterable-operator'
-import '@blackglory/jest-matchers'
 
 describe('HashSet', () => {
   test('[Symbol.toStringTag]', () => {
@@ -27,11 +26,9 @@ describe('HashSet', () => {
     const set = new HashSet<number>(JSON.stringify)
     set.add(1)
 
-    const result = set
-    const proResult = toArray(result)
+    const result = toArray(set)
 
-    expect(result).toBeIterable()
-    expect(proResult).toStrictEqual([1])
+    expect(result).toStrictEqual([1])
   })
 
   test('add(value: T) => this', () => {
@@ -106,10 +103,9 @@ describe('HashSet', () => {
     const set = new HashSet<number>(JSON.stringify)
     set.add(1)
 
-    const result = set.values()
-    const proResult = toArray(result)
+    const iter = set.values()
+    const result = toArray(iter)
 
-    expect(result).toBeIterable()
-    expect(proResult).toStrictEqual([1])
+    expect(result).toStrictEqual([1])
   })
 })

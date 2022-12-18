@@ -1,6 +1,5 @@
 import { TrieMap } from '@src/trie-map'
 import { toArray } from 'iterable-operator'
-import '@blackglory/jest-matchers'
 
 describe('TrieMap', () => {
   test('[Symbol.toStringTag]', () => {
@@ -18,11 +17,10 @@ describe('TrieMap', () => {
       map.set(key, i)
     }
 
-    const result = map.entries()
-    const arrResult = toArray(result)
+    const iter = map.entries()
+    const result = toArray(iter)
 
-    expect(result).toBeIterable()
-    expect(arrResult).toStrictEqual([
+    expect(result).toStrictEqual([
       [['f', 'o', 'o'], 1]
     , [['f', 'o', 'o', 'b', 'a', 'r'], 0]
     , [['b', 'a', 'r'], 2]
@@ -36,11 +34,10 @@ describe('TrieMap', () => {
       map.set(key, i)
     }
 
-    const result = map.keys()
-    const arrResult = toArray(result)
+    const iter = map.keys()
+    const result = toArray(iter)
 
-    expect(result).toBeIterable()
-    expect(arrResult).toStrictEqual([
+    expect(result).toStrictEqual([
       ['f', 'o', 'o']
     , ['f', 'o', 'o', 'b', 'a', 'r']
     , ['b', 'a', 'r']
@@ -54,11 +51,10 @@ describe('TrieMap', () => {
       map.set(key, i)
     }
 
-    const result = map.values()
-    const arrResult = toArray(result)
+    const iter = map.values()
+    const result = toArray(iter)
 
-    expect(result).toBeIterable()
-    expect(arrResult).toStrictEqual([1, 0, 2])
+    expect(result).toStrictEqual([1, 0, 2])
   })
 
   test('set(key: K, value: V): this', () => {

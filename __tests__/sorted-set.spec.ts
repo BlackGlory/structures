@@ -1,6 +1,5 @@
 import { SortedSet } from '@src/sorted-set'
 import { toArray } from 'iterable-operator'
-import '@blackglory/jest-matchers'
 
 describe('SortedSet', () => {
   test('create', () => {
@@ -44,10 +43,9 @@ describe('SortedSet', () => {
     test('non-empty', () => {
       const set = new SortedSet(compareStringNumber)
 
-      const arr = toArray(set)
+      const result = toArray(set)
 
-      expect(set).toBeIterable()
-      expect(arr).toStrictEqual([])
+      expect(result).toStrictEqual([])
     })
 
     test('non-empty', () => {
@@ -56,10 +54,9 @@ describe('SortedSet', () => {
       set.add('2')
       set.add('3')
 
-      const arr = toArray(set)
+      const result = toArray(set)
 
-      expect(set).toBeIterable()
-      expect(arr).toStrictEqual(['1', '2', '3'])
+      expect(result).toStrictEqual(['1', '2', '3'])
     })
   })
 
@@ -67,11 +64,10 @@ describe('SortedSet', () => {
     test('empty', () => {
       const set = new SortedSet(compareStringNumber)
 
-      const result = set.values()
-      const arrResult = toArray(result)
+      const iter = set.values()
+      const result = toArray(iter)
 
-      expect(result).toBeIterable()
-      expect(arrResult).toStrictEqual([])
+      expect(result).toStrictEqual([])
     })
 
     test('non-empty', () => {
@@ -80,11 +76,10 @@ describe('SortedSet', () => {
       set.add('1')
       set.add('2')
 
-      const result = set.values()
-      const arrResult = toArray(result)
+      const iter = set.values()
+      const result = toArray(iter)
 
-      expect(result).toBeIterable()
-      expect(arrResult).toStrictEqual(['1', '2', '3'])
+      expect(result).toStrictEqual(['1', '2', '3'])
     })
   })
 })

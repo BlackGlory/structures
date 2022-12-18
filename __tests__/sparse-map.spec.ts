@@ -1,6 +1,5 @@
 import { SparseMap } from '@src/sparse-map'
 import { toArray } from 'iterable-operator'
-import '@blackglory/jest-matchers'
 
 describe('SparseMap', () => {
   describe('size', () => {
@@ -155,11 +154,10 @@ describe('SparseMap', () => {
     set.set(2, '2')
     set.set(3, '3')
 
-    const result = set.entries()
-    const arr = toArray(result)
+    const iter = set.entries()
+    const result = toArray(iter)
 
-    expect(result).toBeIterable()
-    expect(arr).toStrictEqual([
+    expect(result).toStrictEqual([
       [1, '1']
     , [2, '2']
     , [3, '3']
@@ -172,11 +170,10 @@ describe('SparseMap', () => {
     set.set(2, '2')
     set.set(3, '3')
 
-    const result = set.keys()
-    const arr = toArray(result)
+    const iter = set.keys()
+    const result = toArray(iter)
 
-    expect(result).toBeIterable()
-    expect(arr).toStrictEqual([1, 2, 3])
+    expect(result).toStrictEqual([1, 2, 3])
   })
 
   test('values', () => {
@@ -185,11 +182,10 @@ describe('SparseMap', () => {
     set.set(2, '2')
     set.set(3, '3')
 
-    const result = set.values()
-    const arr = toArray(result)
+    const iter = set.values()
+    const result = toArray(iter)
 
-    expect(result).toBeIterable()
-    expect(arr).toStrictEqual(['1', '2', '3'])
+    expect(result).toStrictEqual(['1', '2', '3'])
   })
 
   test('getInternalIndexOfKey', () => {

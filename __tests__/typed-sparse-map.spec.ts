@@ -1,7 +1,6 @@
 import { TypedSparseMap } from '@src/typed-sparse-map'
 import { DynamicTypedArray } from '@src/dynamic-typed-array'
 import { toArray } from 'iterable-operator'
-import '@blackglory/jest-matchers'
 
 describe('TypedSparseMap', () => {
   describe('size', () => {
@@ -157,11 +156,10 @@ describe('TypedSparseMap', () => {
     set.set(2, 20)
     set.set(3, 30)
 
-    const result = set.entries()
-    const arr = toArray(result)
+    const iter = set.entries()
+    const result = toArray(iter)
 
-    expect(result).toBeIterable()
-    expect(arr).toStrictEqual([
+    expect(result).toStrictEqual([
       [1, 10]
     , [2, 20]
     , [3, 30]
@@ -174,11 +172,10 @@ describe('TypedSparseMap', () => {
     set.set(2, 20)
     set.set(3, 30)
 
-    const result = set.keys()
-    const arr = toArray(result)
+    const iter = set.keys()
+    const result = toArray(iter)
 
-    expect(result).toBeIterable()
-    expect(arr).toStrictEqual([1, 2, 3])
+    expect(result).toStrictEqual([1, 2, 3])
   })
 
   test('values', () => {
@@ -187,11 +184,10 @@ describe('TypedSparseMap', () => {
     set.set(2, 20)
     set.set(3, 30)
 
-    const result = set.values()
-    const arr = toArray(result)
+    const iter = set.values()
+    const result = toArray(iter)
 
-    expect(result).toBeIterable()
-    expect(arr).toStrictEqual([10, 20, 30])
+    expect(result).toStrictEqual([10, 20, 30])
   })
 
   test('getInternalIndexOfKey', () => {

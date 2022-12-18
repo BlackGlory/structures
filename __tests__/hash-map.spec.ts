@@ -1,5 +1,4 @@
 import { HashMap } from '@src/hash-map'
-import '@blackglory/jest-matchers'
 
 describe('HashMap', () => {
   test('[Symbol.toStringTag]', () => {

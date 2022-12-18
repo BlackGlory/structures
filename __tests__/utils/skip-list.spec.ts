@@ -1,6 +1,5 @@
 import { SkipList, SkipListNode } from '@utils/skip-list'
 import { toArray } from 'iterable-operator'
-import '@blackglory/jest-matchers'
 
 describe('SkipList', () => {
   test('create', () => {
@@ -34,24 +33,22 @@ describe('SkipList', () => {
       list.add(1)
       list.add(2)
 
-      const result = list.elements()
-      const arrResult = toArray(result)
+      const iter = list.elements()
+      const result = toArray(iter)
 
-      expect(result).toBeIterable()
-      expect(arrResult).toHaveLength(3)
-      expect(arrResult[0].value).toBe(1)
-      expect(arrResult[1].value).toBe(2)
-      expect(arrResult[2].value).toBe(3)
+      expect(result).toHaveLength(3)
+      expect(result[0].value).toBe(1)
+      expect(result[1].value).toBe(2)
+      expect(result[2].value).toBe(3)
     })
 
     test('empty', () => {
       const list = new SkipList<number>((a, b) => a - b)
 
-      const result = list.elements()
-      const arrResult = toArray(result)
+      const iter = list.elements()
+      const result = toArray(iter)
 
-      expect(result).toBeIterable()
-      expect(arrResult).toStrictEqual([])
+      expect(result).toStrictEqual([])
     })
   })
 

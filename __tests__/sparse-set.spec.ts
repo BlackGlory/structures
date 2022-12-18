@@ -1,6 +1,5 @@
 import { SparseSet } from '@src/sparse-set'
 import { toArray } from 'iterable-operator'
-import '@blackglory/jest-matchers'
 
 describe('SparseSet', () => {
   test('create', () => {
@@ -79,10 +78,9 @@ describe('SparseSet', () => {
     set.add(2)
     set.add(3)
 
-    const arr = toArray(set)
+    const result = toArray(set)
 
-    expect(set).toBeIterable()
-    expect(arr).toStrictEqual([1, 2, 3])
+    expect(result).toStrictEqual([1, 2, 3])
   })
 
   test('values', () => {
@@ -91,10 +89,9 @@ describe('SparseSet', () => {
     set.add(2)
     set.add(3)
 
-    const result = set.values()
-    const arrResult = toArray(result)
+    const iter = set.values()
+    const result = toArray(iter)
 
-    expect(result).toBeIterable()
-    expect(arrResult).toStrictEqual([1, 2, 3])
+    expect(result).toStrictEqual([1, 2, 3])
   })
 })
