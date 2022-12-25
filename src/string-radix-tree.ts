@@ -219,13 +219,9 @@ export function findCommonPrefix(prefixes: Iterable<string>, text: string): {
           return { prefix, commonPartLength }
         }
       }
-
-      if (
-        i === prefix.length - 1 &&
-        commonPartLength > 0
-      ) {
-        return { prefix, commonPartLength }
-      }
+    }
+    if (commonPartLength > 0) {
+      return { prefix, commonPartLength }
     }
   }
 }
