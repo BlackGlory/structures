@@ -265,6 +265,22 @@ class TrieMap<K extends Iterable<T>, V, T = unknown> {
 }
 ```
 
+### RadixTree
+```ts
+class RadixTree<T> {
+  get [Symbol.toStringTag](): string
+
+  keys(): IterableIterator<string>
+  values(): IterableIterator<T>
+  entries(): IterableIterator<[key: string, value: T]>
+
+  set(key: string, value: T): this
+  has(key: string): boolean
+  get(key: string): T | undefined
+  delete(key: string): boolean
+}
+```
+
 ### SparseSet
 ```ts
 class SparseSet implements Iterable<number> {
