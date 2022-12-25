@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.11.7](https://github.com/BlackGlory/structures/compare/v0.11.6...v0.11.7) (2022-12-25)
+
+
+### Features
+
+* add `RadixTree` ([ac2ec06](https://github.com/BlackGlory/structures/commit/ac2ec067c68b5e2296a8d80cfed64a241d38d1c0))
+* add `RadixTree` ([c69d6ff](https://github.com/BlackGlory/structures/commit/c69d6ff74b84a6c1318120b674838536653dc37f))
+* add `StringTrieMap` ([065188c](https://github.com/BlackGlory/structures/commit/065188cd6b7b98a534452d2663b42cd75e68989d))
+
 ### [0.11.6](https://github.com/BlackGlory/structures/compare/v0.11.5...v0.11.6) (2022-12-10)
 
 ### [0.11.5](https://github.com/BlackGlory/structures/compare/v0.11.4...v0.11.5) (2022-11-29)
