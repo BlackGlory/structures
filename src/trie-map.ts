@@ -17,14 +17,14 @@ export class TrieMap<K extends Iterable<T>, V, T = unknown> {
   * entries(): IterableIterator<[key: T[], value: V]> {
     yield* dfs(this.root, [])
 
-    function* dfs(node: TrieNode<T, V>, paths: T[]): IterableIterator<[key: T[], value: V]> {
-      for (const [path, childNode] of node.children) {
-        const newPaths = [...paths, path]
+    function* dfs(node: TrieNode<T, V>, path: T[]): IterableIterator<[key: T[], value: V]> {
+      for (const [subPath, childNode] of node.children) {
+        const newPath = [...path, subPath]
         if (isntUndefined(childNode.value)) {
-          yield [newPaths, childNode.value]
+          yield [newPath, childNode.value]
         }
 
-        yield* dfs(childNode, newPaths)
+        yield* dfs(childNode, newPath)
       }
     }
   }
@@ -39,11 +39,11 @@ export class TrieMap<K extends Iterable<T>, V, T = unknown> {
 
   set(key: K, value: V): this {
     let node = this.root
-    for (const part of key) {
-      if (!node.children.has(part)) {
-        node.children.set(part, new TrieNode<T, V>())
+    for (const unitOfKey of key) {
+      if (!node.children.has(unitOfKey)) {
+        node.children.set(unitOfKey, new TrieNode<T, V>())
       }
-      node = node.children.get(part)!
+      node = node.children.get(unitOfKey)!
     }
 
     node.value = value
@@ -52,9 +52,9 @@ export class TrieMap<K extends Iterable<T>, V, T = unknown> {
 
   has(key: K): boolean {
     let node = this.root
-    for (const part of key) {
-      if (node.children.has(part)) {
-        node = node.children.get(part)!
+    for (const unitOfKey of key) {
+      if (node.children.has(unitOfKey)) {
+        node = node.children.get(unitOfKey)!
       } else {
         return false
       }
@@ -65,9 +65,9 @@ export class TrieMap<K extends Iterable<T>, V, T = unknown> {
 
   get(key: K): V | undefined {
     let node = this.root
-    for (const part of key) {
-      if (node.children.has(part)) {
-        node = node.children.get(part)!
+    for (const unitOfKey of key) {
+      if (node.children.has(unitOfKey)) {
+        node = node.children.get(unitOfKey)!
       } else {
         return undefined
       }
@@ -79,10 +79,10 @@ export class TrieMap<K extends Iterable<T>, V, T = unknown> {
   delete(key: K): boolean {
     const parentNodes: TrieNode<T, V>[] = []
     let node = this.root
-    for (const part of key) {
-      if (node.children.has(part)) {
+    for (const unitOfKey of key) {
+      if (node.children.has(unitOfKey)) {
         parentNodes.push(node)
-        node = node.children.get(part)!
+        node = node.children.get(unitOfKey)!
       } else {
         return false
       }
@@ -92,8 +92,8 @@ export class TrieMap<K extends Iterable<T>, V, T = unknown> {
 
     // 如果节点没有后缀, 则代表这是末端节点, 往前删除其前缀
     if (node.children.size === 0) {
-      for (const [part, parentNode] of toArray(zip(key, parentNodes)).reverse()) {
-        parentNode.children.delete(part)
+      for (const [unitOfKey, parentNode] of toArray(zip(key, parentNodes)).reverse()) {
+        parentNode.children.delete(unitOfKey)
         if (parentNode.children.size !== 0) break
       }
     }

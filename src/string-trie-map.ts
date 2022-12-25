@@ -18,13 +18,13 @@ export class StringTrieMap<T> {
     return dfs(this.root, '')
 
     function* dfs(node: TrieNode<T>, path: string): IterableIterator<[key: string, value: T]> {
-      for (const [subPath, childNode] of node.children) {
-        const newPaths = path + subPath
+      for (const [char, childNode] of node.children) {
+        const newPath = path + char
         if (isntUndefined(childNode.value)) {
-          yield [newPaths, childNode.value]
+          yield [newPath, childNode.value]
         }
 
-        yield* dfs(childNode, newPaths)
+        yield* dfs(childNode, newPath)
       }
     }
   }
@@ -39,11 +39,11 @@ export class StringTrieMap<T> {
 
   set(key: string, value: T): this {
     let node = this.root
-    for (const part of key) {
-      if (!node.children.has(part)) {
-        node.children.set(part, new TrieNode<T>())
+    for (const char of key) {
+      if (!node.children.has(char)) {
+        node.children.set(char, new TrieNode<T>())
       }
-      node = node.children.get(part)!
+      node = node.children.get(char)!
     }
 
     node.value = value
@@ -52,9 +52,9 @@ export class StringTrieMap<T> {
 
   has(key: string): boolean {
     let node = this.root
-    for (const part of key) {
-      if (node.children.has(part)) {
-        node = node.children.get(part)!
+    for (const char of key) {
+      if (node.children.has(char)) {
+        node = node.children.get(char)!
       } else {
         return false
       }
@@ -65,9 +65,9 @@ export class StringTrieMap<T> {
 
   get(key: string): T | undefined {
     let node = this.root
-    for (const part of key) {
-      if (node.children.has(part)) {
-        node = node.children.get(part)!
+    for (const char of key) {
+      if (node.children.has(char)) {
+        node = node.children.get(char)!
       } else {
         return undefined
       }
@@ -79,10 +79,10 @@ export class StringTrieMap<T> {
   delete(key: string): boolean {
     const parentNodes: TrieNode<T>[] = []
     let node = this.root
-    for (const part of key) {
-      if (node.children.has(part)) {
+    for (const char of key) {
+      if (node.children.has(char)) {
         parentNodes.push(node)
-        node = node.children.get(part)!
+        node = node.children.get(char)!
       } else {
         return false
       }
@@ -92,8 +92,8 @@ export class StringTrieMap<T> {
 
     // 如果节点没有后缀, 则代表这是末端节点, 往前删除其前缀
     if (node.children.size === 0) {
-      for (const [part, parentNode] of toArray(zip(key, parentNodes)).reverse()) {
-        parentNode.children.delete(part)
+      for (const [char, parentNode] of toArray(zip(key, parentNodes)).reverse()) {
+        parentNode.children.delete(char)
         if (parentNode.children.size !== 0) break
       }
     }
