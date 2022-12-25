@@ -281,6 +281,22 @@ class StringTrieMap<T> {
 }
 ```
 
+### RadixTree
+```ts
+class RadixTree<K extends Iterable<T>, V, T = unknown> {
+  get [Symbol.toStringTag](): string
+
+  entries(): IterableIterator<[key: T[], value: V]>
+  keys(): IterableIterator<T[]>
+  values(): IterableIterator<V>
+
+  set(key: K, value: V): this
+  has(key: K): boolean
+  get(key: K): V | undefined
+  delete(key: K): boolean
+}
+```
+
 ### StringRadixTree
 ```ts
 class StringRadixTree<T> {

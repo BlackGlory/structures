@@ -1,28 +1,28 @@
 import { toArray, first, map, find } from 'iterable-operator'
 import { isntUndefined } from 'extra-utils'
 
-class TreeNode<T> {
-  children = new Map<string, TreeNode<T>>()
+class TreeNode<T, U> {
+  children = new Map<T[], TreeNode<T, U>>()
 
-  constructor(public value?: T) {}
+  constructor(public value?: U) {}
 }
 
-export class StringRadixTree<T> {
-  private root = new TreeNode<T>()
+export class RadixTree<K extends Iterable<T>, V, T = unknown> {
+  private root = new TreeNode<T, V>()
 
   get [Symbol.toStringTag](): string {
     return this.constructor.name
   }
 
-  entries(): IterableIterator<[key: string, value: T]> {
-    return dfs(this.root, '')
+  entries(): IterableIterator<[key: T[], value: V]> {
+    return dfs(this.root, [])
 
     function* dfs(
-      node: TreeNode<T>
-    , path: string
-    ): IterableIterator<[key: string, value: T]> {
+      node: TreeNode<T, V>
+    , path: T[]
+    ): IterableIterator<[key: T[], value: V]> {
       for (const [prefix, childNode] of node.children) {
-        const newPath = path + prefix
+        const newPath = [...path, ...prefix]
         if (isntUndefined(childNode.value)) {
           yield [newPath, childNode.value]
         }
@@ -32,19 +32,19 @@ export class StringRadixTree<T> {
     }
   }
 
-  keys(): IterableIterator<string> {
+  keys(): IterableIterator<T[]> {
     return map(this.entries(), ([key]) => key)
   }
 
-  values(): IterableIterator<T> {
-    return map(this.entries(), ([_, value]) => value)
+  values(): IterableIterator<V> {
+    return map(this.entries(), ([, value]) => value)
   }
 
-  set(key: string, value: T): this {
-    set(key, value, this.root)
+  set(key: K, value: V): this {
+    set(toArray(key), value, this.root)
     return this
 
-    function set(key: string, value: T, node: TreeNode<T>): void {
+    function set(key: T[], value: V, node: TreeNode<T, V>): void {
       const commonPrefix = findCommonPrefix(node.children.keys(), key)
       if (isntUndefined(commonPrefix)) {
         const { prefix, commonPartLength } = commonPrefix
@@ -65,10 +65,10 @@ export class StringRadixTree<T> {
           // 并将原前缀节点作为子节点接在新前缀节点之后.
           const oldPrefixNode = node.children.get(prefix)!
           const commonPrefix = prefix.slice(0, commonPartLength)
-          const newPrefixNode = new TreeNode<T>()
+          const newPrefixNode = new TreeNode<T, V>()
           node.children.set(commonPrefix, newPrefixNode)
           newPrefixNode.children.set(prefix.slice(commonPartLength), oldPrefixNode)
-          newPrefixNode.children.set(key.slice(commonPartLength), new TreeNode<T>(value))
+          newPrefixNode.children.set(key.slice(commonPartLength), new TreeNode<T, V>(value))
           node.children.delete(prefix)
         }
       } else {
@@ -77,13 +77,14 @@ export class StringRadixTree<T> {
     }
   }
 
-  has(key: string): boolean {
+  has(key: K): boolean {
     let node = this.root
     while (true) {
-      const matchedPrefix = matchPrefix(node.children.keys(), key)
+      const arrKey = toArray(key)
+      const matchedPrefix = matchPrefix(node.children.keys(), arrKey)
       if (isntUndefined(matchedPrefix)) {
-        key = key.slice(matchedPrefix.length)
-        if (key.length === 0) {
+        const remainingKey = arrKey.slice(matchedPrefix.length)
+        if (remainingKey.length === 0) {
           return true
         } else {
           node = node.children.get(matchedPrefix)!
@@ -94,14 +95,15 @@ export class StringRadixTree<T> {
     }
   }
 
-  get(key: string): T | undefined {
+  get(key: K): V | undefined {
     let node = this.root
     while (true) {
-      const matchedPrefix = matchPrefix(node.children.keys(), key)
+      const arrKey = toArray(key)
+      const matchedPrefix = matchPrefix(node.children.keys(), arrKey)
       if (isntUndefined(matchedPrefix)) {
-        key = key.slice(matchedPrefix.length)
+        const remainingKey = arrKey.slice(matchedPrefix.length)
         node = node.children.get(matchedPrefix)!
-        if (key.length === 0) {
+        if (remainingKey.length === 0) {
           return node.value
         }
       } else {
@@ -110,10 +112,10 @@ export class StringRadixTree<T> {
     }
   }
 
-  delete(key: string): boolean {
-    return _delete(key, this.root)
+  delete(key: K): boolean {
+    return _delete(toArray(key), this.root)
 
-    function _delete(key: string, node: TreeNode<T>): boolean {
+    function _delete(key: T[], node: TreeNode<T, V>): boolean {
       const matchedPrefix = matchPrefix(node.children.keys(), key)
       if (isntUndefined(matchedPrefix)) {
         if (key.length === matchedPrefix.length) {
@@ -130,7 +132,7 @@ export class StringRadixTree<T> {
               // 如果子节点只有一个, 说明目标节点的子节点可以与目标节点合并.
               // 即`(prefix, child)`合并为`(prefixchild)`.
               const [key, value] = first(targetNode.children.entries())!
-              node.children.set(matchedPrefix + key, value)
+              node.children.set([...matchedPrefix, ...key], value)
               node.children.delete(matchedPrefix)
             }
           }
@@ -155,7 +157,7 @@ export class StringRadixTree<T> {
                   // 这说明nextNode的子节点可以与nextNode合并, 替代nextNode当前的位置.
                   // 即`(prefix, child)`合并为`(prefixchild)`.
                   const [key, value] = first(nextNode.children.entries())!
-                  node.children.set(matchedPrefix + key, value)
+                  node.children.set([...matchedPrefix, ...key], value)
                   node.children.delete(matchedPrefix)
                   break
                 }
@@ -167,8 +169,8 @@ export class StringRadixTree<T> {
                   const keys = entries.map(([key]) => key)
                   const commonPrefix = getCommonPrefix(keys)
                   if (commonPrefix) {
-                    const newPrefix = matchedPrefix + commonPrefix
-                    const childNode = new TreeNode<T>()
+                    const newPrefix = [...matchedPrefix, ...commonPrefix]
+                    const childNode = new TreeNode<T, V>()
                     for (const [key, value] of entries) {
                       childNode.children.set(key.slice(commonPrefix.length), value)
                     }
@@ -196,8 +198,8 @@ export class StringRadixTree<T> {
  * 
  * @param prefixes 所有前缀都不能在首部有重合.
  */
-export function matchPrefix(prefixes: Iterable<string>, path: string): string | undefined {
-  return find(prefixes, prefix => path.startsWith(prefix))
+export function matchPrefix<T>(prefixes: Iterable<T[]>, path: T[]): T[] | undefined {
+  return find(prefixes, prefix => path[0] === prefix[0])
 }
 
 /**
@@ -205,8 +207,8 @@ export function matchPrefix(prefixes: Iterable<string>, path: string): string | 
  * 
  * @param prefixes 所有前缀都不能在首部有重合.
  */
-export function findCommonPrefix(prefixes: Iterable<string>, path: string): {
-  prefix: string
+export function findCommonPrefix<T>(prefixes: Iterable<T[]>, path: T[]): {
+  prefix: T[]
   commonPartLength: number
 } | undefined {
   for (const prefix of prefixes) {
@@ -226,34 +228,35 @@ export function findCommonPrefix(prefixes: Iterable<string>, path: string): {
   }
 }
 
+
 /**
- * 返回一组路径的共同前缀.
+ * 返回一组可迭代值的共同前缀.
  */
-export function getCommonPrefix(paths: string[]): string {
+export function getCommonPrefix<T>(paths: T[][]): T[] {
   if (paths.length > 0) {
-    const commonPrefix: string[] = []
+    const commonPrefix: T[] = []
 
     loop: for (
-      let charIndex = 0, firstPathLength = paths[0].length
-    ; charIndex < firstPathLength
-    ; charIndex++
+      let elementIndex = 0, firstPathLength = paths[0].length
+    ; elementIndex < firstPathLength
+    ; elementIndex++
     ) {
-      const char = paths[0][charIndex]
+      const element = paths[0][elementIndex]
       for (let pathIndex = 1; pathIndex < paths.length; pathIndex++) {
         const path = paths[pathIndex]
-        if (charIndex < path.length) {
-          if (path[charIndex] !== char) {
+        if (elementIndex < path.length) {
+          if (path[elementIndex] !== element) {
             break loop
           }
         } else {
           break loop
         }
       }
-      commonPrefix.push(char)
+      commonPrefix.push(element)
     }
 
-    return commonPrefix.join('')
+    return commonPrefix
   } else {
-    return ''
+    return []
   }
 }
