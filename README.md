@@ -265,6 +265,9 @@ class TrieMap<K extends Iterable<T>, V, T = unknown> {
 }
 ```
 
+Note that you might expect this data structure to be more space efficient than `BigMap`, but it doesn't.
+In V8, it can only store about 80% of data of `BigMap`.
+
 ### StringTrieMap
 ```ts
 class StringTrieMap<T> {
@@ -280,6 +283,9 @@ class StringTrieMap<T> {
   delete(key: string): boolean
 }
 ```
+
+Note that you might expect this data structure to be more space efficient than `BigMap`, but it doesn't.
+In V8, it can only store about 80% of data of `BigMap`.
 
 ### RadixTree
 ```ts
@@ -297,6 +303,9 @@ class RadixTree<K extends Iterable<T>, V, T = unknown> {
 }
 ```
 
+Note that you might expect this data structure to be more space efficient than `BigMap`, but it doesn't.
+In V8, it can only store about 80% of data of `BigMap`.
+
 ### StringRadixTree
 ```ts
 class StringRadixTree<T> {
@@ -312,6 +321,9 @@ class StringRadixTree<T> {
   delete(key: string): boolean
 }
 ```
+
+Note that you might expect this data structure to be more space efficient than `BigMap`, but it doesn't.
+In V8, it can only store about 80% of data of `BigMap`.
 
 ### SparseSet
 ```ts
