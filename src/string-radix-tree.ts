@@ -78,15 +78,16 @@ export class StringRadixTree<T> {
   }
 
   has(key: string): boolean {
-    let node = this.root
-    while (true) {
+    return has(key, this.root)
+
+    function has(key: string, node: TreeNode<T>): boolean {
       const matchedPrefix = matchPrefix(node.children.keys(), key)
       if (isntUndefined(matchedPrefix)) {
-        key = key.slice(matchedPrefix.length)
-        if (key.length === 0) {
+        const restKey = key.slice(matchedPrefix.length)
+        if (restKey.length === 0) {
           return true
         } else {
-          node = node.children.get(matchedPrefix)!
+          return has(restKey, node.children.get(matchedPrefix)!)
         }
       } else {
         return false
@@ -95,14 +96,17 @@ export class StringRadixTree<T> {
   }
 
   get(key: string): T | undefined {
-    let node = this.root
-    while (true) {
+    return get(key, this.root)
+
+    function get(key: string, node: TreeNode<T>): T | undefined {
       const matchedPrefix = matchPrefix(node.children.keys(), key)
       if (isntUndefined(matchedPrefix)) {
-        key = key.slice(matchedPrefix.length)
-        node = node.children.get(matchedPrefix)!
-        if (key.length === 0) {
-          return node.value
+        const restKey = key.slice(matchedPrefix.length)
+        const nextNode = node.children.get(matchedPrefix)!
+        if (restKey.length === 0) {
+          return nextNode.value
+        } else {
+          return get(restKey, nextNode)
         }
       } else {
         return undefined

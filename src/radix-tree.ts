@@ -78,16 +78,16 @@ export class RadixTree<K extends Iterable<T>, V, T = unknown> {
   }
 
   has(key: K): boolean {
-    let node = this.root
-    while (true) {
-      const arrKey = toArray(key)
-      const matchedPrefix = matchPrefix(node.children.keys(), arrKey)
+    return has(toArray(key), this.root)
+
+    function has(key: T[], node: TreeNode<T, V>): boolean {
+      const matchedPrefix = matchPrefix(node.children.keys(), key)
       if (isntUndefined(matchedPrefix)) {
-        const remainingKey = arrKey.slice(matchedPrefix.length)
-        if (remainingKey.length === 0) {
+        const restKey = key.slice(matchedPrefix.length)
+        if (restKey.length === 0) {
           return true
         } else {
-          node = node.children.get(matchedPrefix)!
+          return has(restKey, node.children.get(matchedPrefix)!)
         }
       } else {
         return false
@@ -96,15 +96,17 @@ export class RadixTree<K extends Iterable<T>, V, T = unknown> {
   }
 
   get(key: K): V | undefined {
-    let node = this.root
-    while (true) {
-      const arrKey = toArray(key)
-      const matchedPrefix = matchPrefix(node.children.keys(), arrKey)
+    return get(toArray(key), this.root)
+
+    function get(key: T[], node: TreeNode<T, V>): V | undefined {
+      const matchedPrefix = matchPrefix(node.children.keys(), key)
       if (isntUndefined(matchedPrefix)) {
-        const remainingKey = arrKey.slice(matchedPrefix.length)
-        node = node.children.get(matchedPrefix)!
-        if (remainingKey.length === 0) {
-          return node.value
+        const restKey = key.slice(matchedPrefix.length)
+        const nextNode = node.children.get(matchedPrefix)!
+        if (restKey.length === 0) {
+          return nextNode.value
+        } else {
+          return get(restKey, nextNode)
         }
       } else {
         return undefined
