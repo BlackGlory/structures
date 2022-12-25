@@ -7,7 +7,7 @@ class TreeNode<T> {
   constructor(public value?: T) {}
 }
 
-export class RadixTree<T> {
+export class StringRadixTree<T> {
   public root = new TreeNode<T>()
 
   get [Symbol.toStringTag](): string {

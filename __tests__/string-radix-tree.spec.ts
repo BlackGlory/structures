@@ -1,17 +1,17 @@
-import { RadixTree, findCommonPrefix, getCommonPrefix, matchPrefix } from '@src/radix-tree'
+import { StringRadixTree, findCommonPrefix, getCommonPrefix, matchPrefix } from '@src/string-radix-tree'
 import { toArray } from 'iterable-operator'
 
-describe('RadixTree', () => {
+describe('StringRadixTree', () => {
   test('[Symbol.toStringTag]', () => {
-    const map = new RadixTree()
+    const map = new StringRadixTree()
 
     const result = Object.prototype.toString.call(map)
 
-    expect(result).toBe('[object RadixTree]')
+    expect(result).toBe('[object StringRadixTree]')
   })
 
   test('entries', () => {
-    const map = new RadixTree<number>()
+    const map = new StringRadixTree<number>()
     const keys = ['foo', 'foobar', 'bar', 'baz']
     for (const [i, key] of keys.entries()) {
       map.set(key, i)
@@ -29,7 +29,7 @@ describe('RadixTree', () => {
   })
 
   test('keys', () => {
-    const map = new RadixTree<number>()
+    const map = new StringRadixTree<number>()
     const keys = ['foo', 'foobar', 'bar', 'baz']
     for (const [i, key] of keys.entries()) {
       map.set(key, i)
@@ -47,7 +47,7 @@ describe('RadixTree', () => {
   })
 
   test('values', () => {
-    const map = new RadixTree<number>()
+    const map = new StringRadixTree<number>()
     const keys = ['foo', 'foobar', 'bar', 'baz']
     for (const [i, key] of keys.entries()) {
       map.set(key, i)
@@ -60,7 +60,7 @@ describe('RadixTree', () => {
   })
 
   test('set', () => {
-    const map = new RadixTree<string>()
+    const map = new StringRadixTree<string>()
     const key = 'key'
 
     map.set(key, 'value')
@@ -70,7 +70,7 @@ describe('RadixTree', () => {
 
   describe('has', () => {
     test('exists', () => {
-      const map = new RadixTree<string>()
+      const map = new StringRadixTree<string>()
       const key = 'key'
       map.set(key, 'value')
 
@@ -80,7 +80,7 @@ describe('RadixTree', () => {
     })
 
     test('does not exist', () => {
-      const map = new RadixTree<string>()
+      const map = new StringRadixTree<string>()
       const key = 'key'
 
       const result = map.has(key)
@@ -91,7 +91,7 @@ describe('RadixTree', () => {
 
   describe('get', () => {
     test('exists', () => {
-      const map = new RadixTree<string>()
+      const map = new StringRadixTree<string>()
       const key = 'key'
       const value = 'value'
       map.set(key, value)
@@ -102,7 +102,7 @@ describe('RadixTree', () => {
     })
 
     test('does not exists', () => {
-      const map = new RadixTree<string>()
+      const map = new StringRadixTree<string>()
       const key = 'key'
 
       const result = map.get(key)
@@ -113,7 +113,7 @@ describe('RadixTree', () => {
 
   describe('delete', () => {
     test('exists', () => {
-      const map = new RadixTree<string>()
+      const map = new StringRadixTree<string>()
       const key = 'key'
       const value = 'value'
       map.set(key, value)
@@ -125,7 +125,7 @@ describe('RadixTree', () => {
     })
 
     test('does not exist', () => {
-      const map = new RadixTree<string>()
+      const map = new StringRadixTree<string>()
       const key = 'key'
 
       const result = map.delete(key)
