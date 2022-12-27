@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.11.8](https://github.com/BlackGlory/structures/compare/v0.11.7...v0.11.8) (2022-12-27)
+
+
+### Features
+
+* add `DynamicTypedArray#setValues` ([64efeb8](https://github.com/BlackGlory/structures/commit/64efeb869c729f51a553bc06f5fba2c48dcc0e63))
+
 ### [0.11.7](https://github.com/BlackGlory/structures/compare/v0.11.6...v0.11.7) (2022-12-25)
 
 
