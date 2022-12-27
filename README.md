@@ -394,6 +394,7 @@ class DynamicTypedArray<T extends TypedArrayConstructor> {
   )
 
   set(index: number, value: number): void
+  setValues(index: number, values: TypedArrayOfConstructor<T>): void
   get(index: number): number | undefined
   push(...values: number[]): void
   pop(): number | undefined

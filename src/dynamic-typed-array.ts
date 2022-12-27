@@ -70,6 +70,23 @@ export class DynamicTypedArray<T extends TypedArrayConstructor> {
     this.array[index] = value
   }
 
+  setValues(index: number, values: TypedArrayOfConstructor<T>): void {
+    if (index + values.length >= this.capacity) {
+      const newCapacity = computeNewCapacity(
+        this.capacity
+      , index + values.length
+      , this.growthFactor
+      )
+      this.resize(newCapacity)
+    }
+
+    if (index + values.length > this._length) {
+      this._length = index + values.length
+    }
+
+    this.internalTypedArray.set(values, index)
+  }
+
   get(index: number): number | undefined {
     return index < this._length
          ? this.array[index]

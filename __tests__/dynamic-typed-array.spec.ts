@@ -59,6 +59,45 @@ describe('DynamicTypedArray', () => {
     })
   })
 
+  describe('setValues', () => {
+    test('targetIndex + sourceArray.length < capacity', () => {
+      const arr = new DynamicTypedArray(Int16Array, {
+        capacity: 1
+      , growthFactor: 2
+      })
+      const values = new Int16Array(1)
+      values[0] = 1
+      const index = 0
+
+      arr.setValues(index, values)
+
+      expect(arr.get(0)).toBe(1)
+      expect(arr.capacity).toBe(1)
+      expect(arr.length).toBe(1)
+    })
+
+    describe('targetIndex + sourceArray.length >= capacity', () => {
+      it('resizes', () => {
+        const arr = new DynamicTypedArray(Int16Array, {
+          capacity: 1
+        , growthFactor: 2
+        })
+        const values = new Int16Array(2)
+        values[0] = 1
+        values[1] = 2
+        const index = 1
+
+        arr.setValues(index, values)
+
+        expect(arr.get(0)).toBe(0)
+        expect(arr.get(1)).toBe(1)
+        expect(arr.get(2)).toBe(2)
+        expect(arr.capacity).toBe(4)
+        expect(arr.length).toBe(3)
+      })
+    })
+  })
+
   describe('get', () => {
     test('index < length', () => {
       const arr = new DynamicTypedArray(Int8Array, {
