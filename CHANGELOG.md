@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.12.2](https://github.com/BlackGlory/structures/compare/v0.12.1...v0.12.2) (2022-12-29)
+
+
+### Bug Fixes
+
+* `BitSet#clear`, `TypedBitSet#clear` ([ba0dc39](https://github.com/BlackGlory/structures/commit/ba0dc3947eab357368565352d4d3c449668a43cb))
+
 ### [0.12.1](https://github.com/BlackGlory/structures/compare/v0.12.0...v0.12.1) (2022-12-29)
 
 ## [0.12.0](https://github.com/BlackGlory/structures/compare/v0.11.8...v0.12.0) (2022-12-29)
