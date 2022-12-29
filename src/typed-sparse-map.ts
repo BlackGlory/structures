@@ -50,8 +50,6 @@ export class TypedSparseMap<T extends TypedArrayConstructor> {
 
   has(key: number): boolean {
     return key in this.keyToIndex
-    // const index = this.keyToIndex[key]
-    // return this.indexToKey[index!] === key
   }
 
   get(key: number): number | undefined {
