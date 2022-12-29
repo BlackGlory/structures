@@ -10,6 +10,7 @@ interface IDynamicTypedArrayOptions {
 export class DynamicTypedArray<T extends TypedArrayConstructor> {
   private array: TypedArrayOfConstructor<T>
   private _length: number = 0
+  private initialCapacity: number
   readonly growthFactor: number
 
   get internalTypedArray(): TypedArrayOfConstructor<T> {
@@ -49,6 +50,7 @@ export class DynamicTypedArray<T extends TypedArrayConstructor> {
     assert(capacity >= 0, 'capacity must be greater than or equal to 0')
     assert(growthFactor >= 1, 'growthFactory must be greater than or equal to 1')
 
+    this.initialCapacity = capacity
     this.array = new typedArrayConstructor(capacity) as TypedArrayOfConstructor<T>
     this.growthFactor = growthFactor
   }
@@ -129,7 +131,8 @@ export class DynamicTypedArray<T extends TypedArrayConstructor> {
 
   clear(): void {
     this._length = 0
-    this.resize(0)
+    const newArray = new this.typedArrayConstructor(this.initialCapacity)
+    this.array = newArray as TypedArrayOfConstructor<T>
   }
 
   sort(compare?: (a: number, b: number) => number): void {

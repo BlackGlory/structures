@@ -217,7 +217,7 @@ describe('DynamicTypedArray', () => {
     arr.clear()
 
     expect(arr.length).toBe(0)
-    expect(arr.capacity).toBe(0)
+    expect(arr.capacity).toBe(1)
   })
 
   describe('sort', () => {
