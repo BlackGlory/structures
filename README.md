@@ -330,6 +330,7 @@ In V8, it can only store about 80% of data of `BigMap`.
 class SparseSet implements Iterable<number> {
   get [Symbol.toStringTag](): string
   get [Symbol.iterator](): IterableIterator<number>
+  get size(): number
 
   constructor(array?: number[])
 
@@ -400,6 +401,7 @@ class DynamicTypedArray<T extends TypedArrayConstructor> {
   get(index: number): number | undefined
   push(...values: number[]): void
   pop(): number | undefined
+  clear(): void
   sort(compare?: (a: number, b: number) => number): void
 }
 ```
@@ -409,6 +411,7 @@ class DynamicTypedArray<T extends TypedArrayConstructor> {
 class TypedSparseSet<T extends UnsignedTypedArrayConstructor> {
   get [Symbol.toStringTag](): string
   get [Symbol.iterator](): IterableIterator<number>
+  get size(): number
 
   constructor(array: DynamicTypedArray<T>)
 
@@ -417,6 +420,7 @@ class TypedSparseSet<T extends UnsignedTypedArrayConstructor> {
   has(value: number): boolean
   add(value: number): void
   delete(value: number): boolean
+  clear(): void
 }
 ```
 
@@ -446,6 +450,7 @@ class TypedSparseMap<T extends TypedArrayConstructor> {
   get(key: number): T | undefined
   set(key: number, value: number): void
   delete(key: number): void
+  clear(): void
 }
 ```
 
