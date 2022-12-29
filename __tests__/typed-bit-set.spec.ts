@@ -183,6 +183,7 @@ describe.each([
       const result = set.add(1)
 
       expect(result).toBe(true)
+      expect(set.size).toBe(1)
       expect(set.has(1)).toBe(true)
       expect(set.has(2)).toBe(false)
     })
@@ -194,6 +195,7 @@ describe.each([
       const result = set.add(1)
 
       expect(result).toBe(false)
+      expect(set.size).toBe(1)
       expect(set.has(1)).toBe(true)
       expect(set.has(2)).toBe(false)
     })
@@ -208,6 +210,7 @@ describe.each([
       const result = set.delete(1)
 
       expect(result).toBe(true)
+      expect(set.size).toBe(1)
       expect(set.has(1)).toBe(false)
       expect(set.has(2)).toBe(true)
       expect(set.size).toBe(1)
@@ -219,6 +222,7 @@ describe.each([
       const result = set.delete(1)
 
       expect(result).toBe(false)
+      expect(set.size).toBe(0)
       expect(set.has(1)).toBe(false)
       expect(set.size).toBe(0)
     })
@@ -231,6 +235,7 @@ describe.each([
 
     set.clear()
 
+    expect(set.size).toBe(0)
     expect(set.has(1)).toBe(false)
     expect(set.has(2)).toBe(false)
   })

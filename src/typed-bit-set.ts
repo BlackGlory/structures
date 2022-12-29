@@ -109,9 +109,8 @@ export class TypedBitSet<T extends UnsignedTypedArrayConstructor> {
   }
 
   clear(): void {
-    for (let i = this.array.length; i--;) {
-      this.array.set(i, 0)
-    }
+    this._size = 0
+    this.array.clear()
   }
 
   private getPosition(value: number): [index: number, mask: number] {

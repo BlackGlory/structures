@@ -177,6 +177,7 @@ describe.each([8, 31])('BitSet(%s)', (bitsPerElement) => {
       const result = set.add(1)
 
       expect(result).toBe(true)
+      expect(set.size).toBe(1)
       expect(set.has(1)).toBe(true)
       expect(set.has(2)).toBe(false)
     })
@@ -188,6 +189,7 @@ describe.each([8, 31])('BitSet(%s)', (bitsPerElement) => {
       const result = set.add(1)
 
       expect(result).toBe(false)
+      expect(set.size).toBe(1)
       expect(set.has(1)).toBe(true)
       expect(set.has(2)).toBe(false)
     })
@@ -225,6 +227,7 @@ describe.each([8, 31])('BitSet(%s)', (bitsPerElement) => {
 
     set.clear()
 
+    expect(set.size).toBe(0)
     expect(set.has(1)).toBe(false)
     expect(set.has(2)).toBe(false)
   })

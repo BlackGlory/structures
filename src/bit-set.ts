@@ -104,9 +104,8 @@ export class BitSet {
   }
 
   clear(): void {
-    for (let i = this.array.length; i--;) {
-      this.array[i] = 0
-    }
+    this._size = 0
+    this.array.length = 0
   }
 
   private getPosition(value: number): [index: number, mask: number] {
