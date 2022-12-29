@@ -2,13 +2,35 @@ import { SparseSet } from '@src/sparse-set'
 import { toArray } from 'iterable-operator'
 
 describe('SparseSet', () => {
-  test('create', () => {
-    const set = new SparseSet([1, 2])
+  describe('size', () => {
+    test('empty', () => {
+      const set = new SparseSet()
 
-    expect(set.has(0)).toBe(false)
-    expect(set.has(1)).toBe(true)
-    expect(set.has(2)).toBe(true)
-    expect(set.has(3)).toBe(false)
+      const result = set.size
+
+      expect(result).toBe(0)
+    })
+
+    describe('non-empty', () => {
+      test('set', () => {
+        const set = new SparseSet()
+        set.add(1)
+
+        const result = set.size
+
+        expect(result).toBe(1)
+      })
+
+      test('delete', () => {
+        const set = new SparseSet()
+        set.add(1)
+        set.delete(1)
+
+        const result = set.size
+
+        expect(result).toBe(0)
+      })
+    })
   })
 
   test('has', () => {
@@ -28,6 +50,7 @@ describe('SparseSet', () => {
     set.add(1)
     set.add(2)
 
+    expect(set.size).toBe(2)
     expect(set.has(0)).toBe(false)
     expect(set.has(1)).toBe(true)
     expect(set.has(2)).toBe(true)
@@ -40,6 +63,7 @@ describe('SparseSet', () => {
 
       const result = set.delete(1)
 
+      expect(set.size).toBe(0)
       expect(result).toBe(true)
     })
 
@@ -48,6 +72,7 @@ describe('SparseSet', () => {
 
       const result = set.delete(1)
 
+      expect(set.size).toBe(0)
       expect(result).toBe(false)
     })
 
@@ -58,6 +83,7 @@ describe('SparseSet', () => {
 
       set.delete(1)
 
+      expect(set.size).toBe(1)
       expect(set.has(1)).toBe(false)
       expect(set.has(2)).toBe(true)
     })
@@ -68,6 +94,7 @@ describe('SparseSet', () => {
 
       set.delete(1)
 
+      expect(set.size).toBe(0)
       expect(set.has(1)).toBe(false)
     })
   })
@@ -78,6 +105,7 @@ describe('SparseSet', () => {
 
     set.clear()
 
+    expect(set.size).toBe(0)
     expect(set.has(1)).toBe(false)
   })
 

@@ -66,6 +66,7 @@ describe('TypedSparseMap', () => {
     map.set(1, 10)
     map.set(2, 20)
 
+    expect(map.size).toBe(2)
     expect(map.has(0)).toBe(false)
     expect(map.has(1)).toBe(true)
     expect(map.has(2)).toBe(true)
@@ -136,18 +137,30 @@ describe('TypedSparseMap', () => {
 
       map.delete(1)
 
+      expect(map.size).toBe(1)
       expect(map.has(1)).toBe(false)
       expect(map.has(2)).toBe(true)
     })
 
     test('last item', () => {
-      const set = new TypedSparseMap(new DynamicTypedArray(Int8Array))
-      set.set(1, 10)
+      const map = new TypedSparseMap(new DynamicTypedArray(Int8Array))
+      map.set(1, 10)
 
-      set.delete(1)
+      map.delete(1)
 
-      expect(set.has(1)).toBe(false)
+      expect(map.size).toBe(0)
+      expect(map.has(1)).toBe(false)
     })
+  })
+
+  test('clear', () => {
+    const map = new TypedSparseMap(new DynamicTypedArray(Int8Array))
+    map.set(1, 10)
+
+    map.clear()
+
+    expect(map.size).toBe(0)
+    expect(map.has(1)).toBe(false)
   })
 
   test('entries', () => {

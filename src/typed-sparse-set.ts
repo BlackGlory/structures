@@ -27,6 +27,10 @@ export class TypedSparseSet<
     return this.values()
   }
 
+  get size(): number {
+    return this.indexToValue.length
+  }
+
   * values(): IterableIterator<number> {
     for (let i = 0; i < this.indexToValue.length; i++) {
       yield this.indexToValue.internalTypedArray[i]
@@ -58,5 +62,10 @@ export class TypedSparseSet<
     } else {
       return false
     }
+  }
+
+  clear(): void {
+    this.valueToIndex.length = 0
+    this.indexToValue.clear()
   }
 }

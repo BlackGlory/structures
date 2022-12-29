@@ -86,4 +86,10 @@ export class TypedSparseMap<T extends TypedArrayConstructor> {
       }
     }
   }
+
+  clear(): void {
+    this.keyToIndex.length = 0
+    this.indexToKey.length = 0
+    this.indexToValue.clear()
+  }
 }

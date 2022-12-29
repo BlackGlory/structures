@@ -174,7 +174,7 @@ describe('DynamicTypedArray', () => {
     })
 
     describe('non-empty array', () => {
-      describe('length < capacity / growthFactor', () => {
+      describe('newLength < capacity / growthFactor', () => {
         it('resizes', () => {
           const arr = new DynamicTypedArray(Int8Array, {
             capacity: 1
@@ -190,7 +190,7 @@ describe('DynamicTypedArray', () => {
         })
       })
 
-      test('length > capacity / growthFactor', () => {
+      test('newLength > capacity / growthFactor', () => {
         const arr = new DynamicTypedArray(Int8Array, {
           capacity: 2
         , growthFactor: 4
@@ -205,6 +205,19 @@ describe('DynamicTypedArray', () => {
         expect(arr.capacity).toBe(2)
       })
     })
+  })
+
+  test('clear', () => {
+    const arr = new DynamicTypedArray(Int8Array, {
+      capacity: 1
+    , growthFactor: 2
+    })
+    arr.push(1)
+
+    arr.clear()
+
+    expect(arr.length).toBe(0)
+    expect(arr.capacity).toBe(0)
   })
 
   describe('sort', () => {

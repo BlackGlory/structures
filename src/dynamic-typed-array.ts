@@ -127,6 +127,11 @@ export class DynamicTypedArray<T extends TypedArrayConstructor> {
     }
   }
 
+  clear(): void {
+    this._length = 0
+    this.resize(0)
+  }
+
   sort(compare?: (a: number, b: number) => number): void {
     const capacity = this.capacity
     this.resize(this.length)

@@ -10,6 +10,10 @@ export class SparseSet implements Iterable<number> {
     return this.indexToValue[Symbol.iterator]()
   }
 
+  get size(): number {
+    return this.indexToValue.length
+  }
+
   constructor(array: number[] = []) {
     const valueToIndex: Array<number | undefined> = []
     if (array.length > 0) {
