@@ -55,4 +55,9 @@ export class SparseSet implements Iterable<number> {
       return false
     }
   }
+
+  clear(): void {
+    this.indexToValue.length = 0
+    this.valueToIndex.length = 0
+  }
 }

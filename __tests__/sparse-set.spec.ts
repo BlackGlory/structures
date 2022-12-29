@@ -72,6 +72,15 @@ describe('SparseSet', () => {
     })
   })
 
+  test('clear', () => {
+    const set = new SparseSet()
+    set.add(1)
+
+    set.clear()
+
+    expect(set.has(1)).toBe(false)
+  })
+
   test('[Symbol.iterator]', () => {
     const set = new SparseSet()
     set.add(1)

@@ -74,4 +74,10 @@ export class SparseMap<T> {
       }
     }
   }
+
+  clear(): void {
+    this.keyToIndex.length = 0
+    this.indexToKey.length = 0
+    this.indexToValue.length = 0
+  }
 }

@@ -338,6 +338,7 @@ class SparseSet implements Iterable<number> {
   has(value: number): boolean
   add(value: number): void
   delete(value: number): boolean
+  clear(): void
 }
 ```
 
@@ -367,6 +368,7 @@ class SparseMap<T> {
   get(key: number): T | undefined
   set(key: number, value: T): void
   delete(key: number): void
+  clear(): void
 }
 ```
 

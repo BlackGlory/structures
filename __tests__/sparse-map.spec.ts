@@ -148,6 +148,15 @@ describe('SparseMap', () => {
     })
   })
 
+  test('clear', () => {
+    const map = new SparseMap()
+    map.set(1, '1')
+
+    map.clear()
+
+    expect(map.has(1)).toBe(false)
+  })
+
   test('entries', () => {
     const set = new SparseMap()
     set.set(1, '1')
