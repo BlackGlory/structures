@@ -34,19 +34,6 @@ go(async () => {
     }
   })
 
-  benchmark.addCase('TypedSparseMap(Uint8)#has', () => {
-    const map = new TypedSparseMap(new DynamicTypedArray(Uint8Array))
-    for (let i = 0; i < 10000; i += 2) {
-      map.set(i, i)
-    }
-
-    return () => {
-      for (let i = 0; i < 10000; i++) {
-        map.has(i)
-      }
-    }
-  })
-
   benchmark.addCase('TypedSparseMap(Uint16)#has', () => {
     const map = new TypedSparseMap(new DynamicTypedArray(Uint16Array))
     for (let i = 0; i < 10000; i += 2) {
@@ -75,19 +62,6 @@ go(async () => {
 
   benchmark.addCase('SparseMap#get', () => {
     const map = new SparseMap()
-    for (let i = 0; i < 10000; i += 2) {
-      map.set(i, i)
-    }
-
-    return () => {
-      for (let i = 0; i < 10000; i++) {
-        map.get(i)
-      }
-    }
-  })
-
-  benchmark.addCase('TypedSparseMap(Uint8)#get', () => {
-    const map = new TypedSparseMap(new DynamicTypedArray(Uint8Array))
     for (let i = 0; i < 10000; i += 2) {
       map.set(i, i)
     }
@@ -150,25 +124,6 @@ go(async () => {
     }
   })
 
-  benchmark.addCase('TypedSparseMap(Uint8)#set', () => {
-    const map = new TypedSparseMap(new DynamicTypedArray(Uint8Array))
-
-    return {
-      beforeEach() {
-        map.clear()
-
-        for (let i = 0; i < 10000; i += 2) {
-          map.set(i, i)
-        }
-      }
-    , iterate() {
-        for (let i = 0; i < 10000; i++) {
-          map.set(i, i)
-        }
-      }
-    }
-  })
-
   benchmark.addCase('TypedSparseMap(Uint16)#set', () => {
     const map = new TypedSparseMap(new DynamicTypedArray(Uint16Array))
 
@@ -209,25 +164,6 @@ go(async () => {
 
   benchmark.addCase('SparseMap#delete', () => {
     const map = new SparseMap()
-
-    return {
-      beforeEach() {
-        map.clear()
-
-        for (let i = 0; i < 10000; i += 2) {
-          map.set(i, i)
-        }
-      }
-    , iterate() {
-        for (let i = 0; i < 10000; i++) {
-          map.delete(i)
-        }
-      }
-    }
-  })
-
-  benchmark.addCase('TypedSparseMap(Uint8)#delete', () => {
-    const map = new TypedSparseMap(new DynamicTypedArray(Uint8Array))
 
     return {
       beforeEach() {
