@@ -12,7 +12,7 @@
   "author": "BlackGlory <woshenmedoubuzhidao@blackglory.me>",
   "license": "MIT",
   "engines": {
-    "node": ">=12"
+    "node": ">=16"
   },
   "scripts": {
     "lint": "eslint --ext .js,.jsx,.ts,.tsx --quiet src __tests__",
@@ -42,12 +42,12 @@
     "@commitlint/cli": "^17.3.0",
     "@commitlint/config-conventional": "^17.3.0",
     "@types/jest": "^29.2.4",
-    "@types/node": "14",
-    "@typescript-eslint/eslint-plugin": "^5.47.0",
-    "@typescript-eslint/parser": "^5.47.0",
+    "@types/node": "16",
+    "@typescript-eslint/eslint-plugin": "^5.47.1",
+    "@typescript-eslint/parser": "^5.47.1",
     "eslint": "^8.30.0",
     "extra-benchmark": "^0.2.2",
-    "extra-generator": "^0.2.22",
+    "extra-generator": "^0.2.23",
     "husky": "^4.3.8",
     "jest": "^29.3.1",
     "npm-run-all": "^4.1.5",
@@ -59,14 +59,14 @@
     "tsconfig-paths": "^4.1.1",
     "tscpaths": "^0.0.9",
     "tslib": "^2.4.1",
-    "typescript": "^4.9.3"
+    "typescript": "^4.9.4"
   },
   "dependencies": {
     "@blackglory/errors": "^2.4.1",
     "@blackglory/go": "^1.1.2",
     "extra-timers": "^0.2.5",
     "extra-utils": "^4.0.0",
-    "iterable-operator": "^2.5.0",
+    "iterable-operator": "^3.1.0",
     "justypes": "^4.0.0"
   }
 }
