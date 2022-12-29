@@ -153,85 +153,115 @@ go(async () => {
   })
 
   benchmark.addCase('Set.add', () => {
-    return () => {
-      const set = new Set<number>()
+    const set = new Set<number>()
 
-      for (let i = 0; i < 10000; i += 2) {
-        set.add(i)
+    return {
+      beforeEach() {
+        set.clear()
+
+        for (let i = 0; i < 10000; i += 2) {
+          set.add(i)
+        }
       }
-
-      for (let i = 10000; i--;) {
-        set.add(i)
+    , iterate() {
+        for (let i = 10000; i--;) {
+          set.add(i)
+        }
       }
     }
   })
 
   benchmark.addCase('TypedBitSet(Uint8).add', () => {
-    return () => {
-      const set = new TypedBitSet(new DynamicTypedArray(Uint8Array))
+    const set = new TypedBitSet(new DynamicTypedArray(Uint8Array))
 
-      for (let i = 0; i < 10000; i += 2) {
-        set.add(i)
+    return {
+      beforeEach() {
+        set.clear()
+
+        for (let i = 0; i < 10000; i += 2) {
+          set.add(i)
+        }
       }
-
-      for (let i = 10000; i--;) {
-        set.add(i)
+    , iterate() {
+        for (let i = 10000; i--;) {
+          set.add(i)
+        }
       }
     }
   })
 
   benchmark.addCase('TypedBitSet(Uint16).add', () => {
-    return () => {
-      const set = new TypedBitSet(new DynamicTypedArray(Uint16Array))
+    const set = new TypedBitSet(new DynamicTypedArray(Uint16Array))
 
-      for (let i = 0; i < 10000; i += 2) {
-        set.add(i)
+    return {
+      beforeEach() {
+        set.clear()
+
+        for (let i = 0; i < 10000; i += 2) {
+          set.add(i)
+        }
       }
-
-      for (let i = 10000; i--;) {
-        set.add(i)
+    , iterate() {
+        for (let i = 10000; i--;) {
+          set.add(i)
+        }
       }
     }
   })
 
   benchmark.addCase('BitSet(8).add', () => {
-    return () => {
-      const set = new BitSet(8)
+    const set = new BitSet(8)
 
-      for (let i = 0; i < 10000; i += 2) {
-        set.add(i)
+    return {
+      beforeEach() {
+        set.clear()
+
+        for (let i = 0; i < 10000; i += 2) {
+          set.add(i)
+        }
       }
-
-      for (let i = 10000; i--;) {
-        set.add(i)
+    , iterate() {
+        for (let i = 10000; i--;) {
+          set.add(i)
+        }
       }
     }
   })
 
   benchmark.addCase('BitSet(16).add', () => {
-    return () => {
-      const set = new BitSet(16)
+    const set = new BitSet(16)
 
-      for (let i = 0; i < 10000; i += 2) {
-        set.add(i)
+    return {
+      beforeEach() {
+        set.clear()
+
+        for (let i = 0; i < 10000; i += 2) {
+          set.add(i)
+        }
       }
-
-      for (let i = 10000; i--;) {
-        set.add(i)
+    , iterate() {
+        for (let i = 10000; i--;) {
+          set.add(i)
+        }
       }
     }
   })
 
   benchmark.addCase('BitSet(31).add', () => {
-    return () => {
-      const set = new BitSet(31)
+    const set = new BitSet(31)
 
-      for (let i = 0; i < 10000; i += 2) {
-        set.add(i)
+    return {
+      beforeEach() {
+        set.clear()
+
+        for (let i = 0; i < 10000; i += 2) {
+          set.add(i)
+        }
       }
-
-      for (let i = 10000; i--;) {
-        set.add(i)
+    , iterate() {
+        for (let i = 10000; i--;) {
+          set.add(i)
+        }
       }
     }
   })
@@ -239,13 +269,18 @@ go(async () => {
   benchmark.addCase('Set.delete', () => {
     const set = new Set<number>()
 
-    return () => {
-      for (let i = 0; i < 10000; i += 2) {
-        set.add(i)
-      }
+    return {
+      beforeEach() {
+        set.clear()
 
-      for (let i = 10000; i--;) {
-        set.delete(i)
+        for (let i = 0; i < 10000; i += 2) {
+          set.add(i)
+        }
+      }
+    , iterate() {
+        for (let i = 10000; i--;) {
+          set.delete(i)
+        }
       }
     }
   })
@@ -253,13 +288,18 @@ go(async () => {
   benchmark.addCase('TypedBitSet(Uint8).delete', () => {
     const set = new TypedBitSet(new DynamicTypedArray(Uint8Array))
 
-    return () => {
-      for (let i = 0; i < 10000; i += 2) {
-        set.add(i)
-      }
+    return {
+      beforeEach() {
+        set.clear()
 
-      for (let i = 10000; i--;) {
-        set.delete(i)
+        for (let i = 0; i < 10000; i += 2) {
+          set.add(i)
+        }
+      }
+    , iterate() {
+        for (let i = 10000; i--;) {
+          set.delete(i)
+        }
       }
     }
   })
@@ -267,13 +307,18 @@ go(async () => {
   benchmark.addCase('TypedBitSet(Uint16).delete', () => {
     const set = new TypedBitSet(new DynamicTypedArray(Uint16Array))
 
-    return () => {
-      for (let i = 0; i < 10000; i += 2) {
-        set.add(i)
-      }
+    return {
+      beforeEach() {
+        set.clear()
 
-      for (let i = 10000; i--;) {
-        set.delete(i)
+        for (let i = 0; i < 10000; i += 2) {
+          set.add(i)
+        }
+      }
+    , iterate() {
+        for (let i = 10000; i--;) {
+          set.delete(i)
+        }
       }
     }
   })
@@ -281,13 +326,18 @@ go(async () => {
   benchmark.addCase('BitSet(8).delete', () => {
     const set = new BitSet(8)
 
-    return () => {
-      for (let i = 0; i < 10000; i += 2) {
-        set.add(i)
-      }
+    return {
+      beforeEach() {
+        set.clear()
 
-      for (let i = 10000; i--;) {
-        set.delete(i)
+        for (let i = 0; i < 10000; i += 2) {
+          set.add(i)
+        }
+      }
+    , iterate() {
+        for (let i = 10000; i--;) {
+          set.delete(i)
+        }
       }
     }
   })
@@ -295,13 +345,18 @@ go(async () => {
   benchmark.addCase('BitSet(16).delete', () => {
     const set = new BitSet(16)
 
-    return () => {
-      for (let i = 0; i < 10000; i += 2) {
-        set.add(i)
-      }
+    return {
+      beforeEach() {
+        set.clear()
 
-      for (let i = 10000; i--;) {
-        set.delete(i)
+        for (let i = 0; i < 10000; i += 2) {
+          set.add(i)
+        }
+      }
+    , iterate() {
+        for (let i = 10000; i--;) {
+          set.delete(i)
+        }
       }
     }
   })
@@ -309,13 +364,18 @@ go(async () => {
   benchmark.addCase('BitSet(31).delete', () => {
     const set = new BitSet(31)
 
-    return () => {
-      for (let i = 0; i < 10000; i += 2) {
-        set.add(i)
-      }
+    return {
+      beforeEach() {
+        set.clear()
 
-      for (let i = 10000; i--;) {
-        set.delete(i)
+        for (let i = 0; i < 10000; i += 2) {
+          set.add(i)
+        }
+      }
+    , iterate() {
+        for (let i = 10000; i--;) {
+          set.delete(i)
+        }
       }
     }
   })

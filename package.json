@@ -26,6 +26,7 @@
     "build:patch": "tscpaths -p tsconfig.build.json -s ./src -o ./lib",
     "bench": "run-s bench:*",
     "bench:bit-set": "ts-node --require tsconfig-paths/register benches/bit-set.ts",
+    "bench:sparse-map": "ts-node --require tsconfig-paths/register benches/sparse-map.ts",
     "release": "standard-version"
   },
   "husky": {
