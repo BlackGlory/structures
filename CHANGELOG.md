@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.12.0](https://github.com/BlackGlory/structures/compare/v0.11.8...v0.12.0) (2022-12-29)
+
+
+### ⚠ BREAKING CHANGES
+
+* The minimal version of Node.js is 16
+
+### Features
+
+* add `clear` methods ([a1d115f](https://github.com/BlackGlory/structures/commit/a1d115f3bc51eaababf1f40b90b78526096351a2))
+* add `clear`, `size` ([d7fedba](https://github.com/BlackGlory/structures/commit/d7fedba565e03a02a2e9a227384c1c02786adec9))
+
+
+* upgrade dependencies ([e7653c7](https://github.com/BlackGlory/structures/commit/e7653c73e588e8660220b0bb40c9857f8076a94b))
+
 ### [0.11.8](https://github.com/BlackGlory/structures/compare/v0.11.7...v0.11.8) (2022-12-27)
 
 
