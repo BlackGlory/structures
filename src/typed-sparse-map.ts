@@ -49,23 +49,24 @@ export class TypedSparseMap<T extends TypedArrayConstructor> {
   }
 
   has(key: number): boolean {
-    const index = this.keyToIndex[key]
-    return this.indexToKey[index!] === key
+    return key in this.keyToIndex
+    // const index = this.keyToIndex[key]
+    // return this.indexToKey[index!] === key
   }
 
   get(key: number): number | undefined {
-    const index = this.keyToIndex[key]
-    if (this.indexToKey[index!] === key) {
-      return this.indexToValue.internalTypedArray[index!]
+    if (this.has(key)) {
+      const index = this.keyToIndex[key]!
+      return this.indexToValue.internalTypedArray[index]
     } else {
       return undefined
     }
   }
 
   set(key: number, value: number): void {
-    const index = this.keyToIndex[key]
-    if (this.indexToKey[index!] === key) {
-      this.indexToValue.internalTypedArray[index!] = value
+    if (this.has(key)) {
+      const index = this.keyToIndex[key]!
+      this.indexToValue.internalTypedArray[index] = value
     } else {
       const index = this.indexToKey.length
       this.indexToKey.push(key)
@@ -75,14 +76,17 @@ export class TypedSparseMap<T extends TypedArrayConstructor> {
   }
 
   delete(key: number): void {
-    const index = this.keyToIndex[key]
-    if (this.indexToKey[index!] === key) {
+    if (this.has(key)) {
       const lastKey = this.indexToKey.pop()!
       const lastValue = this.indexToValue.pop()!
-      if (key !== lastKey) {
-        this.indexToKey[index!] = lastKey
-        this.indexToValue.internalTypedArray[index!] = lastValue
+      if (key === lastKey) {
+        delete this.keyToIndex[key]
+      } else {
+        const index = this.keyToIndex[key]!
+        this.indexToKey[index] = lastKey
+        this.indexToValue.internalTypedArray[index] = lastValue
         this.keyToIndex[lastKey] = index
+        delete this.keyToIndex[key]
       }
     }
   }
