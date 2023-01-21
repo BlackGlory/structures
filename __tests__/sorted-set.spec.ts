@@ -1,4 +1,4 @@
-import { SortedSet } from '@src/sorted-set'
+import { SortedSet } from '@src/sorted-set.js'
 import { toArray } from 'iterable-operator'
 
 describe('SortedSet', () => {

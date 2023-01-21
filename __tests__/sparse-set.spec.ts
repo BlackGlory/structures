@@ -1,4 +1,4 @@
-import { SparseSet } from '@src/sparse-set'
+import { SparseSet } from '@src/sparse-set.js'
 import { toArray } from 'iterable-operator'
 
 describe('SparseSet', () => {

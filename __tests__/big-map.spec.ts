@@ -1,4 +1,4 @@
-import { BigMap } from '@src/big-map'
+import { BigMap } from '@src/big-map.js'
 import { toArray } from 'iterable-operator'
 
 describe('BigMap', () => {

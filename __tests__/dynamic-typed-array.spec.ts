@@ -1,4 +1,4 @@
-import { DynamicTypedArray, computeNewCapacity } from '@src/dynamic-typed-array'
+import { DynamicTypedArray, computeNewCapacity } from '@src/dynamic-typed-array.js'
 
 describe('DynamicTypedArray', () => {
   test('new', () => {

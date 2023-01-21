@@ -1,4 +1,4 @@
-import { StringRadixTree, findCommonPrefix, getCommonPrefix, matchPrefix } from '@src/string-radix-tree'
+import { StringRadixTree, findCommonPrefix, getCommonPrefix, matchPrefix } from '@src/string-radix-tree.js'
 import { toArray } from 'iterable-operator'
 
 describe('StringRadixTree', () => {

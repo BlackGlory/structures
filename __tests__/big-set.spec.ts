@@ -1,4 +1,4 @@
-import { BigSet } from '@src/big-set'
+import { BigSet } from '@src/big-set.js'
 import { toArray } from 'iterable-operator'
 
 describe('BigSet', () => {

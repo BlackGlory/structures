@@ -1,4 +1,4 @@
-import { ExpirableMap } from '@src/expirable-map'
+import { ExpirableMap } from '@src/expirable-map.js'
 import { delay } from 'extra-promise'
 
 const TIME_ERROR = 1

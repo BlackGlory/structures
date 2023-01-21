@@ -1,5 +1,5 @@
-import { TypedSparseMap } from '@src/typed-sparse-map'
-import { DynamicTypedArray } from '@src/dynamic-typed-array'
+import { TypedSparseMap } from '@src/typed-sparse-map.js'
+import { DynamicTypedArray } from '@src/dynamic-typed-array.js'
 import { toArray } from 'iterable-operator'
 
 describe('TypedSparseMap', () => {

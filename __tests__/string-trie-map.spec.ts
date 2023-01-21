@@ -1,4 +1,4 @@
-import { StringTrieMap } from '@src/string-trie-map'
+import { StringTrieMap } from '@src/string-trie-map.js'
 import { toArray } from 'iterable-operator'
 
 describe('StringTrieMap', () => {

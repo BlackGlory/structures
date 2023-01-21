@@ -1,4 +1,4 @@
-import { HashMap } from '@src/hash-map'
+import { HashMap } from '@src/hash-map.js'
 
 describe('HashMap', () => {
   test('[Symbol.toStringTag]', () => {

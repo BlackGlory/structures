@@ -1,6 +1,6 @@
 import { toArray } from 'iterable-operator'
-import { TypedBitSet } from '@src/typed-bit-set'
-import { DynamicTypedArray } from '@src/dynamic-typed-array'
+import { TypedBitSet } from '@src/typed-bit-set.js'
+import { DynamicTypedArray } from '@src/dynamic-typed-array.js'
 import { range } from 'extra-generator'
 
 describe.each([

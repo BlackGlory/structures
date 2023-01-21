@@ -1,4 +1,4 @@
-import { SkipList, SkipListNode } from '@utils/skip-list'
+import { SkipList, SkipListNode } from '@utils/skip-list.js'
 import { toArray } from 'iterable-operator'
 
 describe('SkipList', () => {

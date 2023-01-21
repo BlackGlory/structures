@@ -1,4 +1,4 @@
-import { SparseMap } from '@src/sparse-map'
+import { SparseMap } from '@src/sparse-map.js'
 import { toArray } from 'iterable-operator'
 
 describe('SparseMap', () => {

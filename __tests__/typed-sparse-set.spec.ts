@@ -1,5 +1,5 @@
-import { TypedSparseSet } from '@src/typed-sparse-set'
-import { DynamicTypedArray } from '@src/dynamic-typed-array'
+import { TypedSparseSet } from '@src/typed-sparse-set.js'
+import { DynamicTypedArray } from '@src/dynamic-typed-array.js'
 import { toArray } from 'iterable-operator'
 
 describe('TypedSparseSet', () => {

@@ -1,4 +1,4 @@
-import { TLRUMap } from '@src/tlru-map'
+import { TLRUMap } from '@src/tlru-map.js'
 import { delay } from 'extra-promise'
 
 const TIME_ERROR = 1

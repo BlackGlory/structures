@@ -1,4 +1,4 @@
-import { LRUMap } from '@src/lru-map'
+import { LRUMap } from '@src/lru-map.js'
 
 describe('LRUMap', () => {
   test('[Symbol.toStringTag]', () => {

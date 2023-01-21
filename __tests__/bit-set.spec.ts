@@ -1,5 +1,5 @@
 import { toArray } from 'iterable-operator'
-import { BitSet } from '@src/bit-set'
+import { BitSet } from '@src/bit-set.js'
 import { range } from 'extra-generator'
 
 describe.each([8, 31])('BitSet(%s)', (bitsPerElement) => {

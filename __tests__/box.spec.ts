@@ -1,4 +1,4 @@
-import { Box } from '@src/box'
+import { Box } from '@src/box.js'
 
 describe('Box', () => {
   test('constructor', () => {

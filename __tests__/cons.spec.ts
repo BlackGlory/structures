@@ -1,4 +1,4 @@
-import { Cons, convertArrayToCons, convertConsToArray } from '@src/cons'
+import { Cons, convertArrayToCons, convertConsToArray } from '@src/cons.js'
 
 test('convertConsToArray<T>(cons: Cons<T>): T[]', () => {
   const cons: Cons<number> = [1, [2, [3, null]]]

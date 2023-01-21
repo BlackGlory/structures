@@ -3,7 +3,7 @@ import {
 , sliceArrayRight
 , truncateArrayLeft
 , truncateArrayRight
-} from '@src/array'
+} from '@src/array.js'
 
 describe('sliceArrayLeft', () => {
   test('num < length', () => {

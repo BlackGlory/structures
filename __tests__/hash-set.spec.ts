@@ -1,4 +1,4 @@
-import { HashSet } from '@src/hash-set'
+import { HashSet } from '@src/hash-set.js'
 import { toArray } from 'iterable-operator'
 
 describe('HashSet', () => {

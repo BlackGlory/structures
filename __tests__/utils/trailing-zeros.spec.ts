@@ -1,4 +1,4 @@
-import { trailingZeros } from '@utils/trailing-zeros'
+import { trailingZeros } from '@utils/trailing-zeros.js'
 
 describe('trailingZeros', () => {
   test('found', () => {
