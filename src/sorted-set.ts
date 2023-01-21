@@ -1,4 +1,4 @@
-import { SkipList } from '@utils/skip-list'
+import { SkipList } from '@utils/skip-list.js'
 import { map } from 'iterable-operator'
 
 export class SortedSet<T> implements Iterable<T> {

@@ -1,5 +1,5 @@
 import { assert } from '@blackglory/errors'
-import { trailingZeros } from '@utils/trailing-zeros'
+import { trailingZeros } from '@utils/trailing-zeros.js'
 
 export class BitSet {
   private array: number[] = []

@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
-    "target": "ES2019"
-  , "module": "CommonJS"
+    "target": "ES2018"
+  , "module": "NodeNext"
   , "strict": true
   , "noUnusedLocals": true
   , "noUnusedParameters": true
@@ -11,5 +11,9 @@
     , "@utils/*": ["src/utils/*"]
     , "@test/*": ["__tests__/*"]
     }
+  , "plugins": [
+      { "transform": "typescript-transform-paths" }
+    , { "transform": "typescript-transform-paths", "afterDeclarations": true }
+    ]
   }
 }

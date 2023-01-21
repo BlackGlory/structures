@@ -1,7 +1,7 @@
-import { DynamicTypedArray } from './dynamic-typed-array'
 import { UnsignedTypedArrayConstructor } from 'justypes'
 import { assert } from '@blackglory/errors'
-import { trailingZeros } from '@utils/trailing-zeros'
+import { DynamicTypedArray } from './dynamic-typed-array.js'
+import { trailingZeros } from '@utils/trailing-zeros.js'
 
 export class TypedBitSet<T extends UnsignedTypedArrayConstructor> {
   private bitsPerElement: number

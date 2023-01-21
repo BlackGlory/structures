@@ -1,5 +1,5 @@
 import { UnsignedTypedArrayConstructor } from 'justypes'
-import { DynamicTypedArray } from './dynamic-typed-array'
+import { DynamicTypedArray } from './dynamic-typed-array.js'
 
 export class TypedSparseSet<
   T extends UnsignedTypedArrayConstructor
