@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.13.0](https://github.com/BlackGlory/structures/compare/v0.12.3...v0.13.0) (2023-01-21)
+
+
+### ⚠ BREAKING CHANGES
+
+* CommonJS => ESM
+
+* commonjs => esm ([ac144c4](https://github.com/BlackGlory/structures/commit/ac144c4f0f91a22b47e260da0651870b803d5e8d))
+
 ### [0.12.3](https://github.com/BlackGlory/structures/compare/v0.12.2...v0.12.3) (2023-01-21)
 
 ### [0.12.2](https://github.com/BlackGlory/structures/compare/v0.12.1...v0.12.2) (2022-12-29)
