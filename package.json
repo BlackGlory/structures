@@ -62,7 +62,7 @@
     "@blackglory/errors": "^2.4.3",
     "@blackglory/go": "^1.1.2",
     "extra-timers": "^0.2.5",
-    "extra-utils": "^4.0.0",
+    "extra-utils": "^4.0.1",
     "iterable-operator": "^3.1.1",
     "justypes": "^4.1.0"
   }
