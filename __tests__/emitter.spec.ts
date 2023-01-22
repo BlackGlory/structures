@@ -1,4 +1,5 @@
 import { Emitter } from '@src/emitter.js'
+import { jest } from '@jest/globals'
 
 describe('Emitter', () => {
   test('[Symbol.toStringTag]', () => {
