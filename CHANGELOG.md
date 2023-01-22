@@ -2,6 +2,8 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.13.1](https://github.com/BlackGlory/structures/compare/v0.13.0...v0.13.1) (2023-01-22)
+
 ## [0.13.0](https://github.com/BlackGlory/structures/compare/v0.12.3...v0.13.0) (2023-01-21)
 
 
