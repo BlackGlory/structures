@@ -69,4 +69,8 @@ export class Emitter<
   emit<T extends Event>(event: T, ...args: EventToArgs[T]): void {
     this.map.get(event)?.forEach(cb => cb(...args))
   }
+
+  removeAllListeners<T extends Event>(event: T): void {
+    this.map.get(event)?.clear()
+  }
 }

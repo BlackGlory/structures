@@ -58,24 +58,18 @@ function truncateArrayRight<T>(arr: T[], num: number): void
 type Listener<Args extends unknown[]> = (...args: Args) => void
 
 class Emitter<
-  EventToArgs extends Record<Key, unknown[]> = Record<
+  EventToArgs extends Record<Event, unknown[]> = Record<
     string | number | symbol
   , unknown[]
   >
-, Key extends string | number | symbol = keyof EventToArgs
+, Event extends string | number | symbol = keyof EventToArgs
 > {
   get [Symbol.toStringTag](): string
 
-  on<T extends Key>(
-    event: T
-  , listener: Listener<EventToArgs[T]>
-  ): () => void
-  once<T extends Key>(
-    event: T
-  , listener: Listener<EventToArgs[T]>
-  ): () => void
-
-  emit<T extends Key>(event: T, ...args: EventToArgs[T]): void
+  on<T extends Event>(event: T, listener: Listener<EventToArgs[T]>): () => void
+  once<T extends Event>(event: T, listener: Listener<EventToArgs[T]>): () => void
+  emit<T extends Event>(event: T, ...args: EventToArgs[T]): void
+  removeAllListeners<T extends Event>(event: T): void
 }
 ```
 

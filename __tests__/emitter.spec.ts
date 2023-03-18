@@ -144,4 +144,16 @@ describe('Emitter', () => {
     expect(listener3).toBeCalledTimes(1)
     expect(listener3).toBeCalledWith('data-2')
   })
+
+  test('removeAllListeners', () => {
+    const emitter = new Emitter()
+    const event = 'event'
+    const listener = jest.fn()
+
+    emitter.on(event, listener)
+    emitter.removeAllListeners(event)
+    emitter.emit(event, 'data')
+
+    expect(listener).not.toBeCalled()
+  })
 })
