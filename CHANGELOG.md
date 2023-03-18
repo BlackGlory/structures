@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.13.3](https://github.com/BlackGlory/structures/compare/v0.13.2...v0.13.3) (2023-03-18)
+
+
+### Features
+
+* **emitter:** add `removeAllListeners` method ([280f193](https://github.com/BlackGlory/structures/commit/280f193ad9e304649066dc3ede1dd49f98283a93))
+
 ### [0.13.2](https://github.com/BlackGlory/structures/compare/v0.13.1...v0.13.2) (2023-03-18)
 
 ### [0.13.1](https://github.com/BlackGlory/structures/compare/v0.13.0...v0.13.1) (2023-01-22)
