@@ -3,22 +3,22 @@ import { go } from '@blackglory/go'
 type Listener<Args extends unknown[]> = (...args: Args) => void
 
 export class Emitter<
-  EventToArgs extends Record<Key, unknown[]> = Record<
+  EventToArgs extends Record<Event, unknown[]> = Record<
     string | number | symbol
   , unknown[]
   >
-, Key extends string | number | symbol = keyof EventToArgs
+, Event extends string | number | symbol = keyof EventToArgs
 > {
   private map = new Map<
-    Key
-  , Set<Listener<EventToArgs[Key]>>
+    Event
+  , Set<Listener<EventToArgs[Event]>>
   >()
 
   get [Symbol.toStringTag](): string {
     return this.constructor.name
   }
 
-  on<T extends Key>(
+  on<T extends Event>(
     event: T
   , listener: Listener<EventToArgs[T]>
   ): () => void {
@@ -32,13 +32,13 @@ export class Emitter<
         return set
       }
     })
-    set.add(handler as Listener<EventToArgs[Key]>)
+    set.add(handler as Listener<EventToArgs[Event]>)
 
     return () => {
       const handlers = this.map.get(event)
       if (handlers) {
         const deleted = handlers.delete(
-          handler as Listener<EventToArgs[Key]>
+          handler as Listener<EventToArgs[Event]>
         )
         if (deleted && handlers.size === 0) {
           this.map.delete(event)
@@ -51,7 +51,7 @@ export class Emitter<
     }
   }
 
-  once<T extends Key>(
+  once<T extends Event>(
     event: T
   , listener: Listener<EventToArgs[T]>
   ): () => void {
@@ -66,7 +66,7 @@ export class Emitter<
     return removeListener
   }
 
-  emit<T extends Key>(event: T, ...args: EventToArgs[T]): void {
+  emit<T extends Event>(event: T, ...args: EventToArgs[T]): void {
     this.map.get(event)?.forEach(cb => cb(...args))
   }
 }
