@@ -3,7 +3,8 @@
   "version": "0.13.3",
   "description": "",
   "files": [
-    "lib"
+    "lib",
+    "src"
   ],
   "type": "module",
   "main": "lib/index.js",
