@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.13.4](https://github.com/BlackGlory/structures/compare/v0.13.3...v0.13.4) (2023-06-11)
+
+
+### Bug Fixes
+
+* export src ([3d919a1](https://github.com/BlackGlory/structures/commit/3d919a1c885ce12df87b88a583cf2ed78e0570dd))
+
 ### [0.13.3](https://github.com/BlackGlory/structures/compare/v0.13.2...v0.13.3) (2023-03-18)
 
 
