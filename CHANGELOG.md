@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.14.0](https://github.com/BlackGlory/structures/compare/v0.13.4...v0.14.0) (2024-02-15)
+
+
+### ⚠ BREAKING CHANGES
+
+* Node.js v16 => Node.js v18.17
+
+* upgrade dependencies ([c9f8137](https://github.com/BlackGlory/structures/commit/c9f81376aa8ee890d2c27bbc721baa24cc166b6e))
+
 ### [0.13.4](https://github.com/BlackGlory/structures/compare/v0.13.3...v0.13.4) (2023-06-11)
 
 
