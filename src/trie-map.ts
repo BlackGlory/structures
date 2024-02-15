@@ -34,7 +34,7 @@ export class TrieMap<K extends Iterable<T>, V, T = unknown> {
   }
 
   values(): IterableIterator<V> {
-    return map(this.entries(), ([_, value]) => value)
+    return map(this.entries(), ([, value]) => value)
   }
 
   set(key: K, value: V): this {
