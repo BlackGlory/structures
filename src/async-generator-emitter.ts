@@ -1,4 +1,4 @@
-import { go } from '@blackglory/go'
+import { go, goAsyncGenerator } from '@blackglory/go'
 
 type Listener<Args extends unknown[], Yield, Next> = (...args: Args) =>
 | void
@@ -54,7 +54,7 @@ export class AsyncGeneratorEmitter<
     async function * handler(
       ...args: Parameters<Listener<EventToArgs[T], Yield, Next>>
     ): AsyncGenerator<Yield, void, Next> {
-      yield* run(() => listener(...args))
+      yield* goAsyncGenerator(() => listener(...args))
     }
   }
 
@@ -67,7 +67,7 @@ export class AsyncGeneratorEmitter<
     , async function * (
         ...args: Parameters<Listener<EventToArgs[T], Yield, Next>>
       ): AsyncGenerator<Yield, void, Next> {
-        yield* run(() => listener(...args))
+        yield* goAsyncGenerator(() => listener(...args))
         removeListener()
       }
     )
@@ -83,21 +83,12 @@ export class AsyncGeneratorEmitter<
 
     if (listeners) {
       for (const listener of listeners) {
-        yield* run(() => listener(...args))
+        yield* goAsyncGenerator(() => listener(...args))
       }
     }
   }
 
   removeAllListeners<T extends Event>(event: T): void {
     this.map.get(event)?.clear()
-  }
-}
-
-async function* run<Yield, Next>(
-  fn: () => void | Generator<Yield, void, Next> | AsyncGenerator<Yield, void, Next>
-): AsyncGenerator<Yield, void, Next> {
-  const generator = fn()
-  if (generator) {
-    yield* generator
   }
 }

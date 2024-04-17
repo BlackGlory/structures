@@ -1,4 +1,4 @@
-import { go } from '@blackglory/go'
+import { go, goGenerator } from '@blackglory/go'
 
 type Listener<Args extends unknown[], Yield, Next> = (...args: Args) =>
 | void
@@ -53,7 +53,7 @@ export class GeneratorEmitter<
     function * handler(
       ...args: Parameters<Listener<EventToArgs[T], Yield, Next>>
     ): Generator<Yield, void, Next> {
-      yield* run(() => listener(...args))
+      yield* goGenerator(() => listener(...args))
     }
   }
 
@@ -66,7 +66,7 @@ export class GeneratorEmitter<
     , function * (
         ...args: Parameters<Listener<EventToArgs[T], Yield, Next>>
       ): Generator<Yield, void, Next> {
-        yield* run(() => listener(...args))
+        yield* goGenerator(() => listener(...args))
         removeListener()
       }
     )
@@ -82,21 +82,12 @@ export class GeneratorEmitter<
 
     if (listeners) {
       for (const listener of listeners) {
-        yield* run(() => listener(...args))
+        yield* goGenerator(() => listener(...args))
       }
     }
   }
 
   removeAllListeners<T extends Event>(event: T): void {
     this.map.get(event)?.clear()
-  }
-}
-
-function* run<Yield, Next>(
-  fn: () => void | Generator<Yield, void, Next>
-): Generator<Yield, void, Next> {
-  const generator = fn()
-  if (generator) {
-    yield* generator
   }
 }

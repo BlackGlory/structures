@@ -343,6 +343,14 @@
     extra-timers "^0.2.5"
     justypes "^2.0.0"
 
+"@blackglory/go@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@blackglory/go/-/go-2.0.0.tgz#e10414929736e8ee151edbc54de54419315c85dd"
+  integrity sha512-V/lwRYf2d/bKegMFtSXx7AaK+m/d3/NBjT2pvl5YKE95zLt0G+E0dScw+LPXnj5Res+o/kSDkEpF+uSV+cU7bQ==
+  dependencies:
+    extra-timers "^0.2.6"
+    justypes "^4.2.1"
+
 "@blackglory/jest-resolver@^0.3.1":
   version "0.3.1"
   resolved "https://registry.yarnpkg.com/@blackglory/jest-resolver/-/jest-resolver-0.3.1.tgz#17b7807bd681238114a04d63e62be35d24e756eb"
