@@ -73,6 +73,78 @@ class Emitter<
 }
 ```
 
+### GeneratorEmitter
+```ts
+type Listener<Args extends unknown[], Yield, Next> = (...args: Args) =>
+| void
+| Generator<Yield, void, Next>
+
+class GeneratorEmitter<
+  EventToArgs extends Record<Event, unknown[]> = Record<
+    string | number | symbol
+  , unknown[]
+  >
+, Event extends string | number | symbol = keyof EventToArgs
+, Yield = unknown
+, Next = unknown
+> {
+  get [Symbol.toStringTag](): string
+
+  on<T extends Event>(
+    event: T
+  , listener: Listener<EventToArgs[T], Yield, Next>
+  ): () => void
+
+  once<T extends Event>(
+    event: T
+  , listener: Listener<EventToArgs[T], Yield, Next>
+  ): () => void
+
+  emit<T extends Event>(
+    event: T
+  , ...args: EventToArgs[T]
+  ): Generator<Yield, void, Next>
+
+  removeAllListeners<T extends Event>(event: T): void
+}
+```
+
+### AsyncGeneratorEmitter
+```ts
+type Listener<Args extends unknown[], Yield, Next> = (...args: Args) =>
+| void
+| Generator<Yield, void, Next>
+| AsyncGenerator<Yield, void, Next>
+
+class AsyncGeneratorEmitter<
+  EventToArgs extends Record<Event, unknown[]> = Record<
+    string | number | symbol
+  , unknown[]
+  >
+, Event extends string | number | symbol = keyof EventToArgs
+, Yield = unknown
+, Next = unknown
+> {
+  get [Symbol.toStringTag](): string
+
+  on<T extends Event>(event: T
+  , listener: Listener<EventToArgs[T], Yield, Next>
+  ): () => void
+
+  once<T extends Event>(
+    event: T
+  , listener: Listener<EventToArgs[T], Yield, Next>
+  ): () => void
+
+  emit<T extends Event>(
+    event: T
+  , ...args: EventToArgs[T]
+  ): AsyncGenerator<Yield, void, Next>
+
+  removeAllListeners<T extends Event>(event: T): void
+}
+```
+
 ### BigMap
 ```ts
 class BigMap<K, V> implements Iterable<[K, V]> {
