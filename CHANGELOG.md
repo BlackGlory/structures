@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.14.1](https://github.com/BlackGlory/structures/compare/v0.14.0...v0.14.1) (2024-04-17)
+
+
+### Features
+
+* add `GeneratorEmitter`, `AsyncGeneratorEmitter` ([43a4952](https://github.com/BlackGlory/structures/commit/43a49528eb9f5d2aa674dfc85de3508e19bc1808))
+
 ## [0.14.0](https://github.com/BlackGlory/structures/compare/v0.13.4...v0.14.0) (2024-02-15)
 
 
