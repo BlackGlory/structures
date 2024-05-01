@@ -1,4 +1,5 @@
 import {
+  clearArray,
   sliceArrayLeft
 , sliceArrayRight
 , truncateArrayLeft
@@ -123,4 +124,13 @@ describe('truncateArrayRight', () => {
     expect(result).toBe(undefined)
     expect(arr).toStrictEqual([1, 2, 3])
   })
+})
+
+test('clearArray', () => {
+  const arr = [1, 2, 3]
+
+  const result = clearArray(arr)
+
+  expect(result).toBe(undefined)
+  expect(arr).toStrictEqual([])
 })

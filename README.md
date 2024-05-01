@@ -45,12 +45,17 @@ function sliceArrayRight<T>(arr: T[], num: number): T[]
 
 #### truncateArrayLeft
 ```ts
-function truncateArrayLeft<T>(arr: T[], num: number): void
+function truncateArrayLeft(arr: unknown[], num: number): void
 ```
 
 #### truncateArrayRight
 ```ts
-function truncateArrayRight<T>(arr: T[], num: number): void
+function truncateArrayRight(arr: unknown[], num: number): void
+```
+
+#### clearArray
+```ts
+function clearArray(arr: unknown[]): void
 ```
 
 ### Emitter
