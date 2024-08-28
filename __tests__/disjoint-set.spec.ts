@@ -21,6 +21,23 @@ describe('DisjointSet', () => {
     })
   })
 
+  test('sets', () => {
+    const set = new DisjointSet()
+    set.makeSet(0)
+    set.makeSet(1)
+    set.makeSet(2)
+    set.makeSet(4)
+    set.union(0, 1)
+    set.union(0, 2)
+
+    const result = set.sets()
+
+    expect(result).toStrictEqual([
+      [0, 1, 2]
+    , [4]
+    ])
+  })
+
   describe('makeSet', () => {
     test('general', () => {
       const set = new DisjointSet()

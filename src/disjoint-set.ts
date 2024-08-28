@@ -9,6 +9,20 @@ export class DisjointSet {
     return isntUndefined(this.parent[value])
   }
 
+  sets(): number[][] {
+    const results: number[][] = []
+    for (let i = 0, len = this.parent.length; i < len; i++) {
+      if (this.has(i)) {
+        const set = this.find(i)
+        if (!results[set]) {
+          results[set] = []
+        }
+        results[set].push(i)
+      }
+    }
+    return results.filter(isntUndefined)
+  }
+
   makeSet(value: number): number {
     assert(!this.has(value), 'The value already belongs to a set')
 
