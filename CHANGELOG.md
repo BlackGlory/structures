@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.14.4](https://github.com/BlackGlory/structures/compare/v0.14.3...v0.14.4) (2024-08-28)
+
+
+### Features
+
+* add `DisjointSet` ([a9a9b55](https://github.com/BlackGlory/structures/commit/a9a9b55d02d2f905260b16b4e6b23b9b47fd6a4a))
+* improve `DisjointSet` ([afffbf5](https://github.com/BlackGlory/structures/commit/afffbf5cfbeebe62104c5cf583b40e212521fa81))
+* improve `DisjointSet` ([a4954b9](https://github.com/BlackGlory/structures/commit/a4954b917be958a68861bca24330d133eb31597f))
+
 ### [0.14.3](https://github.com/BlackGlory/structures/compare/v0.14.2...v0.14.3) (2024-05-01)
 
 
