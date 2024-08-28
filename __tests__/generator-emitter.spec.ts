@@ -1,6 +1,6 @@
+import { describe, test, expect, vi } from 'vitest'
 import { GeneratorEmitter } from '@src/generator-emitter.js'
 import { toArray } from 'iterable-operator'
-import { jest } from '@jest/globals'
 
 describe('GeneratorEmitter', () => {
   test('[Symbol.toStringTag]', () => {
@@ -15,7 +15,7 @@ describe('GeneratorEmitter', () => {
     test('add the listener', () => {
       const emitter = new GeneratorEmitter()
       const event = 'event'
-      const listener = jest.fn<() => void>()
+      const listener = vi.fn<() => void>()
 
       emitter.on(event, listener)
       toArray(emitter.emit(event, 'data-1'))
@@ -29,7 +29,7 @@ describe('GeneratorEmitter', () => {
     test('remove the listener', () => {
       const emitter = new GeneratorEmitter()
       const event = 'event'
-      const listener = jest.fn<() => void>()
+      const listener = vi.fn<() => void>()
 
       const removeListener = emitter.on(event, listener)
       removeListener()
@@ -42,7 +42,7 @@ describe('GeneratorEmitter', () => {
       test('add listeners', () => {
         const emitter = new GeneratorEmitter()
         const event = 'event'
-        const listener = jest.fn<() => void>()
+        const listener = vi.fn<() => void>()
 
         emitter.on(event, listener)
         emitter.on(event, listener)
@@ -55,7 +55,7 @@ describe('GeneratorEmitter', () => {
       test('remove listeners', () => {
         const emitter = new GeneratorEmitter()
         const event = 'event'
-        const listener = jest.fn<() => void>()
+        const listener = vi.fn<() => void>()
 
         const removeListener1 = emitter.on(event, listener)
         emitter.on(event, listener)
@@ -72,7 +72,7 @@ describe('GeneratorEmitter', () => {
     test('add the listener', () => {
       const emitter = new GeneratorEmitter()
       const event = 'event'
-      const listener = jest.fn<() => void>()
+      const listener = vi.fn<() => void>()
 
       emitter.once(event, listener)
       toArray(emitter.emit(event, 'data'))
@@ -85,7 +85,7 @@ describe('GeneratorEmitter', () => {
     test('remove the listener', () => {
       const emitter = new GeneratorEmitter()
       const event = 'event'
-      const listener = jest.fn<() => void>()
+      const listener = vi.fn<() => void>()
 
       const removeListener = emitter.once(event, listener)
       removeListener()
@@ -98,7 +98,7 @@ describe('GeneratorEmitter', () => {
       test('add listeners', () => {
         const emitter = new GeneratorEmitter()
         const event = 'event'
-        const listener = jest.fn<() => void>()
+        const listener = vi.fn<() => void>()
 
         emitter.once(event, listener)
         emitter.once(event, listener)
@@ -111,7 +111,7 @@ describe('GeneratorEmitter', () => {
       test('remove listeners', () => {
         const emitter = new GeneratorEmitter()
         const event = 'event'
-        const listener = jest.fn<() => void>()
+        const listener = vi.fn<() => void>()
 
         const removeListener1 = emitter.once(event, listener)
         emitter.once(event, listener)
@@ -186,7 +186,7 @@ describe('GeneratorEmitter', () => {
   test('removeAllListeners', () => {
     const emitter = new GeneratorEmitter()
     const event = 'event'
-    const listener = jest.fn<() => void>()
+    const listener = vi.fn<() => void>()
 
     emitter.on(event, listener)
     emitter.removeAllListeners(event)

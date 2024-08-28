@@ -1,3 +1,4 @@
+import { describe, test, expect } from 'vitest'
 import { RadixTree, findCommonPrefix, getCommonPrefix, matchPrefix } from '@src/radix-tree.js'
 import { toArray } from 'iterable-operator'
 

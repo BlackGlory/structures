@@ -1,3 +1,4 @@
+import { describe, test, expect, it } from 'vitest'
 import { HashSet } from '@src/hash-set.js'
 import { toArray } from 'iterable-operator'
 
@@ -99,7 +100,7 @@ describe('HashSet', () => {
     expect(set.size).toBe(0)
   })
 
-  describe('values(): Iterable<T>', () => {
+  test('values(): Iterable<T>', () => {
     const set = new HashSet<number>(JSON.stringify)
     set.add(1)
 

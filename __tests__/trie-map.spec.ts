@@ -1,3 +1,4 @@
+import { describe, test, expect, it } from 'vitest'
 import { TrieMap } from '@src/trie-map.js'
 import { toArray } from 'iterable-operator'
 

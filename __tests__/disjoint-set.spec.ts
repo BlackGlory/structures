@@ -1,3 +1,4 @@
+import { describe, test, expect } from 'vitest'
 import { DisjointSet } from '@src/disjoint-set.js'
 import { getError } from 'return-style'
 

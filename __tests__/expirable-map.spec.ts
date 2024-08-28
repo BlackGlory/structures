@@ -1,3 +1,4 @@
+import { describe, test, expect } from 'vitest'
 import { ExpirableMap } from '@src/expirable-map.js'
 import { delay } from 'extra-promise'
 

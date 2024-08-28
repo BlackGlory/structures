@@ -1,3 +1,4 @@
+import { describe, test, expect } from 'vitest'
 import { toArray } from 'iterable-operator'
 import { BitSet } from '@src/bit-set.js'
 import { range } from 'extra-generator'

@@ -1,3 +1,4 @@
+import { describe, test, expect, it } from 'vitest'
 import { LRUMap } from '@src/lru-map.js'
 
 describe('LRUMap', () => {

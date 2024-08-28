@@ -1,3 +1,4 @@
+import { describe, test, expect } from 'vitest'
 import { BigSet } from '@src/big-set.js'
 import { toArray } from 'iterable-operator'
 

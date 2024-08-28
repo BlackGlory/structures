@@ -1,3 +1,4 @@
+import { test, expect } from 'vitest'
 import { Cons, convertArrayToCons, convertConsToArray } from '@src/cons.js'
 
 test('convertConsToArray<T>(cons: Cons<T>): T[]', () => {

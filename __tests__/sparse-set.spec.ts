@@ -1,3 +1,4 @@
+import { describe, test, expect } from 'vitest'
 import { SparseSet } from '@src/sparse-set.js'
 import { toArray } from 'iterable-operator'
 

@@ -1,5 +1,5 @@
+import { describe, test, expect, vi } from 'vitest'
 import { Emitter } from '@src/emitter.js'
-import { jest } from '@jest/globals'
 
 describe('Emitter', () => {
   test('[Symbol.toStringTag]', () => {
@@ -14,7 +14,7 @@ describe('Emitter', () => {
     test('add the listener', () => {
       const event = 'event'
       const emitter = new Emitter()
-      const listener = jest.fn()
+      const listener = vi.fn()
 
       emitter.on(event, listener)
       emitter.emit(event, 'data-1')
@@ -28,7 +28,7 @@ describe('Emitter', () => {
     test('remove the listener', () => {
       const emitter = new Emitter()
       const event = 'event'
-      const listener = jest.fn()
+      const listener = vi.fn()
 
       const removeListener = emitter.on(event, listener)
       removeListener()
@@ -41,7 +41,7 @@ describe('Emitter', () => {
       test('add listeners', () => {
         const emitter = new Emitter()
         const event = 'event'
-        const listener = jest.fn()
+        const listener = vi.fn()
 
         emitter.on(event, listener)
         emitter.on(event, listener)
@@ -54,7 +54,7 @@ describe('Emitter', () => {
       test('remove listeners', () => {
         const emitter = new Emitter()
         const event = 'event'
-        const listener = jest.fn()
+        const listener = vi.fn()
 
         const removeListener1 = emitter.on(event, listener)
         emitter.on(event, listener)
@@ -71,7 +71,7 @@ describe('Emitter', () => {
     test('add the listener', () => {
       const emitter = new Emitter()
       const event = 'event'
-      const listener = jest.fn()
+      const listener = vi.fn()
 
       emitter.once(event, listener)
       emitter.emit(event, 'data')
@@ -84,7 +84,7 @@ describe('Emitter', () => {
     test('remove the listener', () => {
       const emitter = new Emitter()
       const event = 'event'
-      const listener = jest.fn()
+      const listener = vi.fn()
 
       const removeListener = emitter.once(event, listener)
       removeListener()
@@ -97,7 +97,7 @@ describe('Emitter', () => {
       test('add listeners', () => {
         const emitter = new Emitter()
         const event = 'event'
-        const listener = jest.fn()
+        const listener = vi.fn()
 
         emitter.once(event, listener)
         emitter.once(event, listener)
@@ -110,7 +110,7 @@ describe('Emitter', () => {
       test('remove listeners', () => {
         const emitter = new Emitter()
         const event = 'event'
-        const listener = jest.fn()
+        const listener = vi.fn()
 
         const removeListener1 = emitter.once(event, listener)
         emitter.once(event, listener)
@@ -127,9 +127,9 @@ describe('Emitter', () => {
     const emitter = new Emitter()
     const event1 = 'event-1'
     const event2 = 'event-2'
-    const listener1 = jest.fn()
-    const listener2 = jest.fn()
-    const listener3 = jest.fn()
+    const listener1 = vi.fn()
+    const listener2 = vi.fn()
+    const listener3 = vi.fn()
 
     emitter.on(event1, listener1)
     emitter.on(event1, listener2)
@@ -148,7 +148,7 @@ describe('Emitter', () => {
   test('removeAllListeners', () => {
     const emitter = new Emitter()
     const event = 'event'
-    const listener = jest.fn()
+    const listener = vi.fn()
 
     emitter.on(event, listener)
     emitter.removeAllListeners(event)

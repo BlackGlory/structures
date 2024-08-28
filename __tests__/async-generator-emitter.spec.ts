@@ -1,6 +1,6 @@
+import { describe, test, expect, vi } from 'vitest'
 import { AsyncGeneratorEmitter } from '@src/async-generator-emitter.js'
 import { toArrayAsync } from 'iterable-operator'
-import { jest } from '@jest/globals'
 
 describe('AsyncGeneratorEmitter', () => {
   test('[Symbol.toStringTag]', () => {
@@ -15,7 +15,7 @@ describe('AsyncGeneratorEmitter', () => {
     test('add the listener', async () => {
       const emitter = new AsyncGeneratorEmitter()
       const event = 'event'
-      const listener = jest.fn<() => void>()
+      const listener = vi.fn<() => void>()
 
       emitter.on(event, listener)
       await toArrayAsync(emitter.emit(event, 'data-1'))
@@ -29,7 +29,7 @@ describe('AsyncGeneratorEmitter', () => {
     test('remove the listener', async () => {
       const emitter = new AsyncGeneratorEmitter()
       const event = 'event'
-      const listener = jest.fn<() => void>()
+      const listener = vi.fn<() => void>()
 
       const removeListener = emitter.on(event, listener)
       removeListener()
@@ -42,7 +42,7 @@ describe('AsyncGeneratorEmitter', () => {
       test('add listeners', async () => {
         const emitter = new AsyncGeneratorEmitter()
         const event = 'event'
-        const listener = jest.fn<() => void>()
+        const listener = vi.fn<() => void>()
 
         emitter.on(event, listener)
         emitter.on(event, listener)
@@ -55,7 +55,7 @@ describe('AsyncGeneratorEmitter', () => {
       test('remove listeners', async () => {
         const emitter = new AsyncGeneratorEmitter()
         const event = 'event'
-        const listener = jest.fn<() => void>()
+        const listener = vi.fn<() => void>()
 
         const removeListener1 = emitter.on(event, listener)
         emitter.on(event, listener)
@@ -72,7 +72,7 @@ describe('AsyncGeneratorEmitter', () => {
     test('add the listener', async () => {
       const emitter = new AsyncGeneratorEmitter()
       const event = 'event'
-      const listener = jest.fn<() => void>()
+      const listener = vi.fn<() => void>()
 
       emitter.once(event, listener)
       await toArrayAsync(emitter.emit(event, 'data'))
@@ -85,7 +85,7 @@ describe('AsyncGeneratorEmitter', () => {
     test('remove the listener', async () => {
       const emitter = new AsyncGeneratorEmitter()
       const event = 'event'
-      const listener = jest.fn<() => void>()
+      const listener = vi.fn<() => void>()
 
       const removeListener = emitter.once(event, listener)
       removeListener()
@@ -98,7 +98,7 @@ describe('AsyncGeneratorEmitter', () => {
       test('add listeners', async () => {
         const emitter = new AsyncGeneratorEmitter()
         const event = 'event'
-        const listener = jest.fn<() => void>()
+        const listener = vi.fn<() => void>()
 
         emitter.once(event, listener)
         emitter.once(event, listener)
@@ -111,7 +111,7 @@ describe('AsyncGeneratorEmitter', () => {
       test('remove listeners', async () => {
         const emitter = new AsyncGeneratorEmitter()
         const event = 'event'
-        const listener = jest.fn<() => void>()
+        const listener = vi.fn<() => void>()
 
         const removeListener1 = emitter.once(event, listener)
         emitter.once(event, listener)
@@ -186,7 +186,7 @@ describe('AsyncGeneratorEmitter', () => {
   test('removeAllListeners', async () => {
     const emitter = new AsyncGeneratorEmitter()
     const event = 'event'
-    const listener = jest.fn<() => void>()
+    const listener = vi.fn<() => void>()
 
     emitter.on(event, listener)
     emitter.removeAllListeners(event)

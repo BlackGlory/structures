@@ -1,3 +1,4 @@
+import { describe, test, expect, it } from 'vitest'
 import { DynamicTypedArray, computeNewCapacity } from '@src/dynamic-typed-array.js'
 
 describe('DynamicTypedArray', () => {

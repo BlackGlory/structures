@@ -1,3 +1,4 @@
+import { describe, test, expect } from 'vitest'
 import { SparseMap } from '@src/sparse-map.js'
 import { toArray } from 'iterable-operator'
 

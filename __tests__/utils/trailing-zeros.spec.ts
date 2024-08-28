@@ -1,3 +1,4 @@
+import { describe, test, expect } from 'vitest'
 import { trailingZeros } from '@utils/trailing-zeros.js'
 
 describe('trailingZeros', () => {

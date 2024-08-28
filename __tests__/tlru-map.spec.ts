@@ -1,3 +1,4 @@
+import { describe, test, expect } from 'vitest'
 import { TLRUMap } from '@src/tlru-map.js'
 import { delay } from 'extra-promise'
 

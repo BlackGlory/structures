@@ -1,3 +1,4 @@
+import { describe, test, expect, it } from 'vitest'
 import { HashMap } from '@src/hash-map.js'
 
 describe('HashMap', () => {

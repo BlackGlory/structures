@@ -1,3 +1,4 @@
+import { describe, test, expect, it } from 'vitest'
 import { Queue } from '@src/queue.js'
 
 describe('Queue', () => {

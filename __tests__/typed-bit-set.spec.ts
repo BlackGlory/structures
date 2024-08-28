@@ -1,3 +1,4 @@
+import { describe, test, expect } from 'vitest'
 import { toArray } from 'iterable-operator'
 import { TypedBitSet } from '@src/typed-bit-set.js'
 import { DynamicTypedArray } from '@src/dynamic-typed-array.js'
