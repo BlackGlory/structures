@@ -581,3 +581,12 @@ class TypedBitSet<T extends UnsignedTypedArrayConstructor> {
 
 Due to the length of arrays supported by JavaScript,
 `TypedBitSit` cannot support very large values.
+
+### DisjointSet
+```ts
+class DisjointSet {
+  makeSet(value: number): void
+  union(a: number, b: number): void
+  find(value: number): number
+}
+```
