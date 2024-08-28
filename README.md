@@ -585,7 +585,9 @@ Due to the length of arrays supported by JavaScript,
 ### DisjointSet
 ```ts
 class DisjointSet {
-  makeSet(value: number): void
+  has(value: number): boolean
+
+  makeSet(value: number): number
   union(a: number, b: number): void
   find(value: number): number
 }

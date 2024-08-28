@@ -2,14 +2,35 @@ import { DisjointSet } from '@src/disjoint-set.js'
 import { getError } from 'return-style'
 
 describe('DisjointSet', () => {
+  describe('has', () => {
+    test('value exists', () => {
+      const set = new DisjointSet()
+      set.makeSet(0)
+
+      const result = set.has(0)
+
+      expect(result).toBe(true)
+    })
+
+    test('value does not exist', () => {
+      const set = new DisjointSet()
+
+      const result = set.has(0)
+
+      expect(result).toBe(false)
+    })
+  })
+
   describe('makeSet', () => {
     test('general', () => {
       const set = new DisjointSet()
 
-      set.makeSet(0)
-      set.makeSet(1)
+      const result1 = set.makeSet(0)
+      const result2 = set.makeSet(1)
 
-      expect(set.find(0)).not.toBe(set.find(1))
+      expect(result1).not.toBe(result2)
+      expect(result1).toBe(set.find(0))
+      expect(result2).toBe(set.find(1))
     })
 
     test('edge: The value already belongs to a set', () => {

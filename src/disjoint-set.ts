@@ -1,15 +1,21 @@
 import { assert } from '@blackglory/errors'
-import { isntUndefined, isUndefined } from 'extra-utils'
+import { isntUndefined } from 'extra-utils'
 
 export class DisjointSet {
   private parent: number[] = []
   private rank: number[] = []
 
-  makeSet(value: number): void {
-    assert(isUndefined(this.parent[value]), 'The value already belongs to a set')
+  has(value: number): boolean {
+    return isntUndefined(this.parent[value])
+  }
+
+  makeSet(value: number): number {
+    assert(!this.has(value), 'The value already belongs to a set')
 
     this.parent[value] = value
     this.rank[value] = 0
+
+    return value
   }
 
   union(a: number, b: number): void {
