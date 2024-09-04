@@ -416,8 +416,6 @@ class SparseSet implements Iterable<number> {
 }
 ```
 
-Note that `SparseSet` is not faster than JavaScript's built-in `Set` in many cases.
-
 ### SparseMap
 ```ts
 class SparseMap<T> {
