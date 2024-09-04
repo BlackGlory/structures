@@ -64,4 +64,13 @@ export class SparseSet implements Iterable<number> {
     this.indexToValue.length = 0
     this.valueToIndex.length = 0
   }
+
+  clone(): SparseSet {
+    const clone = new SparseSet()
+
+    clone.indexToValue = [...this.indexToValue]
+    clone.valueToIndex = [...this.valueToIndex]
+
+    return clone
+  }
 }

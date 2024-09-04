@@ -411,6 +411,8 @@ class SparseSet implements Iterable<number> {
   add(value: number): void
   delete(value: number): boolean
   clear(): void
+
+  clone(): SparseSet
 }
 ```
 

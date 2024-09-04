@@ -132,4 +132,15 @@ describe('SparseSet', () => {
 
     expect(result).toStrictEqual([1, 2, 3])
   })
+
+  test('clone', () => {
+    const set = new SparseSet()
+    set.add(1)
+
+    const clone = set.clone()
+    set.delete(1)
+
+    expect(clone.size).toBe(1)
+    expect(clone.has(1)).toBe(true)
+  })
 })
