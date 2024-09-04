@@ -34,8 +34,7 @@ export class SparseMap<T> {
   }
 
   has(key: number): boolean {
-    // 跟一般的稀疏集实现不同, 不需要访问values数组.
-    return key in this.keyToIndex
+    return this.keyToIndex[key] !== undefined
   }
 
   get(key: number): T | undefined {
@@ -64,13 +63,13 @@ export class SparseMap<T> {
       const lastKey = this.indexToKey.pop()!
       const lastValue = this.indexToValue.pop()!
       if (key === lastKey) {
-        delete this.keyToIndex[key]
+        this.keyToIndex[key] = undefined
       } else {
         const index = this.keyToIndex[key]!
         this.indexToKey[index] = lastKey
         this.indexToValue[index] = lastValue
         this.keyToIndex[lastKey] = index
-        delete this.keyToIndex[key]
+        this.keyToIndex[key] = undefined
       }
     }
   }
