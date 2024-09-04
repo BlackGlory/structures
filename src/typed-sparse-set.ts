@@ -38,8 +38,7 @@ export class TypedSparseSet<
   }
 
   has(value: number): boolean {
-    const index = this.valueToIndex[value]
-    return this.indexToValue.internalTypedArray[index!] === value
+    return this.valueToIndex[value] !== undefined
   }
 
   add(value: number): void {
@@ -51,12 +50,15 @@ export class TypedSparseSet<
   }
 
   delete(value: number): boolean {
-    const index = this.valueToIndex[value]
-    if (this.indexToValue.internalTypedArray[index!] === value) {
+    if (this.has(value)) {
       const lastValue = this.indexToValue.pop()!
-      if (value !== lastValue) {
-        this.indexToValue.internalTypedArray[index!] = lastValue
+      if (value === lastValue) {
+        this.valueToIndex[value] = undefined
+      } else {
+        const index = this.valueToIndex[value]!
+        this.indexToValue.internalTypedArray[index] = lastValue
         this.valueToIndex[lastValue] = index
+        this.valueToIndex[value] = undefined
       }
       return true
     } else {
