@@ -232,4 +232,15 @@ describe.each([8, 31])('BitSet(%s)', (bitsPerElement) => {
     expect(set.has(1)).toBe(false)
     expect(set.has(2)).toBe(false)
   })
+
+  test('clone', () => {
+    const set = new BitSet(bitsPerElement)
+    set.add(1)
+
+    const clone = set.clone()
+    set.delete(1)
+
+    expect(clone.size).toBe(1)
+    expect(clone.has(1)).toBe(true)
+  })
 })

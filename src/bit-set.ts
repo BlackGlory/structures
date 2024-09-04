@@ -108,6 +108,16 @@ export class BitSet {
     this.array.length = 0
   }
 
+  clone(): BitSet {
+    const clone = new BitSet(this.bitsPerElement)
+
+    clone.array = [...this.array]
+    clone.length = this.length
+    clone._size = this._size
+
+    return clone
+  }
+
   private getPosition(value: number): [index: number, mask: number] {
     const remainder = value % this.bitsPerElement
     const quotient = (value - remainder) / this.bitsPerElement
