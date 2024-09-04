@@ -1,5 +1,5 @@
 import { go } from '@blackglory/go'
-import { SparseMap, TypedSparseMap, DynamicTypedArray } from '..'
+import { SparseMap, TypedSparseMap, DynamicTypedArray } from '../lib/index.js'
 import { Benchmark } from 'extra-benchmark'
 
 const benchmark = new Benchmark('SparseMap', {

@@ -1,5 +1,5 @@
 import { go } from '@blackglory/go'
-import { BitSet, TypedBitSet, DynamicTypedArray } from '..'
+import { BitSet, TypedBitSet, DynamicTypedArray } from '../lib/index.js'
 import { Benchmark } from 'extra-benchmark'
 
 const benchmark = new Benchmark('BitSet', {
