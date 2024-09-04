@@ -49,7 +49,7 @@ export class TypedSparseMap<T extends TypedArrayConstructor> {
   }
 
   has(key: number): boolean {
-    return key in this.keyToIndex
+    return this.keyToIndex[key] !== undefined
   }
 
   get(key: number): number | undefined {
@@ -78,13 +78,13 @@ export class TypedSparseMap<T extends TypedArrayConstructor> {
       const lastKey = this.indexToKey.pop()!
       const lastValue = this.indexToValue.pop()!
       if (key === lastKey) {
-        delete this.keyToIndex[key]
+        this.keyToIndex[key] = undefined
       } else {
         const index = this.keyToIndex[key]!
         this.indexToKey[index] = lastKey
         this.indexToValue.internalTypedArray[index] = lastValue
         this.keyToIndex[lastKey] = index
-        delete this.keyToIndex[key]
+        this.keyToIndex[key] = undefined
       }
     }
   }
