@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.14.6](https://github.com/BlackGlory/structures/compare/v0.14.5...v0.14.6) (2024-09-04)
+
+
+### Features
+
+* **sparse-set:** add `clone` method ([1b93d7f](https://github.com/BlackGlory/structures/commit/1b93d7f3add0fee24060c74e3e775aa8bf97401a))
+
 ### [0.14.5](https://github.com/BlackGlory/structures/compare/v0.14.4...v0.14.5) (2024-09-04)
 
 
