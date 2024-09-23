@@ -100,7 +100,17 @@ describe('HashSet', () => {
     expect(set.size).toBe(0)
   })
 
-  test('values(): Iterable<T>', () => {
+  test('keys', () => {
+    const set = new HashSet<number>(JSON.stringify)
+    set.add(1)
+
+    const iter = set.keys()
+    const result = toArray(iter)
+
+    expect(result).toStrictEqual([1])
+  })
+
+  test('values', () => {
     const set = new HashSet<number>(JSON.stringify)
     set.add(1)
 

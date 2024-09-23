@@ -255,6 +255,7 @@ class HashSet<V, Hash = unknown> implements Iterable<V> {
   delete(value: V): boolean
   has(value: V): boolean
   clear(): void
+  keys(): IterableIterator<V>
   values(): IterableIterator<V>
 }
 ```

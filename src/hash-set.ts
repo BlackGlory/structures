@@ -1,4 +1,4 @@
-export class HashSet<V, Hash = unknown> implements Iterable<V> {
+export class HashSet<V, Hash = unknown> implements Iterable<V> /* ReadonlySetLike<V> */ {
   private map = new Map<Hash, V>()
 
   get [Symbol.toStringTag](): string {
@@ -30,6 +30,10 @@ export class HashSet<V, Hash = unknown> implements Iterable<V> {
 
   clear(): void {
     this.map.clear()
+  }
+
+  keys(): IterableIterator<V> {
+    return this.values()
   }
 
   values(): IterableIterator<V> {
