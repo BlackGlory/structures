@@ -28,6 +28,10 @@ export class HashSet<V, Hash = unknown> implements Iterable<V> /* ReadonlySetLik
     return this.map.has(this.hash(value))
   }
 
+  get(value: V): V | undefined {
+    return this.map.get(this.hash(value))
+  }
+
   clear(): void {
     this.map.clear()
   }

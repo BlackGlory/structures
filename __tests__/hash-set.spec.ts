@@ -90,6 +90,26 @@ describe('HashSet', () => {
     })
   })
 
+  describe('get', () => {
+    test('exists', () => {
+      const set = new HashSet<object>(JSON.stringify)
+      const value = { key: 'value' }
+      set.add(value)
+
+      const result = set.get({ key: 'value' })
+
+      expect(result).toBe(value)
+    })
+
+    test('does not exist', () => {
+      const set = new HashSet<object>(JSON.stringify)
+
+      const result = set.get({ key: 'value' })
+
+      expect(result).toBeUndefined()
+    })
+  })
+
   test('clear(): void', () => {
     const set = new HashSet<object>(JSON.stringify)
     set.add({ key: 'value' })
