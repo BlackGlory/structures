@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.14.8](https://github.com/BlackGlory/structures/compare/v0.14.7...v0.14.8) (2024-09-23)
+
+
+### Features
+
+* **hash-set:** add `keys` to implement `ReadonlySetLike<V>` ([0053ba3](https://github.com/BlackGlory/structures/commit/0053ba3a927284c6f9bdc79aef8a8f730da11d3f))
+
 ### [0.14.7](https://github.com/BlackGlory/structures/compare/v0.14.6...v0.14.7) (2024-09-04)
 
 ### [0.14.6](https://github.com/BlackGlory/structures/compare/v0.14.5...v0.14.6) (2024-09-04)
