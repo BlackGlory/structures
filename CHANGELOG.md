@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.14.9](https://github.com/BlackGlory/structures/compare/v0.14.8...v0.14.9) (2024-09-23)
+
+
+### Features
+
+* **hash-set:** add `get` method ([6055ced](https://github.com/BlackGlory/structures/commit/6055ced9c0f5b053a48c151760d21c726e1e14f8))
+
 ### [0.14.8](https://github.com/BlackGlory/structures/compare/v0.14.7...v0.14.8) (2024-09-23)
 
 
