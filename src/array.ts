@@ -1,8 +1,8 @@
-export function sliceArrayLeft<T>(arr: T[], num: number): T[] {
+export function sliceArrayLeft<T>(arr: readonly T[], num: number): T[] {
   return arr.slice(0, num)
 }
 
-export function sliceArrayRight<T>(arr: T[], num: number): T[] {
+export function sliceArrayRight<T>(arr: readonly T[], num: number): T[] {
   const startIndex = arr.length - num
   return arr.slice(startIndex >= 0 ? startIndex : 0)
 }

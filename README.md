@@ -35,12 +35,12 @@ function convertArrayToCons<T>([value, ...next]: T[]): Cons<T>
 ### Array
 #### sliceArrayLeft
 ```ts
-function sliceArrayLeft<T>(arr: T[], num: number): T[]
+function sliceArrayLeft<T>(arr: readonly T[], num: number): T[]
 ```
 
 #### sliceArrayRight
 ```ts
-function sliceArrayRight<T>(arr: T[], num: number): T[]
+function sliceArrayRight<T>(arr: readonly T[], num: number): T[]
 ```
 
 #### truncateArrayLeft
