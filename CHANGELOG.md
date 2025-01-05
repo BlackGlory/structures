@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.14.10](https://github.com/BlackGlory/structures/compare/v0.14.9...v0.14.10) (2025-01-05)
+
+
+### Features
+
+* **array:** improve types ([1db944e](https://github.com/BlackGlory/structures/commit/1db944e4cccfaab37f4a0007fc4a53a18f1489cc))
+
 ### [0.14.9](https://github.com/BlackGlory/structures/compare/v0.14.8...v0.14.9) (2024-09-23)
 
 
