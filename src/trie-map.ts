@@ -88,7 +88,7 @@ export class TrieMap<K extends Iterable<T>, V, T = unknown> {
       }
     }
 
-    delete node.value
+    node.value = undefined
 
     // 如果节点没有后缀, 则代表这是末端节点, 往前删除其前缀
     if (node.children.size === 0) {

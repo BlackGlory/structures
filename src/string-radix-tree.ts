@@ -129,7 +129,7 @@ export class StringRadixTree<T> {
             node.children.delete(matchedPrefix)
           } else {
             // 要删除的目标节点是一个父节点, 首先删除目标节点包含的值, 然后检查它的子节点是否只有一个.
-            delete node.value
+            node.value = undefined
             if (targetNode.children.size === 1) {
               // 如果子节点只有一个, 说明目标节点的子节点可以与目标节点合并.
               // 即`(prefix, child)`合并为`(prefixchild)`.
