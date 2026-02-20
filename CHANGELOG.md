@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.14.12](https://github.com/BlackGlory/structures/compare/v0.14.11...v0.14.12) (2026-02-20)
+
+
+### Features
+
+* add `UniqueQueue` ([07d2c6c](https://github.com/BlackGlory/structures/commit/07d2c6cb30a6c253b03cd17c642b09613c09a8f1))
+
 ### [0.14.11](https://github.com/BlackGlory/structures/compare/v0.14.10...v0.14.11) (2025-11-03)
 
 ### [0.14.10](https://github.com/BlackGlory/structures/compare/v0.14.9...v0.14.10) (2025-01-05)
