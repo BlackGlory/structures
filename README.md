@@ -318,6 +318,23 @@ class Queue<T> {
   empty(): void
   enqueue(...items: T[]): void
   dequeue(): T | undefined
+
+  // O(n)
+  remove(item: T): void
+}
+```
+
+### UniqueQueue
+```ts
+class UniqueQueue<T> {
+  get [Symbol.toStringTag](): string
+  get size(): number
+
+  empty(): void
+  enqueue(...items: T[]): void
+  dequeue(): T | undefined
+
+  // Better than O(n)
   remove(item: T): void
 }
 ```
