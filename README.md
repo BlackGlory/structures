@@ -239,6 +239,7 @@ class HashMap<K, V, Hash = unknown> {
   get(key: K): V | undefined
   delete(key: K): boolean
   clear(): void
+  values(): IterableIterator<V>
 }
 ```
 

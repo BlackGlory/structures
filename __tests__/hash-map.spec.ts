@@ -1,5 +1,6 @@
 import { describe, test, expect, it } from 'vitest'
 import { HashMap } from '@src/hash-map.js'
+import { toArray } from 'iterable-operator'
 
 describe('HashMap', () => {
   test('[Symbol.toStringTag]', () => {
@@ -87,5 +88,16 @@ describe('HashMap', () => {
 
     expect(result).toBeUndefined()
     expect(map.size).toBe(0)
+  })
+
+  test('values', () => {
+    const map = new HashMap(JSON.stringify)
+    map.set(1, 'foo')
+    map.set(2, 'bar')
+
+    const iter = map.values()
+    const result = toArray(iter)
+
+    expect(result).toStrictEqual(['foo', 'bar'])
   })
 })

@@ -31,4 +31,8 @@ export class HashMap<K, V, Hash = unknown> {
   clear(): void {
     this.map.clear()
   }
+
+  values(): IterableIterator<V> {
+    return this.map.values()
+  }
 }
