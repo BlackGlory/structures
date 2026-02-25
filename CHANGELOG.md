@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.14.13](https://github.com/BlackGlory/structures/compare/v0.14.12...v0.14.13) (2026-02-25)
+
+
+### Features
+
+* **hash-map:** add the `values()` method ([e9a2985](https://github.com/BlackGlory/structures/commit/e9a2985440bb7d985e45ceb35996c34d6a38bd1f))
+
 ### [0.14.12](https://github.com/BlackGlory/structures/compare/v0.14.11...v0.14.12) (2026-02-20)
 
 
