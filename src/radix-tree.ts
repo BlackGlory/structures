@@ -1,10 +1,10 @@
 import { toArray, first, map, find } from 'iterable-operator'
-import { isntUndefined } from 'extra-utils'
+import { isntUndefined, isUndefined } from 'extra-utils'
 
 class TreeNode<T, U> {
   children = new Map<T[], TreeNode<T, U>>()
 
-  constructor(public value?: U) {}
+  constructor(public value: U | undefined = undefined) {}
 }
 
 export class RadixTree<K extends Iterable<T>, V, T = unknown> {
@@ -146,7 +146,7 @@ export class RadixTree<K extends Iterable<T>, V, T = unknown> {
           const deleted = _delete(nextKey, nextNode)
           if (deleted) {
             // 最终找到了目标节点并删除了它, 现在执行与nextNode有关的合并操作, 以删除不必要的节点.
-            if (!('value' in nextNode)) {
+            if (isUndefined(nextNode.value)) {
               // 只有在nextNode自身不具有值的情况下, nextNode才是能够被合并的.
               switch (nextNode.children.size) {
                 case 0: {
