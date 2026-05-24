@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.14.15](https://github.com/BlackGlory/structures/compare/v0.14.14...v0.14.15) (2026-05-24)
+
+
+### Bug Fixes
+
+* **radix-tree, string-radix-tree:** conditional statements in `delete()` methods ([4cb17ba](https://github.com/BlackGlory/structures/commit/4cb17ba62fe569aa4817292397ffd7499028627c))
+
 ### [0.14.14](https://github.com/BlackGlory/structures/compare/v0.14.13...v0.14.14) (2026-05-12)
 
 ### [0.14.13](https://github.com/BlackGlory/structures/compare/v0.14.12...v0.14.13) (2026-02-25)
