@@ -6,7 +6,7 @@ export class DynamicTypedSparseSet<
   T extends UnsignedTypedArrayConstructor
 > implements Iterable<number> {
   private dense: DynamicTypedArray<T>
-  private sparse: Array<number | undefined> = []
+  private sparse: DynamicTypedArray<Uint32ArrayConstructor> = new DynamicTypedArray(Uint32Array)
 
   get [Symbol.toStringTag](): string {
     return this.constructor.name
@@ -16,7 +16,9 @@ export class DynamicTypedSparseSet<
     return this.dense.length
   }
 
-  constructor(array: DynamicTypedArray<T>) {
+  constructor(
+    array: DynamicTypedArray<T>
+  ) {
     assert(array.length === 0, 'The parameter array must be empty')
 
     this.dense = array
@@ -33,28 +35,33 @@ export class DynamicTypedSparseSet<
   }
 
   has(value: number): boolean {
-    return this.sparse[value] !== undefined
+    const index = this.sparse.get(value)
+    return index !== undefined
+        && index < this.dense.length // 用于改善JIT优化.
+        && this.dense.get(index) === value
   }
 
   add(value: number): void {
     if (!this.has(value)) {
       const index = this.dense.length
       this.dense.push(value)
-      this.sparse[value] = index
+      this.sparse.set(value, index)
     }
   }
 
   delete(value: number): boolean {
-    if (this.has(value)) {
+    const index = this.sparse.get(value)
+    if (
+      index !== undefined &&
+      index < this.dense.length && // 用于改善JIT优化.
+      this.dense.get(index) === value
+    ) {
       const lastValue = this.dense.pop()!
-      if (value === lastValue) {
-        this.sparse[value] = undefined
-      } else {
-        const index = this.sparse[value]!
-        this.dense.internalTypedArray[index] = lastValue
-        this.sparse[lastValue] = index
-        this.sparse[value] = undefined
+      if (value !== lastValue) {
+        this.dense.set(index, lastValue)
+        this.sparse.set(lastValue, index)
       }
+
       return true
     } else {
       return false
@@ -62,7 +69,7 @@ export class DynamicTypedSparseSet<
   }
 
   clear(): void {
-    this.sparse.length = 0
     this.dense.clear()
+    // 无需清空sparse数组.
   }
 }
