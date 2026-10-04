@@ -55,8 +55,16 @@ export class SparseSet implements Iterable<number> {
   clone(): SparseSet {
     const clone = new SparseSet()
 
-    clone.dense = [...this.dense]
-    clone.sparse = [...this.sparse]
+    const dense = [...this.dense]
+
+    // 由于`sparse`是稀疏的, 不应用`[...sparse]`复制.
+    const sparse: Array<number | undefined> = []
+    for (const [index, value] of dense.entries()) {
+      sparse[value] = index
+    }
+
+    clone.dense = dense
+    clone.sparse = sparse
 
     return clone
   }
