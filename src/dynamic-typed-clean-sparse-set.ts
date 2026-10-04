@@ -2,11 +2,11 @@ import { UnsignedTypedArrayConstructor } from 'justypes'
 import { DynamicTypedArray } from './dynamic-typed-array.js'
 import { assert } from '@blackglory/errors'
 
-export class DynamicTypedSparseSet<
+export class DynamicTypedCleanSparseSet<
   T extends UnsignedTypedArrayConstructor
 > implements Iterable<number> {
   private dense: DynamicTypedArray<T>
-  private sparse: DynamicTypedArray<Uint32ArrayConstructor> = new DynamicTypedArray(Uint32Array)
+  private sparse: Array<number | undefined> = []
 
   get [Symbol.toStringTag](): string {
     return this.constructor.name
@@ -33,31 +33,26 @@ export class DynamicTypedSparseSet<
   }
 
   has(value: number): boolean {
-    const index = this.sparse.get(value)
-    return index !== undefined
-        && index < this.dense.length // 用于改善JIT优化.
-        && this.dense.get(index) === value
+    return this.sparse[value] !== undefined
   }
 
   add(value: number): void {
     if (!this.has(value)) {
       const index = this.dense.length
       this.dense.push(value)
-      this.sparse.set(value, index)
+      this.sparse[value] = index
     }
   }
 
   delete(value: number): boolean {
-    const index = this.sparse.get(value)
-    if (
-      index !== undefined &&
-      index < this.dense.length && // 用于改善JIT优化.
-      this.dense.get(index) === value
-    ) {
+    const index = this.sparse[value]
+    if (index !== undefined) {
+      this.sparse[value] = undefined
+
       const lastValue = this.dense.pop()!
       if (value !== lastValue) {
         this.dense.set(index, lastValue)
-        this.sparse.set(lastValue, index)
+        this.sparse[lastValue] = index
       }
 
       return true
@@ -68,6 +63,6 @@ export class DynamicTypedSparseSet<
 
   clear(): void {
     this.dense.clear()
-    // 无需清空sparse数组.
+    this.sparse.length = 0
   }
 }
