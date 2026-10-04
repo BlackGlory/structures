@@ -1,4 +1,4 @@
-export class SparseMap<T> {
+export class CleanSparseMap<T> {
   private denseKeys: number[] = []
   private denseValues: T[] = []
   private sparse: Array<number | undefined> = []
@@ -29,30 +29,16 @@ export class SparseMap<T> {
   }
 
   getInternalIndexOfKey(key: number): number | undefined {
-    const index = this.sparse[key]
-    if (
-      index !== undefined &&
-      index < this.denseKeys.length && // 用于改善JIT优化.
-      this.denseKeys[index] === key
-    ) {
-      return index
-    }
+    return this.sparse[key]
   }
 
   has(key: number): boolean {
-    const index = this.sparse[key]
-    return index !== undefined
-        && index < this.denseKeys.length // 用于改善JIT优化.
-        && this.denseKeys[index] === key
+    return this.sparse[key] !== undefined
   }
 
   get(key: number): T | undefined {
     const index = this.sparse[key]
-    if (
-      index !== undefined &&
-      index < this.denseKeys.length && // 用于改善JIT优化.
-      this.denseKeys[index] === key
-    ) {
+    if (index !== undefined) {
       return this.denseValues[index]
     } else {
       return undefined
@@ -61,11 +47,7 @@ export class SparseMap<T> {
 
   set(key: number, value: T): void {
     const index = this.sparse[key]
-    if (
-      index !== undefined &&
-      index < this.denseKeys.length && // 用于改善JIT优化.
-      this.denseKeys[index] === key
-    ) {
+    if (index !== undefined) {
       this.denseValues[index] = value
     } else {
       const index = this.denseKeys.length
@@ -77,11 +59,9 @@ export class SparseMap<T> {
 
   delete(key: number): boolean {
     const index = this.sparse[key]
-    if (
-      index !== undefined &&
-      index < this.denseKeys.length && // 用于改善JIT优化.
-      this.denseKeys[index] === key
-    ) {
+    if (index !== undefined) {
+      this.sparse[key] = undefined
+
       const lastKey = this.denseKeys.pop()!
       const lastValue = this.denseValues.pop()!
       if (key !== lastKey) {
@@ -99,6 +79,6 @@ export class SparseMap<T> {
   clear(): void {
     this.denseKeys.length = 0
     this.denseValues.length = 0
-    // 无需清空sparse数组.
+    this.sparse.length = 0
   }
 }

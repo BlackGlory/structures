@@ -1,11 +1,11 @@
 import { describe, test, expect } from 'vitest'
-import { SparseMap } from '@src/sparse-map.js'
+import { CleanSparseMap } from '@src/clean-sparse-map.js'
 import { toArray } from 'iterable-operator'
 
 describe('SparseMap', () => {
   describe('size', () => {
     test('empty', () => {
-      const map = new SparseMap()
+      const map = new CleanSparseMap()
 
       const result = map.size
 
@@ -14,7 +14,7 @@ describe('SparseMap', () => {
 
     describe('non-empty', () => {
       test('set', () => {
-        const map = new SparseMap()
+        const map = new CleanSparseMap()
         map.set(1, '1')
 
         const result = map.size
@@ -23,7 +23,7 @@ describe('SparseMap', () => {
       })
 
       test('delete', () => {
-        const map = new SparseMap()
+        const map = new CleanSparseMap()
         map.set(1, '1')
         map.delete(1)
 
@@ -35,7 +35,7 @@ describe('SparseMap', () => {
   })
 
   test('internalKeyArray', () => {
-    const map = new SparseMap()
+    const map = new CleanSparseMap()
     map.set(1, 10)
 
     const result = [...map.internalKeyArray]
@@ -44,7 +44,7 @@ describe('SparseMap', () => {
   })
 
   test('internalValueArray', () => {
-    const map = new SparseMap()
+    const map = new CleanSparseMap()
     map.set(1, 10)
 
     const result = [...map.internalValueArray]
@@ -53,7 +53,7 @@ describe('SparseMap', () => {
   })
 
   test('has', () => {
-    const map = new SparseMap()
+    const map = new CleanSparseMap()
     map.set(1, '1')
 
     const result1 = map.has(1)
@@ -65,7 +65,7 @@ describe('SparseMap', () => {
 
   describe('get', () => {
     test('exists', () => {
-      const map = new SparseMap()
+      const map = new CleanSparseMap()
       map.set(1, '1')
 
       const result = map.get(1)
@@ -74,7 +74,7 @@ describe('SparseMap', () => {
     })
 
     test('does not exist', () => {
-      const map = new SparseMap()
+      const map = new CleanSparseMap()
 
       const result = map.get(1)
 
@@ -82,7 +82,7 @@ describe('SparseMap', () => {
     })
 
     test('edge: deleted key', () => {
-      const map = new SparseMap()
+      const map = new CleanSparseMap()
       map.set(1, '1')
       map.delete(1)
 
@@ -92,7 +92,7 @@ describe('SparseMap', () => {
     })
 
     test('edge: reused key', () => {
-      const map = new SparseMap()
+      const map = new CleanSparseMap()
       map.set(1, '1')
       map.delete(1)
       map.set(1, '2')
@@ -103,7 +103,7 @@ describe('SparseMap', () => {
     })
 
     test('edge: reused key with length growth', () => {
-      const map = new SparseMap()
+      const map = new CleanSparseMap()
       map.set(0, '0')
       map.set(1, '1')
       map.delete(0)
@@ -121,7 +121,7 @@ describe('SparseMap', () => {
   })
 
   test('set', () => {
-    const map = new SparseMap()
+    const map = new CleanSparseMap()
 
     map.set(1, '1')
     map.set(2, '2')
@@ -134,7 +134,7 @@ describe('SparseMap', () => {
   describe('delete', () => {
     describe('item exists', () => {
       test('not last item', () => {
-        const map = new SparseMap()
+        const map = new CleanSparseMap()
         map.set(1, '1')
         map.set(2, '2')
 
@@ -146,7 +146,7 @@ describe('SparseMap', () => {
       })
 
       test('last item', () => {
-        const set = new SparseMap()
+        const set = new CleanSparseMap()
         set.set(1, '1')
 
         const result = set.delete(1)
@@ -157,7 +157,7 @@ describe('SparseMap', () => {
     })
 
     test('item does not exist', () => {
-      const set = new SparseMap()
+      const set = new CleanSparseMap()
 
       const result = set.delete(1)
 
@@ -166,7 +166,7 @@ describe('SparseMap', () => {
   })
 
   test('clear', () => {
-    const map = new SparseMap()
+    const map = new CleanSparseMap()
     map.set(1, '1')
 
     map.clear()
@@ -175,7 +175,7 @@ describe('SparseMap', () => {
   })
 
   test('entries', () => {
-    const set = new SparseMap()
+    const set = new CleanSparseMap()
     set.set(1, '1')
     set.set(2, '2')
     set.set(3, '3')
@@ -191,7 +191,7 @@ describe('SparseMap', () => {
   })
 
   test('keys', () => {
-    const set = new SparseMap()
+    const set = new CleanSparseMap()
     set.set(1, '1')
     set.set(2, '2')
     set.set(3, '3')
@@ -203,7 +203,7 @@ describe('SparseMap', () => {
   })
 
   test('values', () => {
-    const set = new SparseMap()
+    const set = new CleanSparseMap()
     set.set(1, '1')
     set.set(2, '2')
     set.set(3, '3')
@@ -215,7 +215,7 @@ describe('SparseMap', () => {
   })
 
   test('getInternalIndexOfKey', () => {
-    const set = new SparseMap()
+    const set = new CleanSparseMap()
     set.set(3, 30)
     set.set(1, 10)
     set.set(2, 20)

@@ -572,13 +572,8 @@ class SparseMap<T> {
   get [Symbol.toStringTag](): string
   get size(): number
 
-  /**
-   * `SparseMap` cannot respond to any operations on the internal array,
-   * you must ensure that indexes accessed are less than the length of `SparseMap`.
-   * 
-   * Keys do not correspond to indexes of the array.
-   */
-  get internalArray(): T[]
+  readonly internalKeyArray: readonly number[]
+  readonly internalValueArray: T[]
 
   entries(): IterableIterator<[key: number, value: T]>
   keys(): IterableIterator<number>
@@ -589,7 +584,32 @@ class SparseMap<T> {
   has(key: number): boolean
   get(key: number): T | undefined
   set(key: number, value: T): void
-  delete(key: number): void
+  delete(key: number): boolean
+
+  clear(): void
+}
+```
+
+### CleanSparseMap
+```ts
+class CleanSparseMap<T> {
+  get [Symbol.toStringTag](): string
+  get size(): number
+
+  readonly internalKeyArray: readonly number[]
+  readonly internalValueArray: T[]
+
+  entries(): IterableIterator<[key: number, value: T]>
+  keys(): IterableIterator<number>
+  values(): IterableIterator<T>
+
+  getInternalIndexOfKey(key: number): number | undefined
+
+  has(key: number): boolean
+  get(key: number): T | undefined
+  set(key: number, value: T): void
+  delete(key: number): boolean
+
   clear(): void
 }
 ```

@@ -1,5 +1,5 @@
 import { go } from '@blackglory/go'
-import { SparseMap, TypedSparseMap, DynamicTypedArray } from '../lib/index.js'
+import { SparseMap, TypedSparseMap, DynamicTypedArray, CleanSparseMap } from '../lib/index.js'
 import { Benchmark } from 'extra-benchmark'
 
 const benchmark = new Benchmark('SparseMap', {
@@ -34,7 +34,20 @@ go(async () => {
     }
   })
 
-  benchmark.addCase('TypedSparseMap(Uint16)#has', () => {
+  benchmark.addCase('CleanSparseMap#has', () => {
+    const map = new CleanSparseMap()
+    for (let i = 0; i < 10000; i += 2) {
+      map.set(i, i)
+    }
+
+    return () => {
+      for (let i = 0; i < 10000; i++) {
+        map.has(i)
+      }
+    }
+  })
+
+  benchmark.addCase('TypedSparseMap#has', () => {
     const map = new TypedSparseMap(new DynamicTypedArray(Uint16Array))
     for (let i = 0; i < 10000; i += 2) {
       map.set(i, i)
@@ -73,7 +86,20 @@ go(async () => {
     }
   })
 
-  benchmark.addCase('TypedSparseMap(Uint16)#get', () => {
+  benchmark.addCase('CleanSparseMap#get', () => {
+    const map = new CleanSparseMap()
+    for (let i = 0; i < 10000; i += 2) {
+      map.set(i, i)
+    }
+
+    return () => {
+      for (let i = 0; i < 10000; i++) {
+        map.get(i)
+      }
+    }
+  })
+
+  benchmark.addCase('TypedSparseMap#get', () => {
     const map = new TypedSparseMap(new DynamicTypedArray(Uint16Array))
     for (let i = 0; i < 10000; i += 2) {
       map.set(i, i)
@@ -124,7 +150,26 @@ go(async () => {
     }
   })
 
-  benchmark.addCase('TypedSparseMap(Uint16)#set', () => {
+  benchmark.addCase('CleanSparseMap#set', () => {
+    const map = new CleanSparseMap()
+
+    return {
+      beforeEach() {
+        map.clear()
+
+        for (let i = 0; i < 10000; i += 2) {
+          map.set(i, i)
+        }
+      }
+    , iterate() {
+        for (let i = 0; i < 10000; i++) {
+          map.set(i, i)
+        }
+      }
+    }
+  })
+
+  benchmark.addCase('TypedSparseMap#set', () => {
     const map = new TypedSparseMap(new DynamicTypedArray(Uint16Array))
 
     return {
@@ -181,7 +226,26 @@ go(async () => {
     }
   })
 
-  benchmark.addCase('TypedSparseMap(Uint16)#delete', () => {
+  benchmark.addCase('CleanSparseMap#delete', () => {
+    const map = new CleanSparseMap()
+
+    return {
+      beforeEach() {
+        map.clear()
+
+        for (let i = 0; i < 10000; i += 2) {
+          map.set(i, i)
+        }
+      }
+    , iterate() {
+        for (let i = 0; i < 10000; i++) {
+          map.delete(i)
+        }
+      }
+    }
+  })
+
+  benchmark.addCase('TypedSparseMap#delete', () => {
     const map = new TypedSparseMap(new DynamicTypedArray(Uint16Array))
 
     return {

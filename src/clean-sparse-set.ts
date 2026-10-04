@@ -20,7 +20,7 @@ export class CleanSparseSet implements Iterable<number> {
   }
 
   values(): IterableIterator<number> {
-    return this.dense[Symbol.iterator]()
+    return this.dense.values()
   }
 
   has(value: number): boolean {
