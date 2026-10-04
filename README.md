@@ -423,8 +423,6 @@ class SparseSet implements Iterable<number> {
   get [Symbol.iterator](): IterableIterator<number>
   get size(): number
 
-  constructor(array?: number[])
-
   values(): IterableIterator<number>
 
   has(value: number): boolean

@@ -1,8 +1,8 @@
 import { assert } from '@blackglory/errors'
 
 export class SparseSet implements Iterable<number> {
-  private indexToValue: number[]
-  private valueToIndex: Array<number | undefined>
+  private indexToValue: number[] = []
+  private valueToIndex: Array<number | undefined> = []
 
   get [Symbol.toStringTag](): string {
     return this.constructor.name
@@ -12,17 +12,7 @@ export class SparseSet implements Iterable<number> {
     return this.indexToValue.length
   }
 
-  constructor(array: number[] = []) {
-    const valueToIndex: Array<number | undefined> = []
-    if (array.length > 0) {
-      for (const [index, value] of array.entries()) {
-        valueToIndex[value] = index
-      }
-    }
-
-    this.indexToValue = array
-    this.valueToIndex = valueToIndex
-  }
+  constructor() {}
 
   [Symbol.iterator](): IterableIterator<number> {
     return this.indexToValue[Symbol.iterator]()

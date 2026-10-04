@@ -3,17 +3,6 @@ import { SparseSet } from '@src/sparse-set.js'
 import { toArray } from 'iterable-operator'
 
 describe('SparseSet', () => {
-  test('constructor', () => {
-    const set = new SparseSet([2, 1])
-
-    expect(set.has(0)).toBe(false)
-    expect(set.has(1)).toBe(true)
-    expect(set.has(2)).toBe(true)
-    expect(set.has(3)).toBe(false)
-    expect(set.size).toBe(2)
-    expect(toArray(set.values())).toStrictEqual([2, 1])
-  })
-
   describe('size', () => {
     test('empty', () => {
       const set = new SparseSet()
