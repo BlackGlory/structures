@@ -1,5 +1,7 @@
+import { assert } from '@blackglory/errors'
+
 export class SparseSet implements Iterable<number> {
-  private indexToValue: number[] = []
+  private indexToValue: number[]
   private valueToIndex: Array<number | undefined>
 
   get [Symbol.toStringTag](): string {
@@ -18,6 +20,7 @@ export class SparseSet implements Iterable<number> {
       }
     }
 
+    this.indexToValue = array
     this.valueToIndex = valueToIndex
   }
 
@@ -34,6 +37,8 @@ export class SparseSet implements Iterable<number> {
   }
 
   add(value: number): void {
+    assert(value >= 0, 'The value must be greater than or equal to 0')
+
     if (!this.has(value)) {
       const index = this.indexToValue.length
       this.indexToValue.push(value)
