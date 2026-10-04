@@ -10,8 +10,6 @@ export class SparseSet implements Iterable<number> {
     return this.dense.length
   }
 
-  constructor() {}
-
   [Symbol.iterator](): IterableIterator<number> {
     return this.dense[Symbol.iterator]()
   }
