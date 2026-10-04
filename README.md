@@ -436,6 +436,44 @@ class SparseSet implements Iterable<number> {
 }
 ```
 
+### DynamicTypedSparseSet
+```ts
+class DynamicTypedSparseSet<T extends UnsignedTypedArrayConstructor> {
+  get [Symbol.toStringTag](): string
+  get [Symbol.iterator](): IterableIterator<number>
+  get size(): number
+
+  constructor(array: DynamicTypedArray<T>)
+
+  values(): IterableIterator<number>
+
+  has(value: number): boolean
+  add(value: number): void
+  delete(value: number): boolean
+
+  clear(): void
+}
+```
+
+### ResizableTypedSparseSet
+```ts
+class ResizableTypedSparseSet<T extends UnsignedTypedArrayConstructor> {
+  get [Symbol.toStringTag](): string
+  get [Symbol.iterator](): IterableIterator<number>
+  get size(): number
+
+  constructor(array: ResizableTypedArray<T>)
+
+  values(): IterableIterator<number>
+
+  has(value: number): boolean
+  add(value: number): void
+  delete(value: number): boolean
+
+  clear(): void
+}
+```
+
 ### SparseMap
 ```ts
 class SparseMap<T> {
@@ -460,6 +498,37 @@ class SparseMap<T> {
   get(key: number): T | undefined
   set(key: number, value: T): void
   delete(key: number): void
+  clear(): void
+}
+```
+
+### TypedSparseMap
+```ts
+class TypedSparseMap<T extends TypedArrayConstructor> {
+  get [Symbol.toStringTag](): string
+  get size(): number
+
+  /**
+   * `SparseMap` cannot respond to any operations on the internal array,
+   * you must ensure that indexes accessed are less than the length of `SparseMap`.
+   * 
+   * Keys do not correspond to indexes of the array.
+   */
+  get internalTypedArray(): TypedArrayOfConstructor<T>
+
+  constructor(array: DynamicTypedArray<T>)
+
+  entries(): IterableIterator<[key: number, value: number]>
+  keys(): IterableIterator<number>
+  values(): IterableIterator<number>
+
+  getInternalIndexOfKey(key: number): number | undefined
+
+  has(key: number): boolean
+  get(key: number): T | undefined
+  set(key: number, value: number): void
+  delete(key: number): void
+
   clear(): void
 }
 ```
@@ -542,56 +611,6 @@ class ResizableTypedArray<T extends TypedArrayConstructor> {
 
 This implementation is based on Resizable Array Buffers,
 support for which was introduced in ES2024.
-
-### TypedSparseSet
-```ts
-class TypedSparseSet<T extends UnsignedTypedArrayConstructor> {
-  get [Symbol.toStringTag](): string
-  get [Symbol.iterator](): IterableIterator<number>
-  get size(): number
-
-  constructor(array: DynamicTypedArray<T>)
-
-  values(): IterableIterator<number>
-
-  has(value: number): boolean
-  add(value: number): void
-  delete(value: number): boolean
-
-  clear(): void
-}
-```
-
-### TypedSparseMap
-```ts
-class TypedSparseMap<T extends TypedArrayConstructor> {
-  get [Symbol.toStringTag](): string
-  get size(): number
-
-  /**
-   * `SparseMap` cannot respond to any operations on the internal array,
-   * you must ensure that indexes accessed are less than the length of `SparseMap`.
-   * 
-   * Keys do not correspond to indexes of the array.
-   */
-  get internalTypedArray(): TypedArrayOfConstructor<T>
-
-  constructor(array: DynamicTypedArray<T>)
-
-  entries(): IterableIterator<[key: number, value: number]>
-  keys(): IterableIterator<number>
-  values(): IterableIterator<number>
-
-  getInternalIndexOfKey(key: number): number | undefined
-
-  has(key: number): boolean
-  get(key: number): T | undefined
-  set(key: number, value: number): void
-  delete(key: number): void
-
-  clear(): void
-}
-```
 
 ### SortedSet
 ```ts

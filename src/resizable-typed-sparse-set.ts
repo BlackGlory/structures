@@ -1,13 +1,21 @@
 import { UnsignedTypedArrayConstructor } from 'justypes'
-import { DynamicTypedArray } from './dynamic-typed-array.js'
+import { ResizableTypedArray } from './resizable-typed-array.js'
 
-export class TypedSparseSet<
+export class ResizableTypedSparseSet<
   T extends UnsignedTypedArrayConstructor
 > implements Iterable<number> {
   private valueToIndex: Array<number | undefined>
-  private indexToValue: DynamicTypedArray<T>
+  private indexToValue: ResizableTypedArray<T>
 
-  constructor(array: DynamicTypedArray<T>) {
+  get [Symbol.toStringTag](): string {
+    return this.constructor.name
+  }
+
+  get size(): number {
+    return this.indexToValue.length
+  }
+
+  constructor(array: ResizableTypedArray<T>) {
     const valueToIndex: Array<number | undefined> = []
     if (array.length > 0) {
       for (const [index, value] of array.internalTypedArray.entries()) {
@@ -19,16 +27,8 @@ export class TypedSparseSet<
     this.valueToIndex = valueToIndex
   }
 
-  get [Symbol.toStringTag](): string {
-    return this.constructor.name
-  }
-
   [Symbol.iterator](): IterableIterator<number> {
     return this.values()
-  }
-
-  get size(): number {
-    return this.indexToValue.length
   }
 
   * values(): IterableIterator<number> {

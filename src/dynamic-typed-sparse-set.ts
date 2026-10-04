@@ -1,6 +1,11 @@
-export class SparseSet implements Iterable<number> {
-  private indexToValue: number[] = []
+import { UnsignedTypedArrayConstructor } from 'justypes'
+import { DynamicTypedArray } from './dynamic-typed-array.js'
+
+export class DynamicTypedSparseSet<
+  T extends UnsignedTypedArrayConstructor
+> implements Iterable<number> {
   private valueToIndex: Array<number | undefined>
+  private indexToValue: DynamicTypedArray<T>
 
   get [Symbol.toStringTag](): string {
     return this.constructor.name
@@ -10,23 +15,26 @@ export class SparseSet implements Iterable<number> {
     return this.indexToValue.length
   }
 
-  constructor(array: number[] = []) {
+  constructor(array: DynamicTypedArray<T>) {
     const valueToIndex: Array<number | undefined> = []
     if (array.length > 0) {
-      for (const [index, value] of array.entries()) {
+      for (const [index, value] of array.internalTypedArray.entries()) {
         valueToIndex[value] = index
       }
     }
 
+    this.indexToValue = array
     this.valueToIndex = valueToIndex
   }
 
   [Symbol.iterator](): IterableIterator<number> {
-    return this.indexToValue[Symbol.iterator]()
+    return this.values()
   }
 
-  values(): IterableIterator<number> {
-    return this.indexToValue[Symbol.iterator]()
+  * values(): IterableIterator<number> {
+    for (let i = 0; i < this.indexToValue.length; i++) {
+      yield this.indexToValue.internalTypedArray[i]
+    }
   }
 
   has(value: number): boolean {
@@ -48,7 +56,7 @@ export class SparseSet implements Iterable<number> {
         this.valueToIndex[value] = undefined
       } else {
         const index = this.valueToIndex[value]!
-        this.indexToValue[index] = lastValue
+        this.indexToValue.internalTypedArray[index] = lastValue
         this.valueToIndex[lastValue] = index
         this.valueToIndex[value] = undefined
       }
@@ -59,16 +67,7 @@ export class SparseSet implements Iterable<number> {
   }
 
   clear(): void {
-    this.indexToValue.length = 0
     this.valueToIndex.length = 0
-  }
-
-  clone(): SparseSet {
-    const clone = new SparseSet()
-
-    clone.indexToValue = [...this.indexToValue]
-    clone.valueToIndex = [...this.valueToIndex]
-
-    return clone
+    this.indexToValue.clear()
   }
 }
