@@ -19,7 +19,11 @@ export class ResizableTypedSparseSet<
   }
 
   constructor(array: ResizableTypedArray<T>) {
-    assert(array.length === 0, 'The parameter array must be empty')
+    assert(array.length === 0, 'The array must be empty')
+    assert(
+      array.maxCapacity <= getMaxValueOfUnsignedTypedArray(array.internalTypedArray) + 1
+    , 'The array.maxCapacity is greater than the required capacity'
+    )
 
     this.dense = array
 

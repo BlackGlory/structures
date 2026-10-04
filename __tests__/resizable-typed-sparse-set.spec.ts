@@ -7,7 +7,7 @@ describe('ResizableTypedSparseSet', () => {
   describe('size', () => {
     test('empty', () => {
       const set = new ResizableTypedSparseSet(
-        new ResizableTypedArray(Uint8Array, { maxCapacity: 1000 })
+        new ResizableTypedArray(Uint8Array, { maxCapacity: 256 })
       )
 
       const result = set.size
@@ -18,7 +18,7 @@ describe('ResizableTypedSparseSet', () => {
     describe('non-empty', () => {
       test('set', () => {
         const set = new ResizableTypedSparseSet(
-          new ResizableTypedArray(Uint8Array, { maxCapacity: 1000 })
+          new ResizableTypedArray(Uint8Array, { maxCapacity: 256 })
         )
         set.add(1)
 
@@ -29,7 +29,7 @@ describe('ResizableTypedSparseSet', () => {
 
       test('delete', () => {
         const set = new ResizableTypedSparseSet(
-          new ResizableTypedArray(Uint8Array, { maxCapacity: 1000 })
+          new ResizableTypedArray(Uint8Array, { maxCapacity: 256 })
         )
         set.add(1)
         set.delete(1)
@@ -43,7 +43,7 @@ describe('ResizableTypedSparseSet', () => {
 
   test('has', () => {
     const set = new ResizableTypedSparseSet(
-      new ResizableTypedArray(Uint8Array, { maxCapacity: 1000 })
+      new ResizableTypedArray(Uint8Array, { maxCapacity: 256 })
     )
     set.add(1)
 
@@ -56,7 +56,7 @@ describe('ResizableTypedSparseSet', () => {
 
   test('add', () => {
     const set = new ResizableTypedSparseSet(
-      new ResizableTypedArray(Uint8Array, { maxCapacity: 1000 })
+      new ResizableTypedArray(Uint8Array, { maxCapacity: 256 })
     )
 
     set.add(1)
@@ -71,7 +71,7 @@ describe('ResizableTypedSparseSet', () => {
   describe('delete', () => {
     test('exists', () => {
       const set = new ResizableTypedSparseSet(
-        new ResizableTypedArray(Uint8Array, { maxCapacity: 1000 })
+        new ResizableTypedArray(Uint8Array, { maxCapacity: 256 })
       )
       set.add(1)
 
@@ -83,7 +83,7 @@ describe('ResizableTypedSparseSet', () => {
 
     test('does not exist', () => {
       const set = new ResizableTypedSparseSet(
-        new ResizableTypedArray(Uint8Array, { maxCapacity: 1000 })
+        new ResizableTypedArray(Uint8Array, { maxCapacity: 256 })
       )
 
       const result = set.delete(1)
@@ -94,7 +94,7 @@ describe('ResizableTypedSparseSet', () => {
 
     test('not last item', () => {
       const set = new ResizableTypedSparseSet(
-        new ResizableTypedArray(Uint8Array, { maxCapacity: 1000 })
+        new ResizableTypedArray(Uint8Array, { maxCapacity: 256 })
       )
       set.add(1)
       set.add(2)
@@ -108,7 +108,7 @@ describe('ResizableTypedSparseSet', () => {
 
     test('last item', () => {
       const set = new ResizableTypedSparseSet(
-        new ResizableTypedArray(Uint8Array, { maxCapacity: 1000 })
+        new ResizableTypedArray(Uint8Array, { maxCapacity: 256 })
       )
       set.add(1)
 
@@ -121,7 +121,7 @@ describe('ResizableTypedSparseSet', () => {
 
   test('clear', () => {
     const set = new ResizableTypedSparseSet(
-      new ResizableTypedArray(Uint8Array, { maxCapacity: 1000 })
+      new ResizableTypedArray(Uint8Array, { maxCapacity: 256 })
     )
     set.add(1)
 
