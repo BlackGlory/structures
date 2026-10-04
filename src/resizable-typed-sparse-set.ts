@@ -1,30 +1,25 @@
 import { UnsignedTypedArrayConstructor } from 'justypes'
 import { ResizableTypedArray } from './resizable-typed-array.js'
+import { assert } from '@blackglory/errors'
 
 export class ResizableTypedSparseSet<
   T extends UnsignedTypedArrayConstructor
 > implements Iterable<number> {
-  private valueToIndex: Array<number | undefined>
-  private indexToValue: ResizableTypedArray<T>
+  private dense: ResizableTypedArray<T>
+  private sparse: Array<number | undefined> = []
 
   get [Symbol.toStringTag](): string {
     return this.constructor.name
   }
 
   get size(): number {
-    return this.indexToValue.length
+    return this.dense.length
   }
 
   constructor(array: ResizableTypedArray<T>) {
-    const valueToIndex: Array<number | undefined> = []
-    if (array.length > 0) {
-      for (const [index, value] of array.internalTypedArray.entries()) {
-        valueToIndex[value] = index
-      }
-    }
+    assert(array.length === 0, 'The parameter array must be empty')
 
-    this.indexToValue = array
-    this.valueToIndex = valueToIndex
+    this.dense = array
   }
 
   [Symbol.iterator](): IterableIterator<number> {
@@ -32,33 +27,33 @@ export class ResizableTypedSparseSet<
   }
 
   * values(): IterableIterator<number> {
-    for (let i = 0; i < this.indexToValue.length; i++) {
-      yield this.indexToValue.internalTypedArray[i]
+    for (let i = 0; i < this.dense.length; i++) {
+      yield this.dense.internalTypedArray[i]
     }
   }
 
   has(value: number): boolean {
-    return this.valueToIndex[value] !== undefined
+    return this.sparse[value] !== undefined
   }
 
   add(value: number): void {
     if (!this.has(value)) {
-      const index = this.indexToValue.length
-      this.indexToValue.push(value)
-      this.valueToIndex[value] = index
+      const index = this.dense.length
+      this.dense.push(value)
+      this.sparse[value] = index
     }
   }
 
   delete(value: number): boolean {
     if (this.has(value)) {
-      const lastValue = this.indexToValue.pop()!
+      const lastValue = this.dense.pop()!
       if (value === lastValue) {
-        this.valueToIndex[value] = undefined
+        this.sparse[value] = undefined
       } else {
-        const index = this.valueToIndex[value]!
-        this.indexToValue.internalTypedArray[index] = lastValue
-        this.valueToIndex[lastValue] = index
-        this.valueToIndex[value] = undefined
+        const index = this.sparse[value]!
+        this.dense.internalTypedArray[index] = lastValue
+        this.sparse[lastValue] = index
+        this.sparse[value] = undefined
       }
       return true
     } else {
@@ -67,7 +62,7 @@ export class ResizableTypedSparseSet<
   }
 
   clear(): void {
-    this.valueToIndex.length = 0
-    this.indexToValue.clear()
+    this.sparse.length = 0
+    this.dense.clear()
   }
 }
