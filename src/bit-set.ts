@@ -83,8 +83,6 @@ export class BitSet {
   }
 
   add(value: number): boolean {
-    assert(value >= 0, 'The value must be greater than or equal to 0')
-
     const [index, mask] = this.getPosition(value)
 
     const element = this.array[index] ?? 0

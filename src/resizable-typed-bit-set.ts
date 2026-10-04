@@ -82,8 +82,6 @@ export class ResizableTypedBitSet<T extends UnsignedTypedArrayConstructor> {
   }
 
   add(value: number): boolean {
-    assert(value >= 0, 'value must be greater than or equal to 0')
-
     const [index, mask] = this.getPosition(value)
 
     const element = this.array.get(index) ?? 0

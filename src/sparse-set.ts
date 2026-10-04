@@ -1,51 +1,47 @@
-import { assert } from '@blackglory/errors'
-
 export class SparseSet implements Iterable<number> {
-  private indexToValue: number[] = []
-  private valueToIndex: Array<number | undefined> = []
+  private dense: number[] = []
+  private sparse: Array<number | undefined> = []
 
   get [Symbol.toStringTag](): string {
     return this.constructor.name
   }
 
   get size(): number {
-    return this.indexToValue.length
+    return this.dense.length
   }
 
   constructor() {}
 
   [Symbol.iterator](): IterableIterator<number> {
-    return this.indexToValue[Symbol.iterator]()
+    return this.dense[Symbol.iterator]()
   }
 
   values(): IterableIterator<number> {
-    return this.indexToValue[Symbol.iterator]()
+    return this.dense[Symbol.iterator]()
   }
 
   has(value: number): boolean {
-    return this.valueToIndex[value] !== undefined
+    return this.sparse[value] !== undefined
   }
 
   add(value: number): void {
-    assert(value >= 0, 'The value must be greater than or equal to 0')
-
     if (!this.has(value)) {
-      const index = this.indexToValue.length
-      this.indexToValue.push(value)
-      this.valueToIndex[value] = index
+      const index = this.dense.length
+      this.dense.push(value)
+      this.sparse[value] = index
     }
   }
 
   delete(value: number): boolean {
     if (this.has(value)) {
-      const lastValue = this.indexToValue.pop()!
+      const lastValue = this.dense.pop()!
       if (value === lastValue) {
-        this.valueToIndex[value] = undefined
+        this.sparse[value] = undefined
       } else {
-        const index = this.valueToIndex[value]!
-        this.indexToValue[index] = lastValue
-        this.valueToIndex[lastValue] = index
-        this.valueToIndex[value] = undefined
+        const index = this.sparse[value]!
+        this.dense[index] = lastValue
+        this.sparse[lastValue] = index
+        this.sparse[value] = undefined
       }
       return true
     } else {
@@ -54,15 +50,15 @@ export class SparseSet implements Iterable<number> {
   }
 
   clear(): void {
-    this.indexToValue.length = 0
-    this.valueToIndex.length = 0
+    this.dense.length = 0
+    this.sparse.length = 0
   }
 
   clone(): SparseSet {
     const clone = new SparseSet()
 
-    clone.indexToValue = [...this.indexToValue]
-    clone.valueToIndex = [...this.valueToIndex]
+    clone.dense = [...this.dense]
+    clone.sparse = [...this.sparse]
 
     return clone
   }

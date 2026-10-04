@@ -84,8 +84,6 @@ export class TypedBitSet<T extends UnsignedTypedArrayConstructor> {
   }
 
   add(value: number): boolean {
-    assert(value >= 0, 'The value must be greater than or equal to 0')
-
     const [index, mask] = this.getPosition(value)
     assert(index < this.capacity, `The array is not large enough`)
 
