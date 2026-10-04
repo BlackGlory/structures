@@ -471,9 +471,47 @@ class DynamicTypedSparseSet<T extends UnsignedTypedArrayConstructor> {
 }
 ```
 
+### DynamicTypedSparseSetLite
+```ts
+class DynamicTypedSparseSetLite<T extends UnsignedTypedArrayConstructor> {
+  get [Symbol.toStringTag](): string
+  get [Symbol.iterator](): IterableIterator<number>
+  get size(): number
+
+  constructor(array: DynamicTypedArray<T>)
+
+  values(): IterableIterator<number>
+
+  has(value: number): boolean
+  add(value: number): void
+  delete(value: number): boolean
+
+  clear(): void
+}
+```
+
 ### ResizableTypedSparseSet
 ```ts
 class ResizableTypedSparseSet<T extends UnsignedTypedArrayConstructor> {
+  get [Symbol.toStringTag](): string
+  get [Symbol.iterator](): IterableIterator<number>
+  get size(): number
+
+  constructor(array: ResizableTypedArray<T>)
+
+  values(): IterableIterator<number>
+
+  has(value: number): boolean
+  add(value: number): void
+  delete(value: number): boolean
+
+  clear(): void
+}
+```
+
+### ResizableTypedSparseSetLite
+```ts
+class ResizableTypedSparseSetLite<T extends UnsignedTypedArrayConstructor> {
   get [Symbol.toStringTag](): string
   get [Symbol.iterator](): IterableIterator<number>
   get size(): number
