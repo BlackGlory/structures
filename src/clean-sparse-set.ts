@@ -1,7 +1,9 @@
 /**
- * 稀疏集的标准实现.
+ * 稀疏集的干净sparse数组变体.
+ * 
+ * `has()`和`add()`快于标准实现, `delete()`和`clear()`慢于标准实现.
  */
-export class SparseSet implements Iterable<number> {
+export class CleanSparseSet implements Iterable<number> {
   private dense: number[] = []
   private sparse: Array<number | undefined> = []
 
@@ -22,10 +24,7 @@ export class SparseSet implements Iterable<number> {
   }
 
   has(value: number): boolean {
-    const index = this.sparse[value]
-    return index !== undefined
-        && index < this.dense.length // 用于改善JIT优化.
-        && this.dense[index] === value
+    return this.sparse[value] !== undefined
   }
 
   add(value: number): void {
@@ -38,11 +37,9 @@ export class SparseSet implements Iterable<number> {
 
   delete(value: number): boolean {
     const index = this.sparse[value]
-    if (
-      index !== undefined &&
-      index < this.dense.length && // 用于改善JIT优化.
-      this.dense[index] === value
-    ) {
+    if (index !== undefined) {
+      this.sparse[value] = undefined
+
       const lastValue = this.dense.pop()!
       if (value !== lastValue) {
         this.dense[index] = lastValue
@@ -57,11 +54,11 @@ export class SparseSet implements Iterable<number> {
 
   clear(): void {
     this.dense.length = 0
-    // 无需清空sparse数组.
+    this.sparse.length = 0
   }
 
-  clone(): SparseSet {
-    const clone = new SparseSet()
+  clone(): CleanSparseSet {
+    const clone = new CleanSparseSet()
 
     const dense = [...this.dense]
 

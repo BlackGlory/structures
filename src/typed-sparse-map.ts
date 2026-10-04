@@ -20,7 +20,7 @@ export class TypedSparseMap<T extends TypedArrayConstructor> {
   }
 
   constructor(array: DynamicTypedArray<T>) {
-    assert(array.length === 0, 'array should be empty')
+    assert(array.length === 0, 'array must be empty')
 
     this.indexToValue = array
   }

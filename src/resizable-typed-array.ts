@@ -69,11 +69,17 @@ export class ResizableTypedArray<T extends TypedArrayConstructor> {
 
   set(index: number, value: number): void {
     if (index >= this.capacity) {
-      const newCapacity = computeNewCapacity(
-        this.capacity
-      , index + 1
-      , this.growthFactor
+      assert(index < this.maxCapacity, 'index must be less than maxCapacity')
+
+      const newCapacity = Math.min(
+        computeNewCapacity(
+          this.capacity
+        , index + 1
+        , this.growthFactor
+        )
+      , this.maxCapacity
       )
+
       this.resize(newCapacity)
     }
 
@@ -85,17 +91,27 @@ export class ResizableTypedArray<T extends TypedArrayConstructor> {
   }
 
   setValues(index: number, values: ArrayLike<number>): void {
-    if (index + values.length >= this.capacity) {
-      const newCapacity = computeNewCapacity(
-        this.capacity
-      , index + values.length
-      , this.growthFactor
+    const endIndex = index + values.length
+    if (endIndex > this.capacity) {
+      assert(
+        endIndex <= this.maxCapacity
+      , 'endIndex must be less than or equal tomaxCapacity'
       )
+
+      const newCapacity = Math.min(
+        computeNewCapacity(
+          this.capacity
+        , index + values.length
+        , this.growthFactor
+        )
+      , this.maxCapacity
+      )
+
       this.resize(newCapacity)
     }
 
-    if (index + values.length > this.#length) {
-      this.#length = index + values.length
+    if (endIndex > this.#length) {
+      this.#length = endIndex
     }
 
     this.array.set(values, index)
@@ -110,11 +126,20 @@ export class ResizableTypedArray<T extends TypedArrayConstructor> {
   push(...values: number[]): void {
     const newLength = this.#length + values.length
     if (newLength > this.capacity) {
-      const newCapacity = computeNewCapacity(
-        this.capacity
-      , newLength
-      , this.growthFactor
+      assert(
+        newLength <= this.maxCapacity
+      , 'newLength must be less than or equal to maxCapacity'
       )
+
+      const newCapacity = Math.min(
+        computeNewCapacity(
+          this.capacity
+        , newLength
+        , this.growthFactor
+        )
+      , this.maxCapacity
+      )
+
       this.resize(newCapacity)
     }
 

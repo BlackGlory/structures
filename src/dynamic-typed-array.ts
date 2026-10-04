@@ -73,17 +73,18 @@ export class DynamicTypedArray<T extends TypedArrayConstructor> {
   }
 
   setValues(index: number, values: ArrayLike<number>): void {
-    if (index + values.length >= this.capacity) {
+    const endIndex = index + values.length
+    if (endIndex > this.capacity) {
       const newCapacity = computeNewCapacity(
         this.capacity
-      , index + values.length
+      , endIndex
       , this.growthFactor
       )
       this.resize(newCapacity)
     }
 
-    if (index + values.length > this.#length) {
-      this.#length = index + values.length
+    if (endIndex > this.#length) {
+      this.#length = endIndex
     }
 
     this.array.set(values, index)

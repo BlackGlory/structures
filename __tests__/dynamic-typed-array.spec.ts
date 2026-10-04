@@ -61,7 +61,7 @@ describe('DynamicTypedArray', () => {
   })
 
   describe('setValues', () => {
-    test('targetIndex + sourceArray.length < capacity', () => {
+    test('index + values.length <= capacity', () => {
       const arr = new DynamicTypedArray(Int16Array, {
         initialCapacity: 1
       , growthFactor: 2
@@ -77,7 +77,7 @@ describe('DynamicTypedArray', () => {
       expect(arr.length).toBe(1)
     })
 
-    describe('targetIndex + sourceArray.length >= capacity', () => {
+    describe('index + values.length > capacity', () => {
       it('resizes', () => {
         const arr = new DynamicTypedArray(Int16Array, {
           initialCapacity: 1

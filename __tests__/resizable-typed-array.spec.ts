@@ -72,13 +72,13 @@ describe('ResizableTypedArray', () => {
 
         const error = getError(() => arr.set(1, 1))
 
-        expect(error).toBeInstanceOf(RangeError)
+        expect(error).toBeInstanceOf(Error)
       })
     })
   })
 
   describe('setValues', () => {
-    test('targetIndex + sourceArray.length < capacity', () => {
+    test('index + values.length <= capacity', () => {
       const arr = new ResizableTypedArray(Int16Array, {
         maxCapacity: 1000
       , initialCapacity: 1
@@ -95,7 +95,7 @@ describe('ResizableTypedArray', () => {
       expect(arr.length).toBe(1)
     })
 
-    describe('targetIndex + sourceArray.length >= capacity', () => {
+    describe('index + values.length > capacity', () => {
       test('resizing successful', () => {
         const arr = new ResizableTypedArray(Int16Array, {
           maxCapacity: 1000
@@ -125,7 +125,7 @@ describe('ResizableTypedArray', () => {
 
         const error = getError(() => arr.setValues(1, [1]))
 
-        expect(error).toBeInstanceOf(RangeError)
+        expect(error).toBeInstanceOf(Error)
       })
     })
   })
@@ -203,7 +203,7 @@ describe('ResizableTypedArray', () => {
 
         const error = getError(() => arr.push(2))
 
-        expect(error).toBeInstanceOf(RangeError)
+        expect(error).toBeInstanceOf(Error)
       })
     })
   })

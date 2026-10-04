@@ -434,6 +434,24 @@ class SparseSet implements Iterable<number> {
 }
 ```
 
+### CleanSparseSet
+```ts
+class CleanSparseSet implements Iterable<number> {
+  get [Symbol.toStringTag](): string
+  get [Symbol.iterator](): IterableIterator<number>
+  get size(): number
+
+  values(): IterableIterator<number>
+
+  has(value: number): boolean
+  add(value: number): void
+  delete(value: number): boolean
+  clear(): void
+
+  clone(): CleanSparseSet
+}
+```
+
 ### DynamicTypedSparseSet
 ```ts
 class DynamicTypedSparseSet<T extends UnsignedTypedArrayConstructor> {
