@@ -1,20 +1,16 @@
 import { describe, test, expect } from 'vitest'
 import { toArray } from 'iterable-operator'
 import { TypedBitSet } from '@src/typed-bit-set.js'
-import { DynamicTypedArray } from '@src/dynamic-typed-array.js'
 import { range } from 'extra-generator'
 
 describe.each([
   ['Uint8Array', Uint8Array]
 , ['Uint16Array', Uint16Array]
+, ['Uint32Array', Uint32Array]
 ])('TypedBitSet(%s)', (_, UintArray) => {
-  test('create', () => {
-    new TypedBitSet(new DynamicTypedArray(UintArray))
-  })
-
   describe('_dumpBinaryStrings', () => {
     test('empty', () => {
-      const set = new TypedBitSet(new DynamicTypedArray(Uint8Array))
+      const set = new TypedBitSet(new UintArray())
 
       const result = set._dumpBinaryStrings()
 
@@ -24,7 +20,7 @@ describe.each([
     })
 
     test('non-empty', () => {
-      const set = new TypedBitSet(new DynamicTypedArray(UintArray))
+      const set = new TypedBitSet(new UintArray(2))
       add()
 
       const result = set._dumpBinaryStrings()
@@ -46,19 +42,35 @@ describe.each([
             set.add(16)
             break
           }
+          case Uint32Array: {
+            set.add(0)
+            set.add(31)
+            set.add(32)
+            break
+          }
         }
       }
 
       function getExpectedResult(): string[] {
         switch (UintArray) {
-          case Uint8Array: return [
-            '10000001'
-          , '00000001'
-          ]
-          case Uint16Array: return [
-            '1' + '0'.repeat(14) + '1'
-          , '0'.repeat(15) + '1'
-          ]
+          case Uint8Array: {
+            return [
+              '10000001'
+            , '00000001'
+            ]
+          }
+          case Uint16Array: {
+            return [
+              '1' + '0'.repeat(14) + '1'
+            , '0'.repeat(15) + '1'
+            ]
+          }
+          case Uint32Array: {
+            return [
+              '1' + '0'.repeat(30) + '1'
+            , '0'.repeat(31) + '1'
+            ]
+          }
           default: return []
         }
       }
@@ -67,7 +79,7 @@ describe.each([
 
   describe('size', () => {
     test('empty', () => {
-      const set = new TypedBitSet(new DynamicTypedArray(UintArray))
+      const set = new TypedBitSet(new UintArray(100))
 
       const result = set.size
 
@@ -75,7 +87,7 @@ describe.each([
     })
 
     test('non-emtpy', () => {
-      const set = new TypedBitSet(new DynamicTypedArray(UintArray))
+      const set = new TypedBitSet(new UintArray(100))
       set.add(2)
 
       const result = set.size
@@ -84,8 +96,33 @@ describe.each([
     })
   })
 
+  describe('capacity', () => {
+    test('non-resizable', () => {
+      const set = new TypedBitSet(new UintArray(100))
+
+      const result = set.capacity
+
+      expect(result).toBe(100 * UintArray.BYTES_PER_ELEMENT * 8)
+    })
+
+    test('resizable', () => {
+      const buffer = new ArrayBuffer(
+        100 * UintArray.BYTES_PER_ELEMENT
+      , { maxByteLength: 200 * UintArray.BYTES_PER_ELEMENT }
+      )
+      const set = new TypedBitSet(new UintArray(buffer))
+
+      const result1 = set.capacity
+      buffer.resize(200 * UintArray.BYTES_PER_ELEMENT)
+      const result2 = set.capacity
+
+      expect(result1).toBe(100 * UintArray.BYTES_PER_ELEMENT * 8)
+      expect(result2).toBe(200 * UintArray.BYTES_PER_ELEMENT * 8)
+    })
+  })
+
   test('[Symbol.iterator]', () => {
-    const set = new TypedBitSet(new DynamicTypedArray(UintArray))
+    const set = new TypedBitSet(new UintArray(100))
     set.add(1)
     set.add(8)
     set.add(7)
@@ -98,7 +135,7 @@ describe.each([
 
   describe('values', () => {
     test('yield values in order', () => {
-      const set = new TypedBitSet(new DynamicTypedArray(UintArray))
+      const set = new TypedBitSet(new UintArray(100))
       set.add(1)
       set.add(8)
       set.add(7)
@@ -112,7 +149,7 @@ describe.each([
     })
 
     test('edge: correctness in the case of lots of data', () => {
-      const set = new TypedBitSet(new DynamicTypedArray(UintArray))
+      const set = new TypedBitSet(new UintArray(1000))
 
       for (let i = 0; i < 1000; i++) {
         expect(toArray(set.values())).toStrictEqual(toArray(range(0, i)))
@@ -122,7 +159,7 @@ describe.each([
     })
 
     test('edge: correctness in the case there are elements deleted', () => {
-      const set = new TypedBitSet(new DynamicTypedArray(UintArray))
+      const set = new TypedBitSet(new UintArray(1000))
       for (let i = 0; i < 1000; i++) {
         set.add(i)
       }
@@ -137,7 +174,7 @@ describe.each([
 
   describe('has', () => {
     test('exists', () => {
-      const set = new TypedBitSet(new DynamicTypedArray(UintArray))
+      const set = new TypedBitSet(new UintArray(100))
       set.add(1)
 
       const result = set.has(1)
@@ -146,7 +183,7 @@ describe.each([
     })
 
     test('does not exist', () => {
-      const set = new TypedBitSet(new DynamicTypedArray(UintArray))
+      const set = new TypedBitSet(new UintArray(100))
 
       const result = set.has(1)
 
@@ -154,7 +191,7 @@ describe.each([
     })
 
     test('edge: correctness in the case of lots of data', () => {
-      const set = new TypedBitSet(new DynamicTypedArray(UintArray))
+      const set = new TypedBitSet(new UintArray(1000))
 
       for (let i = 0; i < 1000; i++) {
         expect(set.has(i)).toBe(false)
@@ -164,7 +201,7 @@ describe.each([
     })
 
     test('edge: correctness in the case there are elements deleted', () => {
-      const set = new TypedBitSet(new DynamicTypedArray(UintArray))
+      const set = new TypedBitSet(new UintArray(1000))
       for (let i = 0; i < 1000; i++) {
         set.add(i)
       }
@@ -179,7 +216,7 @@ describe.each([
 
   describe('add', () => {
     test('does not exist', () => {
-      const set = new TypedBitSet(new DynamicTypedArray(UintArray))
+      const set = new TypedBitSet(new UintArray(100))
 
       const result = set.add(1)
 
@@ -190,7 +227,7 @@ describe.each([
     })
 
     test('exists', () => {
-      const set = new TypedBitSet(new DynamicTypedArray(UintArray))
+      const set = new TypedBitSet(new UintArray(100))
       set.add(1)
 
       const result = set.add(1)
@@ -204,7 +241,7 @@ describe.each([
 
   describe('delete', () => {
     test('exists', () => {
-      const set = new TypedBitSet(new DynamicTypedArray(UintArray))
+      const set = new TypedBitSet(new UintArray(100))
       set.add(1)
       set.add(2)
 
@@ -218,7 +255,7 @@ describe.each([
     })
 
     test('does not exist', () => {
-      const set = new TypedBitSet(new DynamicTypedArray(UintArray))
+      const set = new TypedBitSet(new UintArray(100))
 
       const result = set.delete(1)
 
@@ -230,7 +267,7 @@ describe.each([
   })
 
   test('clear', () => {
-    const set = new TypedBitSet(new DynamicTypedArray(UintArray))
+    const set = new TypedBitSet(new UintArray(100))
     set.add(1)
     set.add(2)
 

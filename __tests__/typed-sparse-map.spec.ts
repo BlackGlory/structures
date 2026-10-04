@@ -165,7 +165,7 @@ describe('TypedSparseMap', () => {
   })
 
   test('entries', () => {
-    const set = new TypedSparseMap(new DynamicTypedArray(Int8Array, { capacity: 100 }))
+    const set = new TypedSparseMap(new DynamicTypedArray(Int8Array, { initialCapacity: 100 }))
     set.set(1, 10)
     set.set(2, 20)
     set.set(3, 30)
@@ -181,7 +181,7 @@ describe('TypedSparseMap', () => {
   })
 
   test('keys', () => {
-    const set = new TypedSparseMap(new DynamicTypedArray(Int8Array, { capacity: 100 }))
+    const set = new TypedSparseMap(new DynamicTypedArray(Int8Array, { initialCapacity: 100 }))
     set.set(1, 10)
     set.set(2, 20)
     set.set(3, 30)
@@ -193,7 +193,7 @@ describe('TypedSparseMap', () => {
   })
 
   test('values', () => {
-    const set = new TypedSparseMap(new DynamicTypedArray(Int8Array, { capacity: 100 }))
+    const set = new TypedSparseMap(new DynamicTypedArray(Int8Array, { initialCapacity: 100 }))
     set.set(1, 10)
     set.set(2, 20)
     set.set(3, 30)
@@ -205,7 +205,7 @@ describe('TypedSparseMap', () => {
   })
 
   test('getInternalIndexOfKey', () => {
-    const set = new TypedSparseMap(new DynamicTypedArray(Int8Array, { capacity: 100 }))
+    const set = new TypedSparseMap(new DynamicTypedArray(Int8Array, { initialCapacity: 100 }))
     set.set(3, 30)
     set.set(1, 10)
     set.set(2, 20)

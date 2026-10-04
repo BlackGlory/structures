@@ -7,9 +7,8 @@ const mod37BitPositions: number[] = [
 ]
 
 /**
- * 该函数在找不到结果时返回32, 与Rust内置函数的表现一致.
- * https://doc.rust-lang.org/std/primitive.u32.html#method.trailing_zeros
+ * 返回value视作32位无符号整数时尾随零的数量.
  */
 export function trailingZeros(value: number): number {
-  return mod37BitPositions[(-value & value) % 37]
+  return mod37BitPositions[((-value & value) >>> 0) % 37]
 }

@@ -112,7 +112,7 @@ describe('TypedSparseSet', () => {
   })
 
   test('[Symbol.iterator]', () => {
-    const set = new TypedSparseSet(new DynamicTypedArray(Uint8Array, { capacity: 100 }))
+    const set = new TypedSparseSet(new DynamicTypedArray(Uint8Array, { initialCapacity: 100 }))
     set.add(1)
     set.add(2)
     set.add(3)
@@ -123,7 +123,7 @@ describe('TypedSparseSet', () => {
   })
 
   test('values', () => {
-    const set = new TypedSparseSet(new DynamicTypedArray(Uint8Array, { capacity: 100 }))
+    const set = new TypedSparseSet(new DynamicTypedArray(Uint8Array, { initialCapacity: 100 }))
     set.add(1)
     set.add(2)
     set.add(3)

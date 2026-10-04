@@ -1,21 +1,18 @@
 {
   "compilerOptions": {
-    "target": "ES2018"
+    "target": "ES2024"
   , "module": "NodeNext"
   , "moduleResolution": "NodeNext"
   , "esModuleInterop": true
   , "strict": true
   , "noUnusedLocals": true
   , "noUnusedParameters": true
-  , "baseUrl": "."
+  , "rootDir": "src"
+  , "types": ["*"]
   , "paths": {
-      "@src/*": ["src/*"]
-    , "@utils/*": ["src/utils/*"]
-    , "@test/*": ["__tests__/*"]
+      "@src/*": ["./src/*"]
+    , "@utils/*": ["./src/utils/*"]
+    , "@test/*": ["./__tests__/*"]
     }
-  , "plugins": [
-      { "transform": "typescript-transform-paths" }
-    , { "transform": "typescript-transform-paths", "afterDeclarations": true }
-    ]
   }
 }

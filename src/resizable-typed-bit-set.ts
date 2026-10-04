@@ -1,16 +1,27 @@
+import { UnsignedTypedArrayConstructor } from 'justypes'
 import { assert } from '@blackglory/errors'
+import { ResizableTypedArray } from './resizable-typed-array.js'
 import { trailingZeros } from '@utils/trailing-zeros.js'
 
-export class BitSet {
-  private array: Array<number | undefined> = []
+export class ResizableTypedBitSet<T extends UnsignedTypedArrayConstructor> {
+  private bitsPerElement: number
   private length = 0
   #size = 0
 
-  private isBitsPerElementPowerOfTwo: boolean = false
   private quotientShift = 0
   private remainderMask = 0
 
-  constructor(private bitsPerElement: number = 8) {
+  get [Symbol.toStringTag](): string {
+    return this.constructor.name
+  }
+
+  get size(): number {
+    return this.#size
+  }
+
+  constructor(private array: ResizableTypedArray<T>) {
+    const bitsPerElement = array.BYTES_PER_ELEMENT * 8
+
     assert(
       Number.isInteger(bitsPerElement)
     , 'The parameter bitsPerElement must be an integer'
@@ -19,27 +30,15 @@ export class BitSet {
       bitsPerElement > 0
     , 'The parameter bitsPerElement must be greater than 0'
     )
+    // `31`是该数据结构中能够处理的最大值
     assert(
       bitsPerElement <= 32
-    , 'The parameter bitsPerElement must be less than or equal to 32'
+    , 'The bitsPerElement must be less than or equal to 31'
     )
 
-    // bitsPerElement为2的幂时, 进行性能优化.
-    this.isBitsPerElementPowerOfTwo = (
-      bitsPerElement & (bitsPerElement - 1)
-    ) === 0
-    if (this.isBitsPerElementPowerOfTwo) {
-      this.quotientShift = Math.log2(bitsPerElement)
-      this.remainderMask = bitsPerElement - 1
-    }
-  }
-
-  get [Symbol.toStringTag](): string {
-    return this.constructor.name
-  }
-
-  get size(): number {
-    return this.#size
+    this.bitsPerElement = bitsPerElement
+    this.quotientShift = Math.log2(bitsPerElement)
+    this.remainderMask = bitsPerElement - 1
   }
 
   [Symbol.iterator](): IterableIterator<number> {
@@ -52,7 +51,7 @@ export class BitSet {
       const maxArrayLength = ~~(this.length / this.bitsPerElement) + 1
 
       for (let index = 0; index < maxArrayLength; index++) {
-        let element = this.array[index] ?? 0
+        let element = this.array.get(index) ?? 0
         while (element !== 0) {
           const indexOfBit = trailingZeros(element)
           yield index * this.bitsPerElement + indexOfBit
@@ -66,7 +65,7 @@ export class BitSet {
   _dumpBinaryStrings(): string[] {
     const result: string[] = []
     for (let i = 0; i < this.array.length; i++) {
-      const binary = ((this.array[i] ?? 0) >>> 0).toString(2)
+      const binary = ((this.array.get(i) ?? 0) >>> 0).toString(2)
       if (binary.length < this.bitsPerElement) {
         result.push('0'.repeat(this.bitsPerElement - binary.length) + binary)
       } else {
@@ -79,16 +78,16 @@ export class BitSet {
   has(value: number): boolean {
     const [index, mask] = this.getPosition(value)
 
-    return ((this.array[index] ?? 0) & mask) === mask
+    return ((this.array.get(index) ?? 0) & mask) === mask
   }
 
   add(value: number): boolean {
-    assert(value >= 0, 'The value must be greater than or equal to 0')
+    assert(value >= 0, 'value must be greater than or equal to 0')
 
     const [index, mask] = this.getPosition(value)
 
-    const element = this.array[index] ?? 0
-    this.array[index] = element | mask
+    const element = this.array.get(index) ?? 0
+    this.array.set(index, element | mask)
 
     const added = (element & mask) !== mask
     if (added) this.#size++
@@ -101,8 +100,8 @@ export class BitSet {
   delete(value: number): boolean {
     const [index, mask] = this.getPosition(value)
 
-    const element = this.array[index] ?? 0
-    this.array[index] = element & ~mask
+    const element = (this.array.get(index) ?? 0)
+    this.array.set(index, element & ~mask)
 
     const deleted = (element & mask) === mask
     if (deleted) this.#size--
@@ -113,30 +112,12 @@ export class BitSet {
   clear(): void {
     this.#size = 0
     this.length = 0
-    this.array.length = 0
-  }
-
-  clone(): BitSet {
-    const clone = new BitSet(this.bitsPerElement)
-
-    clone.array = [...this.array]
-    clone.length = this.length
-    clone.#size = this.#size
-
-    return clone
+    this.array.clear()
   }
 
   private getPosition(value: number): [index: number, mask: number] {
-    let quotient: number
-    let remainder: number
-    if (this.isBitsPerElementPowerOfTwo) {
-      // 当bitsPerElement是2的幂时, 使用位运算版本.
-      remainder = value & this.remainderMask
-      quotient = value >>> this.quotientShift
-    } else {
-      remainder = value % this.bitsPerElement
-      quotient = (value - remainder) / this.bitsPerElement
-    }
+    const remainder = value & this.remainderMask
+    const quotient = value >>> this.quotientShift
 
     const index = quotient
     const mask = this.getMask(remainder)

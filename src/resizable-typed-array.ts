@@ -2,26 +2,27 @@ import { TypedArrayConstructor, TypedArrayOfConstructor } from 'justypes'
 import { assert } from '@blackglory/errors'
 import { computeNewCapacity } from '@utils/compute-new-capacity.js'
 
-interface IDynamicTypedArrayOptions {
-  growthFactor?: number
+interface IResizableTypedArrayOptions {
+  maxCapacity: number
+
   initialCapacity?: number
+  growthFactor?: number
 }
 
-export class DynamicTypedArray<T extends TypedArrayConstructor> {
+export class ResizableTypedArray<T extends TypedArrayConstructor> {
   private array: TypedArrayOfConstructor<T>
   private initialCapacity: number
+
+  readonly maxCapacity: number
   readonly growthFactor: number
+  readonly BYTES_PER_ELEMENT: number
+  readonly internalTypedArray: TypedArrayOfConstructor<T>
+
   #length: number = 0
 
   get [Symbol.toStringTag](): string {
     return this.constructor.name
   }
-
-  get internalTypedArray(): TypedArrayOfConstructor<T> {
-    return this.array
-  }
-
-  readonly BYTES_PER_ELEMENT: number
 
   /**
    * 数组当前的容量.
@@ -38,20 +39,31 @@ export class DynamicTypedArray<T extends TypedArrayConstructor> {
   }
 
   constructor(
-    private typedArrayConstructor: T
+    typedArrayConstructor: T
   , {
-      growthFactor = 1.5
+      maxCapacity
     , initialCapacity = 0
-    }: IDynamicTypedArrayOptions = {}
+    , growthFactor = 1.5
+    }: IResizableTypedArrayOptions
   ) {
     assert(growthFactor >= 1, 'growthFactory must be greater than or equal to 1')
-    assert(Number.isInteger(initialCapacity), 'initialCapacity must be an integer')
     assert(initialCapacity >= 0, 'initialCapacity must be greater than or equal to 0')
+    assert(Number.isInteger(initialCapacity), 'capacity must be an integer')
+    assert(initialCapacity >= 0, 'capacity must be greater than or equal to 0')
+    assert(Number.isInteger(maxCapacity), 'maxCapacity must be an integer')
+    assert(maxCapacity >= initialCapacity, 'maxCapacity must be greater than or equal to capacity')
 
     this.growthFactor = growthFactor
     this.initialCapacity = initialCapacity
+    this.maxCapacity = maxCapacity
 
-    this.array = new typedArrayConstructor(initialCapacity) as TypedArrayOfConstructor<T>
+    const buffer = new ArrayBuffer(
+      initialCapacity * typedArrayConstructor.BYTES_PER_ELEMENT
+    , { maxByteLength: maxCapacity * typedArrayConstructor.BYTES_PER_ELEMENT }
+    )
+    this.array = new typedArrayConstructor(buffer) as TypedArrayOfConstructor<T>
+
+    this.internalTypedArray = this.array
     this.BYTES_PER_ELEMENT = typedArrayConstructor.BYTES_PER_ELEMENT
   }
 
@@ -131,8 +143,8 @@ export class DynamicTypedArray<T extends TypedArrayConstructor> {
 
   clear(): void {
     this.#length = 0
-    const newArray = new this.typedArrayConstructor(this.initialCapacity)
-    this.array = newArray as TypedArrayOfConstructor<T>
+    ;(this.array.buffer as ArrayBuffer).resize(this.initialCapacity)
+    this.array.fill(0)
   }
 
   sort(compare?: (a: number, b: number) => number): void {
@@ -143,19 +155,10 @@ export class DynamicTypedArray<T extends TypedArrayConstructor> {
   }
 
   private resize(newCapacity: number): void {
-    if (this.array.length === newCapacity) {
-      return
-    } else if (this.array.length < newCapacity) {
-      const newArray = new this.typedArrayConstructor(newCapacity)
-      newArray.set(this.array)
-      this.array = newArray as TypedArrayOfConstructor<T>
-    } else if (this.array.length > newCapacity) {
-      const newArray = new this.typedArrayConstructor(newCapacity)
-      // 不需要的部分将被舍弃.
-      for (let i = newCapacity; i--;) {
-        newArray[i] = this.array[i]
-      }
-      this.array = newArray as TypedArrayOfConstructor<T>
-    }
+    if (this.array.length === newCapacity) return
+
+    ;(this.array.buffer as ArrayBuffer).resize(
+      newCapacity * this.BYTES_PER_ELEMENT
+    )
   }
 }

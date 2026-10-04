@@ -52,7 +52,7 @@ export class SkipList<T> {
         result[result.length - 1].push(currentNode.value)
         currentNode = currentNode.next
       } while (currentNode)
-    } while (head = head.down)
+    } while ((head = head.down, head))
 
     return result
   }

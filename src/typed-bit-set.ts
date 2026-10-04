@@ -1,39 +1,46 @@
-import { UnsignedTypedArrayConstructor } from 'justypes'
+import { TypedArrayOfConstructor, UnsignedTypedArrayConstructor } from 'justypes'
 import { assert } from '@blackglory/errors'
-import { DynamicTypedArray } from './dynamic-typed-array.js'
 import { trailingZeros } from '@utils/trailing-zeros.js'
 
 export class TypedBitSet<T extends UnsignedTypedArrayConstructor> {
   private bitsPerElement: number
   private length = 0
-  private _size = 0
+  #size = 0
 
-  constructor(private array: DynamicTypedArray<T>) {
-    const bitsPerElement = array.BYTES_PER_ELEMENT * 8
-
-    assert(
-      Number.isInteger(bitsPerElement)
-    , 'The parameter bitsPerElement must be an integer'
-    )
-    assert(
-      bitsPerElement > 0
-    , 'The parameter bitsPerElement must be greater than 0'
-    )
-    // `31`是该数据结构中能够处理的最大值
-    assert(
-      bitsPerElement <= 31
-    , 'The mask of bitsPerElement must be less than or equal to 31'
-    )
-
-    this.bitsPerElement = bitsPerElement
-  }
+  private quotientShift = 0
+  private remainderMask = 0
 
   get [Symbol.toStringTag](): string {
     return this.constructor.name
   }
 
+  get capacity(): number {
+    return this.array.length * this.bitsPerElement
+  }
+
   get size(): number {
-    return this._size
+    return this.#size
+  }
+
+  constructor(private array: TypedArrayOfConstructor<T>) {
+    const bitsPerElement = array.BYTES_PER_ELEMENT * 8
+
+    assert(
+      Number.isInteger(bitsPerElement)
+    , 'The bitsPerElement must be an integer'
+    )
+    assert(
+      bitsPerElement > 0
+    , 'The bitsPerElement must be greater than 0'
+    )
+    assert(
+      bitsPerElement <= 32
+    , 'The bitsPerElement must be less than or equal to 32'
+    )
+
+    this.bitsPerElement = bitsPerElement
+    this.quotientShift = Math.log2(bitsPerElement)
+    this.remainderMask = bitsPerElement - 1
   }
 
   [Symbol.iterator](): IterableIterator<number> {
@@ -46,13 +53,12 @@ export class TypedBitSet<T extends UnsignedTypedArrayConstructor> {
       const maxArrayLength = ~~(this.length / this.bitsPerElement) + 1
 
       for (let index = 0; index < maxArrayLength; index++) {
-        let element = this.array.internalTypedArray[index]
-        let offset = 0
-        let indexOfBit: number
-        while ((indexOfBit = trailingZeros(element)) !== 32) {
-          yield index * this.bitsPerElement + offset + indexOfBit
-          offset += indexOfBit + 1
-          element >>= indexOfBit + 1
+        let element = this.array[index] ?? 0
+        while (element !== 0) {
+          const indexOfBit = trailingZeros(element)
+          yield index * this.bitsPerElement + indexOfBit
+          // 移除最低位置的1, 以推进下一个indexOfBit的获取.
+          element &= element - 1
         }
       }
     }
@@ -61,7 +67,7 @@ export class TypedBitSet<T extends UnsignedTypedArrayConstructor> {
   _dumpBinaryStrings(): string[] {
     const result: string[] = []
     for (let i = 0; i < this.array.length; i++) {
-      const binary = this.array.internalTypedArray[i].toString(2)
+      const binary = ((this.array[i] ?? 0) >>> 0).toString(2)
       if (binary.length < this.bitsPerElement) {
         result.push('0'.repeat(this.bitsPerElement - binary.length) + binary)
       } else {
@@ -74,50 +80,51 @@ export class TypedBitSet<T extends UnsignedTypedArrayConstructor> {
   has(value: number): boolean {
     const [index, mask] = this.getPosition(value)
 
-    return ((this.array.get(index) ?? 0) & mask) === mask
+    return (this.array[index] & mask) === mask
   }
 
   add(value: number): boolean {
-    assert(value >= 0, 'value must be greater than or equal to 0')
-    if (value >= this.length) {
-      this.length = value + 1
-    }
+    assert(value >= 0, 'The value must be greater than or equal to 0')
 
     const [index, mask] = this.getPosition(value)
+    assert(index < this.capacity, `The array is not large enough`)
 
-    const element = this.array.get(index) ?? 0
-    this.array.set(index, element | mask)
+    const element = this.array[index]
+    this.array[index] = element | mask
 
     const added = (element & mask) !== mask
-    if (added) {
-      this._size++
-    }
+    if (added) this.#size++
+
+    if (value >= this.length) this.length = value + 1
+
     return added
   }
 
   delete(value: number): boolean {
     const [index, mask] = this.getPosition(value)
 
-    const element = (this.array.get(index) ?? 0)
-    this.array.set(index, element & ~mask)
+    const element = this.array[index]
+    this.array[index] = element & ~mask
 
     const deleted = (element & mask) === mask
-    if (deleted) {
-      this._size--
-    }
+    if (deleted) this.#size--
+
     return deleted
   }
 
   clear(): void {
-    this._size = 0
-    this.array.clear()
+    this.#size = 0
+    this.length = 0
+    this.array.fill(0)
   }
 
   private getPosition(value: number): [index: number, mask: number] {
-    const remainder = value % this.bitsPerElement
-    const quotient = (value - remainder) / this.bitsPerElement
+    const remainder = value & this.remainderMask
+    const quotient = value >>> this.quotientShift
+
     const index = quotient
     const mask = this.getMask(remainder)
+
     return [index, mask]
   }
 

@@ -1,10 +1,12 @@
-import { describe, test, expect, it } from 'vitest'
-import { DynamicTypedArray } from '@src/dynamic-typed-array.js'
+import { describe, test, expect } from 'vitest'
+import { ResizableTypedArray } from '@src/resizable-typed-array.js'
+import { getError } from 'return-style'
 
-describe('DynamicTypedArray', () => {
+describe('ResizableTypedArray', () => {
   test('constructor', () => {
-    const arr = new DynamicTypedArray(Int8Array, {
-      initialCapacity: 1
+    const arr = new ResizableTypedArray(Int8Array, {
+      maxCapacity: 1000
+    , initialCapacity: 1
     , growthFactor: 2
     })
 
@@ -13,8 +15,9 @@ describe('DynamicTypedArray', () => {
   })
 
   test('internalTypedArray', () => {
-    const arr = new DynamicTypedArray(Int8Array, {
-      initialCapacity: 1
+    const arr = new ResizableTypedArray(Int8Array, {
+      maxCapacity: 1000
+    , initialCapacity: 1
     , growthFactor: 2
     })
     arr.set(0, 0)
@@ -32,8 +35,9 @@ describe('DynamicTypedArray', () => {
 
   describe('set', () => {
     test('index < capacity', () => {
-      const arr = new DynamicTypedArray(Int8Array, {
-        initialCapacity: 1
+      const arr = new ResizableTypedArray(Int8Array, {
+        maxCapacity: 1000
+      , initialCapacity: 1
       , growthFactor: 2
       })
 
@@ -45,9 +49,10 @@ describe('DynamicTypedArray', () => {
     })
 
     describe('index >= capacity', () => {
-      it('resizes', () => {
-        const arr = new DynamicTypedArray(Int8Array, {
-          initialCapacity: 1
+      test('resizing successful', () => {
+        const arr = new ResizableTypedArray(Int8Array, {
+          maxCapacity: 1000
+        , initialCapacity: 1
         , growthFactor: 2
         })
 
@@ -57,13 +62,26 @@ describe('DynamicTypedArray', () => {
         expect(arr.capacity).toBe(2)
         expect(arr.length).toBe(2)
       })
+
+      test('resizing failed', () => {
+        const arr = new ResizableTypedArray(Int8Array, {
+          maxCapacity: 1
+        , initialCapacity: 1
+        , growthFactor: 2
+        })
+
+        const error = getError(() => arr.set(1, 1))
+
+        expect(error).toBeInstanceOf(RangeError)
+      })
     })
   })
 
   describe('setValues', () => {
     test('targetIndex + sourceArray.length < capacity', () => {
-      const arr = new DynamicTypedArray(Int16Array, {
-        initialCapacity: 1
+      const arr = new ResizableTypedArray(Int16Array, {
+        maxCapacity: 1000
+      , initialCapacity: 1
       , growthFactor: 2
       })
       const values = new Int16Array(1)
@@ -78,9 +96,10 @@ describe('DynamicTypedArray', () => {
     })
 
     describe('targetIndex + sourceArray.length >= capacity', () => {
-      it('resizes', () => {
-        const arr = new DynamicTypedArray(Int16Array, {
-          initialCapacity: 1
+      test('resizing successful', () => {
+        const arr = new ResizableTypedArray(Int16Array, {
+          maxCapacity: 1000
+        , initialCapacity: 1
         , growthFactor: 2
         })
         const values = new Int16Array(2)
@@ -96,13 +115,26 @@ describe('DynamicTypedArray', () => {
         expect(arr.capacity).toBe(4)
         expect(arr.length).toBe(3)
       })
+
+      test('resizing failed', () => {
+        const arr = new ResizableTypedArray(Int8Array, {
+          maxCapacity: 1
+        , initialCapacity: 1
+        , growthFactor: 2
+        })
+
+        const error = getError(() => arr.setValues(1, [1]))
+
+        expect(error).toBeInstanceOf(RangeError)
+      })
     })
   })
 
   describe('get', () => {
     test('index < length', () => {
-      const arr = new DynamicTypedArray(Int8Array, {
-        initialCapacity: 2
+      const arr = new ResizableTypedArray(Int8Array, {
+        maxCapacity: 1000
+      , initialCapacity: 2
       , growthFactor: 2
       })
       arr.set(1, 1)
@@ -114,8 +146,9 @@ describe('DynamicTypedArray', () => {
     })
 
     test('index >= length', () => {
-      const arr = new DynamicTypedArray(Int8Array, {
-        initialCapacity: 1
+      const arr = new ResizableTypedArray(Int8Array, {
+        maxCapacity: 1000
+      , initialCapacity: 1
       , growthFactor: 2
       })
 
@@ -128,8 +161,9 @@ describe('DynamicTypedArray', () => {
 
   describe('push', () => {
     test('newLength <= capacity', () => {
-      const arr = new DynamicTypedArray(Int8Array, {
-        initialCapacity: 3
+      const arr = new ResizableTypedArray(Int8Array, {
+        maxCapacity: 1000
+      , initialCapacity: 3
       , growthFactor: 2
       })
       arr.set(0, 1)
@@ -143,9 +177,10 @@ describe('DynamicTypedArray', () => {
     })
 
     describe('newLength > capacity', () => {
-      it('resizes', () => {
-        const arr = new DynamicTypedArray(Int8Array, {
-          initialCapacity: 2
+      test('resizing successful', () => {
+        const arr = new ResizableTypedArray(Int8Array, {
+          maxCapacity: 1000
+        , initialCapacity: 2
         , growthFactor: 2
         })
         arr.set(0, 1)
@@ -157,13 +192,27 @@ describe('DynamicTypedArray', () => {
         expect(arr.capacity).toBe(4)
         expect(arr.length).toBe(3)
       })
+
+      test('resizing failed', () => {
+        const arr = new ResizableTypedArray(Int8Array, {
+          maxCapacity: 1
+        , initialCapacity: 1
+        , growthFactor: 2
+        })
+        arr.set(0, 1)
+
+        const error = getError(() => arr.push(2))
+
+        expect(error).toBeInstanceOf(RangeError)
+      })
     })
   })
 
   describe('pop', () => {
     test('empty array', () => {
-      const arr = new DynamicTypedArray(Int8Array, {
-        initialCapacity: 1
+      const arr = new ResizableTypedArray(Int8Array, {
+        maxCapacity: 1000
+      , initialCapacity: 1
       , growthFactor: 2
       })
 
@@ -176,9 +225,10 @@ describe('DynamicTypedArray', () => {
 
     describe('non-empty array', () => {
       describe('newLength < capacity / growthFactor', () => {
-        it('resizes', () => {
-          const arr = new DynamicTypedArray(Int8Array, {
-            initialCapacity: 1
+        test('resizing successful', () => {
+          const arr = new ResizableTypedArray(Int8Array, {
+            maxCapacity: 1000
+          , initialCapacity: 1
           , growthFactor: 2
           })
           arr.push(1)
@@ -192,8 +242,9 @@ describe('DynamicTypedArray', () => {
       })
 
       test('newLength > capacity / growthFactor', () => {
-        const arr = new DynamicTypedArray(Int8Array, {
-          initialCapacity: 2
+        const arr = new ResizableTypedArray(Int8Array, {
+          maxCapacity: 1000
+        , initialCapacity: 2
         , growthFactor: 4
         })
         arr.push(1)
@@ -209,8 +260,9 @@ describe('DynamicTypedArray', () => {
   })
 
   test('clear', () => {
-    const arr = new DynamicTypedArray(Int8Array, {
-      initialCapacity: 1
+    const arr = new ResizableTypedArray(Int8Array, {
+      maxCapacity: 1000
+    , initialCapacity: 1
     , growthFactor: 2
     })
     arr.push(1)
@@ -223,8 +275,9 @@ describe('DynamicTypedArray', () => {
 
   describe('sort', () => {
     test('empty array', () => {
-      const arr = new DynamicTypedArray(Int8Array, {
-        initialCapacity: 1
+      const arr = new ResizableTypedArray(Int8Array, {
+        maxCapacity: 1000
+      , initialCapacity: 1
       , growthFactor: 2
       })
 
@@ -236,8 +289,9 @@ describe('DynamicTypedArray', () => {
 
     describe('non-empty array', () => {
       test('without compare', () => {
-        const arr = new DynamicTypedArray(Int8Array, {
-          initialCapacity: 1
+        const arr = new ResizableTypedArray(Int8Array, {
+          maxCapacity: 1000
+        , initialCapacity: 1
         , growthFactor: 2
         })
         arr.push(10, 3, 2)
@@ -252,8 +306,9 @@ describe('DynamicTypedArray', () => {
       })
 
       test('with compare', () => {
-        const arr = new DynamicTypedArray(Int8Array, {
-          initialCapacity: 1
+        const arr = new ResizableTypedArray(Int8Array, {
+          maxCapacity: 1000
+        , initialCapacity: 1
         , growthFactor: 2
         })
         arr.push(2, 3, 10)
