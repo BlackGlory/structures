@@ -223,72 +223,79 @@ describe('ResizableTypedArray', () => {
       expect(arr.capacity).toBe(1)
     })
 
-    describe('non-empty array', () => {
-      describe('newLength < capacity / growthFactor', () => {
-        test('resizing successful', () => {
-          const arr = new ResizableTypedArray(Int8Array, {
-            maxCapacity: 1000
-          , initialCapacity: 1
-          , growthFactor: 2
-          })
-          arr.push(1)
-
-          const result = arr.pop()
-
-          expect(result).toBe(1)
-          expect(arr.length).toBe(0)
-          expect(arr.capacity).toBe(0)
-        })
+    test('non-empty array', () => {
+      const arr = new ResizableTypedArray(Int8Array, {
+        maxCapacity: 1000
+      , initialCapacity: 1
+      , growthFactor: 2
       })
+      arr.push(1)
 
-      test('newLength > capacity / growthFactor', () => {
-        const arr = new ResizableTypedArray(Int8Array, {
-          maxCapacity: 1000
-        , initialCapacity: 2
-        , growthFactor: 4
-        })
-        arr.push(1)
-        arr.push(2)
+      const result = arr.pop()
 
-        const result = arr.pop()
-
-        expect(result).toBe(2)
-        expect(arr.length).toBe(1)
-        expect(arr.capacity).toBe(2)
-      })
+      expect(result).toBe(1)
+      expect(arr.length).toBe(0)
+      expect(arr.capacity).toBe(1)
     })
   })
 
-  describe('clear', () => {
-    test('resetCapacity = false', () => {
+  test('clear', () => {
+    const arr = new ResizableTypedArray(Int8Array, {
+      maxCapacity: 1000
+    , initialCapacity: 1
+    , growthFactor: 2
+    })
+    arr.push(1, 2)
+
+    arr.clear()
+
+    expect(arr.length).toBe(0)
+    expect(arr.capacity).toBe(2)
+  })
+
+  describe('shrink', () => {
+    test('empty array', () => {
       const arr = new ResizableTypedArray(Int8Array, {
         maxCapacity: 1000
       , initialCapacity: 1
       , growthFactor: 2
       })
-      arr.push(1, 2)
 
-      arr.clear(false)
+      arr.shrink()
 
       expect(arr.length).toBe(0)
-      expect(arr.capacity).toBe(2)
-      expect(arr.internalTypedArray[0]).toBe(0)
-      expect(arr.internalTypedArray[1]).toBe(0)
+      expect(arr.capacity).toBe(0)
     })
 
-    test('resetCapacity = true', () => {
-      const arr = new ResizableTypedArray(Int8Array, {
-        maxCapacity: 1000
-      , initialCapacity: 1
-      , growthFactor: 2
+    describe('non-empty array', () => {
+      test('shrink', () => {
+        const arr = new ResizableTypedArray(Int8Array, {
+          maxCapacity: 1000
+        , initialCapacity: 1
+        , growthFactor: 2
+        })
+        arr.push(1, 2, 3)
+        arr.pop()
+
+        arr.shrink()
+
+        expect(arr.length).toBe(2)
+        expect(arr.capacity).toBe(2)
       })
-      arr.push(1, 2)
 
-      arr.clear(true)
+      test('does not shrink', () => {
+        const arr = new ResizableTypedArray(Int8Array, {
+          maxCapacity: 1000
+        , initialCapacity: 1
+        , growthFactor: 2
+        })
+        arr.push(1, 2, 3)
 
-      expect(arr.length).toBe(0)
-      expect(arr.capacity).toBe(1)
-      expect(arr.internalTypedArray[0]).toBe(0)
+        arr.shrink()
+
+        expect(arr.length).toBe(3)
+        expect(arr.capacity).toBe(4)
+      })
     })
   })
 

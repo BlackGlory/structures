@@ -11,7 +11,6 @@ interface IResizableTypedArrayOptions {
 
 export class ResizableTypedArray<T extends TypedArrayConstructor> {
   private array: TypedArrayOfConstructor<T>
-  private initialCapacity: number
 
   readonly maxCapacity: number
   readonly growthFactor: number
@@ -54,7 +53,6 @@ export class ResizableTypedArray<T extends TypedArrayConstructor> {
     assert(maxCapacity >= initialCapacity, 'maxCapacity must be greater than or equal to capacity')
 
     this.growthFactor = growthFactor
-    this.initialCapacity = initialCapacity
     this.maxCapacity = maxCapacity
 
     const buffer = new ArrayBuffer(
@@ -153,27 +151,23 @@ export class ResizableTypedArray<T extends TypedArrayConstructor> {
       const value = this.array[this.#length - 1]
       this.#length--
 
-      const newCapacity = computeNewCapacity(
-        this.capacity
-      , this.length
-      , this.growthFactor
-      )
-      this.resize(newCapacity)
-
       return value
     } else {
       return undefined
     }
   }
 
-  clear(resetCapacity: boolean = false): void {
+  clear(): void {
     this.#length = 0
+  }
 
-    if (resetCapacity && this.capacity !== this.initialCapacity) {
-      ;(this.array.buffer as ArrayBuffer).resize(this.initialCapacity)
-    }
-
-    this.array.fill(0)
+  shrink(): void {
+    const newCapacity = computeNewCapacity(
+      this.capacity
+    , this.length
+    , this.growthFactor
+    )
+    this.resize(newCapacity)
   }
 
   sort(compare?: (a: number, b: number) => number): void {
@@ -184,10 +178,10 @@ export class ResizableTypedArray<T extends TypedArrayConstructor> {
   }
 
   private resize(newCapacity: number): void {
-    if (this.array.length === newCapacity) return
-
-    ;(this.array.buffer as ArrayBuffer).resize(
-      newCapacity * this.BYTES_PER_ELEMENT
-    )
+    if (this.array.length !== newCapacity) {
+      ;(this.array.buffer as ArrayBuffer).resize(
+        newCapacity * this.BYTES_PER_ELEMENT
+      )
+    }
   }
 }

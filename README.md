@@ -676,7 +676,8 @@ class DynamicTypedArray<T extends TypedArrayConstructor> {
   push(...values: number[]): void
   pop(): number | undefined
 
-  clear(resetCapacity?: boolean = false): void
+  clear(): void
+  shrink(): void
 
   sort(compare?: (a: number, b: number) => number): void
 }
@@ -715,7 +716,8 @@ class ResizableTypedArray<T extends TypedArrayConstructor> {
   push(...values: number[]): void
   pop(): number | undefined
 
-  clear(resetCapacity?: boolean = false): void
+  clear(): void
+  shrink(): void
 
   sort(compare?: (a: number, b: number) => number): void
 }
