@@ -133,10 +133,7 @@ describe('ResizableTypedCleanSparseSet', () => {
 
   test('[Symbol.iterator]', () => {
     const set = new ResizableTypedCleanSparseSet(
-      new ResizableTypedArray(Uint8Array, {
-        initialCapacity: 100
-      , maxCapacity: 100
-      })
+      new ResizableTypedArray(Uint8Array, { maxCapacity: 100 })
     )
     set.add(1)
     set.add(2)
@@ -149,10 +146,7 @@ describe('ResizableTypedCleanSparseSet', () => {
 
   test('values', () => {
     const set = new ResizableTypedCleanSparseSet(
-      new ResizableTypedArray(Uint8Array, {
-        initialCapacity: 100
-      , maxCapacity: 100
-      })
+      new ResizableTypedArray(Uint8Array, { maxCapacity: 100 })
     )
     set.add(1)
     set.add(2)

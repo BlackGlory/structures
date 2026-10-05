@@ -1,0 +1,76 @@
+import { assert } from '@blackglory/errors'
+import { TypedArrayOfConstructor, UnsignedTypedArrayConstructor } from 'justypes'
+
+export class TypedSparseSetLite<
+  T extends UnsignedTypedArrayConstructor
+> implements Iterable<number> {
+  private dense: TypedArrayOfConstructor<T, ArrayBuffer>
+  private sparse: Array<number | undefined> = []
+  #length = 0
+
+  get [Symbol.toStringTag](): string {
+    return this.constructor.name
+  }
+
+  get size(): number {
+    return this.#length
+  }
+
+  constructor(array: TypedArrayOfConstructor<T, ArrayBuffer>) {
+    assert(!array.buffer.resizable, 'The array buffer must not be resizable')
+
+    this.dense = array
+  }
+
+  [Symbol.iterator](): IterableIterator<number> {
+    return this.values()
+  }
+
+  * values(): IterableIterator<number> {
+    for (let i = 0; i < this.#length; i++) {
+      yield this.dense[i]
+    }
+  }
+
+  has(value: number): boolean {
+    const index = this.sparse[value]
+    return index !== undefined
+        && index < this.#length
+        && index < this.dense.length // 用于改善JIT优化.
+        && this.dense[index] === value
+  }
+
+  add(value: number): void {
+    if (!this.has(value)) {
+      const index = this.#length++
+      this.dense[index] = value
+      this.sparse[value] = index
+    }
+  }
+
+  delete(value: number): boolean {
+    const index = this.sparse[value]
+    if (
+      index !== undefined &&
+      index < this.#length &&
+      index < this.dense.length && // 用于改善JIT优化.
+      this.dense[index] === value
+    ) {
+      const lastIndex = --this.#length
+      const lastValue = this.dense[lastIndex]
+      if (value !== lastValue) {
+        this.dense[index] = lastValue
+        this.sparse[lastValue] = index
+      }
+
+      return true
+    } else {
+      return false
+    }
+  }
+
+  clear(): void {
+    this.#length = 0
+    // 无需清空dense和sparse数组.
+  }
+}

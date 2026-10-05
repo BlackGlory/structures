@@ -416,235 +416,6 @@ class StringRadixTree<T> {
 Note that you might expect this data structure to be more space efficient than `BigMap`, but it doesn't.
 In V8, it can only store about 80% of data of `BigMap`.
 
-### SparseSet
-```ts
-class SparseSet implements Iterable<number> {
-  get [Symbol.toStringTag](): string
-  get [Symbol.iterator](): IterableIterator<number>
-  get size(): number
-
-  values(): IterableIterator<number>
-
-  has(value: number): boolean
-  add(value: number): void
-  delete(value: number): boolean
-  clear(): void
-
-  clone(): SparseSet
-}
-```
-
-### CleanSparseSet
-```ts
-class CleanSparseSet implements Iterable<number> {
-  get [Symbol.toStringTag](): string
-  get [Symbol.iterator](): IterableIterator<number>
-  get size(): number
-
-  values(): IterableIterator<number>
-
-  has(value: number): boolean
-  add(value: number): void
-  delete(value: number): boolean
-  clear(): void
-
-  clone(): CleanSparseSet
-}
-```
-
-### DynamicTypedSparseSet
-```ts
-class DynamicTypedSparseSet<T extends UnsignedTypedArrayConstructor> {
-  get [Symbol.toStringTag](): string
-  get [Symbol.iterator](): IterableIterator<number>
-  get size(): number
-
-  constructor(array: DynamicTypedArray<T>)
-
-  values(): IterableIterator<number>
-
-  has(value: number): boolean
-  add(value: number): void
-  delete(value: number): boolean
-
-  clear(): void
-}
-```
-
-### DynamicTypedSparseSetLite
-```ts
-class DynamicTypedSparseSetLite<T extends UnsignedTypedArrayConstructor> {
-  get [Symbol.toStringTag](): string
-  get [Symbol.iterator](): IterableIterator<number>
-  get size(): number
-
-  constructor(array: DynamicTypedArray<T>)
-
-  values(): IterableIterator<number>
-
-  has(value: number): boolean
-  add(value: number): void
-  delete(value: number): boolean
-
-  clear(): void
-}
-```
-
-### DynamicTypedCleanSparseSet
-```ts
-class DynamicTypedCleanSparseSet<T extends UnsignedTypedArrayConstructor> {
-  get [Symbol.toStringTag](): string
-  get [Symbol.iterator](): IterableIterator<number>
-  get size(): number
-
-  constructor(array: DynamicTypedArray<T>)
-
-  values(): IterableIterator<number>
-
-  has(value: number): boolean
-  add(value: number): void
-  delete(value: number): boolean
-
-  clear(): void
-}
-```
-
-### ResizableTypedSparseSet
-```ts
-class ResizableTypedSparseSet<T extends UnsignedTypedArrayConstructor> {
-  get [Symbol.toStringTag](): string
-  get [Symbol.iterator](): IterableIterator<number>
-  get size(): number
-
-  constructor(array: ResizableTypedArray<T>)
-
-  values(): IterableIterator<number>
-
-  has(value: number): boolean
-  add(value: number): void
-  delete(value: number): boolean
-
-  clear(): void
-}
-```
-
-### ResizableTypedSparseSetLite
-```ts
-class ResizableTypedSparseSetLite<T extends UnsignedTypedArrayConstructor> {
-  get [Symbol.toStringTag](): string
-  get [Symbol.iterator](): IterableIterator<number>
-  get size(): number
-
-  constructor(array: ResizableTypedArray<T>)
-
-  values(): IterableIterator<number>
-
-  has(value: number): boolean
-  add(value: number): void
-  delete(value: number): boolean
-
-  clear(): void
-}
-```
-
-### ResizableTypedCleanSparseSet
-```ts
-class ResizableTypedCleanSparseSet<T extends UnsignedTypedArrayConstructor> {
-  get [Symbol.toStringTag](): string
-  get [Symbol.iterator](): IterableIterator<number>
-  get size(): number
-
-  constructor(array: ResizableTypedArray<T>)
-
-  values(): IterableIterator<number>
-
-  has(value: number): boolean
-  add(value: number): void
-  delete(value: number): boolean
-
-  clear(): void
-}
-```
-
-### SparseMap
-```ts
-class SparseMap<T> {
-  get [Symbol.toStringTag](): string
-  get size(): number
-
-  readonly internalKeyArray: readonly number[]
-  readonly internalValueArray: T[]
-
-  entries(): IterableIterator<[key: number, value: T]>
-  keys(): IterableIterator<number>
-  values(): IterableIterator<T>
-
-  getInternalIndexOfKey(key: number): number | undefined
-
-  has(key: number): boolean
-  get(key: number): T | undefined
-  set(key: number, value: T): void
-  delete(key: number): boolean
-
-  clear(): void
-}
-```
-
-### CleanSparseMap
-```ts
-class CleanSparseMap<T> {
-  get [Symbol.toStringTag](): string
-  get size(): number
-
-  readonly internalKeyArray: readonly number[]
-  readonly internalValueArray: T[]
-
-  entries(): IterableIterator<[key: number, value: T]>
-  keys(): IterableIterator<number>
-  values(): IterableIterator<T>
-
-  getInternalIndexOfKey(key: number): number | undefined
-
-  has(key: number): boolean
-  get(key: number): T | undefined
-  set(key: number, value: T): void
-  delete(key: number): boolean
-
-  clear(): void
-}
-```
-
-### TypedSparseMap
-```ts
-class TypedSparseMap<T extends TypedArrayConstructor> {
-  get [Symbol.toStringTag](): string
-  get size(): number
-
-  /**
-   * `SparseMap` cannot respond to any operations on the internal array,
-   * you must ensure that indexes accessed are less than the length of `SparseMap`.
-   * 
-   * Keys do not correspond to indexes of the array.
-   */
-  get internalTypedArray(): TypedArrayOfConstructor<T>
-
-  constructor(array: DynamicTypedArray<T>)
-
-  entries(): IterableIterator<[key: number, value: number]>
-  keys(): IterableIterator<number>
-  values(): IterableIterator<number>
-
-  getInternalIndexOfKey(key: number): number | undefined
-
-  has(key: number): boolean
-  get(key: number): T | undefined
-  set(key: number, value: number): void
-  delete(key: number): void
-
-  clear(): void
-}
-```
-
 ### DynamicTypedArray
 ```ts
 class DynamicTypedArray<T extends TypedArrayConstructor> {
@@ -742,7 +513,20 @@ class SortedSet<T> {
 }
 ```
 
-### BitSet
+### DisjointSet
+```ts
+class DisjointSet {
+  has(value: number): boolean
+  sets(): number[][]
+
+  makeSet(value: number): number
+  union(a: number, b: number): void
+  find(value: number): number
+}
+```
+
+### Bit Set
+#### BitSet
 ```ts
 class BitSet {
   get [Symbol.toStringTag](): string
@@ -766,7 +550,7 @@ class BitSet {
 Due to the length of arrays supported by JavaScript,
 `BitSet` cannot support very large values.
 
-### TypedBitSet
+#### TypedBitSet
 ```ts
 class TypedBitSet<T extends UnsignedTypedArrayConstructor> {
   get [Symbol.toStringTag](): string
@@ -787,7 +571,7 @@ class TypedBitSet<T extends UnsignedTypedArrayConstructor> {
 }
 ```
 
-### DynamicTypedBitSet
+#### DynamicTypedBitSet
 ```ts
 class DynamicTypedBitSet<T extends UnsignedTypedArrayConstructor> {
   get [Symbol.toStringTag](): string
@@ -811,7 +595,7 @@ class DynamicTypedBitSet<T extends UnsignedTypedArrayConstructor> {
 Due to the length of arrays supported by JavaScript,
 `DynamicTypedBitSit` cannot support very large values.
 
-### ResizableTypedBitSet
+#### ResizableTypedBitSet
 ```ts
 class ResizableTypedBitSet<T extends UnsignedTypedArrayConstructor> {
   get [Symbol.toStringTag](): string
@@ -834,14 +618,335 @@ class ResizableTypedBitSet<T extends UnsignedTypedArrayConstructor> {
 Due to the length of arrays supported by JavaScript,
 `ResizableTypedBitSit` cannot support very large values.
 
-### DisjointSet
+### Sparse Set
+#### SparseSet
 ```ts
-class DisjointSet {
-  has(value: number): boolean
-  sets(): number[][]
+class SparseSet implements Iterable<number> {
+  get [Symbol.toStringTag](): string
+  get [Symbol.iterator](): IterableIterator<number>
+  get size(): number
 
-  makeSet(value: number): number
-  union(a: number, b: number): void
-  find(value: number): number
+  values(): IterableIterator<number>
+
+  has(value: number): boolean
+  add(value: number): void
+  delete(value: number): boolean
+
+  clear(): void
+
+  clone(): SparseSet
+}
+```
+
+#### CleanSparseSet
+```ts
+class CleanSparseSet implements Iterable<number> {
+  get [Symbol.toStringTag](): string
+  get [Symbol.iterator](): IterableIterator<number>
+  get size(): number
+
+  values(): IterableIterator<number>
+
+  has(value: number): boolean
+  add(value: number): void
+  delete(value: number): boolean
+
+  clear(): void
+
+  clone(): CleanSparseSet
+}
+```
+
+#### TypedSparseSet
+```ts
+class TypedSparseSet<
+  T extends UnsignedTypedArrayConstructor
+> implements Iterable<number> {
+  get [Symbol.toStringTag](): string
+  get size(): number
+
+  constructor(array: TypedArrayOfConstructor<T, ArrayBuffer>)
+
+  [Symbol.iterator](): IterableIterator<number>
+
+  values(): IterableIterator<number>
+
+  has(value: number): boolean
+  add(value: number): void
+  delete(value: number): boolean
+
+  clear(): void
+}
+```
+
+#### TypedSparseSetLite
+```ts
+class TypedSparseSetLite<
+  T extends UnsignedTypedArrayConstructor
+> implements Iterable<number> {
+  get [Symbol.toStringTag](): string
+  get size(): number
+
+  constructor(array: TypedArrayOfConstructor<T, ArrayBuffer>)
+
+  [Symbol.iterator](): IterableIterator<number>
+
+  values(): IterableIterator<number>
+
+  has(value: number): boolean
+  add(value: number): void
+  delete(value: number): boolean
+
+  clear(): void
+}
+```
+
+#### TypedCleanSparseSet
+```ts
+class TypedCleanSparseSet<
+  T extends UnsignedTypedArrayConstructor
+> implements Iterable<number> {
+  get [Symbol.toStringTag](): string
+  get size(): number
+
+  constructor(array: TypedArrayOfConstructor<T, ArrayBuffer>)
+
+  [Symbol.iterator](): IterableIterator<number>
+
+  values(): IterableIterator<number>
+
+  has(value: number): boolean
+  add(value: number): void
+  delete(value: number): boolean
+
+  clear(): void
+}
+```
+
+#### TypedCleanSparseSetLite
+```ts
+class TypedCleanSparseSetLite<
+  T extends UnsignedTypedArrayConstructor
+> implements Iterable<number> {
+  get [Symbol.toStringTag](): string
+  get size(): number
+
+  constructor(array: TypedArrayOfConstructor<T, ArrayBuffer>)
+
+  [Symbol.iterator](): IterableIterator<number>
+
+  values(): IterableIterator<number>
+
+  has(value: number): boolean
+  add(value: number): void
+  delete(value: number): boolean
+
+  clear(): void
+}
+```
+
+#### DynamicTypedSparseSet
+```ts
+class DynamicTypedSparseSet<
+  T extends UnsignedTypedArrayConstructor
+> implements Iterable<number> {
+  get [Symbol.toStringTag](): string
+  get [Symbol.iterator](): IterableIterator<number>
+  get size(): number
+
+  constructor(array: DynamicTypedArray<T>)
+
+  values(): IterableIterator<number>
+
+  has(value: number): boolean
+  add(value: number): void
+  delete(value: number): boolean
+
+  clear(): void
+}
+```
+
+#### DynamicTypedSparseSetLite
+```ts
+class DynamicTypedSparseSetLite<
+  T extends UnsignedTypedArrayConstructor
+> implements Iterable<number> {
+  get [Symbol.toStringTag](): string
+  get [Symbol.iterator](): IterableIterator<number>
+  get size(): number
+
+  constructor(array: DynamicTypedArray<T>)
+
+  values(): IterableIterator<number>
+
+  has(value: number): boolean
+  add(value: number): void
+  delete(value: number): boolean
+
+  clear(): void
+}
+```
+
+#### DynamicTypedCleanSparseSet
+```ts
+class DynamicTypedCleanSparseSet<
+  T extends UnsignedTypedArrayConstructor
+> implements Iterable<number> {
+  get [Symbol.toStringTag](): string
+  get [Symbol.iterator](): IterableIterator<number>
+  get size(): number
+
+  constructor(array: DynamicTypedArray<T>)
+
+  values(): IterableIterator<number>
+
+  has(value: number): boolean
+  add(value: number): void
+  delete(value: number): boolean
+
+  clear(): void
+}
+```
+
+#### ResizableTypedSparseSet
+```ts
+class ResizableTypedSparseSet<
+  T extends UnsignedTypedArrayConstructor
+> implements Iterable<number> {
+  get [Symbol.toStringTag](): string
+  get [Symbol.iterator](): IterableIterator<number>
+  get size(): number
+
+  constructor(array: ResizableTypedArray<T>)
+
+  values(): IterableIterator<number>
+
+  has(value: number): boolean
+  add(value: number): void
+  delete(value: number): boolean
+
+  clear(): void
+}
+```
+
+#### ResizableTypedSparseSetLite
+```ts
+class ResizableTypedSparseSetLite<
+  T extends UnsignedTypedArrayConstructor
+> implements Iterable<number> {
+  get [Symbol.toStringTag](): string
+  get [Symbol.iterator](): IterableIterator<number>
+  get size(): number
+
+  constructor(array: ResizableTypedArray<T>)
+
+  values(): IterableIterator<number>
+
+  has(value: number): boolean
+  add(value: number): void
+  delete(value: number): boolean
+
+  clear(): void
+}
+```
+
+#### ResizableTypedCleanSparseSet
+```ts
+class ResizableTypedCleanSparseSet<
+  T extends UnsignedTypedArrayConstructor
+> implements Iterable<number> {
+  get [Symbol.toStringTag](): string
+  get [Symbol.iterator](): IterableIterator<number>
+  get size(): number
+
+  constructor(array: ResizableTypedArray<T>)
+
+  values(): IterableIterator<number>
+
+  has(value: number): boolean
+  add(value: number): void
+  delete(value: number): boolean
+
+  clear(): void
+}
+```
+
+### Sparse Map
+#### SparseMap
+```ts
+class SparseMap<T> {
+  get [Symbol.toStringTag](): string
+  get size(): number
+
+  readonly internalKeyArray: readonly number[]
+  readonly internalValueArray: T[]
+
+  entries(): IterableIterator<[key: number, value: T]>
+  keys(): IterableIterator<number>
+  values(): IterableIterator<T>
+
+  getInternalIndexOfKey(key: number): number | undefined
+
+  has(key: number): boolean
+  get(key: number): T | undefined
+  set(key: number, value: T): void
+  delete(key: number): boolean
+
+  clear(): void
+}
+```
+
+#### CleanSparseMap
+```ts
+class CleanSparseMap<T> {
+  get [Symbol.toStringTag](): string
+  get size(): number
+
+  readonly internalKeyArray: readonly number[]
+  readonly internalValueArray: T[]
+
+  entries(): IterableIterator<[key: number, value: T]>
+  keys(): IterableIterator<number>
+  values(): IterableIterator<T>
+
+  getInternalIndexOfKey(key: number): number | undefined
+
+  has(key: number): boolean
+  get(key: number): T | undefined
+  set(key: number, value: T): void
+  delete(key: number): boolean
+
+  clear(): void
+}
+```
+
+#### TypedSparseMap
+```ts
+class TypedSparseMap<T extends TypedArrayConstructor> {
+  get [Symbol.toStringTag](): string
+  get size(): number
+
+  /**
+   * `SparseMap` cannot respond to any operations on the internal array,
+   * you must ensure that indexes accessed are less than the length of `SparseMap`.
+   * 
+   * Keys do not correspond to indexes of the array.
+   */
+  get internalTypedArray(): TypedArrayOfConstructor<T>
+
+  constructor(array: DynamicTypedArray<T>)
+
+  entries(): IterableIterator<[key: number, value: number]>
+  keys(): IterableIterator<number>
+  values(): IterableIterator<number>
+
+  getInternalIndexOfKey(key: number): number | undefined
+
+  has(key: number): boolean
+  get(key: number): T | undefined
+  set(key: number, value: number): void
+  delete(key: number): void
+
+  clear(): void
 }
 ```

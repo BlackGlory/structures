@@ -1,9 +1,13 @@
 export * from './sparse-set.js'
+export * from './typed-sparse-set.js'
+export * from './typed-sparse-set-lite.js'
 export * from './dynamic-typed-sparse-set.js'
 export * from './dynamic-typed-sparse-set-lite.js'
 export * from './resizable-typed-sparse-set.js'
 export * from './resizable-typed-sparse-set-lite.js'
 
 export * from './clean-sparse-set.js'
+export * from './typed-clean-sparse-set.js'
+export * from './typed-clean-sparse-set-lite.js'
 export * from './dynamic-typed-clean-sparse-set.js'
 export * from './resizable-typed-clean-sparse-set.js'
