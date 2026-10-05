@@ -10,8 +10,11 @@
   , "rootDir": "src"
   , "types": ["*"]
   , "paths": {
-      "@src/*": ["./src/*"]
-    , "@utils/*": ["./src/utils/*"]
+      "@utils/*": ["./src/utils/*"]
+    , "@bit-set/*": ["./src/bit-set/*"]
+    , "@sparse-set/*": ["./src/sparse-set/*"]
+    , "@sparse-map/*": ["./src/sparse-map/*"]
+    , "@src/*": ["./src/*"]
     , "@test/*": ["./__tests__/*"]
     }
   }

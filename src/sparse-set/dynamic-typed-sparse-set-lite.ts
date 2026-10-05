@@ -1,10 +1,10 @@
 import { UnsignedTypedArrayConstructor } from 'justypes'
-import { ResizableTypedArray } from './resizable-typed-array.js'
+import { DynamicTypedArray } from '@src/dynamic-typed-array.js'
 
-export class ResizableTypedCleanSparseSet<
+export class DynamicTypedSparseSetLite<
   T extends UnsignedTypedArrayConstructor
 > implements Iterable<number> {
-  private dense: ResizableTypedArray<T>
+  private dense: DynamicTypedArray<T>
   private sparse: Array<number | undefined> = []
 
   get [Symbol.toStringTag](): string {
@@ -15,7 +15,7 @@ export class ResizableTypedCleanSparseSet<
     return this.dense.length
   }
 
-  constructor(array: ResizableTypedArray<T>) {
+  constructor(array: DynamicTypedArray<T>) {
     this.dense = array
   }
 
@@ -30,7 +30,10 @@ export class ResizableTypedCleanSparseSet<
   }
 
   has(value: number): boolean {
-    return this.sparse[value] !== undefined
+    const index = this.sparse[value]
+    return index !== undefined
+        && index < this.dense.length // 用于改善JIT优化.
+        && this.dense.get(index) === value
   }
 
   add(value: number): void {
@@ -43,9 +46,11 @@ export class ResizableTypedCleanSparseSet<
 
   delete(value: number): boolean {
     const index = this.sparse[value]
-    if (index !== undefined) {
-      this.sparse[value] = undefined
-
+    if (
+      index !== undefined &&
+      index < this.dense.length && // 用于改善JIT优化.
+      this.dense.get(index) === value
+    ) {
       const lastValue = this.dense.pop()!
       if (value !== lastValue) {
         this.dense.set(index, lastValue)
@@ -60,6 +65,6 @@ export class ResizableTypedCleanSparseSet<
 
   clear(): void {
     this.dense.clear()
-    this.sparse.length = 0
+    // 无需清空sparse数组.
   }
 }

@@ -1,6 +1,6 @@
 import { assert } from '@blackglory/errors'
 import { TypedArrayConstructor, TypedArrayOfConstructor } from 'justypes'
-import { DynamicTypedArray } from './dynamic-typed-array.js'
+import { DynamicTypedArray } from '@src/dynamic-typed-array.js'
 
 export class TypedSparseMap<T extends TypedArrayConstructor> {
   private keyToIndex: Array<number | undefined> = []

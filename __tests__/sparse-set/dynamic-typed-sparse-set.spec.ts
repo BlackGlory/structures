@@ -1,5 +1,5 @@
 import { describe, test, expect } from 'vitest'
-import { DynamicTypedSparseSet } from '@src/dynamic-typed-sparse-set.js'
+import { DynamicTypedSparseSet } from '@sparse-set/dynamic-typed-sparse-set.js'
 import { DynamicTypedArray } from '@src/dynamic-typed-array.js'
 import { toArray } from 'iterable-operator'
 

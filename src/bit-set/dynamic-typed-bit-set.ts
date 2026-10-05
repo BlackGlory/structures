@@ -1,6 +1,6 @@
 import { UnsignedTypedArrayConstructor } from 'justypes'
 import { assert } from '@blackglory/errors'
-import { DynamicTypedArray } from './dynamic-typed-array.js'
+import { DynamicTypedArray } from '@src/dynamic-typed-array.js'
 import { trailingZeros } from '@utils/trailing-zeros.js'
 
 export class DynamicTypedBitSet<T extends UnsignedTypedArrayConstructor> {

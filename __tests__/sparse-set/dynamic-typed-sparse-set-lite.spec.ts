@@ -1,11 +1,12 @@
 import { describe, test, expect } from 'vitest'
-import { CleanSparseSet } from '@src/clean-sparse-set.js'
+import { DynamicTypedSparseSetLite } from '@sparse-set/dynamic-typed-sparse-set-lite.js'
+import { DynamicTypedArray } from '@src/dynamic-typed-array.js'
 import { toArray } from 'iterable-operator'
 
-describe('CleanSparseSet', () => {
+describe('DynamicTypedSparseSetLite', () => {
   describe('size', () => {
     test('empty', () => {
-      const set = new CleanSparseSet()
+      const set = new DynamicTypedSparseSetLite(new DynamicTypedArray(Uint8Array))
 
       const result = set.size
 
@@ -14,7 +15,7 @@ describe('CleanSparseSet', () => {
 
     describe('non-empty', () => {
       test('set', () => {
-        const set = new CleanSparseSet()
+        const set = new DynamicTypedSparseSetLite(new DynamicTypedArray(Uint8Array))
         set.add(1)
 
         const result = set.size
@@ -23,7 +24,7 @@ describe('CleanSparseSet', () => {
       })
 
       test('delete', () => {
-        const set = new CleanSparseSet()
+        const set = new DynamicTypedSparseSetLite(new DynamicTypedArray(Uint8Array))
         set.add(1)
         set.delete(1)
 
@@ -35,7 +36,7 @@ describe('CleanSparseSet', () => {
   })
 
   test('has', () => {
-    const set = new CleanSparseSet()
+    const set = new DynamicTypedSparseSetLite(new DynamicTypedArray(Uint8Array))
     set.add(1)
 
     const result1 = set.has(1)
@@ -46,7 +47,7 @@ describe('CleanSparseSet', () => {
   })
 
   test('add', () => {
-    const set = new CleanSparseSet()
+    const set = new DynamicTypedSparseSetLite(new DynamicTypedArray(Uint8Array))
 
     set.add(1)
     set.add(2)
@@ -59,7 +60,7 @@ describe('CleanSparseSet', () => {
 
   describe('delete', () => {
     test('exists', () => {
-      const set = new CleanSparseSet()
+      const set = new DynamicTypedSparseSetLite(new DynamicTypedArray(Uint8Array))
       set.add(1)
 
       const result = set.delete(1)
@@ -69,7 +70,7 @@ describe('CleanSparseSet', () => {
     })
 
     test('does not exist', () => {
-      const set = new CleanSparseSet()
+      const set = new DynamicTypedSparseSetLite(new DynamicTypedArray(Uint8Array))
 
       const result = set.delete(1)
 
@@ -78,7 +79,7 @@ describe('CleanSparseSet', () => {
     })
 
     test('not last item', () => {
-      const set = new CleanSparseSet()
+      const set = new DynamicTypedSparseSetLite(new DynamicTypedArray(Uint8Array))
       set.add(1)
       set.add(2)
 
@@ -90,7 +91,7 @@ describe('CleanSparseSet', () => {
     })
 
     test('last item', () => {
-      const set = new CleanSparseSet()
+      const set = new DynamicTypedSparseSetLite(new DynamicTypedArray(Uint8Array))
       set.add(1)
 
       set.delete(1)
@@ -101,7 +102,7 @@ describe('CleanSparseSet', () => {
   })
 
   test('clear', () => {
-    const set = new CleanSparseSet()
+    const set = new DynamicTypedSparseSetLite(new DynamicTypedArray(Uint8Array))
     set.add(1)
 
     set.clear()
@@ -111,7 +112,7 @@ describe('CleanSparseSet', () => {
   })
 
   test('[Symbol.iterator]', () => {
-    const set = new CleanSparseSet()
+    const set = new DynamicTypedSparseSetLite(new DynamicTypedArray(Uint8Array, { initialCapacity: 100 }))
     set.add(1)
     set.add(2)
     set.add(3)
@@ -122,7 +123,7 @@ describe('CleanSparseSet', () => {
   })
 
   test('values', () => {
-    const set = new CleanSparseSet()
+    const set = new DynamicTypedSparseSetLite(new DynamicTypedArray(Uint8Array, { initialCapacity: 100 }))
     set.add(1)
     set.add(2)
     set.add(3)
@@ -131,16 +132,5 @@ describe('CleanSparseSet', () => {
     const result = toArray(iter)
 
     expect(result).toStrictEqual([1, 2, 3])
-  })
-
-  test('clone', () => {
-    const set = new CleanSparseSet()
-    set.add(1)
-
-    const clone = set.clone()
-    set.delete(1)
-
-    expect(clone.size).toBe(1)
-    expect(clone.has(1)).toBe(true)
   })
 })

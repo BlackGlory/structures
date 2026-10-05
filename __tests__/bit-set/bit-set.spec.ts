@@ -1,19 +1,16 @@
 import { describe, test, expect } from 'vitest'
 import { toArray } from 'iterable-operator'
-import { ResizableTypedBitSet } from '@src/resizable-typed-bit-set.js'
-import { ResizableTypedArray } from '@src/resizable-typed-array.js'
+import { BitSet } from '@bit-set/bit-set.js'
 import { range } from 'extra-generator'
 
-describe.each([
-  ['Uint8Array', Uint8Array]
-, ['Uint16Array', Uint16Array]
-, ['Uint32Array', Uint32Array]
-])('ResizableTypedBitSet(%s)', (_, UintArray) => {
+describe.each([8, 16, 32])('BitSet(%s)', bitsPerElement => {
+  test('create', () => {
+    new BitSet(bitsPerElement)
+  })
+
   describe('_dumpBinaryStrings', () => {
     test('empty', () => {
-      const set = new ResizableTypedBitSet(
-        new ResizableTypedArray(UintArray, { maxCapacity: 1000 })
-      )
+      const set = new BitSet(bitsPerElement)
 
       const result = set._dumpBinaryStrings()
 
@@ -23,31 +20,29 @@ describe.each([
     })
 
     test('non-empty', () => {
-      const set = new ResizableTypedBitSet(
-        new ResizableTypedArray(UintArray, { maxCapacity: 1000 })
-      )
+      const set = new BitSet(bitsPerElement)
       add()
 
       const result = set._dumpBinaryStrings()
 
       expect(result).toBeInstanceOf(Array)
-      expect(result).toStrictEqual(getExpectedResult())
+      expect(result).toStrictEqual(getResult())
 
       function add(): void {
-        switch (UintArray) {
-          case Uint8Array: {
+        switch (bitsPerElement) {
+          case 8: {
             set.add(0)
             set.add(7)
             set.add(8)
             break
           }
-          case Uint16Array: {
+          case 16: {
             set.add(0)
             set.add(15)
             set.add(16)
             break
           }
-          case Uint32Array: {
+          case 32: {
             set.add(0)
             set.add(31)
             set.add(32)
@@ -56,21 +51,21 @@ describe.each([
         }
       }
 
-      function getExpectedResult(): string[] {
-        switch (UintArray) {
-          case Uint8Array: {
+      function getResult(): string[] {
+        switch (bitsPerElement) {
+          case 8: {
             return [
               '10000001'
             , '00000001'
             ]
           }
-          case Uint16Array: {
+          case 16: {
             return [
               '1' + '0'.repeat(14) + '1'
             , '0'.repeat(15) + '1'
             ]
           }
-          case Uint32Array: {
+          case 32: {
             return [
               '1' + '0'.repeat(30) + '1'
             , '0'.repeat(31) + '1'
@@ -84,9 +79,7 @@ describe.each([
 
   describe('size', () => {
     test('empty', () => {
-      const set = new ResizableTypedBitSet(
-        new ResizableTypedArray(UintArray, { maxCapacity: 1000 })
-      )
+      const set = new BitSet(bitsPerElement)
 
       const result = set.size
 
@@ -94,9 +87,7 @@ describe.each([
     })
 
     test('non-emtpy', () => {
-      const set = new ResizableTypedBitSet(
-        new ResizableTypedArray(UintArray, { maxCapacity: 1000 })
-      )
+      const set = new BitSet(bitsPerElement)
       set.add(2)
 
       const result = set.size
@@ -106,9 +97,7 @@ describe.each([
   })
 
   test('[Symbol.iterator]', () => {
-    const set = new ResizableTypedBitSet(
-      new ResizableTypedArray(UintArray, { maxCapacity: 1000 })
-    )
+    const set = new BitSet(bitsPerElement)
     set.add(1)
     set.add(8)
     set.add(7)
@@ -121,9 +110,7 @@ describe.each([
 
   describe('values', () => {
     test('yield values in order', () => {
-      const set = new ResizableTypedBitSet(
-        new ResizableTypedArray(UintArray, { maxCapacity: 1000 })
-      )
+      const set = new BitSet(bitsPerElement)
       set.add(1)
       set.add(8)
       set.add(7)
@@ -137,9 +124,7 @@ describe.each([
     })
 
     test('edge: correctness in the case of lots of data', () => {
-      const set = new ResizableTypedBitSet(
-        new ResizableTypedArray(UintArray, { maxCapacity: 1000 })
-      )
+      const set = new BitSet(bitsPerElement)
 
       for (let i = 0; i < 1000; i++) {
         expect(toArray(set.values())).toStrictEqual(toArray(range(0, i)))
@@ -149,9 +134,7 @@ describe.each([
     })
 
     test('edge: correctness in the case there are elements deleted', () => {
-      const set = new ResizableTypedBitSet(
-        new ResizableTypedArray(UintArray, { maxCapacity: 1000 })
-      )
+      const set = new BitSet(bitsPerElement)
       for (let i = 0; i < 1000; i++) {
         set.add(i)
       }
@@ -166,9 +149,7 @@ describe.each([
 
   describe('has', () => {
     test('exists', () => {
-      const set = new ResizableTypedBitSet(
-        new ResizableTypedArray(UintArray, { maxCapacity: 1000 })
-      )
+      const set = new BitSet(bitsPerElement)
       set.add(1)
 
       const result = set.has(1)
@@ -177,9 +158,7 @@ describe.each([
     })
 
     test('does not exist', () => {
-      const set = new ResizableTypedBitSet(
-        new ResizableTypedArray(UintArray, { maxCapacity: 1000 })
-      )
+      const set = new BitSet(bitsPerElement)
 
       const result = set.has(1)
 
@@ -187,9 +166,7 @@ describe.each([
     })
 
     test('edge: correctness in the case of lots of data', () => {
-      const set = new ResizableTypedBitSet(
-        new ResizableTypedArray(UintArray, { maxCapacity: 1000 })
-      )
+      const set = new BitSet(bitsPerElement)
 
       for (let i = 0; i < 1000; i++) {
         expect(set.has(i)).toBe(false)
@@ -199,14 +176,13 @@ describe.each([
     })
 
     test('edge: correctness in the case there are elements deleted', () => {
-      const set = new ResizableTypedBitSet(
-        new ResizableTypedArray(UintArray, { maxCapacity: 1000 })
-      )
+      const set = new BitSet(bitsPerElement)
+
       for (let i = 0; i < 1000; i++) {
         set.add(i)
       }
 
-      for (let i = 0; i < 1000; i++) {
+      for (let i = 1000; i--;) {
         expect(set.has(i)).toBe(true)
         set.delete(i)
         expect(set.has(i)).toBe(false)
@@ -216,9 +192,7 @@ describe.each([
 
   describe('add', () => {
     test('does not exist', () => {
-      const set = new ResizableTypedBitSet(
-        new ResizableTypedArray(UintArray, { maxCapacity: 1000 })
-      )
+      const set = new BitSet(bitsPerElement)
 
       const result = set.add(1)
 
@@ -229,9 +203,7 @@ describe.each([
     })
 
     test('exists', () => {
-      const set = new ResizableTypedBitSet(
-        new ResizableTypedArray(UintArray, { maxCapacity: 1000 })
-      )
+      const set = new BitSet(bitsPerElement)
       set.add(1)
 
       const result = set.add(1)
@@ -245,39 +217,31 @@ describe.each([
 
   describe('delete', () => {
     test('exists', () => {
-      const set = new ResizableTypedBitSet(
-        new ResizableTypedArray(UintArray, { maxCapacity: 1000 })
-      )
+      const set = new BitSet(bitsPerElement)
       set.add(1)
       set.add(2)
 
       const result = set.delete(1)
 
       expect(result).toBe(true)
-      expect(set.size).toBe(1)
       expect(set.has(1)).toBe(false)
       expect(set.has(2)).toBe(true)
       expect(set.size).toBe(1)
     })
 
     test('does not exist', () => {
-      const set = new ResizableTypedBitSet(
-        new ResizableTypedArray(UintArray, { maxCapacity: 1000 })
-      )
+      const set = new BitSet(bitsPerElement)
 
       const result = set.delete(1)
 
       expect(result).toBe(false)
-      expect(set.size).toBe(0)
       expect(set.has(1)).toBe(false)
       expect(set.size).toBe(0)
     })
   })
 
   test('clear', () => {
-    const set = new ResizableTypedBitSet(
-      new ResizableTypedArray(UintArray, { maxCapacity: 1000 })
-    )
+    const set = new BitSet(bitsPerElement)
     set.add(1)
     set.add(2)
 
@@ -286,5 +250,16 @@ describe.each([
     expect(set.size).toBe(0)
     expect(set.has(1)).toBe(false)
     expect(set.has(2)).toBe(false)
+  })
+
+  test('clone', () => {
+    const set = new BitSet(bitsPerElement)
+    set.add(1)
+
+    const clone = set.clone()
+    set.delete(1)
+
+    expect(clone.size).toBe(1)
+    expect(clone.has(1)).toBe(true)
   })
 })

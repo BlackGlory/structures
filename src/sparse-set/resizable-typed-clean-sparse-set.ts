@@ -1,7 +1,7 @@
 import { UnsignedTypedArrayConstructor } from 'justypes'
-import { ResizableTypedArray } from './resizable-typed-array.js'
+import { ResizableTypedArray } from '@src/resizable-typed-array.js'
 
-export class ResizableTypedSparseSetLite<
+export class ResizableTypedCleanSparseSet<
   T extends UnsignedTypedArrayConstructor
 > implements Iterable<number> {
   private dense: ResizableTypedArray<T>
@@ -30,10 +30,7 @@ export class ResizableTypedSparseSetLite<
   }
 
   has(value: number): boolean {
-    const index = this.sparse[value]
-    return index !== undefined
-        && index < this.dense.length // 用于改善JIT优化.
-        && this.dense.get(index) === value
+    return this.sparse[value] !== undefined
   }
 
   add(value: number): void {
@@ -46,11 +43,9 @@ export class ResizableTypedSparseSetLite<
 
   delete(value: number): boolean {
     const index = this.sparse[value]
-    if (
-      index !== undefined &&
-      index < this.dense.length && // 用于改善JIT优化.
-      this.dense.get(index) === value
-    ) {
+    if (index !== undefined) {
+      this.sparse[value] = undefined
+
       const lastValue = this.dense.pop()!
       if (value !== lastValue) {
         this.dense.set(index, lastValue)
@@ -65,6 +60,6 @@ export class ResizableTypedSparseSetLite<
 
   clear(): void {
     this.dense.clear()
-    // 无需清空sparse数组.
+    this.sparse.length = 0
   }
 }

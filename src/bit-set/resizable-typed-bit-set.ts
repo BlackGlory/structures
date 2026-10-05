@@ -1,6 +1,6 @@
 import { UnsignedTypedArrayConstructor } from 'justypes'
 import { assert } from '@blackglory/errors'
-import { ResizableTypedArray } from './resizable-typed-array.js'
+import { ResizableTypedArray } from '@src/resizable-typed-array.js'
 import { trailingZeros } from '@utils/trailing-zeros.js'
 
 export class ResizableTypedBitSet<T extends UnsignedTypedArrayConstructor> {

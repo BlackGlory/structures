@@ -1,11 +1,14 @@
 import { describe, test, expect } from 'vitest'
-import { SparseSet } from '@src/sparse-set.js'
+import { ResizableTypedSparseSetLite } from '@sparse-set/resizable-typed-sparse-set-lite.js'
+import { ResizableTypedArray } from '@src/resizable-typed-array.js'
 import { toArray } from 'iterable-operator'
 
-describe('SparseSet', () => {
+describe('ResizableTypedSparseSetLite', () => {
   describe('size', () => {
     test('empty', () => {
-      const set = new SparseSet()
+      const set = new ResizableTypedSparseSetLite(
+        new ResizableTypedArray(Uint8Array, { maxCapacity: 1000 })
+      )
 
       const result = set.size
 
@@ -14,7 +17,9 @@ describe('SparseSet', () => {
 
     describe('non-empty', () => {
       test('set', () => {
-        const set = new SparseSet()
+        const set = new ResizableTypedSparseSetLite(
+          new ResizableTypedArray(Uint8Array, { maxCapacity: 1000 })
+        )
         set.add(1)
 
         const result = set.size
@@ -23,7 +28,9 @@ describe('SparseSet', () => {
       })
 
       test('delete', () => {
-        const set = new SparseSet()
+        const set = new ResizableTypedSparseSetLite(
+          new ResizableTypedArray(Uint8Array, { maxCapacity: 1000 })
+        )
         set.add(1)
         set.delete(1)
 
@@ -35,7 +42,9 @@ describe('SparseSet', () => {
   })
 
   test('has', () => {
-    const set = new SparseSet()
+    const set = new ResizableTypedSparseSetLite(
+      new ResizableTypedArray(Uint8Array, { maxCapacity: 1000 })
+    )
     set.add(1)
 
     const result1 = set.has(1)
@@ -46,7 +55,9 @@ describe('SparseSet', () => {
   })
 
   test('add', () => {
-    const set = new SparseSet()
+    const set = new ResizableTypedSparseSetLite(
+      new ResizableTypedArray(Uint8Array, { maxCapacity: 1000 })
+    )
 
     set.add(1)
     set.add(2)
@@ -59,7 +70,9 @@ describe('SparseSet', () => {
 
   describe('delete', () => {
     test('exists', () => {
-      const set = new SparseSet()
+      const set = new ResizableTypedSparseSetLite(
+        new ResizableTypedArray(Uint8Array, { maxCapacity: 1000 })
+      )
       set.add(1)
 
       const result = set.delete(1)
@@ -69,7 +82,9 @@ describe('SparseSet', () => {
     })
 
     test('does not exist', () => {
-      const set = new SparseSet()
+      const set = new ResizableTypedSparseSetLite(
+        new ResizableTypedArray(Uint8Array, { maxCapacity: 1000 })
+      )
 
       const result = set.delete(1)
 
@@ -78,7 +93,9 @@ describe('SparseSet', () => {
     })
 
     test('not last item', () => {
-      const set = new SparseSet()
+      const set = new ResizableTypedSparseSetLite(
+        new ResizableTypedArray(Uint8Array, { maxCapacity: 1000 })
+      )
       set.add(1)
       set.add(2)
 
@@ -90,7 +107,9 @@ describe('SparseSet', () => {
     })
 
     test('last item', () => {
-      const set = new SparseSet()
+      const set = new ResizableTypedSparseSetLite(
+        new ResizableTypedArray(Uint8Array, { maxCapacity: 1000 })
+      )
       set.add(1)
 
       set.delete(1)
@@ -101,7 +120,9 @@ describe('SparseSet', () => {
   })
 
   test('clear', () => {
-    const set = new SparseSet()
+    const set = new ResizableTypedSparseSetLite(
+      new ResizableTypedArray(Uint8Array, { maxCapacity: 1000 })
+    )
     set.add(1)
 
     set.clear()
@@ -111,7 +132,12 @@ describe('SparseSet', () => {
   })
 
   test('[Symbol.iterator]', () => {
-    const set = new SparseSet()
+    const set = new ResizableTypedSparseSetLite(
+      new ResizableTypedArray(Uint8Array, {
+        initialCapacity: 100
+      , maxCapacity: 100
+      })
+    )
     set.add(1)
     set.add(2)
     set.add(3)
@@ -122,7 +148,12 @@ describe('SparseSet', () => {
   })
 
   test('values', () => {
-    const set = new SparseSet()
+    const set = new ResizableTypedSparseSetLite(
+      new ResizableTypedArray(Uint8Array, {
+        initialCapacity: 100
+      , maxCapacity: 100
+      })
+    )
     set.add(1)
     set.add(2)
     set.add(3)
@@ -131,16 +162,5 @@ describe('SparseSet', () => {
     const result = toArray(iter)
 
     expect(result).toStrictEqual([1, 2, 3])
-  })
-
-  test('clone', () => {
-    const set = new SparseSet()
-    set.add(1)
-
-    const clone = set.clone()
-    set.delete(1)
-
-    expect(clone.size).toBe(1)
-    expect(clone.has(1)).toBe(true)
   })
 })

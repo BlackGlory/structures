@@ -1,11 +1,13 @@
 import { UnsignedTypedArrayConstructor } from 'justypes'
-import { DynamicTypedArray } from './dynamic-typed-array.js'
+import { ResizableTypedArray } from '@src/resizable-typed-array.js'
+import { getMaxValueOfUnsignedTypedArray, getMaxValueOfUnsignedTypedArrayConstructor } from '@utils/get-max-value-of-unsigned-typed-array.js'
+import { go } from '@blackglory/go'
 
-export class DynamicTypedSparseSetLite<
+export class ResizableTypedSparseSet<
   T extends UnsignedTypedArrayConstructor
 > implements Iterable<number> {
-  private dense: DynamicTypedArray<T>
-  private sparse: Array<number | undefined> = []
+  private dense: ResizableTypedArray<T>
+  private sparse: ResizableTypedArray<UnsignedTypedArrayConstructor>
 
   get [Symbol.toStringTag](): string {
     return this.constructor.name
@@ -15,8 +17,27 @@ export class DynamicTypedSparseSetLite<
     return this.dense.length
   }
 
-  constructor(array: DynamicTypedArray<T>) {
+  constructor(array: ResizableTypedArray<T>) {
     this.dense = array
+
+    const sparseConstructor = go(() => {
+      if (
+        array.maxCapacity <=
+        getMaxValueOfUnsignedTypedArrayConstructor(Uint8Array)
+      ) {
+        return Uint8Array
+      } else if (
+        array.maxCapacity <=
+        getMaxValueOfUnsignedTypedArrayConstructor(Uint16Array)
+      ) {
+        return Uint16Array
+      } else {
+        return Uint32Array
+      }
+    })
+    this.sparse = new ResizableTypedArray(sparseConstructor, {
+      maxCapacity: getMaxValueOfUnsignedTypedArray(array.internalTypedArray) + 1
+    })
   }
 
   [Symbol.iterator](): IterableIterator<number> {
@@ -30,7 +51,7 @@ export class DynamicTypedSparseSetLite<
   }
 
   has(value: number): boolean {
-    const index = this.sparse[value]
+    const index = this.sparse.get(value)
     return index !== undefined
         && index < this.dense.length // 用于改善JIT优化.
         && this.dense.get(index) === value
@@ -40,12 +61,12 @@ export class DynamicTypedSparseSetLite<
     if (!this.has(value)) {
       const index = this.dense.length
       this.dense.push(value)
-      this.sparse[value] = index
+      this.sparse.set(value, index)
     }
   }
 
   delete(value: number): boolean {
-    const index = this.sparse[value]
+    const index = this.sparse.get(value)
     if (
       index !== undefined &&
       index < this.dense.length && // 用于改善JIT优化.
@@ -54,7 +75,7 @@ export class DynamicTypedSparseSetLite<
       const lastValue = this.dense.pop()!
       if (value !== lastValue) {
         this.dense.set(index, lastValue)
-        this.sparse[lastValue] = index
+        this.sparse.set(lastValue, index)
       }
 
       return true
