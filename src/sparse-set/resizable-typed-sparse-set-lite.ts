@@ -1,5 +1,6 @@
 import { UnsignedTypedArrayConstructor } from 'justypes'
 import { ResizableTypedArray } from '@src/resizable-typed-array.js'
+import { assert } from '@blackglory/errors'
 
 export class ResizableTypedSparseSetLite<
   T extends UnsignedTypedArrayConstructor
@@ -16,6 +17,8 @@ export class ResizableTypedSparseSetLite<
   }
 
   constructor(array: ResizableTypedArray<T>) {
+    assert(array.length === 0, 'The array must be empty')
+
     this.dense = array
   }
 
