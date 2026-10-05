@@ -1,7 +1,7 @@
 import { assert } from '@blackglory/errors'
 import { trailingZeros } from '@utils/trailing-zeros.js'
 
-export class BitSet {
+export class BitSet implements Iterable<number> {
   private array: Array<number | undefined> = []
   private length = 0
   #size = 0

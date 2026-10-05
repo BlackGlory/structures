@@ -9,7 +9,9 @@ interface IResizableTypedArrayOptions {
   growthFactor?: number
 }
 
-export class ResizableTypedArray<T extends TypedArrayConstructor> {
+export class ResizableTypedArray<
+  T extends TypedArrayConstructor
+> implements Iterable<number> {
   private array: TypedArrayOfConstructor<T, ArrayBuffer>
 
   readonly maxCapacity: number
@@ -63,6 +65,16 @@ export class ResizableTypedArray<T extends TypedArrayConstructor> {
 
     this.internalTypedArray = this.array
     this.BYTES_PER_ELEMENT = typedArrayConstructor.BYTES_PER_ELEMENT
+  }
+
+  [Symbol.iterator](): IterableIterator<number> {
+    return this.values()
+  }
+
+  * values(): IterableIterator<number> {
+    for (let i = 0; i < this.#length; i++) {
+      yield this.array[i]
+    }
   }
 
   set(index: number, value: number): void {

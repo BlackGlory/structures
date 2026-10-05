@@ -26,10 +26,8 @@ export class ResizableTypedCleanSparseSet<
     return this.values()
   }
 
-  * values(): IterableIterator<number> {
-    for (let i = 0; i < this.dense.length; i++) {
-      yield this.dense.internalTypedArray[i]
-    }
+  values(): IterableIterator<number> {
+    return this.dense.values()
   }
 
   has(value: number): boolean {

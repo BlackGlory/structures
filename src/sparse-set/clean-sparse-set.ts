@@ -16,7 +16,7 @@ export class CleanSparseSet implements Iterable<number> {
   }
 
   [Symbol.iterator](): IterableIterator<number> {
-    return this.dense[Symbol.iterator]()
+    return this.values()
   }
 
   values(): IterableIterator<number> {

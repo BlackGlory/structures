@@ -3,7 +3,9 @@ import { assert } from '@blackglory/errors'
 import { ResizableTypedArray } from '@src/resizable-typed-array.js'
 import { trailingZeros } from '@utils/trailing-zeros.js'
 
-export class ResizableTypedBitSet<T extends UnsignedTypedArrayConstructor> {
+export class ResizableTypedBitSet<
+  T extends UnsignedTypedArrayConstructor
+> implements Iterable<number> {
   private bitsPerElement: number
   private length = 0
   #size = 0

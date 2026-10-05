@@ -7,7 +7,9 @@ interface IDynamicTypedArrayOptions {
   initialCapacity?: number
 }
 
-export class DynamicTypedArray<T extends TypedArrayConstructor> {
+export class DynamicTypedArray<
+  T extends TypedArrayConstructor
+> implements Iterable<number> {
   private array: TypedArrayOfConstructor<T>
   readonly growthFactor: number
   #length: number = 0
@@ -51,6 +53,16 @@ export class DynamicTypedArray<T extends TypedArrayConstructor> {
 
     this.array = new typedArrayConstructor(initialCapacity) as TypedArrayOfConstructor<T>
     this.BYTES_PER_ELEMENT = typedArrayConstructor.BYTES_PER_ELEMENT
+  }
+
+  [Symbol.iterator](): IterableIterator<number> {
+    return this.values()
+  }
+
+  * values(): IterableIterator<number> {
+    for (let i = 0; i < this.#length; i++) {
+      yield this.array[i]
+    }
   }
 
   set(index: number, value: number): void {

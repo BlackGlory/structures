@@ -248,7 +248,6 @@ class HashMap<K, V, Hash = unknown> {
 class HashSet<V, Hash = unknown> implements Iterable<V> {
   get [Symbol.toStringTag](): string
   get size(): number
-  [Symbol.iterator](): IterableIterator<V>
 
   constructor(hash: (value: V) => Hash)
 
@@ -418,7 +417,9 @@ In V8, it can only store about 80% of data of `BigMap`.
 
 ### DynamicTypedArray
 ```ts
-class DynamicTypedArray<T extends TypedArrayConstructor> {
+class DynamicTypedArray<
+  T extends TypedArrayConstructor
+> implements Iterable<number> {
   get [Symbol.toStringTag](): string
   get capacity(): number
   get length(): number
@@ -438,6 +439,8 @@ class DynamicTypedArray<T extends TypedArrayConstructor> {
       growthFactor?: number = 1.5
     }
   )
+
+  values(): IterableIterator<number>
 
   set(index: number, value: number): void
   setValues(index: number, values: ArrayLike<number>): void
@@ -499,9 +502,8 @@ support for which was introduced in ES2024.
 
 ### SortedSet
 ```ts
-class SortedSet<T> {
+class SortedSet<T> implements Iterable<T> {
   get [Symbol.toStringTag](): string
-  [Symbol.iterator](): IterableIterator<T>
 
   constructor(compare: (a: T, b: T) => number)
 
@@ -528,10 +530,9 @@ class DisjointSet {
 ### Bit Set
 #### BitSet
 ```ts
-class BitSet {
+class BitSet implements Iterable<number> {
   get [Symbol.toStringTag](): string
   get size(): number
-  [Symbol.iterator](): IterableIterator<number>
 
   constructor(bitsPerElement: number = 8)
 
@@ -552,14 +553,14 @@ Due to the length of arrays supported by JavaScript,
 
 #### TypedBitSet
 ```ts
-class TypedBitSet<T extends UnsignedTypedArrayConstructor> {
+class TypedBitSet<
+  T extends UnsignedTypedArrayConstructor
+> implements Iterable<number> {
   get [Symbol.toStringTag](): string
   get capacity(): number
   get size(): number
 
   constructor(array: TypedArrayOfConstructor<T>)
-
-  [Symbol.iterator](): IterableIterator<number>
 
   values(): IterableIterator<number>
 
@@ -573,14 +574,14 @@ class TypedBitSet<T extends UnsignedTypedArrayConstructor> {
 
 #### DynamicTypedBitSet
 ```ts
-class DynamicTypedBitSet<T extends UnsignedTypedArrayConstructor> {
+class DynamicTypedBitSet<
+  T extends UnsignedTypedArrayConstructor
+> implements Iterable<number> {
   get [Symbol.toStringTag](): string
   get capacity(): number
   get size(): number
 
   constructor(array: array: DynamicTypedArray<T>)
-
-  [Symbol.iterator](): IterableIterator<number>
 
   values(): IterableIterator<number>
 
@@ -597,13 +598,13 @@ Due to the length of arrays supported by JavaScript,
 
 #### ResizableTypedBitSet
 ```ts
-class ResizableTypedBitSet<T extends UnsignedTypedArrayConstructor> {
+class ResizableTypedBitSet<
+  T extends UnsignedTypedArrayConstructor
+> implements Iterable<number> {
   get [Symbol.toStringTag](): string
   get size(): number
 
   constructor(array: ResizableTypedArray<T>)
-
-  [Symbol.iterator](): IterableIterator<number>
 
   values(): IterableIterator<number>
 
@@ -623,7 +624,6 @@ Due to the length of arrays supported by JavaScript,
 ```ts
 class SparseSet implements Iterable<number> {
   get [Symbol.toStringTag](): string
-  get [Symbol.iterator](): IterableIterator<number>
   get size(): number
 
   values(): IterableIterator<number>
@@ -642,7 +642,6 @@ class SparseSet implements Iterable<number> {
 ```ts
 class CleanSparseSet implements Iterable<number> {
   get [Symbol.toStringTag](): string
-  get [Symbol.iterator](): IterableIterator<number>
   get size(): number
 
   values(): IterableIterator<number>
@@ -667,8 +666,6 @@ class TypedSparseSet<
 
   constructor(array: TypedArrayOfConstructor<T, ArrayBuffer>)
 
-  [Symbol.iterator](): IterableIterator<number>
-
   values(): IterableIterator<number>
 
   has(value: number): boolean
@@ -688,8 +685,6 @@ class TypedSparseSetLite<
   get size(): number
 
   constructor(array: TypedArrayOfConstructor<T, ArrayBuffer>)
-
-  [Symbol.iterator](): IterableIterator<number>
 
   values(): IterableIterator<number>
 
@@ -711,8 +706,6 @@ class TypedCleanSparseSet<
 
   constructor(array: TypedArrayOfConstructor<T, ArrayBuffer>)
 
-  [Symbol.iterator](): IterableIterator<number>
-
   values(): IterableIterator<number>
 
   has(value: number): boolean
@@ -733,8 +726,6 @@ class TypedCleanSparseSetLite<
 
   constructor(array: TypedArrayOfConstructor<T, ArrayBuffer>)
 
-  [Symbol.iterator](): IterableIterator<number>
-
   values(): IterableIterator<number>
 
   has(value: number): boolean
@@ -751,7 +742,6 @@ class DynamicTypedSparseSet<
   T extends UnsignedTypedArrayConstructor
 > implements Iterable<number> {
   get [Symbol.toStringTag](): string
-  get [Symbol.iterator](): IterableIterator<number>
   get size(): number
 
   constructor(array: DynamicTypedArray<T>)
@@ -772,7 +762,6 @@ class DynamicTypedSparseSetLite<
   T extends UnsignedTypedArrayConstructor
 > implements Iterable<number> {
   get [Symbol.toStringTag](): string
-  get [Symbol.iterator](): IterableIterator<number>
   get size(): number
 
   constructor(array: DynamicTypedArray<T>)
@@ -793,7 +782,6 @@ class DynamicTypedCleanSparseSet<
   T extends UnsignedTypedArrayConstructor
 > implements Iterable<number> {
   get [Symbol.toStringTag](): string
-  get [Symbol.iterator](): IterableIterator<number>
   get size(): number
 
   constructor(array: DynamicTypedArray<T>)
@@ -814,7 +802,6 @@ class ResizableTypedSparseSet<
   T extends UnsignedTypedArrayConstructor
 > implements Iterable<number> {
   get [Symbol.toStringTag](): string
-  get [Symbol.iterator](): IterableIterator<number>
   get size(): number
 
   constructor(array: ResizableTypedArray<T>)
@@ -835,7 +822,6 @@ class ResizableTypedSparseSetLite<
   T extends UnsignedTypedArrayConstructor
 > implements Iterable<number> {
   get [Symbol.toStringTag](): string
-  get [Symbol.iterator](): IterableIterator<number>
   get size(): number
 
   constructor(array: ResizableTypedArray<T>)
@@ -856,7 +842,6 @@ class ResizableTypedCleanSparseSet<
   T extends UnsignedTypedArrayConstructor
 > implements Iterable<number> {
   get [Symbol.toStringTag](): string
-  get [Symbol.iterator](): IterableIterator<number>
   get size(): number
 
   constructor(array: ResizableTypedArray<T>)

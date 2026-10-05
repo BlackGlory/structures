@@ -1,5 +1,6 @@
 import { describe, test, expect, it } from 'vitest'
 import { DynamicTypedArray } from '@src/dynamic-typed-array.js'
+import { toArray } from 'iterable-operator'
 
 describe('DynamicTypedArray', () => {
   test('constructor', () => {
@@ -291,5 +292,30 @@ describe('DynamicTypedArray', () => {
         expect(arr.get(2)).toBe(2)
       })
     })
+  })
+
+  test('[Symbol.iterator]', () => {
+    const arr = new DynamicTypedArray(Int8Array, {
+      initialCapacity: 1
+    , growthFactor: 2
+    })
+    arr.push(1, 2, 3)
+
+    const result = toArray(arr)
+
+    expect(result).toStrictEqual([1, 2, 3])
+   })
+
+  test('values', () => {
+    const arr = new DynamicTypedArray(Int8Array, {
+      initialCapacity: 1
+    , growthFactor: 2
+    })
+    arr.push(1, 2, 3)
+
+    const iter = arr.values()
+    const result = toArray(iter)
+
+    expect(result).toStrictEqual([1, 2, 3])
   })
 })

@@ -1,6 +1,7 @@
 import { describe, test, expect } from 'vitest'
 import { ResizableTypedArray } from '@src/resizable-typed-array.js'
 import { getError } from 'return-style'
+import { toArray } from 'iterable-operator'
 
 describe('ResizableTypedArray', () => {
   test('constructor', () => {
@@ -348,5 +349,32 @@ describe('ResizableTypedArray', () => {
         expect(arr.get(2)).toBe(2)
       })
     })
+  })
+
+  test('[Symbol.iterator]', () => {
+    const arr = new ResizableTypedArray(Int8Array, {
+      maxCapacity: 1000
+    , initialCapacity: 1
+    , growthFactor: 2
+    })
+    arr.push(1, 2, 3)
+
+    const result = toArray(arr)
+
+    expect(result).toStrictEqual([1, 2, 3])
+   })
+
+  test('values', () => {
+    const arr = new ResizableTypedArray(Int8Array, {
+      maxCapacity: 1000
+    , initialCapacity: 1
+    , growthFactor: 2
+    })
+    arr.push(1, 2, 3)
+
+    const iter = arr.values()
+    const result = toArray(iter)
+
+    expect(result).toStrictEqual([1, 2, 3])
   })
 })

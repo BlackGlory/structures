@@ -2,7 +2,9 @@ import { TypedArrayOfConstructor, UnsignedTypedArrayConstructor } from 'justypes
 import { assert } from '@blackglory/errors'
 import { trailingZeros } from '@utils/trailing-zeros.js'
 
-export class TypedBitSet<T extends UnsignedTypedArrayConstructor> {
+export class TypedBitSet<
+  T extends UnsignedTypedArrayConstructor
+> implements Iterable<number> {
   private bitsPerElement: number
   private length = 0
   #size = 0
