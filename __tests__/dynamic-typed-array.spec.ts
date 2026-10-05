@@ -208,17 +208,35 @@ describe('DynamicTypedArray', () => {
     })
   })
 
-  test('clear', () => {
-    const arr = new DynamicTypedArray(Int8Array, {
-      initialCapacity: 1
-    , growthFactor: 2
+  describe('clear', () => {
+    test('resetCapacity = false', () => {
+      const arr = new DynamicTypedArray(Int8Array, {
+        initialCapacity: 1
+      , growthFactor: 2
+      })
+      arr.push(1, 2)
+
+      arr.clear(false)
+
+      expect(arr.length).toBe(0)
+      expect(arr.capacity).toBe(2)
+      expect(arr.internalTypedArray[0]).toBe(0)
+      expect(arr.internalTypedArray[1]).toBe(0)
     })
-    arr.push(1)
 
-    arr.clear()
+    test('resetCapacity = true', () => {
+      const arr = new DynamicTypedArray(Int8Array, {
+        initialCapacity: 1
+      , growthFactor: 2
+      })
+      arr.push(1, 2)
 
-    expect(arr.length).toBe(0)
-    expect(arr.capacity).toBe(1)
+      arr.clear(true)
+
+      expect(arr.length).toBe(0)
+      expect(arr.capacity).toBe(1)
+      expect(arr.internalTypedArray[0]).toBe(0)
+    })
   })
 
   describe('sort', () => {

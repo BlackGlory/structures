@@ -26,6 +26,7 @@
     "bench:bit-set": "tsx benches/bit-set.ts",
     "bench:sparse-map": "tsx benches/sparse-map.ts",
     "bench:sparse-set": "tsx benches/sparse-set.ts",
+    "bench:resizable-array-buffer": "tsx benches/resizable-array-buffer.ts",
     "release": "standard-version"
   },
   "husky": {

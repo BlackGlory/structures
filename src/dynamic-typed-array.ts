@@ -130,10 +130,20 @@ export class DynamicTypedArray<T extends TypedArrayConstructor> {
     }
   }
 
-  clear(): void {
+  clear(resetCapacity: boolean = false): void {
     this.#length = 0
-    const newArray = new this.typedArrayConstructor(this.initialCapacity)
-    this.array = newArray as TypedArrayOfConstructor<T>
+
+    if (resetCapacity && this.capacity !== this.initialCapacity) {
+      const newArray = new this.typedArrayConstructor(
+        resetCapacity
+      ? this.initialCapacity
+      : this.capacity
+      )
+
+      this.array = newArray as TypedArrayOfConstructor<T>
+    } else {
+      this.array.fill(0)
+    }
   }
 
   sort(compare?: (a: number, b: number) => number): void {

@@ -166,9 +166,13 @@ export class ResizableTypedArray<T extends TypedArrayConstructor> {
     }
   }
 
-  clear(): void {
+  clear(resetCapacity: boolean = false): void {
     this.#length = 0
-    ;(this.array.buffer as ArrayBuffer).resize(this.initialCapacity)
+
+    if (resetCapacity && this.capacity !== this.initialCapacity) {
+      ;(this.array.buffer as ArrayBuffer).resize(this.initialCapacity)
+    }
+
     this.array.fill(0)
   }
 
