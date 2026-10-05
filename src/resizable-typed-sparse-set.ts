@@ -1,6 +1,5 @@
 import { UnsignedTypedArrayConstructor } from 'justypes'
 import { ResizableTypedArray } from './resizable-typed-array.js'
-import { assert } from '@blackglory/errors'
 import { getMaxValueOfUnsignedTypedArray, getMaxValueOfUnsignedTypedArrayConstructor } from '@utils/get-max-value-of-unsigned-typed-array.js'
 import { go } from '@blackglory/go'
 
@@ -19,12 +18,6 @@ export class ResizableTypedSparseSet<
   }
 
   constructor(array: ResizableTypedArray<T>) {
-    assert(array.length === 0, 'The array must be empty')
-    assert(
-      array.maxCapacity <= getMaxValueOfUnsignedTypedArray(array.internalTypedArray) + 1
-    , 'The array.maxCapacity is greater than the required capacity'
-    )
-
     this.dense = array
 
     const sparseConstructor = go(() => {

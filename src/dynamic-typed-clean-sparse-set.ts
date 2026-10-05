@@ -1,6 +1,5 @@
 import { UnsignedTypedArrayConstructor } from 'justypes'
 import { DynamicTypedArray } from './dynamic-typed-array.js'
-import { assert } from '@blackglory/errors'
 
 export class DynamicTypedCleanSparseSet<
   T extends UnsignedTypedArrayConstructor
@@ -17,8 +16,6 @@ export class DynamicTypedCleanSparseSet<
   }
 
   constructor(array: DynamicTypedArray<T>) {
-    assert(array.length === 0, 'The parameter array must be empty')
-
     this.dense = array
   }
 
