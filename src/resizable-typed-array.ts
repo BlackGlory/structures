@@ -10,7 +10,7 @@ interface IResizableTypedArrayOptions {
 }
 
 export class ResizableTypedArray<T extends TypedArrayConstructor> {
-  private array: TypedArrayOfConstructor<T>
+  private array: TypedArrayOfConstructor<T, ArrayBuffer>
 
   readonly maxCapacity: number
   readonly growthFactor: number
@@ -59,7 +59,7 @@ export class ResizableTypedArray<T extends TypedArrayConstructor> {
       initialCapacity * typedArrayConstructor.BYTES_PER_ELEMENT
     , { maxByteLength: maxCapacity * typedArrayConstructor.BYTES_PER_ELEMENT }
     )
-    this.array = new typedArrayConstructor(buffer) as TypedArrayOfConstructor<T>
+    this.array = new typedArrayConstructor(buffer) as TypedArrayOfConstructor<T, ArrayBuffer>
 
     this.internalTypedArray = this.array
     this.BYTES_PER_ELEMENT = typedArrayConstructor.BYTES_PER_ELEMENT
@@ -179,9 +179,7 @@ export class ResizableTypedArray<T extends TypedArrayConstructor> {
 
   private resize(newCapacity: number): void {
     if (this.array.length !== newCapacity) {
-      ;(this.array.buffer as ArrayBuffer).resize(
-        newCapacity * this.BYTES_PER_ELEMENT
-      )
+      this.array.buffer.resize(newCapacity * this.BYTES_PER_ELEMENT)
     }
   }
 }
