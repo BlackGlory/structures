@@ -1,13 +1,11 @@
-import { UnsignedTypedArrayConstructor } from 'justypes'
+import { TypedArrayConstructor, UnsignedTypedArrayConstructor } from 'justypes'
 import { DynamicTypedArray } from '@src/dynamic-typed-array.js'
 import { assert } from '@blackglory/errors'
 import { getMaxValueOfUnsignedTypedArray, getMaxValueOfUnsignedTypedArrayConstructor } from '@utils/get-max-value-of-unsigned-typed-array.js'
 import { go } from '@blackglory/go'
 
-export class DynamicTypedCleanSparseSet<
-  T extends UnsignedTypedArrayConstructor
-> implements Iterable<number> {
-  private dense: DynamicTypedArray<T>
+export class DynamicTypedCleanSparseSet implements Iterable<number> {
+  private dense: DynamicTypedArray<TypedArrayConstructor>
   private sparse: DynamicTypedArray<UnsignedTypedArrayConstructor>
   private readonly NULL: number
 
@@ -19,7 +17,7 @@ export class DynamicTypedCleanSparseSet<
     return this.dense.length
   }
 
-  constructor(array: DynamicTypedArray<T>) {
+  constructor(array: DynamicTypedArray<UnsignedTypedArrayConstructor>) {
     assert(array.length === 0, 'The array must be empty')
 
     this.dense = array

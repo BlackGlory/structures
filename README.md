@@ -555,14 +555,12 @@ Due to the length of arrays supported by JavaScript,
 
 #### TypedBitSet
 ```ts
-class TypedBitSet<
-  T extends UnsignedTypedArrayConstructor
-> implements Iterable<number> {
+class TypedBitSet implements Iterable<number> {
   get [Symbol.toStringTag](): string
   get capacity(): number
   get size(): number
 
-  constructor(array: TypedArrayOfConstructor<T>)
+  constructor(array: UnsignedTypedArray)
 
   values(): IterableIterator<number>
 
@@ -576,14 +574,12 @@ class TypedBitSet<
 
 #### DynamicTypedBitSet
 ```ts
-class DynamicTypedBitSet<
-  T extends UnsignedTypedArrayConstructor
-> implements Iterable<number> {
+class DynamicTypedBitSet implements Iterable<number> {
   get [Symbol.toStringTag](): string
   get capacity(): number
   get size(): number
 
-  constructor(array: array: DynamicTypedArray<T>)
+  constructor(array: array: DynamicTypedArray<UnsignedTypedArrayConstructor>)
 
   values(): IterableIterator<number>
 
@@ -600,13 +596,11 @@ Due to the length of arrays supported by JavaScript,
 
 #### ResizableTypedBitSet
 ```ts
-class ResizableTypedBitSet<
-  T extends UnsignedTypedArrayConstructor
-> implements Iterable<number> {
+class ResizableTypedBitSet implements Iterable<number> {
   get [Symbol.toStringTag](): string
   get size(): number
 
-  constructor(array: ResizableTypedArray<T>)
+  constructor(array: ResizableTypedArray<UnsignedTypedArrayConstructor>)
 
   values(): IterableIterator<number>
 
@@ -666,13 +660,11 @@ class CleanSparseSet implements Iterable<number> {
 
 #### TypedSparseSet
 ```ts
-class TypedSparseSet<
-  T extends UnsignedTypedArrayConstructor
-> implements Iterable<number> {
+class TypedSparseSet implements Iterable<number> {
   get [Symbol.toStringTag](): string
   get size(): number
 
-  constructor(array: TypedArrayOfConstructor<T, ArrayBuffer>)
+  constructor(array: UnsignedTypedArray<ArrayBuffer>)
 
   values(): IterableIterator<number>
 
@@ -686,13 +678,11 @@ class TypedSparseSet<
 
 #### TypedSparseSetLite
 ```ts
-class TypedSparseSetLite<
-  T extends UnsignedTypedArrayConstructor
-> implements Iterable<number> {
+class TypedSparseSetLite implements Iterable<number> {
   get [Symbol.toStringTag](): string
   get size(): number
 
-  constructor(array: TypedArrayOfConstructor<T, ArrayBuffer>)
+  constructor(array: UnsignedTypedArray<ArrayBuffer>)
 
   values(): IterableIterator<number>
 
@@ -706,13 +696,11 @@ class TypedSparseSetLite<
 
 #### TypedCleanSparseSet
 ```ts
-class TypedCleanSparseSet<
-  T extends UnsignedTypedArrayConstructor
-> implements Iterable<number> {
+class TypedCleanSparseSet implements Iterable<number> {
   get [Symbol.toStringTag](): string
   get size(): number
 
-  constructor(array: TypedArrayOfConstructor<T, ArrayBuffer>)
+  constructor(array: UnsignedTypedArray<ArrayBuffer>)
 
   values(): IterableIterator<number>
 
@@ -726,13 +714,11 @@ class TypedCleanSparseSet<
 
 #### TypedCleanSparseSetLite
 ```ts
-class TypedCleanSparseSetLite<
-  T extends UnsignedTypedArrayConstructor
-> implements Iterable<number> {
+class TypedCleanSparseSetLite implements Iterable<number> {
   get [Symbol.toStringTag](): string
   get size(): number
 
-  constructor(array: TypedArrayOfConstructor<T, ArrayBuffer>)
+  constructor(array: UnsignedTypedArray<ArrayBuffer>)
 
   values(): IterableIterator<number>
 
@@ -746,13 +732,11 @@ class TypedCleanSparseSetLite<
 
 #### DynamicTypedSparseSet
 ```ts
-class DynamicTypedSparseSet<
-  T extends UnsignedTypedArrayConstructor
-> implements Iterable<number> {
+class DynamicTypedSparseSet implements Iterable<number> {
   get [Symbol.toStringTag](): string
   get size(): number
 
-  constructor(array: DynamicTypedArray<T>)
+  constructor(array: DynamicTypedArray<UnsignedTypedArrayConstructor>)
 
   values(): IterableIterator<number>
 
@@ -766,13 +750,11 @@ class DynamicTypedSparseSet<
 
 #### DynamicTypedSparseSetLite
 ```ts
-class DynamicTypedSparseSetLite<
-  T extends UnsignedTypedArrayConstructor
-> implements Iterable<number> {
+class DynamicTypedSparseSetLite implements Iterable<number> {
   get [Symbol.toStringTag](): string
   get size(): number
 
-  constructor(array: DynamicTypedArray<T>)
+  constructor(array: DynamicTypedArray<UnsignedTypedArrayConstructor>)
 
   values(): IterableIterator<number>
 
@@ -786,13 +768,11 @@ class DynamicTypedSparseSetLite<
 
 #### DynamicTypedCleanSparseSet
 ```ts
-class DynamicTypedCleanSparseSet<
-  T extends UnsignedTypedArrayConstructor
-> implements Iterable<number> {
+class DynamicTypedCleanSparseSet implements Iterable<number> {
   get [Symbol.toStringTag](): string
   get size(): number
 
-  constructor(array: DynamicTypedArray<T>)
+  constructor(array: DynamicTypedArray<UnsignedTypedArrayConstructor>)
 
   values(): IterableIterator<number>
 
@@ -806,13 +786,11 @@ class DynamicTypedCleanSparseSet<
 
 #### DynamicTypedCleanSparseSetLite
 ```ts
-class DynamicTypedCleanSparseSetLite<
-  T extends UnsignedTypedArrayConstructor
-> implements Iterable<number> {
+class DynamicTypedCleanSparseSetLite implements Iterable<number> {
   get [Symbol.toStringTag](): string
   get size(): number
 
-  constructor(array: DynamicTypedArray<T>)
+  constructor(array: DynamicTypedArray<UnsignedTypedArrayConstructor>)
 
   values(): IterableIterator<number>
 
@@ -826,13 +804,11 @@ class DynamicTypedCleanSparseSetLite<
 
 #### ResizableTypedSparseSet
 ```ts
-class ResizableTypedSparseSet<
-  T extends UnsignedTypedArrayConstructor
-> implements Iterable<number> {
+class ResizableTypedSparseSet implements Iterable<number> {
   get [Symbol.toStringTag](): string
   get size(): number
 
-  constructor(array: ResizableTypedArray<T>)
+  constructor(array: ResizableTypedArray<UnsignedTypedArrayConstructor>)
 
   values(): IterableIterator<number>
 
@@ -846,13 +822,11 @@ class ResizableTypedSparseSet<
 
 #### ResizableTypedSparseSetLite
 ```ts
-class ResizableTypedSparseSetLite<
-  T extends UnsignedTypedArrayConstructor
-> implements Iterable<number> {
+class ResizableTypedSparseSetLite implements Iterable<number> {
   get [Symbol.toStringTag](): string
   get size(): number
 
-  constructor(array: ResizableTypedArray<T>)
+  constructor(array: ResizableTypedArray<UnsignedTypedArrayConstructor>)
 
   values(): IterableIterator<number>
 
@@ -866,13 +840,11 @@ class ResizableTypedSparseSetLite<
 
 #### ResizableTypedCleanSparseSet
 ```ts
-class ResizableTypedCleanSparseSet<
-  T extends UnsignedTypedArrayConstructor
-> implements Iterable<number> {
+class ResizableTypedCleanSparseSet implements Iterable<number> {
   get [Symbol.toStringTag](): string
   get size(): number
 
-  constructor(array: ResizableTypedArray<T>)
+  constructor(array: ResizableTypedArray<UnsignedTypedArrayConstructor>)
 
   values(): IterableIterator<number>
 
@@ -886,13 +858,11 @@ class ResizableTypedCleanSparseSet<
 
 #### ResizableTypedCleanSparseSetLite
 ```ts
-class ResizableTypedCleanSparseSetLite<
-  T extends UnsignedTypedArrayConstructor
-> implements Iterable<number> {
+class ResizableTypedCleanSparseSetLite implements Iterable<number> {
   get [Symbol.toStringTag](): string
   get size(): number
 
-  constructor(array: ResizableTypedArray<T>)
+  constructor(array: ResizableTypedArray<UnsignedTypedArrayConstructor>)
 
   values(): IterableIterator<number>
 

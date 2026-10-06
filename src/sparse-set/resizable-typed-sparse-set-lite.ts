@@ -2,10 +2,8 @@ import { UnsignedTypedArrayConstructor } from 'justypes'
 import { ResizableTypedArray } from '@src/resizable-typed-array.js'
 import { assert } from '@blackglory/errors'
 
-export class ResizableTypedSparseSetLite<
-  T extends UnsignedTypedArrayConstructor
-> implements Iterable<number> {
-  private dense: ResizableTypedArray<T>
+export class ResizableTypedSparseSetLite implements Iterable<number> {
+  private dense: ResizableTypedArray<UnsignedTypedArrayConstructor>
   private sparse: Array<number | undefined> = []
 
   get [Symbol.toStringTag](): string {
@@ -16,7 +14,7 @@ export class ResizableTypedSparseSetLite<
     return this.dense.length
   }
 
-  constructor(array: ResizableTypedArray<T>) {
+  constructor(array: ResizableTypedArray<UnsignedTypedArrayConstructor>) {
     assert(array.length === 0, 'The array must be empty')
 
     this.dense = array

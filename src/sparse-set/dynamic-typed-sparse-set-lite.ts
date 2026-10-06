@@ -1,11 +1,9 @@
-import { UnsignedTypedArrayConstructor } from 'justypes'
 import { DynamicTypedArray } from '@src/dynamic-typed-array.js'
 import { assert } from '@blackglory/errors'
+import { UnsignedTypedArrayConstructor } from 'justypes'
 
-export class DynamicTypedSparseSetLite<
-  T extends UnsignedTypedArrayConstructor
-> implements Iterable<number> {
-  private dense: DynamicTypedArray<T>
+export class DynamicTypedSparseSetLite implements Iterable<number> {
+  private dense: DynamicTypedArray<UnsignedTypedArrayConstructor>
   private sparse: Array<number | undefined> = []
 
   get [Symbol.toStringTag](): string {
@@ -16,7 +14,7 @@ export class DynamicTypedSparseSetLite<
     return this.dense.length
   }
 
-  constructor(array: DynamicTypedArray<T>) {
+  constructor(array: DynamicTypedArray<UnsignedTypedArrayConstructor>) {
     assert(array.length === 0, 'The array must be empty')
 
     this.dense = array

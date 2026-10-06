@@ -1,10 +1,8 @@
 import { assert } from '@blackglory/errors'
-import { TypedArrayOfConstructor, UnsignedTypedArrayConstructor } from 'justypes'
+import { UnsignedTypedArray } from 'justypes'
 
-export class TypedCleanSparseSetLite<
-  T extends UnsignedTypedArrayConstructor
-> implements Iterable<number> {
-  private dense: TypedArrayOfConstructor<T, ArrayBuffer>
+export class TypedCleanSparseSetLite implements Iterable<number> {
+  private dense: UnsignedTypedArray
   private sparse: Array<number | undefined> = []
   #length = 0
 
@@ -16,7 +14,7 @@ export class TypedCleanSparseSetLite<
     return this.#length
   }
 
-  constructor(array: TypedArrayOfConstructor<T, ArrayBuffer>) {
+  constructor(array: UnsignedTypedArray<ArrayBuffer>) {
     assert(!array.buffer.resizable, 'The array buffer must not be resizable')
 
     this.dense = array

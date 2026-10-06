@@ -1,13 +1,11 @@
 import { assert } from '@blackglory/errors'
 import { go } from '@blackglory/go'
 import { getMaxValueOfUnsignedTypedArray, getMaxValueOfUnsignedTypedArrayConstructor } from '@utils/get-max-value-of-unsigned-typed-array.js'
-import { TypedArrayOfConstructor, UnsignedTypedArrayConstructor } from 'justypes'
+import { UnsignedTypedArray } from 'justypes'
 
-export class TypedCleanSparseSet<
-  T extends UnsignedTypedArrayConstructor
-> implements Iterable<number> {
-  private dense: TypedArrayOfConstructor<T, ArrayBuffer>
-  private sparse: TypedArrayOfConstructor<T, ArrayBuffer>
+export class TypedCleanSparseSet implements Iterable<number> {
+  private dense: UnsignedTypedArray
+  private sparse: UnsignedTypedArray
   private readonly NULL: number
   #length = 0
 
@@ -19,7 +17,7 @@ export class TypedCleanSparseSet<
     return this.#length
   }
 
-  constructor(array: TypedArrayOfConstructor<T, ArrayBuffer>) {
+  constructor(array: UnsignedTypedArray<ArrayBuffer>) {
     assert(!array.buffer.resizable, 'The array buffer must not be resizable')
 
     this.dense = array
@@ -50,9 +48,7 @@ export class TypedCleanSparseSet<
         throw new Error('The array is too large')
       }
     })
-    const sparse = new sparseConstructor(
-      getMaxValueOfUnsignedTypedArray(array) + 1
-    ) as TypedArrayOfConstructor<T, ArrayBuffer>
+    const sparse = new sparseConstructor(getMaxValueOfUnsignedTypedArray(array) + 1)
     sparse.fill(NULL)
     this.sparse = sparse
   }

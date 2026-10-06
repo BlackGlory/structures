@@ -4,10 +4,8 @@ import { assert } from '@blackglory/errors'
 import { go } from '@blackglory/go'
 import { getMaxValueOfUnsignedTypedArray, getMaxValueOfUnsignedTypedArrayConstructor } from '@utils/get-max-value-of-unsigned-typed-array.js'
 
-export class DynamicTypedSparseSet<
-  T extends UnsignedTypedArrayConstructor
-> implements Iterable<number> {
-  private dense: DynamicTypedArray<T>
+export class DynamicTypedSparseSet implements Iterable<number> {
+  private dense: DynamicTypedArray<UnsignedTypedArrayConstructor>
   private sparse: DynamicTypedArray<UnsignedTypedArrayConstructor>
 
   get [Symbol.toStringTag](): string {
@@ -18,7 +16,7 @@ export class DynamicTypedSparseSet<
     return this.dense.length
   }
 
-  constructor(array: DynamicTypedArray<T>) {
+  constructor(array: DynamicTypedArray<UnsignedTypedArrayConstructor>) {
     assert(array.length === 0, 'The array must be empty')
 
     this.dense = array

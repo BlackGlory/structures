@@ -4,10 +4,8 @@ import { getMaxValueOfUnsignedTypedArray, getMaxValueOfUnsignedTypedArrayConstru
 import { go } from '@blackglory/go'
 import { assert } from '@blackglory/errors'
 
-export class ResizableTypedSparseSet<
-  T extends UnsignedTypedArrayConstructor
-> implements Iterable<number> {
-  private dense: ResizableTypedArray<T>
+export class ResizableTypedSparseSet implements Iterable<number> {
+  private dense: ResizableTypedArray<UnsignedTypedArrayConstructor>
   private sparse: ResizableTypedArray<UnsignedTypedArrayConstructor>
 
   get [Symbol.toStringTag](): string {
@@ -18,7 +16,7 @@ export class ResizableTypedSparseSet<
     return this.dense.length
   }
 
-  constructor(array: ResizableTypedArray<T>) {
+  constructor(array: ResizableTypedArray<UnsignedTypedArrayConstructor>) {
     assert(array.length === 0, 'The array must be empty')
 
     this.dense = array

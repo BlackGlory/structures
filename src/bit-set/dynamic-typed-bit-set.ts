@@ -3,9 +3,7 @@ import { assert } from '@blackglory/errors'
 import { DynamicTypedArray } from '@src/dynamic-typed-array.js'
 import { trailingZeros } from '@utils/trailing-zeros.js'
 
-export class DynamicTypedBitSet<
-  T extends UnsignedTypedArrayConstructor
-> implements Iterable<number> {
+export class DynamicTypedBitSet implements Iterable<number> {
   private bitsPerElement: number
   private length = 0
   #size = 0
@@ -21,7 +19,7 @@ export class DynamicTypedBitSet<
     return this.#size
   }
 
-  constructor(private array: DynamicTypedArray<T>) {
+  constructor(private array: DynamicTypedArray<UnsignedTypedArrayConstructor>) {
     const bitsPerElement = array.BYTES_PER_ELEMENT * 8
 
     assert(
