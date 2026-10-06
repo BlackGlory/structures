@@ -136,12 +136,12 @@ describe('ResizableTypedSparseSetLite', () => {
       new ResizableTypedArray(Uint8Array, { maxCapacity: 100 })
     )
     set.add(1)
-    set.add(2)
     set.add(3)
+    set.add(2)
 
     const result = toArray(set)
 
-    expect(result).toStrictEqual([1, 2, 3])
+    expect(result).toStrictEqual([1, 3, 2])
   })
 
   test('values', () => {
@@ -149,12 +149,12 @@ describe('ResizableTypedSparseSetLite', () => {
       new ResizableTypedArray(Uint8Array, { maxCapacity: 100 })
     )
     set.add(1)
-    set.add(2)
     set.add(3)
+    set.add(2)
 
     const iter = set.values()
     const result = toArray(iter)
 
-    expect(result).toStrictEqual([1, 2, 3])
+    expect(result).toStrictEqual([1, 3, 2])
   })
 })

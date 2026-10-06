@@ -114,23 +114,23 @@ describe('DynamicTypedSparseSet', () => {
   test('[Symbol.iterator]', () => {
     const set = new DynamicTypedSparseSet(new DynamicTypedArray(Uint8Array))
     set.add(1)
-    set.add(2)
     set.add(3)
+    set.add(2)
 
     const result = toArray(set)
 
-    expect(result).toStrictEqual([1, 2, 3])
+    expect(result).toStrictEqual([1, 3, 2])
   })
 
   test('values', () => {
     const set = new DynamicTypedSparseSet(new DynamicTypedArray(Uint8Array))
     set.add(1)
-    set.add(2)
     set.add(3)
+    set.add(2)
 
     const iter = set.values()
     const result = toArray(iter)
 
-    expect(result).toStrictEqual([1, 2, 3])
+    expect(result).toStrictEqual([1, 3, 2])
   })
 })
