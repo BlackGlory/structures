@@ -4,7 +4,7 @@ import { Benchmark } from 'extra-benchmark'
 
 const benchmark = new Benchmark('SparseMap', {
   warms: 1000
-, runs: 1000
+, runs: 10000
 })
 
 go(async () => {

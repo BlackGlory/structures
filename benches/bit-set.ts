@@ -80,7 +80,7 @@ go(async () => {
     }
 
     return () => {
-      for (let i = 10000; i--;) {
+      for (let i = 0; i < 10000; i++) {
         set.has(i)
       }
     }
@@ -94,7 +94,7 @@ go(async () => {
       }
 
       return () => {
-        for (let i = 10000; i--;) {
+        for (let i = 0; i < 10000; i++) {
           set.has(i)
         }
       }
@@ -109,7 +109,7 @@ go(async () => {
       }
 
       return () => {
-        for (let i = 10000; i--;) {
+        for (let i = 0; i < 10000; i++) {
           set.has(i)
         }
       }
@@ -124,7 +124,7 @@ go(async () => {
       }
 
       return () => {
-        for (let i = 10000; i--;) {
+        for (let i = 0; i < 10000; i++) {
           set.has(i)
         }
       }
@@ -141,7 +141,7 @@ go(async () => {
       }
 
       return () => {
-        for (let i = 10000; i--;) {
+        for (let i = 0; i < 10000; i++) {
           set.has(i)
         }
       }
@@ -160,7 +160,7 @@ go(async () => {
         }
       }
     , iterate() {
-        for (let i = 10000; i--;) {
+        for (let i = 0; i < 10000; i++) {
           set.add(i)
         }
       }
@@ -180,7 +180,7 @@ go(async () => {
           }
         }
       , iterate() {
-          for (let i = 10000; i--;) {
+          for (let i = 0; i < 10000; i++) {
             set.add(i)
           }
         }
@@ -201,7 +201,7 @@ go(async () => {
           }
         }
       , iterate() {
-          for (let i = 10000; i--;) {
+          for (let i = 0; i < 10000; i++) {
             set.add(i)
           }
         }
@@ -222,7 +222,7 @@ go(async () => {
           }
         }
       , iterate() {
-          for (let i = 10000; i--;) {
+          for (let i = 0; i < 10000; i++) {
             set.add(i)
           }
         }
@@ -245,7 +245,7 @@ go(async () => {
           }
         }
       , iterate() {
-          for (let i = 10000; i--;) {
+          for (let i = 0; i < 10000; i++) {
             set.add(i)
           }
         }
@@ -265,7 +265,7 @@ go(async () => {
         }
       }
     , iterate() {
-        for (let i = 10000; i--;) {
+        for (let i = 0; i < 10000; i++) {
           set.delete(i)
         }
       }
@@ -285,7 +285,7 @@ go(async () => {
           }
         }
       , iterate() {
-          for (let i = 10000; i--;) {
+          for (let i = 0; i < 10000; i++) {
             set.delete(i)
           }
         }
@@ -306,7 +306,7 @@ go(async () => {
           }
         }
       , iterate() {
-          for (let i = 10000; i--;) {
+          for (let i = 0; i < 10000; i++) {
             set.delete(i)
           }
         }
@@ -327,7 +327,7 @@ go(async () => {
           }
         }
       , iterate() {
-          for (let i = 10000; i--;) {
+          for (let i = 0; i < 10000; i++) {
             set.delete(i)
           }
         }
@@ -350,7 +350,7 @@ go(async () => {
           }
         }
       , iterate() {
-          for (let i = 10000; i--;) {
+          for (let i = 0; i < 10000; i++) {
             set.delete(i)
           }
         }
