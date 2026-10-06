@@ -23,8 +23,11 @@ export class ResizableTypedSparseSet<
 
     this.dense = array
 
-    const sparseConstructor = go(() => {
-      const maxIndex = array.maxCapacity - 1
+    const sparseInternalArrayConstructor = go(() => {
+      const maxIndex = Math.min(
+        array.maxCapacity - 1
+      , getMaxValueOfUnsignedTypedArray(array.internalTypedArray) + 1
+      )
       if (
         maxIndex <=
         getMaxValueOfUnsignedTypedArrayConstructor(Uint8Array)
@@ -44,7 +47,7 @@ export class ResizableTypedSparseSet<
         throw new Error('The array is too large')
       }
     })
-    this.sparse = new ResizableTypedArray(sparseConstructor, {
+    this.sparse = new ResizableTypedArray(sparseInternalArrayConstructor, {
       maxCapacity: getMaxValueOfUnsignedTypedArray(array.internalTypedArray) + 1
     })
   }

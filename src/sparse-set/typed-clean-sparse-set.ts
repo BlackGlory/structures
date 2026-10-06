@@ -24,7 +24,10 @@ export class TypedCleanSparseSet<
 
     this.dense = array
 
-    const NULL = array.length
+    const NULL = Math.min(
+      array.length
+    , getMaxValueOfUnsignedTypedArray(array) + 1
+    )
     this.NULL = NULL
 
     const sparseConstructor = go(() => {

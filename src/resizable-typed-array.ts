@@ -7,6 +7,8 @@ interface IResizableTypedArrayOptions {
 
   initialCapacity?: number
   growthFactor?: number
+
+  fillValue?: number
 }
 
 export class ResizableTypedArray<
@@ -18,6 +20,7 @@ export class ResizableTypedArray<
   readonly growthFactor: number
   readonly BYTES_PER_ELEMENT: number
   readonly internalTypedArray: TypedArrayOfConstructor<T>
+  readonly fillValue: number
 
   #length: number = 0
 
@@ -45,6 +48,7 @@ export class ResizableTypedArray<
       maxCapacity
     , initialCapacity = 0
     , growthFactor = 1.5
+    , fillValue = 0
     }: IResizableTypedArrayOptions
   ) {
     assert(growthFactor >= 1, 'growthFactory must be greater than or equal to 1')
@@ -56,14 +60,17 @@ export class ResizableTypedArray<
 
     this.growthFactor = growthFactor
     this.maxCapacity = maxCapacity
+    this.fillValue = fillValue
 
     const buffer = new ArrayBuffer(
       initialCapacity * typedArrayConstructor.BYTES_PER_ELEMENT
     , { maxByteLength: maxCapacity * typedArrayConstructor.BYTES_PER_ELEMENT }
     )
-    this.array = new typedArrayConstructor(buffer) as TypedArrayOfConstructor<T, ArrayBuffer>
+    const array = new typedArrayConstructor(buffer)
+    if (fillValue !== 0) array.fill(fillValue)
+    this.array = array as TypedArrayOfConstructor<T, ArrayBuffer>
 
-    this.internalTypedArray = this.array
+    this.internalTypedArray = array as TypedArrayOfConstructor<T, ArrayBuffer>
     this.BYTES_PER_ELEMENT = typedArrayConstructor.BYTES_PER_ELEMENT
   }
 
@@ -190,7 +197,17 @@ export class ResizableTypedArray<
   }
 
   private resize(newCapacity: number): void {
-    if (this.array.length !== newCapacity) {
+    if (this.array.length === newCapacity) {
+      return
+    } else if (this.array.length < newCapacity) {
+      if (this.fillValue === 0) {
+        this.array.buffer.resize(newCapacity * this.BYTES_PER_ELEMENT)
+      } else {
+        const startIndex = this.array.length
+        this.array.buffer.resize(newCapacity * this.BYTES_PER_ELEMENT)
+        this.array.fill(this.fillValue, startIndex)
+      }
+    } else /* if (this.array.length > newCapacity) */ {
       this.array.buffer.resize(newCapacity * this.BYTES_PER_ELEMENT)
     }
   }

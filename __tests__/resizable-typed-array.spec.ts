@@ -9,10 +9,12 @@ describe('ResizableTypedArray', () => {
       maxCapacity: 1000
     , initialCapacity: 1
     , growthFactor: 2
+    , fillValue: -1
     })
 
     expect(arr.capacity).toBe(1)
     expect(arr.length).toBe(0)
+    expect(arr.internalTypedArray[0]).toBe(-1)
   })
 
   test('internalTypedArray', () => {
@@ -54,14 +56,16 @@ describe('ResizableTypedArray', () => {
         const arr = new ResizableTypedArray(Int8Array, {
           maxCapacity: 1000
         , initialCapacity: 1
-        , growthFactor: 2
+        , growthFactor: 3
+        , fillValue: -1
         })
 
         arr.set(1, 1)
 
         expect(arr.get(1)).toBe(1)
-        expect(arr.capacity).toBe(2)
+        expect(arr.capacity).toBe(3)
         expect(arr.length).toBe(2)
+        expect(arr.internalTypedArray[2]).toBe(-1)
       })
 
       test('resizing failed', () => {
@@ -102,6 +106,7 @@ describe('ResizableTypedArray', () => {
           maxCapacity: 1000
         , initialCapacity: 1
         , growthFactor: 2
+        , fillValue: -1
         })
         const values = new Int16Array(2)
         values[0] = 1
@@ -110,11 +115,12 @@ describe('ResizableTypedArray', () => {
 
         arr.setValues(index, values)
 
-        expect(arr.get(0)).toBe(0)
+        expect(arr.get(0)).toBe(-1)
         expect(arr.get(1)).toBe(1)
         expect(arr.get(2)).toBe(2)
         expect(arr.capacity).toBe(4)
         expect(arr.length).toBe(3)
+        expect(arr.internalTypedArray[3]).toBe(-1)
       })
 
       test('resizing failed', () => {
@@ -183,6 +189,7 @@ describe('ResizableTypedArray', () => {
           maxCapacity: 1000
         , initialCapacity: 2
         , growthFactor: 2
+        , fillValue: -1
         })
         arr.set(0, 1)
 
@@ -192,6 +199,7 @@ describe('ResizableTypedArray', () => {
         expect(arr.get(2)).toBe(3)
         expect(arr.capacity).toBe(4)
         expect(arr.length).toBe(3)
+        expect(arr.internalTypedArray[3]).toBe(-1)
       })
 
       test('resizing failed', () => {

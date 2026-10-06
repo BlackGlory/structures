@@ -1,12 +1,15 @@
 import { UnsignedTypedArrayConstructor } from 'justypes'
 import { DynamicTypedArray } from '@src/dynamic-typed-array.js'
 import { assert } from '@blackglory/errors'
+import { getMaxValueOfUnsignedTypedArray, getMaxValueOfUnsignedTypedArrayConstructor } from '@utils/get-max-value-of-unsigned-typed-array.js'
+import { go } from '@blackglory/go'
 
 export class DynamicTypedCleanSparseSet<
   T extends UnsignedTypedArrayConstructor
 > implements Iterable<number> {
   private dense: DynamicTypedArray<T>
-  private sparse: Array<number | undefined> = []
+  private sparse: DynamicTypedArray<UnsignedTypedArrayConstructor>
+  private readonly NULL: number
 
   get [Symbol.toStringTag](): string {
     return this.constructor.name
@@ -20,6 +23,35 @@ export class DynamicTypedCleanSparseSet<
     assert(array.length === 0, 'The array must be empty')
 
     this.dense = array
+
+    const NULL = getMaxValueOfUnsignedTypedArray(array.internalTypedArray)
+               + 1
+    this.NULL = NULL
+
+    const sparseInternalArrayConstructor = go(() => {
+      if (
+        NULL <=
+        getMaxValueOfUnsignedTypedArrayConstructor(Uint8Array)
+      ) {
+        return Uint8Array
+      } else if (
+        NULL <=
+        getMaxValueOfUnsignedTypedArrayConstructor(Uint16Array)
+      ) {
+        return Uint16Array
+      } else if (
+        NULL <=
+        getMaxValueOfUnsignedTypedArrayConstructor(Uint32Array)
+      ) {
+        return Uint32Array
+      } else {
+        throw new Error('The array is too large')
+      }
+    })
+    const sparse = new DynamicTypedArray(sparseInternalArrayConstructor, {
+      fillValue: NULL
+    })
+    this.sparse = sparse
   }
 
   [Symbol.iterator](): IterableIterator<number> {
@@ -31,26 +63,31 @@ export class DynamicTypedCleanSparseSet<
   }
 
   has(value: number): boolean {
-    return this.sparse[value] !== undefined
+    const index = this.sparse.get(value)
+    return index !== undefined
+        && index !== this.NULL
   }
 
   add(value: number): void {
     if (!this.has(value)) {
       const index = this.dense.length
       this.dense.push(value)
-      this.sparse[value] = index
+      this.sparse.set(value, index)
     }
   }
 
   delete(value: number): boolean {
-    const index = this.sparse[value]
-    if (index !== undefined) {
-      this.sparse[value] = undefined
+    const index = this.sparse.get(value)
+    if (
+      index !== undefined &&
+      index !== this.NULL
+    ) {
+      this.sparse.internalTypedArray[value] = this.NULL
 
       const lastValue = this.dense.pop()!
       if (value !== lastValue) {
         this.dense.internalTypedArray[index] = lastValue
-        this.sparse[lastValue] = index
+        this.sparse.internalTypedArray[lastValue] = index
       }
 
       return true
@@ -61,6 +98,6 @@ export class DynamicTypedCleanSparseSet<
 
   clear(): void {
     this.dense.clear()
-    this.sparse.length = 0
+    this.sparse.clear()
   }
 }

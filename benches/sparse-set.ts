@@ -1,5 +1,5 @@
 import { go } from '@blackglory/go'
-import { SparseSet, ResizableTypedSparseSet, DynamicTypedArray, ResizableTypedArray, CleanSparseSet, DynamicTypedSparseSet, DynamicTypedSparseSetLite, ResizableTypedSparseSetLite, DynamicTypedCleanSparseSet, ResizableTypedCleanSparseSet, TypedSparseSetLite, TypedSparseSet, TypedCleanSparseSet, TypedCleanSparseSetLite } from '../lib/index.js'
+import { SparseSet, ResizableTypedSparseSet, DynamicTypedArray, ResizableTypedArray, CleanSparseSet, DynamicTypedSparseSet, DynamicTypedSparseSetLite, ResizableTypedSparseSetLite, DynamicTypedCleanSparseSet, ResizableTypedCleanSparseSet, TypedSparseSetLite, TypedSparseSet, TypedCleanSparseSet, TypedCleanSparseSetLite, DynamicTypedCleanSparseSetLite, ResizableTypedCleanSparseSetLite } from '../lib/index.js'
 import { Benchmark } from 'extra-benchmark'
 
 const benchmark = new Benchmark('SparseSet', {
@@ -126,7 +126,24 @@ go(async () => {
   })
 
   benchmark.addCase('DynamicTypedCleanSparseSet#has', () => {
-    const map = new DynamicTypedCleanSparseSet(new DynamicTypedArray(Uint16Array))
+    const map = new DynamicTypedCleanSparseSet(
+      new DynamicTypedArray(Uint16Array)
+    )
+    for (let i = 0; i < 10000; i += 2) {
+      map.has(i)
+    }
+
+    return () => {
+      for (let i = 0; i < 10000; i++) {
+        map.has(i)
+      }
+    }
+  })
+
+  benchmark.addCase('DynamicTypedCleanSparseSetLite#has', () => {
+    const map = new DynamicTypedCleanSparseSetLite(
+      new DynamicTypedArray(Uint16Array)
+    )
     for (let i = 0; i < 10000; i += 2) {
       map.has(i)
     }
@@ -170,6 +187,21 @@ go(async () => {
 
   benchmark.addCase('ResizableTypedCleanSparseSet#has', () => {
     const map = new ResizableTypedCleanSparseSet(
+      new ResizableTypedArray(Uint16Array, { maxCapacity: 10000 })
+    )
+    for (let i = 0; i < 10000; i += 2) {
+      map.has(i)
+    }
+
+    return () => {
+      for (let i = 0; i < 10000; i++) {
+        map.has(i)
+      }
+    }
+  })
+
+  benchmark.addCase('ResizableTypedCleanSparseSetLite#has', () => {
+    const map = new ResizableTypedCleanSparseSetLite(
       new ResizableTypedArray(Uint16Array, { maxCapacity: 10000 })
     )
     for (let i = 0; i < 10000; i += 2) {
@@ -355,7 +387,30 @@ go(async () => {
   })
 
   benchmark.addCase('DynamicTypedCleanSparseSet#add', () => {
-    const map = new DynamicTypedCleanSparseSet(new DynamicTypedArray(Uint16Array))
+    const map = new DynamicTypedCleanSparseSet(
+      new DynamicTypedArray(Uint16Array)
+    )
+
+    return {
+      beforeEach() {
+        map.clear()
+
+        for (let i = 0; i < 10000; i += 2) {
+          map.add(i)
+        }
+      }
+    , iterate() {
+        for (let i = 0; i < 10000; i++) {
+          map.add(i)
+        }
+      }
+    }
+  })
+
+  benchmark.addCase('DynamicTypedCleanSparseSetLite#add', () => {
+    const map = new DynamicTypedCleanSparseSetLite(
+      new DynamicTypedArray(Uint16Array)
+    )
 
     return {
       beforeEach() {
@@ -417,6 +472,27 @@ go(async () => {
 
   benchmark.addCase('ResizableTypedCleanSparseSet#add', () => {
     const map = new ResizableTypedCleanSparseSet(
+      new ResizableTypedArray(Uint16Array, { maxCapacity: 10000 })
+    )
+
+    return {
+      beforeEach() {
+        map.clear()
+
+        for (let i = 0; i < 10000; i += 2) {
+          map.add(i)
+        }
+      }
+    , iterate() {
+        for (let i = 0; i < 10000; i++) {
+          map.add(i)
+        }
+      }
+    }
+  })
+
+  benchmark.addCase('ResizableTypedCleanSparseSetLite#add', () => {
+    const map = new ResizableTypedCleanSparseSetLite(
       new ResizableTypedArray(Uint16Array, { maxCapacity: 10000 })
     )
 
@@ -608,7 +684,30 @@ go(async () => {
   })
 
   benchmark.addCase('DynamicTypedCleanSparseSet#delete', () => {
-    const map = new DynamicTypedCleanSparseSet(new DynamicTypedArray(Uint16Array))
+    const map = new DynamicTypedCleanSparseSet(
+      new DynamicTypedArray(Uint16Array)
+    )
+
+    return {
+      beforeEach() {
+        map.clear()
+
+        for (let i = 0; i < 10000; i += 2) {
+          map.add(i)
+        }
+      }
+    , iterate() {
+        for (let i = 0; i < 10000; i++) {
+          map.delete(i)
+        }
+      }
+    }
+  })
+
+  benchmark.addCase('DynamicTypedCleanSparseSetLite#delete', () => {
+    const map = new DynamicTypedCleanSparseSetLite(
+      new DynamicTypedArray(Uint16Array)
+    )
 
     return {
       beforeEach() {
@@ -670,6 +769,27 @@ go(async () => {
 
   benchmark.addCase('ResizableTypedCleanSparseSet#delete', () => {
     const map = new ResizableTypedCleanSparseSet(
+      new ResizableTypedArray(Uint16Array, { maxCapacity: 10000 })
+    )
+
+    return {
+      beforeEach() {
+        map.clear()
+
+        for (let i = 0; i < 10000; i += 2) {
+          map.add(i)
+        }
+      }
+    , iterate() {
+        for (let i = 0; i < 10000; i++) {
+          map.delete(i)
+        }
+      }
+    }
+  })
+
+  benchmark.addCase('ResizableTypedCleanSparseSetLite#delete', () => {
+    const map = new ResizableTypedCleanSparseSetLite(
       new ResizableTypedArray(Uint16Array, { maxCapacity: 10000 })
     )
 

@@ -24,7 +24,10 @@ export class TypedSparseSet<
     this.dense = array
 
     const sparseConstructor = go(() => {
-      const maxIndex = array.length - 1
+      const maxIndex = Math.min(
+        array.length - 1
+      , getMaxValueOfUnsignedTypedArray(array) + 1
+      )
       if (
         maxIndex <=
         getMaxValueOfUnsignedTypedArrayConstructor(Uint8Array)

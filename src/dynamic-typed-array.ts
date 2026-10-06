@@ -5,13 +5,18 @@ import { computeNewCapacity } from '@utils/compute-new-capacity.js'
 interface IDynamicTypedArrayOptions {
   growthFactor?: number
   initialCapacity?: number
+  fillValue?: number
 }
 
 export class DynamicTypedArray<
   T extends TypedArrayConstructor
 > implements Iterable<number> {
   private array: TypedArrayOfConstructor<T>
+
   readonly growthFactor: number
+  readonly BYTES_PER_ELEMENT: number
+  readonly fillValue: number
+
   #length: number = 0
 
   get [Symbol.toStringTag](): string {
@@ -21,8 +26,6 @@ export class DynamicTypedArray<
   get internalTypedArray(): TypedArrayOfConstructor<T> {
     return this.array
   }
-
-  readonly BYTES_PER_ELEMENT: number
 
   /**
    * 数组当前的容量.
@@ -43,6 +46,7 @@ export class DynamicTypedArray<
   , {
       growthFactor = 1.5
     , initialCapacity = 0
+    , fillValue = 0
     }: IDynamicTypedArrayOptions = {}
   ) {
     assert(growthFactor >= 1, 'growthFactory must be greater than or equal to 1')
@@ -50,8 +54,12 @@ export class DynamicTypedArray<
     assert(initialCapacity >= 0, 'initialCapacity must be greater than or equal to 0')
 
     this.growthFactor = growthFactor
+    this.fillValue = fillValue
 
-    this.array = new typedArrayConstructor(initialCapacity) as TypedArrayOfConstructor<T>
+    const array = new typedArrayConstructor(initialCapacity) as TypedArrayOfConstructor<T>
+    if (fillValue !== 0) array.fill(fillValue)
+    this.array = array
+
     this.BYTES_PER_ELEMENT = typedArrayConstructor.BYTES_PER_ELEMENT
   }
 
@@ -159,8 +167,14 @@ export class DynamicTypedArray<
     } else if (this.array.length < newCapacity) {
       const newArray = new this.typedArrayConstructor(newCapacity)
       newArray.set(this.array)
+
+      if (this.fillValue !== 0) {
+        const startIndex = this.array.length
+        newArray.fill(this.fillValue, startIndex)
+      }
+
       this.array = newArray as TypedArrayOfConstructor<T>
-    } else if (this.array.length > newCapacity) {
+    } else /* if (this.array.length > newCapacity) */ {
       const newArray = new this.typedArrayConstructor(newCapacity)
       // 不需要的部分将被舍弃.
       for (let i = newCapacity; i--;) {

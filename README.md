@@ -437,6 +437,7 @@ class DynamicTypedArray<
   , options?: {
       initialCapacity?: number = 0
       growthFactor?: number = 1.5
+      fillValue?: number = 0
     }
   )
 
@@ -477,8 +478,9 @@ class ResizableTypedArray<T extends TypedArrayConstructor> {
   , options: {
       maxCapacity: number
 
-    , initialCapacity?: capacity = 0
-    , growthFactor?: number = 1.5
+      initialCapacity?: capacity = 0
+      growthFactor?: number = 1.5
+      fillValue?: number = 0
     }
   )
 
@@ -796,6 +798,26 @@ class DynamicTypedCleanSparseSet<
 }
 ```
 
+#### DynamicTypedCleanSparseSetLite
+```ts
+class DynamicTypedCleanSparseSetLite<
+  T extends UnsignedTypedArrayConstructor
+> implements Iterable<number> {
+  get [Symbol.toStringTag](): string
+  get size(): number
+
+  constructor(array: DynamicTypedArray<T>)
+
+  values(): IterableIterator<number>
+
+  has(value: number): boolean
+  add(value: number): void
+  delete(value: number): boolean
+
+  clear(): void
+}
+```
+
 #### ResizableTypedSparseSet
 ```ts
 class ResizableTypedSparseSet<
@@ -839,6 +861,26 @@ class ResizableTypedSparseSetLite<
 #### ResizableTypedCleanSparseSet
 ```ts
 class ResizableTypedCleanSparseSet<
+  T extends UnsignedTypedArrayConstructor
+> implements Iterable<number> {
+  get [Symbol.toStringTag](): string
+  get size(): number
+
+  constructor(array: ResizableTypedArray<T>)
+
+  values(): IterableIterator<number>
+
+  has(value: number): boolean
+  add(value: number): void
+  delete(value: number): boolean
+
+  clear(): void
+}
+```
+
+#### ResizableTypedCleanSparseSetLite
+```ts
+class ResizableTypedCleanSparseSetLite<
   T extends UnsignedTypedArrayConstructor
 > implements Iterable<number> {
   get [Symbol.toStringTag](): string
