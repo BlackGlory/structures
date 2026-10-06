@@ -2,6 +2,7 @@ import { describe, test, expect } from 'vitest'
 import { DynamicTypedCleanSparseSet } from '@sparse-set/dynamic-typed-clean-sparse-set.js'
 import { DynamicTypedArray } from '@src/dynamic-typed-array.js'
 import { toArray } from 'iterable-operator'
+import { getMaxValueOfUnsignedTypedArrayConstructor } from '@utils/get-max-value-of-unsigned-typed-array.js'
 
 describe('DynamicTypedCleanSparseSet', () => {
   describe('size', () => {
@@ -132,5 +133,22 @@ describe('DynamicTypedCleanSparseSet', () => {
     const result = toArray(iter)
 
     expect(result).toStrictEqual([1, 3, 2])
+  })
+
+  test('edge: max value', () => {
+    const set = new DynamicTypedCleanSparseSet(
+      new DynamicTypedArray(Uint8Array)
+    )
+    const maxValue = getMaxValueOfUnsignedTypedArrayConstructor(Uint8Array)
+
+    const result1 = set.has(maxValue)
+    set.add(maxValue)
+    const result2 = set.has(maxValue)
+    set.delete(maxValue)
+    const result3 = set.has(maxValue)
+
+    expect(result1).toBe(false)
+    expect(result2).toBe(true)
+    expect(result3).toBe(false)
   })
 })

@@ -2,6 +2,7 @@ import { describe, test, expect } from 'vitest'
 import { ResizableTypedSparseSetLite } from '@sparse-set/resizable-typed-sparse-set-lite.js'
 import { ResizableTypedArray } from '@src/resizable-typed-array.js'
 import { toArray } from 'iterable-operator'
+import { getMaxValueOfUnsignedTypedArrayConstructor } from '@utils/get-max-value-of-unsigned-typed-array.js'
 
 describe('ResizableTypedSparseSetLite', () => {
   describe('size', () => {
@@ -156,5 +157,22 @@ describe('ResizableTypedSparseSetLite', () => {
     const result = toArray(iter)
 
     expect(result).toStrictEqual([1, 3, 2])
+  })
+
+  test('edge: max value', () => {
+    const set = new ResizableTypedSparseSetLite(
+      new ResizableTypedArray(Uint8Array, { maxCapacity: 100 })
+    )
+    const maxValue = getMaxValueOfUnsignedTypedArrayConstructor(Uint8Array)
+
+    const result1 = set.has(maxValue)
+    set.add(maxValue)
+    const result2 = set.has(maxValue)
+    set.delete(maxValue)
+    const result3 = set.has(maxValue)
+
+    expect(result1).toBe(false)
+    expect(result2).toBe(true)
+    expect(result3).toBe(false)
   })
 })
