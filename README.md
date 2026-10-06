@@ -622,6 +622,12 @@ Due to the length of arrays supported by JavaScript,
 `ResizableTypedBitSit` cannot support very large values.
 
 ### Sparse Set
+There are many implementations.
+Based on benchmark results, `TypedCleanSparseSet` is the fastest,
+followed by `TypedCleanSparseSetLite`.
+If array resizing is required,
+choose `DynamicTypedCleanSparseSetLite` or `ResizableTypedCleanSparseSetLite`.
+
 #### SparseSet
 ```ts
 class SparseSet implements Iterable<number> {
