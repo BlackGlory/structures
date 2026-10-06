@@ -2,6 +2,49 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.15.0](https://github.com/BlackGlory/structures/compare/v0.14.15...v0.15.0) (2026-10-06)
+
+
+### ⚠ BREAKING CHANGES
+
+* **sparse-map:** Redesigned `TypedSparseMap`
+* **dynamic-typed-array, resizable-typed-array:** - Removed `resetCapacity` parameters in `DynamicTypedarray#clear()`, `ResizableTypedarray#clear()`.
+- `DyanmicTypedArray#clear()`, `DynamicTypedArray#pop()`, `ResizableTypedArray#clear()`, `ResizableTypedArray#pop()` no longer automatically shrink.
+* Renamed `SparseMap#internalArray` to `SparseMap#internalValueArray`
+* **dynamic-typed-sparse-set, resizable-typed-sparse-set:** The `array` parameter in `DynamicTypedSparseSet` and `ResizableTypedSparseSet` constructors can only be an empty array.
+* **sparse-set:** Removed constructor parameters of `SparseSet`
+* Renamed `TypedSparseSet` to `DynamicTypedSparseSet`
+* - Node.js v18 => Node.js v22.
+- ES2018 => ES2024.
+- Renamed `options.capacity` to `options.initialCapacity` of `DynamicTypedArray.constructor`.
+- Renamed the old `TypedBitSet` to `DynamicTypedBitSet`.
+
+### Features
+
+* ***-typed-sparse-set, *-typed-clean-sparse-set:** remove assertions ([9ea58d2](https://github.com/BlackGlory/structures/commit/9ea58d2c8a09008fe46cc02c993b099d45ccc748))
+* add `CleanSparseMap` ([a77b9ff](https://github.com/BlackGlory/structures/commit/a77b9ffdc2ba7313b637fc3d487a796d3fa19ff2))
+* add `CleanSparseSet` ([e23b1a6](https://github.com/BlackGlory/structures/commit/e23b1a62e9dd9ffb1c89d96352cd0931259c3e89))
+* add `DynamicTypedCleanSparseSet`, `ResizableTypedCleanSparseSet` ([cc20363](https://github.com/BlackGlory/structures/commit/cc2036315377b0376e348c2698764130a2a534e5))
+* add `DynamicTypedCleanSparseSetLite`, `ResizableTypedCleanSparseSetLite`` ([56fcb8d](https://github.com/BlackGlory/structures/commit/56fcb8d4738bf1768f6c2697a6aed6f1e6c69974))
+* add `DynamicTypedSparseSetLite`, `ResizableTypedSparseSetLite` ([8388d8f](https://github.com/BlackGlory/structures/commit/8388d8f62af255d7c54ba0ab3bcf0964f0ca965f))
+* add `ResizableTypedSparseSet` ([38fb3d5](https://github.com/BlackGlory/structures/commit/38fb3d5f55296d98556847d78a04589a78a3b7f7))
+* add `TypedSparseSet`, `TypedSparseSetLite`, `TypedCleanSparseSet`, `TypedCleanSparseSetLite` ([732f059](https://github.com/BlackGlory/structures/commit/732f059a1c4ca3a8b764d9888d3a116820592db8))
+* **dynamic-typed-array, resizable-typed-array:** add `[Symbol.iterator]()`, `values()` ([ad5f4b6](https://github.com/BlackGlory/structures/commit/ad5f4b643baae07c37b49716660fe1512856219e))
+* **dynamic-typed-array, resizable-typed-array:** add `resetCapacity` parameter in `clear()` ([88e3820](https://github.com/BlackGlory/structures/commit/88e38203bdd14fe166bbf1b93dd974908e01faac))
+* **dynamic-typed-array, resizable-typed-array:** add `shrink()` ([c46b010](https://github.com/BlackGlory/structures/commit/c46b0100d9cb460de3aa1fca72bf73d73aecc65b))
+* **dynamic-typed-sparse-set, resizable-typed-sparse-set:** add assertions ([058fec9](https://github.com/BlackGlory/structures/commit/058fec945f795a2de990f4e3b2310230e6e2268c))
+* **resizable-typed-sparse-set:** add assertions in the constructor ([8927578](https://github.com/BlackGlory/structures/commit/89275786803eccabcb304e48675f0a08181cc704))
+* **sparse-map:** redesign `TypedSparseMap` ([835a502](https://github.com/BlackGlory/structures/commit/835a5023250d15e0b40a5a5c3f83342ed3f0e084))
+* **sparse-set:** add assertions in constructors ([2a38b13](https://github.com/BlackGlory/structures/commit/2a38b1375b9488f77cdb1c78aae6cc0a86032785))
+* **sparse-set:** remove constructor parameters ([e55d4c8](https://github.com/BlackGlory/structures/commit/e55d4c88e4a87d2b05f46db07039a4958d59e625))
+* upgrade to ES2024 ([8e4f9c4](https://github.com/BlackGlory/structures/commit/8e4f9c44cac2dee949a3c94b55707b7790c90cc2))
+
+
+### Bug Fixes
+
+* **sparse-set:** constructor ([b66a718](https://github.com/BlackGlory/structures/commit/b66a7188be4dd9740616d03a495c133280ae3675))
+* **sparse-set:** handle cases when the array is too large ([d727a47](https://github.com/BlackGlory/structures/commit/d727a479aa7f08ec3b21ff728e9b5435db7189df))
+
 ### [0.14.15](https://github.com/BlackGlory/structures/compare/v0.14.14...v0.14.15) (2026-05-24)
 
 
