@@ -925,19 +925,20 @@ class CleanSparseMap<T> {
 
 #### TypedSparseMap
 ```ts
-class TypedSparseMap<T extends TypedArrayConstructor> {
+class TypedSparseMap<
+  K extends UnsignedTypedArrayConstructor
+, V extends TypedArrayConstructor
+> {
   get [Symbol.toStringTag](): string
   get size(): number
 
-  /**
-   * `SparseMap` cannot respond to any operations on the internal array,
-   * you must ensure that indexes accessed are less than the length of `SparseMap`.
-   * 
-   * Keys do not correspond to indexes of the array.
-   */
-  get internalTypedArray(): TypedArrayOfConstructor<T>
+  readonly internalKeyArray: TypedArrayOfConstructor<K, ArrayBuffer>
+  readonly internalValueArray: TypedArrayOfConstructor<V, ArrayBuffer>
 
-  constructor(array: DynamicTypedArray<T>)
+  constructor(
+    keys: TypedArrayOfConstructor<K, ArrayBuffer>
+  , values: TypedArrayOfConstructor<V, ArrayBuffer>
+  )
 
   entries(): IterableIterator<[key: number, value: number]>
   keys(): IterableIterator<number>
@@ -946,9 +947,233 @@ class TypedSparseMap<T extends TypedArrayConstructor> {
   getInternalIndexOfKey(key: number): number | undefined
 
   has(key: number): boolean
-  get(key: number): T | undefined
+  get(key: number): number | undefined
   set(key: number, value: number): void
-  delete(key: number): void
+  delete(key: number): boolean
+
+  clear(): void
+}
+```
+
+#### TypedSparseMapLite
+```ts
+class TypedSparseMapLite<
+  K extends UnsignedTypedArrayConstructor
+, V extends TypedArrayConstructor
+> {
+  get [Symbol.toStringTag](): string
+  get size(): number
+
+  readonly internalKeyArray: TypedArrayOfConstructor<K, ArrayBuffer>
+  readonly internalValueArray: TypedArrayOfConstructor<V, ArrayBuffer>
+
+  constructor(
+    keys: TypedArrayOfConstructor<K, ArrayBuffer>
+  , values: TypedArrayOfConstructor<V, ArrayBuffer>
+  )
+
+  entries(): IterableIterator<[key: number, value: number]>
+  keys(): IterableIterator<number>
+  values(): IterableIterator<number>
+
+  getInternalIndexOfKey(key: number): number | undefined
+
+  has(key: number): boolean 
+  get(key: number): number | undefined
+  set(key: number, value: number): void
+  delete(key: number): boolean
+
+  clear(): void
+}
+```
+
+#### TypedCleanSparseMap
+```ts
+class TypedCleanSparseMap<
+  K extends UnsignedTypedArrayConstructor
+, V extends TypedArrayConstructor
+> {
+  get [Symbol.toStringTag](): string
+  get size(): number
+
+  readonly internalKeyArray: TypedArrayOfConstructor<K, ArrayBuffer>
+  readonly internalValueArray: TypedArrayOfConstructor<V, ArrayBuffer>
+
+  constructor(
+    keys: TypedArrayOfConstructor<K, ArrayBuffer>
+  , values: TypedArrayOfConstructor<V, ArrayBuffer>
+  )
+
+  entries(): IterableIterator<[key: number, value: number]>
+  keys(): IterableIterator<number>
+  values(): IterableIterator<number>
+
+  getInternalIndexOfKey(key: number): number | undefined
+
+  has(key: number): boolean
+  get(key: number): number | undefined
+  set(key: number, value: number): void
+  delete(key: number): boolean
+
+  clear(): void
+}
+```
+
+#### TypedCleanSparseMapLite
+```ts
+class TypedCleanSparseMapLite<
+  K extends UnsignedTypedArrayConstructor
+, V extends TypedArrayConstructor
+> {
+  get [Symbol.toStringTag](): string
+  get size(): number
+
+  readonly internalKeyArray: TypedArrayOfConstructor<K, ArrayBuffer>
+  readonly internalValueArray: TypedArrayOfConstructor<V, ArrayBuffer>
+
+  constructor(
+    keys: TypedArrayOfConstructor<K, ArrayBuffer>
+  , values: TypedArrayOfConstructor<V, ArrayBuffer>
+  )
+
+  entries(): IterableIterator<[key: number, value: number]>
+  keys(): IterableIterator<number>
+  values(): IterableIterator<number>
+
+  getInternalIndexOfKey(key: number): number | undefined
+
+  has(key: number): boolean 
+  get(key: number): number | undefined 
+  set(key: number, value: number): void
+  delete(key: number): boolean
+
+  clear(): void
+}
+```
+
+#### DynamicTypedSparseMapLite
+```ts
+class DynamicTypedSparseMapLite<
+  K extends UnsignedTypedArrayConstructor
+, V extends TypedArrayConstructor
+> {
+  get [Symbol.toStringTag](): string
+  get size(): number
+
+  get internalKeyArray(): TypedArrayOfConstructor<K>
+  get internalValueArray(): TypedArrayOfConstructor<V>
+
+  constructor(
+    keys: DynamicTypedArray<K>
+  , values: DynamicTypedArray<V>
+  )
+
+  entries(): IterableIterator<[key: number, value: number]>
+  keys(): IterableIterator<number>
+  values(): IterableIterator<number>
+
+  getInternalIndexOfKey(key: number): number | undefined
+
+  has(key: number): boolean
+  get(key: number): number | undefined
+  set(key: number, value: number): void
+  delete(key: number): boolean
+
+  clear(): void
+}
+```
+
+#### DynamicTypedCleanSparseMapLite
+```ts
+class DynamicTypedCleanSparseMapLite<
+  K extends UnsignedTypedArrayConstructor
+, V extends TypedArrayConstructor
+> {
+  get [Symbol.toStringTag](): string
+  get size(): number
+
+  get internalKeyArray(): TypedArrayOfConstructor<K>
+  get internalValueArray(): TypedArrayOfConstructor<V>
+
+  constructor(
+    keys: DynamicTypedArray<K>
+  , values: DynamicTypedArray<V>
+  )
+
+  entries(): IterableIterator<[key: number, value: number]>
+  keys(): IterableIterator<number>
+  values(): IterableIterator<number>
+
+  getInternalIndexOfKey(key: number): number | undefined
+
+  has(key: number): boolean
+  get(key: number): number | undefined
+  set(key: number, value: number): void
+  delete(key: number): boolean
+
+  clear(): void
+}
+```
+
+#### ResizableTypedSparseMapLite
+```ts
+class ResizableTypedSparseMapLite<
+  K extends UnsignedTypedArrayConstructor
+, V extends TypedArrayConstructor
+> {
+  get [Symbol.toStringTag](): string
+  get size(): number
+
+  readonly internalKeyArray: TypedArrayOfConstructor<K>
+  readonly internalValueArray: TypedArrayOfConstructor<V>
+
+  constructor(
+    keys: ResizableTypedArray<K>
+  , values: ResizableTypedArray<V>
+  )
+
+  entries(): IterableIterator<[key: number, value: number]>
+  keys(): IterableIterator<number>
+  values(): IterableIterator<number>
+
+  getInternalIndexOfKey(key: number): number | undefined
+
+  has(key: number): boolean
+  get(key: number): number | undefined
+  set(key: number, value: number): void
+  delete(key: number): boolean
+
+  clear(): void
+}
+```
+
+#### ResizableTypedCleanSparseMapLite
+```ts
+class ResizableTypedCleanSparseMapLite<
+  K extends UnsignedTypedArrayConstructor
+, V extends TypedArrayConstructor
+> {
+  get [Symbol.toStringTag](): string
+  get size(): number
+
+  readonly internalKeyArray: TypedArrayOfConstructor<K>
+  readonly internalValueArray: TypedArrayOfConstructor<V>
+
+  constructor(
+    keys: ResizableTypedArray<K>
+  , values: ResizableTypedArray<V>
+  )
+
+  entries(): IterableIterator<[key: number, value: number]>
+  keys(): IterableIterator<number>
+  values(): IterableIterator<number>
+
+  getInternalIndexOfKey(key: number): number | undefined
+
+  has(key: number): boolean
+  get(key: number): number | undefined
+  set(key: number, value: number): void
+  delete(key: number): boolean
 
   clear(): void
 }

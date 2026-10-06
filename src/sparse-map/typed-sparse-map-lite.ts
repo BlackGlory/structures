@@ -1,15 +1,13 @@
 import { assert } from '@blackglory/errors'
-import { go } from '@blackglory/go'
-import { getMaxValueOfUnsignedTypedArray, getMaxValueOfUnsignedTypedArrayConstructor } from '@utils/get-max-value-of-unsigned-typed-array.js'
-import { TypedArrayConstructor, UnsignedTypedArrayConstructor, TypedArrayOfConstructor, UnsignedTypedArray } from 'justypes'
+import { TypedArrayConstructor, UnsignedTypedArrayConstructor, TypedArrayOfConstructor } from 'justypes'
 
-export class TypedSparseMap<
+export class TypedSparseMapLite<
   K extends UnsignedTypedArrayConstructor
 , V extends TypedArrayConstructor
 > {
   private denseKeys: TypedArrayOfConstructor<K>
   private denseValues: TypedArrayOfConstructor<V>
-  private sparse: UnsignedTypedArray
+  private sparse: Array<number | undefined> = []
   #length = 0
 
   readonly internalKeyArray: TypedArrayOfConstructor<K, ArrayBuffer>
@@ -39,32 +37,6 @@ export class TypedSparseMap<
 
     this.internalKeyArray = keys
     this.internalValueArray = values
-
-    const sparseConstructor = go(() => {
-      const maxIndex = Math.min(
-        keys.length - 1
-      , getMaxValueOfUnsignedTypedArray(keys) + 1
-      )
-      if (
-        maxIndex <=
-        getMaxValueOfUnsignedTypedArrayConstructor(Uint8Array)
-      ) {
-        return Uint8Array
-      } else if (
-        maxIndex <=
-        getMaxValueOfUnsignedTypedArrayConstructor(Uint16Array)
-      ) {
-        return Uint16Array
-      } else if (
-        maxIndex <=
-        getMaxValueOfUnsignedTypedArrayConstructor(Uint32Array)
-      ) {
-        return Uint32Array
-      } else {
-        throw new Error('The array is too large')
-      }
-    })
-    this.sparse = new sparseConstructor(getMaxValueOfUnsignedTypedArray(keys) + 1)
   }
 
   * entries(): IterableIterator<[key: number, value: number]> {

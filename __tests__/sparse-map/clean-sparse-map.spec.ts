@@ -38,18 +38,18 @@ describe('SparseMap', () => {
     const map = new CleanSparseMap()
     map.set(1, 10)
 
-    const result = [...map.internalKeyArray]
+    const result = map.internalKeyArray[0]
 
-    expect(result).toStrictEqual([1])
+    expect(result).toBe(1)
   })
 
   test('internalValueArray', () => {
     const map = new CleanSparseMap()
     map.set(1, 10)
 
-    const result = [...map.internalValueArray]
+    const result = map.internalValueArray[0]
 
-    expect(result).toStrictEqual([10])
+    expect(result).toBe(10)
   })
 
   test('has', () => {

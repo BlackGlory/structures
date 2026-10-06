@@ -1,15 +1,13 @@
 import { assert } from '@blackglory/errors'
-import { go } from '@blackglory/go'
-import { getMaxValueOfUnsignedTypedArray, getMaxValueOfUnsignedTypedArrayConstructor } from '@utils/get-max-value-of-unsigned-typed-array.js'
-import { TypedArrayConstructor, UnsignedTypedArrayConstructor, TypedArrayOfConstructor, UnsignedTypedArray } from 'justypes'
+import { TypedArrayConstructor, UnsignedTypedArrayConstructor, TypedArrayOfConstructor } from 'justypes'
 
-export class TypedSparseMap<
+export class TypedCleanSparseMapLite<
   K extends UnsignedTypedArrayConstructor
 , V extends TypedArrayConstructor
 > {
   private denseKeys: TypedArrayOfConstructor<K>
   private denseValues: TypedArrayOfConstructor<V>
-  private sparse: UnsignedTypedArray
+  private sparse: Array<number | undefined> = []
   #length = 0
 
   readonly internalKeyArray: TypedArrayOfConstructor<K, ArrayBuffer>
@@ -39,32 +37,6 @@ export class TypedSparseMap<
 
     this.internalKeyArray = keys
     this.internalValueArray = values
-
-    const sparseConstructor = go(() => {
-      const maxIndex = Math.min(
-        keys.length - 1
-      , getMaxValueOfUnsignedTypedArray(keys) + 1
-      )
-      if (
-        maxIndex <=
-        getMaxValueOfUnsignedTypedArrayConstructor(Uint8Array)
-      ) {
-        return Uint8Array
-      } else if (
-        maxIndex <=
-        getMaxValueOfUnsignedTypedArrayConstructor(Uint16Array)
-      ) {
-        return Uint16Array
-      } else if (
-        maxIndex <=
-        getMaxValueOfUnsignedTypedArrayConstructor(Uint32Array)
-      ) {
-        return Uint32Array
-      } else {
-        throw new Error('The array is too large')
-      }
-    })
-    this.sparse = new sparseConstructor(getMaxValueOfUnsignedTypedArray(keys) + 1)
   }
 
   * entries(): IterableIterator<[key: number, value: number]> {
@@ -89,33 +61,16 @@ export class TypedSparseMap<
   }
 
   getInternalIndexOfKey(key: number): number | undefined {
-    const index = this.sparse[key]
-    if (
-      index !== undefined &&
-      index < this.#length &&
-      index < this.denseKeys.length && // 用于改善JIT优化.
-      this.denseKeys[index] === key
-    ) {
-      return index
-    }
+    return this.sparse[key]
   }
 
   has(key: number): boolean {
-    const index = this.sparse[key]
-    return index !== undefined
-        && index < this.#length
-        && index < this.denseKeys.length // 用于改善JIT优化.
-        && this.denseKeys[index] === key
+    return this.sparse[key] !== undefined
   }
 
   get(key: number): number | undefined {
     const index = this.sparse[key]
-    if (
-      index !== undefined &&
-      index < this.#length &&
-      index < this.denseKeys.length && // 用于改善JIT优化.
-      this.denseKeys[index] === key
-    ) {
+    if (index !== undefined) {
       return this.denseValues[index]
     } else {
       return undefined
@@ -124,12 +79,7 @@ export class TypedSparseMap<
 
   set(key: number, value: number): void {
     const index = this.sparse[key]
-    if (
-      index !== undefined &&
-      index < this.#length &&
-      index < this.denseKeys.length && // 用于改善JIT优化.
-      this.denseKeys[index] === key
-    ) {
+    if (index !== undefined) {
       this.denseValues[index] = value
     } else {
       const index = this.#length++
@@ -141,12 +91,9 @@ export class TypedSparseMap<
 
   delete(key: number): boolean {
     const index = this.sparse[key]
-    if (
-      index !== undefined &&
-      index < this.#length &&
-      index < this.denseKeys.length && // 用于改善JIT优化.
-      this.denseKeys[index] === key
-    ) {
+    if (index !== undefined) {
+      this.sparse[key] = undefined
+
       const lastIndex = --this.#length
       const lastKey = this.denseKeys[lastIndex]
       const lastValue = this.denseValues[lastIndex]
@@ -164,6 +111,6 @@ export class TypedSparseMap<
 
   clear(): void {
     this.#length = 0
-    // 无需清空dense和sparse数组.
+    this.sparse.length = 0
   }
 }

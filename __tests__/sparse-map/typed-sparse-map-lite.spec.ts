@@ -1,11 +1,11 @@
 import { describe, test, expect } from 'vitest'
-import { TypedSparseMap } from '@sparse-map/typed-sparse-map.js'
+import { TypedSparseMapLite } from '@sparse-map/typed-sparse-map-lite.js'
 import { toArray } from 'iterable-operator'
 
-describe('TypedSparseMap', () => {
+describe('TypedSparseMapLite', () => {
   describe('size', () => {
     test('empty', () => {
-      const map = new TypedSparseMap(new Uint8Array(1000), new Int8Array(1000))
+      const map = new TypedSparseMapLite(new Uint8Array(1000), new Int8Array(1000))
 
       const result = map.size
 
@@ -14,7 +14,7 @@ describe('TypedSparseMap', () => {
 
     describe('non-empty', () => {
       test('set', () => {
-        const map = new TypedSparseMap(new Uint8Array(1000), new Int8Array(1000))
+        const map = new TypedSparseMapLite(new Uint8Array(1000), new Int8Array(1000))
         map.set(1, 10)
 
         const result = map.size
@@ -23,7 +23,7 @@ describe('TypedSparseMap', () => {
       })
 
       test('delete', () => {
-        const map = new TypedSparseMap(new Uint8Array(1000), new Int8Array(1000))
+        const map = new TypedSparseMapLite(new Uint8Array(1000), new Int8Array(1000))
         map.set(1, 10)
         map.delete(1)
 
@@ -36,7 +36,7 @@ describe('TypedSparseMap', () => {
 
   test('internalKeyArray', () => {
     const keys = new Uint8Array(1000)
-    const map = new TypedSparseMap(keys, new Int8Array(1000))
+    const map = new TypedSparseMapLite(keys, new Int8Array(1000))
     map.set(1, 10)
 
     const internalKeyArray = map.internalKeyArray
@@ -48,7 +48,7 @@ describe('TypedSparseMap', () => {
 
   test('internalValueArray', () => {
     const values = new Int8Array(1000)
-    const map = new TypedSparseMap(new Uint8Array(1000), values)
+    const map = new TypedSparseMapLite(new Uint8Array(1000), values)
     map.set(1, 10)
 
     const internalValueArray = map.internalValueArray
@@ -59,7 +59,7 @@ describe('TypedSparseMap', () => {
   })
 
   test('has', () => {
-    const map = new TypedSparseMap(new Uint8Array(1000), new Int8Array(1000))
+    const map = new TypedSparseMapLite(new Uint8Array(1000), new Int8Array(1000))
     map.set(1, 10)
 
     const result1 = map.has(1)
@@ -70,7 +70,7 @@ describe('TypedSparseMap', () => {
   })
 
   test('set', () => {
-    const map = new TypedSparseMap(new Uint8Array(1000), new Int8Array(1000))
+    const map = new TypedSparseMapLite(new Uint8Array(1000), new Int8Array(1000))
 
     map.set(1, 10)
     map.set(2, 20)
@@ -83,7 +83,7 @@ describe('TypedSparseMap', () => {
 
   describe('get', () => {
     test('exists', () => {
-      const map = new TypedSparseMap(new Uint8Array(1000), new Int8Array(1000))
+      const map = new TypedSparseMapLite(new Uint8Array(1000), new Int8Array(1000))
       map.set(1, 10)
 
       const result = map.get(1)
@@ -92,7 +92,7 @@ describe('TypedSparseMap', () => {
     })
 
     test('does not exist', () => {
-      const map = new TypedSparseMap(new Uint8Array(1000), new Int8Array(1000))
+      const map = new TypedSparseMapLite(new Uint8Array(1000), new Int8Array(1000))
 
       const result = map.get(1)
 
@@ -100,7 +100,7 @@ describe('TypedSparseMap', () => {
     })
 
     test('edge: deleted key', () => {
-      const map = new TypedSparseMap(new Uint8Array(1000), new Int8Array(1000))
+      const map = new TypedSparseMapLite(new Uint8Array(1000), new Int8Array(1000))
       map.set(1, 10)
       map.delete(1)
 
@@ -110,7 +110,7 @@ describe('TypedSparseMap', () => {
     })
 
     test('edge: reused key', () => {
-      const map = new TypedSparseMap(new Uint8Array(1000), new Int8Array(1000))
+      const map = new TypedSparseMapLite(new Uint8Array(1000), new Int8Array(1000))
       map.set(1, 10)
       map.delete(1)
       map.set(1, 20)
@@ -121,7 +121,7 @@ describe('TypedSparseMap', () => {
     })
 
     test('edge: reused key with length growth', () => {
-      const map = new TypedSparseMap(new Uint8Array(1000), new Int8Array(1000))
+      const map = new TypedSparseMapLite(new Uint8Array(1000), new Int8Array(1000))
       map.set(0, 0)
       map.set(1, 10)
       map.delete(0)
@@ -140,7 +140,7 @@ describe('TypedSparseMap', () => {
 
   describe('delete', () => {
     test('not last item', () => {
-      const map = new TypedSparseMap(new Uint8Array(1000), new Int8Array(1000))
+      const map = new TypedSparseMapLite(new Uint8Array(1000), new Int8Array(1000))
       map.set(1, 10)
       map.set(2, 20)
 
@@ -152,7 +152,7 @@ describe('TypedSparseMap', () => {
     })
 
     test('last item', () => {
-      const map = new TypedSparseMap(new Uint8Array(1000), new Int8Array(1000))
+      const map = new TypedSparseMapLite(new Uint8Array(1000), new Int8Array(1000))
       map.set(1, 10)
 
       map.delete(1)
@@ -163,7 +163,7 @@ describe('TypedSparseMap', () => {
   })
 
   test('clear', () => {
-    const map = new TypedSparseMap(new Uint8Array(1000), new Int8Array(1000))
+    const map = new TypedSparseMapLite(new Uint8Array(1000), new Int8Array(1000))
     map.set(1, 10)
 
     map.clear()
@@ -173,7 +173,7 @@ describe('TypedSparseMap', () => {
   })
 
   test('entries', () => {
-    const set = new TypedSparseMap(new Uint8Array(1000), new Int8Array(1000))
+    const set = new TypedSparseMapLite(new Uint8Array(1000), new Int8Array(1000))
     set.set(1, 10)
     set.set(2, 20)
     set.set(3, 30)
@@ -189,7 +189,7 @@ describe('TypedSparseMap', () => {
   })
 
   test('keys', () => {
-    const set = new TypedSparseMap(new Uint8Array(1000), new Int8Array(1000))
+    const set = new TypedSparseMapLite(new Uint8Array(1000), new Int8Array(1000))
     set.set(1, 10)
     set.set(2, 20)
     set.set(3, 30)
@@ -201,7 +201,7 @@ describe('TypedSparseMap', () => {
   })
 
   test('values', () => {
-    const set = new TypedSparseMap(new Uint8Array(1000), new Int8Array(1000))
+    const set = new TypedSparseMapLite(new Uint8Array(1000), new Int8Array(1000))
     set.set(1, 10)
     set.set(2, 20)
     set.set(3, 30)
@@ -213,7 +213,7 @@ describe('TypedSparseMap', () => {
   })
 
   test('getInternalIndexOfKey', () => {
-    const set = new TypedSparseMap(new Uint8Array(1000), new Int8Array(1000))
+    const set = new TypedSparseMapLite(new Uint8Array(1000), new Int8Array(1000))
     set.set(3, 30)
     set.set(1, 10)
     set.set(2, 20)

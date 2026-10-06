@@ -1,3 +1,11 @@
 export * from './sparse-map.js'
 export * from './typed-sparse-map.js'
+export * from './typed-sparse-map-lite.js'
+export * from './dynamic-typed-sparse-map-lite.js'
+export * from './resizable-typed-sparse-map-lite.js'
+
 export * from './clean-sparse-map.js'
+export * from './typed-clean-sparse-map.js'
+export * from './typed-clean-sparse-map-lite.js'
+export * from './dynamic-typed-clean-sparse-map-lite.js'
+export * from './resizable-typed-clean-sparse-map-lite.js'
