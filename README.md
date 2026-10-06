@@ -875,6 +875,12 @@ class ResizableTypedCleanSparseSetLite implements Iterable<number> {
 ```
 
 ### Sparse Map
+There are many implementations.
+Based on benchmark results, `TypedCleanSparseMap` is the fastest,
+followed by `TypedCleanSparseMapLite`.
+If array resizing is required,
+choose `DynamicTypedCleanSparseMapLite` or `ResizableTypedCleanSparseMapLite`.
+
 #### SparseMap
 ```ts
 class SparseMap<T> {
