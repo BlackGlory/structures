@@ -49,7 +49,7 @@ export class DynamicTypedCleanSparseSet<
 
       const lastValue = this.dense.pop()!
       if (value !== lastValue) {
-        this.dense.set(index, lastValue)
+        this.dense.internalTypedArray[index] = lastValue
         this.sparse[lastValue] = index
       }
 

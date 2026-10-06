@@ -6,6 +6,11 @@ export class ResizableTypedCleanSparseSet<
   T extends UnsignedTypedArrayConstructor
 > implements Iterable<number> {
   private dense: ResizableTypedArray<T>
+
+  // 理论上, 这也可以是`ResizableTypedArray`.
+  // 为了存储NULL值, `ResizableTypedArray`需具备在调整大小后填充NULL值的特性,
+  // 这对通用的`ResizableTypedArray`实现而言是一项太大的负担.
+  // 为实现该功能, 将不得不为此专门维护一个`ResizableTypedArray`实现.
   private sparse: Array<number | undefined> = []
 
   get [Symbol.toStringTag](): string {
@@ -49,7 +54,7 @@ export class ResizableTypedCleanSparseSet<
 
       const lastValue = this.dense.pop()!
       if (value !== lastValue) {
-        this.dense.set(index, lastValue)
+        this.dense.internalTypedArray[index] = lastValue
         this.sparse[lastValue] = index
       }
 

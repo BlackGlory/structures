@@ -24,18 +24,24 @@ export class TypedSparseSet<
     this.dense = array
 
     const sparseConstructor = go(() => {
+      const maxIndex = array.length - 1
       if (
-        array.length <=
+        maxIndex <=
         getMaxValueOfUnsignedTypedArrayConstructor(Uint8Array)
       ) {
         return Uint8Array
       } else if (
-        array.length <=
+        maxIndex <=
         getMaxValueOfUnsignedTypedArrayConstructor(Uint16Array)
       ) {
         return Uint16Array
-      } else {
+      } else if (
+        maxIndex <=
+        getMaxValueOfUnsignedTypedArrayConstructor(Uint32Array)
+      ) {
         return Uint32Array
+      } else {
+        throw new Error('The array is too large')
       }
     })
     this.sparse = new sparseConstructor(

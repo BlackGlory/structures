@@ -38,8 +38,13 @@ export class TypedCleanSparseSet<
         getMaxValueOfUnsignedTypedArrayConstructor(Uint16Array)
       ) {
         return Uint16Array
-      } else {
+      } else if (
+        NULL <=
+        getMaxValueOfUnsignedTypedArrayConstructor(Uint32Array)
+      ) {
         return Uint32Array
+      } else {
+        throw new Error('The array is too large')
       }
     })
     const sparse = new sparseConstructor(

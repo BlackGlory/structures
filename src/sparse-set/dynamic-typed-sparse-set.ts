@@ -33,7 +33,6 @@ export class DynamicTypedSparseSet<
   has(value: number): boolean {
     const index = this.sparse.get(value)
     return index !== undefined
-        && index < this.dense.length // 用于改善JIT优化.
         && this.dense.get(index) === value
   }
 
@@ -49,12 +48,11 @@ export class DynamicTypedSparseSet<
     const index = this.sparse.get(value)
     if (
       index !== undefined &&
-      index < this.dense.length && // 用于改善JIT优化.
       this.dense.get(index) === value
     ) {
       const lastValue = this.dense.pop()!
       if (value !== lastValue) {
-        this.dense.set(index, lastValue)
+        this.dense.internalTypedArray[index] = lastValue
         this.sparse.set(lastValue, index)
       }
 

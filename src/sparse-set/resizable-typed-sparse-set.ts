@@ -24,18 +24,24 @@ export class ResizableTypedSparseSet<
     this.dense = array
 
     const sparseConstructor = go(() => {
+      const maxIndex = array.maxCapacity - 1
       if (
-        array.maxCapacity <=
+        maxIndex <=
         getMaxValueOfUnsignedTypedArrayConstructor(Uint8Array)
       ) {
         return Uint8Array
       } else if (
-        array.maxCapacity <=
+        maxIndex <=
         getMaxValueOfUnsignedTypedArrayConstructor(Uint16Array)
       ) {
         return Uint16Array
-      } else {
+      } else if (
+        maxIndex <=
+        getMaxValueOfUnsignedTypedArrayConstructor(Uint32Array)
+      ) {
         return Uint32Array
+      } else {
+        throw new Error('The array is too large')
       }
     })
     this.sparse = new ResizableTypedArray(sparseConstructor, {
@@ -54,7 +60,6 @@ export class ResizableTypedSparseSet<
   has(value: number): boolean {
     const index = this.sparse.get(value)
     return index !== undefined
-        && index < this.dense.length // 用于改善JIT优化.
         && this.dense.get(index) === value
   }
 
@@ -70,12 +75,11 @@ export class ResizableTypedSparseSet<
     const index = this.sparse.get(value)
     if (
       index !== undefined &&
-      index < this.dense.length && // 用于改善JIT优化.
       this.dense.get(index) === value
     ) {
       const lastValue = this.dense.pop()!
       if (value !== lastValue) {
-        this.dense.set(index, lastValue)
+        this.dense.internalTypedArray[index] = lastValue
         this.sparse.set(lastValue, index)
       }
 
