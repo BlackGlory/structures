@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.15.4](https://github.com/BlackGlory/structures/compare/v0.15.3...v0.15.4) (2026-10-07)
+
+
+### Features
+
+* **sparse-set:** `add()` methods now return a boolean value ([2eac229](https://github.com/BlackGlory/structures/commit/2eac22949e1e95c5210d94e89f8fd0515ff53b09))
+
 ### [0.15.3](https://github.com/BlackGlory/structures/compare/v0.15.2...v0.15.3) (2026-10-07)
 
 
