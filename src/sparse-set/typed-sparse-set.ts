@@ -6,14 +6,14 @@ import { UnsignedTypedArray } from 'justypes'
 export class TypedSparseSet implements Iterable<number> {
   private dense: UnsignedTypedArray
   private sparse: UnsignedTypedArray
-  #length = 0
+  private _length = 0
 
   get [Symbol.toStringTag](): string {
     return this.constructor.name
   }
 
   get size(): number {
-    return this.#length
+    return this._length
   }
 
   constructor(array: UnsignedTypedArray<ArrayBuffer>) {
@@ -53,7 +53,7 @@ export class TypedSparseSet implements Iterable<number> {
   }
 
   * values(): IterableIterator<number> {
-    for (let i = 0; i < this.#length; i++) {
+    for (let i = 0; i < this._length; i++) {
       yield this.dense[i]
     }
   }
@@ -61,14 +61,14 @@ export class TypedSparseSet implements Iterable<number> {
   has(value: number): boolean {
     const index = this.sparse[value]
     return index !== undefined
-        && index < this.#length
+        && index < this._length
         && index < this.dense.length // 用于改善JIT优化.
         && this.dense[index] === value
   }
 
   add(value: number): void {
     if (!this.has(value)) {
-      const index = this.#length++
+      const index = this._length++
       this.dense[index] = value
       this.sparse[value] = index
     }
@@ -78,11 +78,11 @@ export class TypedSparseSet implements Iterable<number> {
     const index = this.sparse[value]
     if (
       index !== undefined &&
-      index < this.#length &&
+      index < this._length &&
       index < this.dense.length && // 用于改善JIT优化.
       this.dense[index] === value
     ) {
-      const lastIndex = --this.#length
+      const lastIndex = --this._length
       const lastValue = this.dense[lastIndex]
       if (value !== lastValue) {
         this.dense[index] = lastValue
@@ -96,7 +96,7 @@ export class TypedSparseSet implements Iterable<number> {
   }
 
   clear(): void {
-    this.#length = 0
+    this._length = 0
     // 无需清空dense和sparse数组.
   }
 }

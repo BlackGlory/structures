@@ -10,7 +10,7 @@ export class TypedSparseMap<
   private denseKeys: TypedArrayOfConstructor<K>
   private denseValues: TypedArrayOfConstructor<V>
   private sparse: UnsignedTypedArray
-  #length = 0
+  private _length = 0
 
   readonly internalKeyArray: TypedArrayOfConstructor<K, ArrayBuffer>
   readonly internalValueArray: TypedArrayOfConstructor<V, ArrayBuffer>
@@ -20,7 +20,7 @@ export class TypedSparseMap<
   }
 
   get size(): number {
-    return this.#length
+    return this._length
   }
 
   constructor(
@@ -68,7 +68,7 @@ export class TypedSparseMap<
   }
 
   * entries(): IterableIterator<[key: number, value: number]> {
-    for (let i = 0; i < this.#length; i++) {
+    for (let i = 0; i < this._length; i++) {
       yield [
         this.denseKeys[i]
       , this.denseValues[i]
@@ -77,13 +77,13 @@ export class TypedSparseMap<
   }
 
   * keys(): IterableIterator<number> {
-    for (let i = 0; i < this.#length; i++) {
+    for (let i = 0; i < this._length; i++) {
       yield this.denseKeys[i]
     }
   }
 
   * values(): IterableIterator<number> {
-    for (let i = 0; i < this.#length; i++) {
+    for (let i = 0; i < this._length; i++) {
       yield this.denseValues[i]
     }
   }
@@ -92,7 +92,7 @@ export class TypedSparseMap<
     const index = this.sparse[key]
     if (
       index !== undefined &&
-      index < this.#length &&
+      index < this._length &&
       index < this.denseKeys.length && // 用于改善JIT优化.
       this.denseKeys[index] === key
     ) {
@@ -103,7 +103,7 @@ export class TypedSparseMap<
   has(key: number): boolean {
     const index = this.sparse[key]
     return index !== undefined
-        && index < this.#length
+        && index < this._length
         && index < this.denseKeys.length // 用于改善JIT优化.
         && this.denseKeys[index] === key
   }
@@ -112,7 +112,7 @@ export class TypedSparseMap<
     const index = this.sparse[key]
     if (
       index !== undefined &&
-      index < this.#length &&
+      index < this._length &&
       index < this.denseKeys.length && // 用于改善JIT优化.
       this.denseKeys[index] === key
     ) {
@@ -126,13 +126,13 @@ export class TypedSparseMap<
     const index = this.sparse[key]
     if (
       index !== undefined &&
-      index < this.#length &&
+      index < this._length &&
       index < this.denseKeys.length && // 用于改善JIT优化.
       this.denseKeys[index] === key
     ) {
       this.denseValues[index] = value
     } else {
-      const index = this.#length++
+      const index = this._length++
       this.denseKeys[index] = key
       this.denseValues[index] = value
       this.sparse[key] = index
@@ -143,11 +143,11 @@ export class TypedSparseMap<
     const index = this.sparse[key]
     if (
       index !== undefined &&
-      index < this.#length &&
+      index < this._length &&
       index < this.denseKeys.length && // 用于改善JIT优化.
       this.denseKeys[index] === key
     ) {
-      const lastIndex = --this.#length
+      const lastIndex = --this._length
       const lastKey = this.denseKeys[lastIndex]
       const lastValue = this.denseValues[lastIndex]
       if (key !== lastKey) {
@@ -163,7 +163,7 @@ export class TypedSparseMap<
   }
 
   clear(): void {
-    this.#length = 0
+    this._length = 0
     // 无需清空dense和sparse数组.
   }
 }

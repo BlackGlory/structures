@@ -7,14 +7,14 @@ export class TypedCleanSparseSet implements Iterable<number> {
   private dense: UnsignedTypedArray
   private sparse: UnsignedTypedArray
   private readonly NULL: number
-  #length = 0
+  private _length = 0
 
   get [Symbol.toStringTag](): string {
     return this.constructor.name
   }
 
   get size(): number {
-    return this.#length
+    return this._length
   }
 
   constructor(array: UnsignedTypedArray<ArrayBuffer>) {
@@ -58,7 +58,7 @@ export class TypedCleanSparseSet implements Iterable<number> {
   }
 
   * values(): IterableIterator<number> {
-    for (let i = 0; i < this.#length; i++) {
+    for (let i = 0; i < this._length; i++) {
       yield this.dense[i]
     }
   }
@@ -69,7 +69,7 @@ export class TypedCleanSparseSet implements Iterable<number> {
 
   add(value: number): void {
     if (!this.has(value)) {
-      const index = this.#length++
+      const index = this._length++
       this.dense[index] = value
       this.sparse[value] = index
     }
@@ -80,7 +80,7 @@ export class TypedCleanSparseSet implements Iterable<number> {
     if (index !== this.NULL) {
       this.sparse[value] = this.NULL
 
-      const lastIndex = --this.#length
+      const lastIndex = --this._length
       const lastValue = this.dense[lastIndex]
       if (value !== lastValue) {
         this.dense[index] = lastValue
@@ -94,7 +94,7 @@ export class TypedCleanSparseSet implements Iterable<number> {
   }
 
   clear(): void {
-    this.#length = 0
+    this._length = 0
     this.sparse.fill(this.NULL)
   }
 }

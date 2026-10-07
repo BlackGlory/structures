@@ -4,7 +4,7 @@ import { trailingZeros } from '@utils/trailing-zeros.js'
 export class BitSet implements Iterable<number> {
   private array: Array<number | undefined> = []
   private length = 0
-  #size = 0
+  private _size = 0
 
   private isBitsPerElementPowerOfTwo: boolean = false
   private quotientShift = 0
@@ -39,7 +39,7 @@ export class BitSet implements Iterable<number> {
   }
 
   get size(): number {
-    return this.#size
+    return this._size
   }
 
   [Symbol.iterator](): IterableIterator<number> {
@@ -89,7 +89,7 @@ export class BitSet implements Iterable<number> {
     this.array[index] = element | mask
 
     const added = (element & mask) !== mask
-    if (added) this.#size++
+    if (added) this._size++
 
     if (value >= this.length) this.length = value + 1
 
@@ -103,13 +103,13 @@ export class BitSet implements Iterable<number> {
     this.array[index] = element & ~mask
 
     const deleted = (element & mask) === mask
-    if (deleted) this.#size--
+    if (deleted) this._size--
 
     return deleted
   }
 
   clear(): void {
-    this.#size = 0
+    this._size = 0
     this.length = 0
     this.array.length = 0
   }
@@ -119,7 +119,7 @@ export class BitSet implements Iterable<number> {
 
     clone.array = [...this.array]
     clone.length = this.length
-    clone.#size = this.#size
+    clone._size = this._size
 
     return clone
   }

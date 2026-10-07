@@ -11,7 +11,7 @@ export class TypedCleanSparseMap<
   private denseValues: TypedArrayOfConstructor<V>
   private sparse: UnsignedTypedArray
   private readonly NULL: number
-  #length = 0
+  private _length = 0
 
   readonly internalKeyArray: TypedArrayOfConstructor<K, ArrayBuffer>
   readonly internalValueArray: TypedArrayOfConstructor<V, ArrayBuffer>
@@ -21,7 +21,7 @@ export class TypedCleanSparseMap<
   }
 
   get size(): number {
-    return this.#length
+    return this._length
   }
 
   constructor(
@@ -73,7 +73,7 @@ export class TypedCleanSparseMap<
   }
 
   * entries(): IterableIterator<[key: number, value: number]> {
-    for (let i = 0; i < this.#length; i++) {
+    for (let i = 0; i < this._length; i++) {
       yield [
         this.denseKeys[i]
       , this.denseValues[i]
@@ -82,13 +82,13 @@ export class TypedCleanSparseMap<
   }
 
   * keys(): IterableIterator<number> {
-    for (let i = 0; i < this.#length; i++) {
+    for (let i = 0; i < this._length; i++) {
       yield this.denseKeys[i]
     }
   }
 
   * values(): IterableIterator<number> {
-    for (let i = 0; i < this.#length; i++) {
+    for (let i = 0; i < this._length; i++) {
       yield this.denseValues[i]
     }
   }
@@ -115,7 +115,7 @@ export class TypedCleanSparseMap<
     if (index !== this.NULL) {
       this.denseValues[index] = value
     } else {
-      const index = this.#length++
+      const index = this._length++
       this.denseKeys[index] = key
       this.denseValues[index] = value
       this.sparse[key] = index
@@ -127,7 +127,7 @@ export class TypedCleanSparseMap<
     if (index !== this.NULL) {
       this.sparse[key] = this.NULL
 
-      const lastIndex = --this.#length
+      const lastIndex = --this._length
       const lastKey = this.denseKeys[lastIndex]
       const lastValue = this.denseValues[lastIndex]
       if (key !== lastKey) {
@@ -143,7 +143,7 @@ export class TypedCleanSparseMap<
   }
 
   clear(): void {
-    this.#length = 0
+    this._length = 0
     this.sparse.fill(this.NULL)
   }
 }

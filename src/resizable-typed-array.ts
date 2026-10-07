@@ -22,7 +22,7 @@ export class ResizableTypedArray<
   readonly internalTypedArray: TypedArrayOfConstructor<T>
   readonly fillValue: number
 
-  #length: number = 0
+  private _length: number = 0
 
   get [Symbol.toStringTag](): string {
     return this.constructor.name
@@ -39,7 +39,7 @@ export class ResizableTypedArray<
    * 数组逻辑上的长度, 总是小于或等于capacity.
    */
   get length(): number {
-    return this.#length
+    return this._length
   }
 
   constructor(
@@ -79,7 +79,7 @@ export class ResizableTypedArray<
   }
 
   * values(): IterableIterator<number> {
-    for (let i = 0; i < this.#length; i++) {
+    for (let i = 0; i < this._length; i++) {
       yield this.array[i]
     }
   }
@@ -100,8 +100,8 @@ export class ResizableTypedArray<
       this.resize(newCapacity)
     }
 
-    if (index >= this.#length) {
-      this.#length = index + 1
+    if (index >= this._length) {
+      this._length = index + 1
     }
 
     this.array[index] = value
@@ -127,21 +127,21 @@ export class ResizableTypedArray<
       this.resize(newCapacity)
     }
 
-    if (endIndex > this.#length) {
-      this.#length = endIndex
+    if (endIndex > this._length) {
+      this._length = endIndex
     }
 
     this.array.set(values, index)
   }
 
   get(index: number): number | undefined {
-    return index < this.#length
+    return index < this._length
          ? this.array[index]
          : undefined
   }
 
   push(...values: number[]): void {
-    const newLength = this.#length + values.length
+    const newLength = this._length + values.length
     if (newLength > this.capacity) {
       assert(
         newLength <= this.maxCapacity
@@ -161,14 +161,14 @@ export class ResizableTypedArray<
     }
 
     for (const value of values) {
-      this.array[this.#length++] = value
+      this.array[this._length++] = value
     }
   }
 
   pop(): number | undefined {
-    if (this.#length > 0) {
-      const value = this.array[this.#length - 1]
-      this.#length--
+    if (this._length > 0) {
+      const value = this.array[this._length - 1]
+      this._length--
 
       return value
     } else {
@@ -177,7 +177,7 @@ export class ResizableTypedArray<
   }
 
   clear(): void {
-    this.#length = 0
+    this._length = 0
   }
 
   shrink(): void {

@@ -6,7 +6,7 @@ import { trailingZeros } from '@utils/trailing-zeros.js'
 export class DynamicTypedBitSet implements Iterable<number> {
   private bitsPerElement: number
   private length = 0
-  #size = 0
+  private _size = 0
 
   private quotientShift = 0
   private remainderMask = 0
@@ -16,7 +16,7 @@ export class DynamicTypedBitSet implements Iterable<number> {
   }
 
   get size(): number {
-    return this.#size
+    return this._size
   }
 
   constructor(private array: DynamicTypedArray<UnsignedTypedArrayConstructor>) {
@@ -89,7 +89,7 @@ export class DynamicTypedBitSet implements Iterable<number> {
     this.array.set(index, element | mask)
 
     const added = (element & mask) !== mask
-    if (added) this.#size++
+    if (added) this._size++
 
     if (value >= this.length) this.length = value + 1
 
@@ -103,13 +103,13 @@ export class DynamicTypedBitSet implements Iterable<number> {
     this.array.set(index, element & ~mask)
 
     const deleted = (element & mask) === mask
-    if (deleted) this.#size--
+    if (deleted) this._size--
 
     return deleted
   }
 
   clear(): void {
-    this.#size = 0
+    this._size = 0
     this.array.clear()
   }
 
