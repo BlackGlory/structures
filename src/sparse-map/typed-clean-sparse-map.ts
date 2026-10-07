@@ -94,7 +94,12 @@ export class TypedCleanSparseMap<
   }
 
   getInternalIndexOfKey(key: number): number | undefined {
-    return this.sparse[key]
+    const index = this.sparse[key]
+    if (index !== this.NULL) {
+      return index
+    } else {
+      return undefined
+    }
   }
 
   has(key: number): boolean {

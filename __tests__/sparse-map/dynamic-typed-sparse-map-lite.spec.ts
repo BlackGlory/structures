@@ -279,10 +279,12 @@ describe('DynamicTypedSparseMapLite', () => {
     const result1 = set.getInternalIndexOfKey(1) // 1
     const result2 = set.getInternalIndexOfKey(2) // 2
     const result3 = set.getInternalIndexOfKey(3) // 0
+    const result4 = set.getInternalIndexOfKey(0) // undefined
 
     expect(result1).toBe(1)
     expect(result2).toBe(2)
     expect(result3).toBe(0)
+    expect(result4).toBeUndefined()
     expect(set.internalValueArray[result1!]).toBe(10)
     expect(set.internalValueArray[result2!]).toBe(20)
     expect(set.internalValueArray[result3!]).toBe(30)
