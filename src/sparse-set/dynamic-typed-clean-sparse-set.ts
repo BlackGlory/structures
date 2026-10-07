@@ -66,11 +66,15 @@ export class DynamicTypedCleanSparseSet implements Iterable<number> {
         && index !== this.NULL
   }
 
-  add(value: number): void {
+  add(value: number): boolean {
     if (!this.has(value)) {
       const index = this.dense.length
       this.dense.push(value)
       this.sparse.set(value, index)
+
+      return true
+    } else {
+      return false
     }
   }
 

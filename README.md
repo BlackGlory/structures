@@ -644,7 +644,7 @@ class SparseSet implements Iterable<number> {
   values(): IterableIterator<number>
 
   has(value: number): boolean
-  add(value: number): void
+  add(value: number): boolean
   delete(value: number): boolean
 
   clear(): void
@@ -662,7 +662,7 @@ class CleanSparseSet implements Iterable<number> {
   values(): IterableIterator<number>
 
   has(value: number): boolean
-  add(value: number): void
+  add(value: number): boolean
   delete(value: number): boolean
 
   clear(): void
@@ -682,7 +682,7 @@ class TypedSparseSet implements Iterable<number> {
   values(): IterableIterator<number>
 
   has(value: number): boolean
-  add(value: number): void
+  add(value: number): boolean
   delete(value: number): boolean
 
   clear(): void
@@ -700,7 +700,7 @@ class TypedSparseSetLite implements Iterable<number> {
   values(): IterableIterator<number>
 
   has(value: number): boolean
-  add(value: number): void
+  add(value: number): boolean
   delete(value: number): boolean
 
   clear(): void
@@ -718,7 +718,7 @@ class TypedCleanSparseSet implements Iterable<number> {
   values(): IterableIterator<number>
 
   has(value: number): boolean
-  add(value: number): void
+  add(value: number): boolean
   delete(value: number): boolean
 
   clear(): void
@@ -736,7 +736,7 @@ class TypedCleanSparseSetLite implements Iterable<number> {
   values(): IterableIterator<number>
 
   has(value: number): boolean
-  add(value: number): void
+  add(value: number): boolean
   delete(value: number): boolean
 
   clear(): void
@@ -754,7 +754,7 @@ class DynamicTypedSparseSet implements Iterable<number> {
   values(): IterableIterator<number>
 
   has(value: number): boolean
-  add(value: number): void
+  add(value: number): boolean
   delete(value: number): boolean
 
   clear(): void
@@ -772,7 +772,7 @@ class DynamicTypedSparseSetLite implements Iterable<number> {
   values(): IterableIterator<number>
 
   has(value: number): boolean
-  add(value: number): void
+  add(value: number): boolean
   delete(value: number): boolean
 
   clear(): void
@@ -790,7 +790,7 @@ class DynamicTypedCleanSparseSet implements Iterable<number> {
   values(): IterableIterator<number>
 
   has(value: number): boolean
-  add(value: number): void
+  add(value: number): boolean
   delete(value: number): boolean
 
   clear(): void
@@ -808,7 +808,7 @@ class DynamicTypedCleanSparseSetLite implements Iterable<number> {
   values(): IterableIterator<number>
 
   has(value: number): boolean
-  add(value: number): void
+  add(value: number): boolean
   delete(value: number): boolean
 
   clear(): void
@@ -826,7 +826,7 @@ class ResizableTypedSparseSet implements Iterable<number> {
   values(): IterableIterator<number>
 
   has(value: number): boolean
-  add(value: number): void
+  add(value: number): boolean
   delete(value: number): boolean
 
   clear(): void
@@ -844,7 +844,7 @@ class ResizableTypedSparseSetLite implements Iterable<number> {
   values(): IterableIterator<number>
 
   has(value: number): boolean
-  add(value: number): void
+  add(value: number): boolean
   delete(value: number): boolean
 
   clear(): void
@@ -862,7 +862,7 @@ class ResizableTypedCleanSparseSet implements Iterable<number> {
   values(): IterableIterator<number>
 
   has(value: number): boolean
-  add(value: number): void
+  add(value: number): boolean
   delete(value: number): boolean
 
   clear(): void
@@ -880,7 +880,7 @@ class ResizableTypedCleanSparseSetLite implements Iterable<number> {
   values(): IterableIterator<number>
 
   has(value: number): boolean
-  add(value: number): void
+  add(value: number): boolean
   delete(value: number): boolean
 
   clear(): void

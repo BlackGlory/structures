@@ -34,11 +34,15 @@ export class TypedCleanSparseSetLite implements Iterable<number> {
     return this.sparse[value] !== undefined
   }
 
-  add(value: number): void {
+  add(value: number): boolean {
     if (!this.has(value)) {
       const index = this._length++
       this.dense[index] = value
       this.sparse[value] = index
+
+      return true
+    } else {
+      return false
     }
   }
 

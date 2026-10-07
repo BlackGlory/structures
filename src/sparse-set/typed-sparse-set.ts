@@ -66,11 +66,15 @@ export class TypedSparseSet implements Iterable<number> {
         && this.dense[index] === value
   }
 
-  add(value: number): void {
+  add(value: number): boolean {
     if (!this.has(value)) {
       const index = this._length++
       this.dense[index] = value
       this.sparse[value] = index
+
+      return true
+    } else {
+      return false
     }
   }
 

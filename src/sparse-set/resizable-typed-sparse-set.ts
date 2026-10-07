@@ -64,11 +64,15 @@ export class ResizableTypedSparseSet implements Iterable<number> {
         && this.dense.get(index) === value
   }
 
-  add(value: number): void {
+  add(value: number): boolean {
     if (!this.has(value)) {
       const index = this.dense.length
       this.dense.push(value)
       this.sparse.set(value, index)
+
+      return true
+    } else {
+      return false
     }
   }
 

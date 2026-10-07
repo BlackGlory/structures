@@ -45,16 +45,29 @@ describe('SparseSet', () => {
     expect(result2).toBe(false)
   })
 
-  test('add', () => {
-    const set = new SparseSet()
+  describe('add', () => {
+    test('does not exist', () => {
+      const set = new SparseSet()
 
-    set.add(1)
-    set.add(2)
+      const result = set.add(1)
 
-    expect(set.size).toBe(2)
-    expect(set.has(0)).toBe(false)
-    expect(set.has(1)).toBe(true)
-    expect(set.has(2)).toBe(true)
+      expect(result).toBe(true)
+      expect(set.size).toBe(1)
+      expect(set.has(0)).toBe(false)
+      expect(set.has(1)).toBe(true)
+    })
+
+    test('exists', () => {
+      const set = new SparseSet()
+      set.add(1)
+
+      const result = set.add(1)
+
+      expect(result).toBe(false)
+      expect(set.size).toBe(1)
+      expect(set.has(0)).toBe(false)
+      expect(set.has(1)).toBe(true)
+    })
   })
 
   describe('delete', () => {
