@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.15.3](https://github.com/BlackGlory/structures/compare/v0.15.2...v0.15.3) (2026-10-07)
+
+
+### Bug Fixes
+
+* **typed-clean-sparse-map:** an edge case for `getInternalIndexOfKey` ([1b9c49f](https://github.com/BlackGlory/structures/commit/1b9c49f40b788b7514cb93558ca2d470a1cfe9f2))
+
 ### [0.15.2](https://github.com/BlackGlory/structures/compare/v0.15.1...v0.15.2) (2026-10-07)
 
 ### [0.15.1](https://github.com/BlackGlory/structures/compare/v0.15.0...v0.15.1) (2026-10-07)
