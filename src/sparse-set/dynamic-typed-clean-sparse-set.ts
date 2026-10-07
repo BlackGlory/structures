@@ -1,7 +1,7 @@
 import { TypedArrayConstructor, UnsignedTypedArrayConstructor } from 'justypes'
 import { DynamicTypedArray } from '@src/dynamic-typed-array.js'
 import { assert } from '@blackglory/errors'
-import { getMaxValueOfUnsignedTypedArray, getMaxValueOfUnsignedTypedArrayConstructor } from '@utils/get-max-value-of-unsigned-typed-array.js'
+import { getMaxValueOfUnsignedTypedArray, getMaxValueOfUnsignedTypedArrayConstructor } from '@src/typed-array.js'
 import { go } from '@blackglory/go'
 
 export class DynamicTypedCleanSparseSet implements Iterable<number> {

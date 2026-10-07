@@ -1,6 +1,6 @@
 import { assert } from '@blackglory/errors'
 import { go } from '@blackglory/go'
-import { getMaxValueOfUnsignedTypedArray, getMaxValueOfUnsignedTypedArrayConstructor } from '@utils/get-max-value-of-unsigned-typed-array.js'
+import { getMaxValueOfUnsignedTypedArray, getMaxValueOfUnsignedTypedArrayConstructor } from '@src/typed-array.js'
 import { TypedArrayConstructor, UnsignedTypedArrayConstructor, TypedArrayOfConstructor, UnsignedTypedArray } from 'justypes'
 
 export class TypedCleanSparseMap<

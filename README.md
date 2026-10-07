@@ -58,6 +58,19 @@ function truncateArrayRight(arr: unknown[], num: number): void
 function clearArray(arr: unknown[]): void
 ```
 
+### TypedArray
+#### getMaxValueOfUnsignedTypedArray
+```ts
+function getMaxValueOfUnsignedTypedArray(array: UnsignedTypedArray): number
+```
+
+#### getMaxValueOfUnsignedTypedArrayConstructor
+```ts
+function getMaxValueOfUnsignedTypedArrayConstructor(
+  constructor: UnsignedTypedArrayConstructor
+): number
+```
+
 ### Emitter
 ```ts
 type Listener<Args extends unknown[]> = (...args: Args) => void

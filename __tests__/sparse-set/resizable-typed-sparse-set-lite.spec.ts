@@ -2,7 +2,7 @@ import { describe, test, expect } from 'vitest'
 import { ResizableTypedSparseSetLite } from '@sparse-set/resizable-typed-sparse-set-lite.js'
 import { ResizableTypedArray } from '@src/resizable-typed-array.js'
 import { toArray } from 'iterable-operator'
-import { getMaxValueOfUnsignedTypedArrayConstructor } from '@utils/get-max-value-of-unsigned-typed-array.js'
+import { getMaxValueOfUnsignedTypedArrayConstructor } from '@src/typed-array.js'
 
 describe('ResizableTypedSparseSetLite', () => {
   describe('size', () => {

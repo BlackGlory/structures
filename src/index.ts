@@ -1,6 +1,7 @@
 export * from './box.js'
 export * from './cons.js'
 export * from './array.js'
+export * from './typed-array.js'
 export * from './emitter.js'
 export * from './generator-emitter.js'
 export * from './async-generator-emitter.js'

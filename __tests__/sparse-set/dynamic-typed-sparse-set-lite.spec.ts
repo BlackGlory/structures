@@ -2,7 +2,7 @@ import { describe, test, expect } from 'vitest'
 import { DynamicTypedSparseSetLite } from '@sparse-set/dynamic-typed-sparse-set-lite.js'
 import { DynamicTypedArray } from '@src/dynamic-typed-array.js'
 import { toArray } from 'iterable-operator'
-import { getMaxValueOfUnsignedTypedArrayConstructor } from '@utils/get-max-value-of-unsigned-typed-array.js'
+import { getMaxValueOfUnsignedTypedArrayConstructor } from '@src/typed-array.js'
 
 describe('DynamicTypedSparseSetLite', () => {
   describe('size', () => {

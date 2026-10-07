@@ -2,7 +2,7 @@ import { UnsignedTypedArrayConstructor } from 'justypes'
 import { ResizableTypedArray } from '@src/resizable-typed-array.js'
 import { assert } from '@blackglory/errors'
 import { go } from '@blackglory/go'
-import { getMaxValueOfUnsignedTypedArray, getMaxValueOfUnsignedTypedArrayConstructor } from '@utils/get-max-value-of-unsigned-typed-array.js'
+import { getMaxValueOfUnsignedTypedArray, getMaxValueOfUnsignedTypedArrayConstructor } from '@src/typed-array.js'
 
 export class ResizableTypedCleanSparseSet implements Iterable<number> {
   private dense: ResizableTypedArray<UnsignedTypedArrayConstructor>

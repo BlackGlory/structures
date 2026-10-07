@@ -1,5 +1,5 @@
 import { describe, test, expect } from 'vitest'
-import { getMaxValueOfUnsignedTypedArray, getMaxValueOfUnsignedTypedArrayConstructor } from '@utils/get-max-value-of-unsigned-typed-array.js'
+import { getMaxValueOfUnsignedTypedArray, getMaxValueOfUnsignedTypedArrayConstructor } from '@src/typed-array.js'
 import { UnsignedTypedArrayConstructor } from 'justypes'
 
 describe(`getMaxValueOfUnsignedTypedArray`, () => {

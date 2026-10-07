@@ -1,7 +1,7 @@
 import { describe, test, expect } from 'vitest'
 import { TypedCleanSparseSetLite } from '@sparse-set/typed-clean-sparse-set-lite.js'
 import { toArray } from 'iterable-operator'
-import { getMaxValueOfUnsignedTypedArrayConstructor } from '@utils/get-max-value-of-unsigned-typed-array.js'
+import { getMaxValueOfUnsignedTypedArrayConstructor } from '@src/typed-array.js'
 
 describe('TypedCleanSparseSetLite', () => {
   describe('size', () => {
