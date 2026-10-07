@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.15.1](https://github.com/BlackGlory/structures/compare/v0.15.0...v0.15.1) (2026-10-07)
+
+
+### Features
+
+* export `getMaxValueOfUnsignedTypedArray`, `getMaxValueOfUnsignedTypedArrayConstructor` ([8272e57](https://github.com/BlackGlory/structures/commit/8272e573d76e03eada27474d2ec51b8db39957fd))
+
 ## [0.15.0](https://github.com/BlackGlory/structures/compare/v0.14.15...v0.15.0) (2026-10-06)
 
 
