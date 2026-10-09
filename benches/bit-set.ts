@@ -3,14 +3,14 @@ import { BitSet, TypedBitSet, DynamicTypedBitSet, ResizableTypedBitSet, DynamicT
 import { Benchmark } from 'extra-benchmark'
 
 const benchmark = new Benchmark('BitSet', {
-  warms: 1000
-, runs: 10000
+  warms: 100
+, runs: 1000
 })
 
 go(async () => {
   benchmark.addCase('Set.values', () => {
     const set = new Set<number>()
-    for (let i = 0; i < 10000; i += 2) {
+    for (let i = 0; i < 100000; i += 2) {
       set.add(i)
     }
 
@@ -22,7 +22,7 @@ go(async () => {
   ;([8, 16, 32]).forEach(bitsPerElement => {
     benchmark.addCase(`BitSet(${bitsPerElement}).values`, () => {
       const set = new BitSet(bitsPerElement)
-      for (let i = 0; i < 10000; i += 2) {
+      for (let i = 0; i < 100000; i += 2) {
         set.add(i)
       }
 
@@ -34,8 +34,8 @@ go(async () => {
 
   ;([Uint8Array, Uint16Array, Uint32Array]).forEach(UintArray => {
     benchmark.addCase(`TypedBitSet(${UintArray.name}).values`, () => {
-      const set = new TypedBitSet(new UintArray(10000))
-      for (let i = 0; i < 10000; i += 2) {
+      const set = new TypedBitSet(new UintArray(100000))
+      for (let i = 0; i < 100000; i += 2) {
         set.add(i)
       }
 
@@ -48,7 +48,7 @@ go(async () => {
   ;([Uint8Array, Uint16Array, Uint32Array]).forEach(UintArray => {
     benchmark.addCase(`DynamicTypedBitSet(${UintArray.name}).values`, () => {
       const set = new DynamicTypedBitSet(new DynamicTypedArray(UintArray))
-      for (let i = 0; i < 10000; i += 2) {
+      for (let i = 0; i < 100000; i += 2) {
         set.add(i)
       }
 
@@ -61,9 +61,9 @@ go(async () => {
   ;([Uint8Array, Uint16Array, Uint32Array]).forEach(UintArray => {
     benchmark.addCase(`ResizableTypedBitSet(${UintArray.name}).values`, () => {
       const set = new ResizableTypedBitSet(
-        new ResizableTypedArray(UintArray, { maxCapacity: 10000 })
+        new ResizableTypedArray(UintArray, { maxCapacity: 100000 })
       )
-      for (let i = 0; i < 10000; i += 2) {
+      for (let i = 0; i < 100000; i += 2) {
         set.add(i)
       }
 
@@ -75,12 +75,12 @@ go(async () => {
 
   benchmark.addCase('Set.has', () => {
     const set = new Set<number>()
-    for (let i = 0; i < 10000; i += 2) {
+    for (let i = 0; i < 100000; i += 2) {
       set.add(i)
     }
 
     return () => {
-      for (let i = 0; i < 10000; i++) {
+      for (let i = 0; i < 100000; i++) {
         set.has(i)
       }
     }
@@ -89,12 +89,12 @@ go(async () => {
   ;([8, 16, 32]).forEach(bitsPerElement => {
     benchmark.addCase(`BitSet(${bitsPerElement}).has`, () => {
       const set = new BitSet(bitsPerElement)
-      for (let i = 0; i < 10000; i += 2) {
+      for (let i = 0; i < 100000; i += 2) {
         set.add(i)
       }
 
       return () => {
-        for (let i = 0; i < 10000; i++) {
+        for (let i = 0; i < 100000; i++) {
           set.has(i)
         }
       }
@@ -103,13 +103,13 @@ go(async () => {
 
   ;([Uint8Array, Uint16Array, Uint32Array]).forEach(UintArray => {
     benchmark.addCase(`TypedBitSet(${UintArray.name}).has`, () => {
-      const set = new TypedBitSet(new UintArray(10000))
-      for (let i = 0; i < 10000; i += 2) {
+      const set = new TypedBitSet(new UintArray(100000))
+      for (let i = 0; i < 100000; i += 2) {
         set.add(i)
       }
 
       return () => {
-        for (let i = 0; i < 10000; i++) {
+        for (let i = 0; i < 100000; i++) {
           set.has(i)
         }
       }
@@ -119,12 +119,12 @@ go(async () => {
   ;([Uint8Array, Uint16Array, Uint32Array]).forEach(UintArray => {
     benchmark.addCase(`DynamicTypedBitSet(${UintArray.name}).has`, () => {
       const set = new DynamicTypedBitSet(new DynamicTypedArray(UintArray))
-      for (let i = 0; i < 10000; i += 2) {
+      for (let i = 0; i < 100000; i += 2) {
         set.add(i)
       }
 
       return () => {
-        for (let i = 0; i < 10000; i++) {
+        for (let i = 0; i < 100000; i++) {
           set.has(i)
         }
       }
@@ -134,14 +134,14 @@ go(async () => {
   ;([Uint8Array, Uint16Array, Uint32Array]).forEach(UintArray => {
     benchmark.addCase(`ResizableTypedBitSet(${UintArray.name}).has`, () => {
       const set = new ResizableTypedBitSet(
-        new ResizableTypedArray(UintArray, { maxCapacity: 10000 })
+        new ResizableTypedArray(UintArray, { maxCapacity: 100000 })
       )
-      for (let i = 0; i < 10000; i += 2) {
+      for (let i = 0; i < 100000; i += 2) {
         set.add(i)
       }
 
       return () => {
-        for (let i = 0; i < 10000; i++) {
+        for (let i = 0; i < 100000; i++) {
           set.has(i)
         }
       }
@@ -155,12 +155,12 @@ go(async () => {
       beforeEach() {
         set.clear()
 
-        for (let i = 0; i < 10000; i += 2) {
+        for (let i = 0; i < 100000; i += 2) {
           set.add(i)
         }
       }
     , iterate() {
-        for (let i = 0; i < 10000; i++) {
+        for (let i = 0; i < 100000; i++) {
           set.add(i)
         }
       }
@@ -175,12 +175,12 @@ go(async () => {
         beforeEach() {
           set.clear()
 
-          for (let i = 0; i < 10000; i += 2) {
+          for (let i = 0; i < 100000; i += 2) {
             set.add(i)
           }
         }
       , iterate() {
-          for (let i = 0; i < 10000; i++) {
+          for (let i = 0; i < 100000; i++) {
             set.add(i)
           }
         }
@@ -190,18 +190,18 @@ go(async () => {
 
   ;([Uint8Array, Uint16Array, Uint32Array]).forEach(UintArray => {
     benchmark.addCase(`TypedBitSet(${UintArray.name}).add`, () => {
-      const set = new TypedBitSet(new UintArray(10000))
+      const set = new TypedBitSet(new UintArray(100000))
 
       return {
         beforeEach() {
           set.clear()
 
-          for (let i = 0; i < 10000; i += 2) {
+          for (let i = 0; i < 100000; i += 2) {
             set.add(i)
           }
         }
       , iterate() {
-          for (let i = 0; i < 10000; i++) {
+          for (let i = 0; i < 100000; i++) {
             set.add(i)
           }
         }
@@ -217,12 +217,12 @@ go(async () => {
         beforeEach() {
           set.clear()
 
-          for (let i = 0; i < 10000; i += 2) {
+          for (let i = 0; i < 100000; i += 2) {
             set.add(i)
           }
         }
       , iterate() {
-          for (let i = 0; i < 10000; i++) {
+          for (let i = 0; i < 100000; i++) {
             set.add(i)
           }
         }
@@ -233,19 +233,19 @@ go(async () => {
   ;([Uint8Array, Uint16Array, Uint32Array]).forEach(UintArray => {
     benchmark.addCase(`ResizableTypedBitSet(${UintArray.name}).add`, () => {
       const set = new ResizableTypedBitSet(
-        new ResizableTypedArray(UintArray, { maxCapacity: 10000 })
+        new ResizableTypedArray(UintArray, { maxCapacity: 100000 })
       )
 
       return {
         beforeEach() {
           set.clear()
 
-          for (let i = 0; i < 10000; i += 2) {
+          for (let i = 0; i < 100000; i += 2) {
             set.add(i)
           }
         }
       , iterate() {
-          for (let i = 0; i < 10000; i++) {
+          for (let i = 0; i < 100000; i++) {
             set.add(i)
           }
         }
@@ -260,12 +260,12 @@ go(async () => {
       beforeEach() {
         set.clear()
 
-        for (let i = 0; i < 10000; i += 2) {
+        for (let i = 0; i < 100000; i += 2) {
           set.add(i)
         }
       }
     , iterate() {
-        for (let i = 0; i < 10000; i++) {
+        for (let i = 0; i < 100000; i++) {
           set.delete(i)
         }
       }
@@ -280,12 +280,12 @@ go(async () => {
         beforeEach() {
           set.clear()
 
-          for (let i = 0; i < 10000; i += 2) {
+          for (let i = 0; i < 100000; i += 2) {
             set.add(i)
           }
         }
       , iterate() {
-          for (let i = 0; i < 10000; i++) {
+          for (let i = 0; i < 100000; i++) {
             set.delete(i)
           }
         }
@@ -295,18 +295,18 @@ go(async () => {
 
   ;([Uint8Array, Uint16Array, Uint32Array]).forEach(UintArray => {
     benchmark.addCase(`TypedBitSet(${UintArray.name}).delete`, () => {
-      const set = new TypedBitSet(new UintArray(10000))
+      const set = new TypedBitSet(new UintArray(100000))
 
       return {
         beforeEach() {
           set.clear()
 
-          for (let i = 0; i < 10000; i += 2) {
+          for (let i = 0; i < 100000; i += 2) {
             set.add(i)
           }
         }
       , iterate() {
-          for (let i = 0; i < 10000; i++) {
+          for (let i = 0; i < 100000; i++) {
             set.delete(i)
           }
         }
@@ -322,12 +322,12 @@ go(async () => {
         beforeEach() {
           set.clear()
 
-          for (let i = 0; i < 10000; i += 2) {
+          for (let i = 0; i < 100000; i += 2) {
             set.add(i)
           }
         }
       , iterate() {
-          for (let i = 0; i < 10000; i++) {
+          for (let i = 0; i < 100000; i++) {
             set.delete(i)
           }
         }
@@ -338,19 +338,19 @@ go(async () => {
   ;([Uint8Array, Uint16Array, Uint32Array]).forEach(UintArray => {
     benchmark.addCase(`ResizableTypedBitSet(${UintArray.name}).delete`, () => {
       const set = new ResizableTypedBitSet(
-        new ResizableTypedArray(UintArray, { maxCapacity: 10000 })
+        new ResizableTypedArray(UintArray, { maxCapacity: 100000 })
       )
 
       return {
         beforeEach() {
           set.clear()
 
-          for (let i = 0; i < 10000; i += 2) {
+          for (let i = 0; i < 100000; i += 2) {
             set.add(i)
           }
         }
       , iterate() {
-          for (let i = 0; i < 10000; i++) {
+          for (let i = 0; i < 100000; i++) {
             set.delete(i)
           }
         }

@@ -3,19 +3,19 @@ import { SparseMap, TypedSparseMap, DynamicTypedArray, CleanSparseMap, TypedSpar
 import { Benchmark } from 'extra-benchmark'
 
 const benchmark = new Benchmark('SparseMap', {
-  warms: 1000
-, runs: 10000
+  warms: 100
+, runs: 1000
 })
 
 go(async () => {
   benchmark.addCase('Map#has', () => {
     const map = new Map()
-    for (let i = 0; i < 10000; i += 2) {
+    for (let i = 0; i < 100000; i += 2) {
       map.set(i, i)
     }
 
     return () => {
-      for (let i = 0; i < 10000; i++) {
+      for (let i = 0; i < 100000; i++) {
         map.has(i)
       }
     }
@@ -23,12 +23,12 @@ go(async () => {
 
   benchmark.addCase('SparseMap#has', () => {
     const map = new SparseMap()
-    for (let i = 0; i < 10000; i += 2) {
+    for (let i = 0; i < 100000; i += 2) {
       map.set(i, i)
     }
 
     return () => {
-      for (let i = 0; i < 10000; i++) {
+      for (let i = 0; i < 100000; i++) {
         map.has(i)
       }
     }
@@ -36,76 +36,76 @@ go(async () => {
 
   benchmark.addCase('CleanSparseMap#has', () => {
     const map = new CleanSparseMap()
-    for (let i = 0; i < 10000; i += 2) {
+    for (let i = 0; i < 100000; i += 2) {
       map.set(i, i)
     }
 
     return () => {
-      for (let i = 0; i < 10000; i++) {
+      for (let i = 0; i < 100000; i++) {
         map.has(i)
       }
     }
   })
 
-  benchmark.addCase('TypedSparseMap#has', () => {
-    const map = new TypedSparseMap(
-      new Uint16Array(10000)
-    , new Uint16Array(10000)
-    )
-    for (let i = 0; i < 10000; i += 2) {
-      map.set(i, i)
-    }
+  // benchmark.addCase('TypedSparseMap#has', () => {
+  //   const map = new TypedSparseMap(
+  //     new Uint32Array(100000)
+  //   , new Uint32Array(100000)
+  //   )
+  //   for (let i = 0; i < 100000; i += 2) {
+  //     map.set(i, i)
+  //   }
 
-    return () => {
-      for (let i = 0; i < 10000; i++) {
-        map.has(i)
-      }
-    }
-  })
+  //   return () => {
+  //     for (let i = 0; i < 100000; i++) {
+  //       map.has(i)
+  //     }
+  //   }
+  // })
 
   benchmark.addCase('TypedSparseMapLite#has', () => {
     const map = new TypedSparseMapLite(
-      new Uint16Array(10000)
-    , new Uint16Array(10000)
+      new Uint32Array(100000)
+    , new Uint32Array(100000)
     )
-    for (let i = 0; i < 10000; i += 2) {
+    for (let i = 0; i < 100000; i += 2) {
       map.set(i, i)
     }
 
     return () => {
-      for (let i = 0; i < 10000; i++) {
+      for (let i = 0; i < 100000; i++) {
         map.has(i)
       }
     }
   })
 
-  benchmark.addCase('TypedCleanSparseMap#has', () => {
-    const map = new TypedCleanSparseMap(
-      new Uint16Array(10000)
-    , new Uint16Array(10000)
-    )
-    for (let i = 0; i < 10000; i += 2) {
-      map.set(i, i)
-    }
+  // benchmark.addCase('TypedCleanSparseMap#has', () => {
+  //   const map = new TypedCleanSparseMap(
+  //     new Uint32Array(100000)
+  //   , new Uint32Array(100000)
+  //   )
+  //   for (let i = 0; i < 100000; i += 2) {
+  //     map.set(i, i)
+  //   }
 
-    return () => {
-      for (let i = 0; i < 10000; i++) {
-        map.has(i)
-      }
-    }
-  })
+  //   return () => {
+  //     for (let i = 0; i < 100000; i++) {
+  //       map.has(i)
+  //     }
+  //   }
+  // })
 
   benchmark.addCase('TypedCleanSparseMapLite#has', () => {
     const map = new TypedCleanSparseMapLite(
-      new Uint16Array(10000)
-    , new Uint16Array(10000)
+      new Uint32Array(100000)
+    , new Uint32Array(100000)
     )
-    for (let i = 0; i < 10000; i += 2) {
+    for (let i = 0; i < 100000; i += 2) {
       map.set(i, i)
     }
 
     return () => {
-      for (let i = 0; i < 10000; i++) {
+      for (let i = 0; i < 100000; i++) {
         map.has(i)
       }
     }
@@ -113,15 +113,15 @@ go(async () => {
 
   benchmark.addCase('DynamicTypedSparseMapLite#has', () => {
     const map = new DynamicTypedSparseMapLite(
-      new DynamicTypedArray(Uint16Array)
-    , new DynamicTypedArray(Uint16Array)
+      new DynamicTypedArray(Uint32Array)
+    , new DynamicTypedArray(Uint32Array)
     )
-    for (let i = 0; i < 10000; i += 2) {
+    for (let i = 0; i < 100000; i += 2) {
       map.set(i, i)
     }
 
     return () => {
-      for (let i = 0; i < 10000; i++) {
+      for (let i = 0; i < 100000; i++) {
         map.has(i)
       }
     }
@@ -129,15 +129,15 @@ go(async () => {
 
   benchmark.addCase('DynamicTypedCleanSparseMapLite#has', () => {
     const map = new DynamicTypedCleanSparseMapLite(
-      new DynamicTypedArray(Uint16Array)
-    , new DynamicTypedArray(Uint16Array)
+      new DynamicTypedArray(Uint32Array)
+    , new DynamicTypedArray(Uint32Array)
     )
-    for (let i = 0; i < 10000; i += 2) {
+    for (let i = 0; i < 100000; i += 2) {
       map.set(i, i)
     }
 
     return () => {
-      for (let i = 0; i < 10000; i++) {
+      for (let i = 0; i < 100000; i++) {
         map.has(i)
       }
     }
@@ -145,15 +145,15 @@ go(async () => {
 
   benchmark.addCase('ResizableTypedSparseMapLite#has', () => {
     const map = new ResizableTypedSparseMapLite(
-      new ResizableTypedArray(Uint16Array, { maxCapacity: 10000 })
-    , new ResizableTypedArray(Uint16Array, { maxCapacity: 10000 })
+      new ResizableTypedArray(Uint32Array, { maxCapacity: 100000 })
+    , new ResizableTypedArray(Uint32Array, { maxCapacity: 100000 })
     )
-    for (let i = 0; i < 10000; i += 2) {
+    for (let i = 0; i < 100000; i += 2) {
       map.set(i, i)
     }
 
     return () => {
-      for (let i = 0; i < 10000; i++) {
+      for (let i = 0; i < 100000; i++) {
         map.has(i)
       }
     }
@@ -161,15 +161,15 @@ go(async () => {
 
   benchmark.addCase('ResizableTypedCleanSparseMapLite#has', () => {
     const map = new ResizableTypedCleanSparseMapLite(
-      new ResizableTypedArray(Uint16Array, { maxCapacity: 10000 })
-    , new ResizableTypedArray(Uint16Array, { maxCapacity: 10000 })
+      new ResizableTypedArray(Uint32Array, { maxCapacity: 100000 })
+    , new ResizableTypedArray(Uint32Array, { maxCapacity: 100000 })
     )
-    for (let i = 0; i < 10000; i += 2) {
+    for (let i = 0; i < 100000; i += 2) {
       map.set(i, i)
     }
 
     return () => {
-      for (let i = 0; i < 10000; i++) {
+      for (let i = 0; i < 100000; i++) {
         map.has(i)
       }
     }
@@ -177,12 +177,12 @@ go(async () => {
 
   benchmark.addCase('Map#get', () => {
     const map = new Map()
-    for (let i = 0; i < 10000; i += 2) {
+    for (let i = 0; i < 100000; i += 2) {
       map.set(i, i)
     }
 
     return () => {
-      for (let i = 0; i < 10000; i++) {
+      for (let i = 0; i < 100000; i++) {
         map.get(i)
       }
     }
@@ -190,12 +190,12 @@ go(async () => {
 
   benchmark.addCase('SparseMap#get', () => {
     const map = new SparseMap()
-    for (let i = 0; i < 10000; i += 2) {
+    for (let i = 0; i < 100000; i += 2) {
       map.set(i, i)
     }
 
     return () => {
-      for (let i = 0; i < 10000; i++) {
+      for (let i = 0; i < 100000; i++) {
         map.get(i)
       }
     }
@@ -203,76 +203,76 @@ go(async () => {
 
   benchmark.addCase('CleanSparseMap#get', () => {
     const map = new CleanSparseMap()
-    for (let i = 0; i < 10000; i += 2) {
+    for (let i = 0; i < 100000; i += 2) {
       map.set(i, i)
     }
 
     return () => {
-      for (let i = 0; i < 10000; i++) {
+      for (let i = 0; i < 100000; i++) {
         map.get(i)
       }
     }
   })
 
-  benchmark.addCase('TypedSparseMap#get', () => {
-    const map = new TypedSparseMap(
-      new Uint16Array(10000)
-    , new Uint16Array(10000)
-    )
-    for (let i = 0; i < 10000; i += 2) {
-      map.set(i, i)
-    }
+  // benchmark.addCase('TypedSparseMap#get', () => {
+  //   const map = new TypedSparseMap(
+  //     new Uint32Array(100000)
+  //   , new Uint32Array(100000)
+  //   )
+  //   for (let i = 0; i < 100000; i += 2) {
+  //     map.set(i, i)
+  //   }
 
-    return () => {
-      for (let i = 0; i < 10000; i++) {
-        map.get(i)
-      }
-    }
-  })
+  //   return () => {
+  //     for (let i = 0; i < 100000; i++) {
+  //       map.get(i)
+  //     }
+  //   }
+  // })
 
   benchmark.addCase('TypedSparseMapLite#get', () => {
     const map = new TypedSparseMapLite(
-      new Uint16Array(10000)
-    , new Uint16Array(10000)
+      new Uint32Array(100000)
+    , new Uint32Array(100000)
     )
-    for (let i = 0; i < 10000; i += 2) {
+    for (let i = 0; i < 100000; i += 2) {
       map.set(i, i)
     }
 
     return () => {
-      for (let i = 0; i < 10000; i++) {
+      for (let i = 0; i < 100000; i++) {
         map.get(i)
       }
     }
   })
 
-  benchmark.addCase('TypedCleanSparseMap#get', () => {
-    const map = new TypedCleanSparseMap(
-      new Uint16Array(10000)
-    , new Uint16Array(10000)
-    )
-    for (let i = 0; i < 10000; i += 2) {
-      map.set(i, i)
-    }
+  // benchmark.addCase('TypedCleanSparseMap#get', () => {
+  //   const map = new TypedCleanSparseMap(
+  //     new Uint32Array(100000)
+  //   , new Uint32Array(100000)
+  //   )
+  //   for (let i = 0; i < 100000; i += 2) {
+  //     map.set(i, i)
+  //   }
 
-    return () => {
-      for (let i = 0; i < 10000; i++) {
-        map.get(i)
-      }
-    }
-  })
+  //   return () => {
+  //     for (let i = 0; i < 100000; i++) {
+  //       map.get(i)
+  //     }
+  //   }
+  // })
 
   benchmark.addCase('TypedCleanSparseMapLite#get', () => {
     const map = new TypedCleanSparseMapLite(
-      new Uint16Array(10000)
-    , new Uint16Array(10000)
+      new Uint32Array(100000)
+    , new Uint32Array(100000)
     )
-    for (let i = 0; i < 10000; i += 2) {
+    for (let i = 0; i < 100000; i += 2) {
       map.set(i, i)
     }
 
     return () => {
-      for (let i = 0; i < 10000; i++) {
+      for (let i = 0; i < 100000; i++) {
         map.get(i)
       }
     }
@@ -280,15 +280,15 @@ go(async () => {
 
   benchmark.addCase('DynamicTypedSparseMapLite#get', () => {
     const map = new DynamicTypedSparseMapLite(
-      new DynamicTypedArray(Uint16Array)
-    , new DynamicTypedArray(Uint16Array)
+      new DynamicTypedArray(Uint32Array)
+    , new DynamicTypedArray(Uint32Array)
     )
-    for (let i = 0; i < 10000; i += 2) {
+    for (let i = 0; i < 100000; i += 2) {
       map.set(i, i)
     }
 
     return () => {
-      for (let i = 0; i < 10000; i++) {
+      for (let i = 0; i < 100000; i++) {
         map.get(i)
       }
     }
@@ -296,15 +296,15 @@ go(async () => {
 
   benchmark.addCase('DynamicTypedCleanSparseMapLite#get', () => {
     const map = new DynamicTypedCleanSparseMapLite(
-      new DynamicTypedArray(Uint16Array)
-    , new DynamicTypedArray(Uint16Array)
+      new DynamicTypedArray(Uint32Array)
+    , new DynamicTypedArray(Uint32Array)
     )
-    for (let i = 0; i < 10000; i += 2) {
+    for (let i = 0; i < 100000; i += 2) {
       map.set(i, i)
     }
 
     return () => {
-      for (let i = 0; i < 10000; i++) {
+      for (let i = 0; i < 100000; i++) {
         map.get(i)
       }
     }
@@ -312,15 +312,15 @@ go(async () => {
 
   benchmark.addCase('ResizableTypedSparseMapLite#get', () => {
     const map = new ResizableTypedSparseMapLite(
-      new ResizableTypedArray(Uint16Array, { maxCapacity: 10000 })
-    , new ResizableTypedArray(Uint16Array, { maxCapacity: 10000 })
+      new ResizableTypedArray(Uint32Array, { maxCapacity: 100000 })
+    , new ResizableTypedArray(Uint32Array, { maxCapacity: 100000 })
     )
-    for (let i = 0; i < 10000; i += 2) {
+    for (let i = 0; i < 100000; i += 2) {
       map.set(i, i)
     }
 
     return () => {
-      for (let i = 0; i < 10000; i++) {
+      for (let i = 0; i < 100000; i++) {
         map.get(i)
       }
     }
@@ -328,15 +328,15 @@ go(async () => {
 
   benchmark.addCase('ResizableTypedCleanSparseMapLite#get', () => {
     const map = new ResizableTypedCleanSparseMapLite(
-      new ResizableTypedArray(Uint16Array, { maxCapacity: 10000 })
-    , new ResizableTypedArray(Uint16Array, { maxCapacity: 10000 })
+      new ResizableTypedArray(Uint32Array, { maxCapacity: 100000 })
+    , new ResizableTypedArray(Uint32Array, { maxCapacity: 100000 })
     )
-    for (let i = 0; i < 10000; i += 2) {
+    for (let i = 0; i < 100000; i += 2) {
       map.set(i, i)
     }
 
     return () => {
-      for (let i = 0; i < 10000; i++) {
+      for (let i = 0; i < 100000; i++) {
         map.get(i)
       }
     }
@@ -349,12 +349,12 @@ go(async () => {
       beforeEach() {
         map.clear()
 
-        for (let i = 0; i < 10000; i += 2) {
+        for (let i = 0; i < 100000; i += 2) {
           map.set(i, i)
         }
       }
     , iterate() {
-        for (let i = 0; i < 10000; i++) {
+        for (let i = 0; i < 100000; i++) {
           map.set(i, i)
         }
       }
@@ -368,12 +368,12 @@ go(async () => {
       beforeEach() {
         map.clear()
 
-        for (let i = 0; i < 10000; i += 2) {
+        for (let i = 0; i < 100000; i += 2) {
           map.set(i, i)
         }
       }
     , iterate() {
-        for (let i = 0; i < 10000; i++) {
+        for (let i = 0; i < 100000; i++) {
           map.set(i, i)
         }
       }
@@ -387,100 +387,100 @@ go(async () => {
       beforeEach() {
         map.clear()
 
-        for (let i = 0; i < 10000; i += 2) {
+        for (let i = 0; i < 100000; i += 2) {
           map.set(i, i)
         }
       }
     , iterate() {
-        for (let i = 0; i < 10000; i++) {
+        for (let i = 0; i < 100000; i++) {
           map.set(i, i)
         }
       }
     }
   })
 
-  benchmark.addCase('TypedSparseMap#set', () => {
-    const map = new TypedSparseMap(
-      new Uint16Array(10000)
-    , new Uint16Array(10000)
-    )
+  // benchmark.addCase('TypedSparseMap#set', () => {
+  //   const map = new TypedSparseMap(
+  //     new Uint32Array(100000)
+  //   , new Uint32Array(100000)
+  //   )
 
-    return {
-      beforeEach() {
-        map.clear()
+  //   return {
+  //     beforeEach() {
+  //       map.clear()
 
-        for (let i = 0; i < 10000; i += 2) {
-          map.set(i, i)
-        }
-      }
-    , iterate() {
-        for (let i = 0; i < 10000; i++) {
-          map.set(i, i)
-        }
-      }
-    }
-  })
+  //       for (let i = 0; i < 100000; i += 2) {
+  //         map.set(i, i)
+  //       }
+  //     }
+  //   , iterate() {
+  //       for (let i = 0; i < 100000; i++) {
+  //         map.set(i, i)
+  //       }
+  //     }
+  //   }
+  // })
 
   benchmark.addCase('TypedSparseMapLite#set', () => {
     const map = new TypedSparseMapLite(
-      new Uint16Array(10000)
-    , new Uint16Array(10000)
+      new Uint32Array(100000)
+    , new Uint32Array(100000)
     )
 
     return {
       beforeEach() {
         map.clear()
 
-        for (let i = 0; i < 10000; i += 2) {
+        for (let i = 0; i < 100000; i += 2) {
           map.set(i, i)
         }
       }
     , iterate() {
-        for (let i = 0; i < 10000; i++) {
+        for (let i = 0; i < 100000; i++) {
           map.set(i, i)
         }
       }
     }
   })
 
-  benchmark.addCase('TypedCleanSparseMap#set', () => {
-    const map = new TypedCleanSparseMap(
-      new Uint16Array(10000)
-    , new Uint16Array(10000)
-    )
+  // benchmark.addCase('TypedCleanSparseMap#set', () => {
+  //   const map = new TypedCleanSparseMap(
+  //     new Uint32Array(100000)
+  //   , new Uint32Array(100000)
+  //   )
 
-    return {
-      beforeEach() {
-        map.clear()
+  //   return {
+  //     beforeEach() {
+  //       map.clear()
 
-        for (let i = 0; i < 10000; i += 2) {
-          map.set(i, i)
-        }
-      }
-    , iterate() {
-        for (let i = 0; i < 10000; i++) {
-          map.set(i, i)
-        }
-      }
-    }
-  })
+  //       for (let i = 0; i < 100000; i += 2) {
+  //         map.set(i, i)
+  //       }
+  //     }
+  //   , iterate() {
+  //       for (let i = 0; i < 100000; i++) {
+  //         map.set(i, i)
+  //       }
+  //     }
+  //   }
+  // })
 
   benchmark.addCase('TypedCleanSparseMapLite#set', () => {
     const map = new TypedCleanSparseMapLite(
-      new Uint16Array(10000)
-    , new Uint16Array(10000)
+      new Uint32Array(100000)
+    , new Uint32Array(100000)
     )
 
     return {
       beforeEach() {
         map.clear()
 
-        for (let i = 0; i < 10000; i += 2) {
+        for (let i = 0; i < 100000; i += 2) {
           map.set(i, i)
         }
       }
     , iterate() {
-        for (let i = 0; i < 10000; i++) {
+        for (let i = 0; i < 100000; i++) {
           map.set(i, i)
         }
       }
@@ -489,20 +489,20 @@ go(async () => {
 
   benchmark.addCase('DynamicTypedSparseMapLite#set', () => {
     const map = new DynamicTypedSparseMapLite(
-      new DynamicTypedArray(Uint16Array)
-    , new DynamicTypedArray(Uint16Array)
+      new DynamicTypedArray(Uint32Array)
+    , new DynamicTypedArray(Uint32Array)
     )
 
     return {
       beforeEach() {
         map.clear()
 
-        for (let i = 0; i < 10000; i += 2) {
+        for (let i = 0; i < 100000; i += 2) {
           map.set(i, i)
         }
       }
     , iterate() {
-        for (let i = 0; i < 10000; i++) {
+        for (let i = 0; i < 100000; i++) {
           map.set(i, i)
         }
       }
@@ -511,20 +511,20 @@ go(async () => {
 
   benchmark.addCase('DynamicTypedCleanSparseMapLite#set', () => {
     const map = new DynamicTypedCleanSparseMapLite(
-      new DynamicTypedArray(Uint16Array)
-    , new DynamicTypedArray(Uint16Array)
+      new DynamicTypedArray(Uint32Array)
+    , new DynamicTypedArray(Uint32Array)
     )
 
     return {
       beforeEach() {
         map.clear()
 
-        for (let i = 0; i < 10000; i += 2) {
+        for (let i = 0; i < 100000; i += 2) {
           map.set(i, i)
         }
       }
     , iterate() {
-        for (let i = 0; i < 10000; i++) {
+        for (let i = 0; i < 100000; i++) {
           map.set(i, i)
         }
       }
@@ -533,20 +533,20 @@ go(async () => {
 
   benchmark.addCase('ResizableTypedSparseMapLite#set', () => {
     const map = new ResizableTypedSparseMapLite(
-      new ResizableTypedArray(Uint16Array, { maxCapacity: 10000 })
-    , new ResizableTypedArray(Uint16Array, { maxCapacity: 10000 })
+      new ResizableTypedArray(Uint32Array, { maxCapacity: 100000 })
+    , new ResizableTypedArray(Uint32Array, { maxCapacity: 100000 })
     )
 
     return {
       beforeEach() {
         map.clear()
 
-        for (let i = 0; i < 10000; i += 2) {
+        for (let i = 0; i < 100000; i += 2) {
           map.set(i, i)
         }
       }
     , iterate() {
-        for (let i = 0; i < 10000; i++) {
+        for (let i = 0; i < 100000; i++) {
           map.set(i, i)
         }
       }
@@ -555,20 +555,20 @@ go(async () => {
 
   benchmark.addCase('ResizableTypedCleanSparseMapLite#set', () => {
     const map = new ResizableTypedCleanSparseMapLite(
-      new ResizableTypedArray(Uint16Array, { maxCapacity: 10000 })
-    , new ResizableTypedArray(Uint16Array, { maxCapacity: 10000 })
+      new ResizableTypedArray(Uint32Array, { maxCapacity: 100000 })
+    , new ResizableTypedArray(Uint32Array, { maxCapacity: 100000 })
     )
 
     return {
       beforeEach() {
         map.clear()
 
-        for (let i = 0; i < 10000; i += 2) {
+        for (let i = 0; i < 100000; i += 2) {
           map.set(i, i)
         }
       }
     , iterate() {
-        for (let i = 0; i < 10000; i++) {
+        for (let i = 0; i < 100000; i++) {
           map.set(i, i)
         }
       }
@@ -582,12 +582,12 @@ go(async () => {
       beforeEach() {
         map.clear()
 
-        for (let i = 0; i < 10000; i += 2) {
+        for (let i = 0; i < 100000; i += 2) {
           map.set(i, i)
         }
       }
     , iterate() {
-        for (let i = 0; i < 10000; i++) {
+        for (let i = 0; i < 100000; i++) {
           map.delete(i)
         }
       }
@@ -601,12 +601,12 @@ go(async () => {
       beforeEach() {
         map.clear()
 
-        for (let i = 0; i < 10000; i += 2) {
+        for (let i = 0; i < 100000; i += 2) {
           map.set(i, i)
         }
       }
     , iterate() {
-        for (let i = 0; i < 10000; i++) {
+        for (let i = 0; i < 100000; i++) {
           map.delete(i)
         }
       }
@@ -620,100 +620,100 @@ go(async () => {
       beforeEach() {
         map.clear()
 
-        for (let i = 0; i < 10000; i += 2) {
+        for (let i = 0; i < 100000; i += 2) {
           map.set(i, i)
         }
       }
     , iterate() {
-        for (let i = 0; i < 10000; i++) {
+        for (let i = 0; i < 100000; i++) {
           map.delete(i)
         }
       }
     }
   })
 
-  benchmark.addCase('TypedSparseMap#delete', () => {
-    const map = new TypedSparseMap(
-      new Uint16Array(10000)
-    , new Uint16Array(10000)
-    )
+  // benchmark.addCase('TypedSparseMap#delete', () => {
+  //   const map = new TypedSparseMap(
+  //     new Uint32Array(100000)
+  //   , new Uint32Array(100000)
+  //   )
 
-    return {
-      beforeEach() {
-        map.clear()
+  //   return {
+  //     beforeEach() {
+  //       map.clear()
 
-        for (let i = 0; i < 10000; i += 2) {
-          map.set(i, i)
-        }
-      }
-    , iterate() {
-        for (let i = 0; i < 10000; i++) {
-          map.delete(i)
-        }
-      }
-    }
-  })
+  //       for (let i = 0; i < 100000; i += 2) {
+  //         map.set(i, i)
+  //       }
+  //     }
+  //   , iterate() {
+  //       for (let i = 0; i < 100000; i++) {
+  //         map.delete(i)
+  //       }
+  //     }
+  //   }
+  // })
 
   benchmark.addCase('TypedSparseMapLite#delete', () => {
     const map = new TypedSparseMapLite(
-      new Uint16Array(10000)
-    , new Uint16Array(10000)
+      new Uint32Array(100000)
+    , new Uint32Array(100000)
     )
 
     return {
       beforeEach() {
         map.clear()
 
-        for (let i = 0; i < 10000; i += 2) {
+        for (let i = 0; i < 100000; i += 2) {
           map.set(i, i)
         }
       }
     , iterate() {
-        for (let i = 0; i < 10000; i++) {
+        for (let i = 0; i < 100000; i++) {
           map.delete(i)
         }
       }
     }
   })
 
-  benchmark.addCase('TypedCleanSparseMap#delete', () => {
-    const map = new TypedCleanSparseMap(
-      new Uint16Array(10000)
-    , new Uint16Array(10000)
-    )
+  // benchmark.addCase('TypedCleanSparseMap#delete', () => {
+  //   const map = new TypedCleanSparseMap(
+  //     new Uint32Array(100000)
+  //   , new Uint32Array(100000)
+  //   )
 
-    return {
-      beforeEach() {
-        map.clear()
+  //   return {
+  //     beforeEach() {
+  //       map.clear()
 
-        for (let i = 0; i < 10000; i += 2) {
-          map.set(i, i)
-        }
-      }
-    , iterate() {
-        for (let i = 0; i < 10000; i++) {
-          map.delete(i)
-        }
-      }
-    }
-  })
+  //       for (let i = 0; i < 100000; i += 2) {
+  //         map.set(i, i)
+  //       }
+  //     }
+  //   , iterate() {
+  //       for (let i = 0; i < 100000; i++) {
+  //         map.delete(i)
+  //       }
+  //     }
+  //   }
+  // })
 
   benchmark.addCase('TypedCleanSparseMapLite#delete', () => {
     const map = new TypedCleanSparseMapLite(
-      new Uint16Array(10000)
-    , new Uint16Array(10000)
+      new Uint32Array(100000)
+    , new Uint32Array(100000)
     )
 
     return {
       beforeEach() {
         map.clear()
 
-        for (let i = 0; i < 10000; i += 2) {
+        for (let i = 0; i < 100000; i += 2) {
           map.set(i, i)
         }
       }
     , iterate() {
-        for (let i = 0; i < 10000; i++) {
+        for (let i = 0; i < 100000; i++) {
           map.delete(i)
         }
       }
@@ -722,20 +722,20 @@ go(async () => {
 
   benchmark.addCase('DynamicTypedSparseMapLite#delete', () => {
     const map = new DynamicTypedSparseMapLite(
-      new DynamicTypedArray(Uint16Array)
-    , new DynamicTypedArray(Uint16Array)
+      new DynamicTypedArray(Uint32Array)
+    , new DynamicTypedArray(Uint32Array)
     )
 
     return {
       beforeEach() {
         map.clear()
 
-        for (let i = 0; i < 10000; i += 2) {
+        for (let i = 0; i < 100000; i += 2) {
           map.set(i, i)
         }
       }
     , iterate() {
-        for (let i = 0; i < 10000; i++) {
+        for (let i = 0; i < 100000; i++) {
           map.delete(i)
         }
       }
@@ -744,20 +744,20 @@ go(async () => {
 
   benchmark.addCase('DynamicTypedCleanSparseMapLite#delete', () => {
     const map = new DynamicTypedCleanSparseMapLite(
-      new DynamicTypedArray(Uint16Array)
-    , new DynamicTypedArray(Uint16Array)
+      new DynamicTypedArray(Uint32Array)
+    , new DynamicTypedArray(Uint32Array)
     )
 
     return {
       beforeEach() {
         map.clear()
 
-        for (let i = 0; i < 10000; i += 2) {
+        for (let i = 0; i < 100000; i += 2) {
           map.set(i, i)
         }
       }
     , iterate() {
-        for (let i = 0; i < 10000; i++) {
+        for (let i = 0; i < 100000; i++) {
           map.delete(i)
         }
       }
@@ -766,20 +766,20 @@ go(async () => {
 
   benchmark.addCase('ResizableTypedSparseMapLite#delete', () => {
     const map = new ResizableTypedSparseMapLite(
-      new ResizableTypedArray(Uint16Array, { maxCapacity: 10000 })
-    , new ResizableTypedArray(Uint16Array, { maxCapacity: 10000 })
+      new ResizableTypedArray(Uint32Array, { maxCapacity: 100000 })
+    , new ResizableTypedArray(Uint32Array, { maxCapacity: 100000 })
     )
 
     return {
       beforeEach() {
         map.clear()
 
-        for (let i = 0; i < 10000; i += 2) {
+        for (let i = 0; i < 100000; i += 2) {
           map.set(i, i)
         }
       }
     , iterate() {
-        for (let i = 0; i < 10000; i++) {
+        for (let i = 0; i < 100000; i++) {
           map.delete(i)
         }
       }
@@ -788,20 +788,20 @@ go(async () => {
 
   benchmark.addCase('ResizableTypedCleanSparseMapLite#delete', () => {
     const map = new ResizableTypedCleanSparseMapLite(
-      new ResizableTypedArray(Uint16Array, { maxCapacity: 10000 })
-    , new ResizableTypedArray(Uint16Array, { maxCapacity: 10000 })
+      new ResizableTypedArray(Uint32Array, { maxCapacity: 100000 })
+    , new ResizableTypedArray(Uint32Array, { maxCapacity: 100000 })
     )
 
     return {
       beforeEach() {
         map.clear()
 
-        for (let i = 0; i < 10000; i += 2) {
+        for (let i = 0; i < 100000; i += 2) {
           map.set(i, i)
         }
       }
     , iterate() {
-        for (let i = 0; i < 10000; i++) {
+        for (let i = 0; i < 100000; i++) {
           map.delete(i)
         }
       }
